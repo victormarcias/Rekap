@@ -70,6 +70,7 @@
 
 ### D
 
+- **Dataloader (GraphQL)** — [GraphQL](backend/graphql.md#resolvers-y-el-riesgo-de-n1)
 - **DDoS Attack** — [DDoS Attack](backend/ddos-attack.md)
 - **Deadlock** — [Locks](sql/locks.md#deadlocks)
 - **Debounce / Throttle** — [Diagnóstico Frontend](diagnostico/frontend.md#manejo-incorrecto-de-eventos)
@@ -116,10 +117,12 @@
 
 - **Gateway Timeout (504)** — [HTTP Status Codes](system-design/http-status-codes.md#5xx--server-error)
 - **Graph database** — [NoSQL](sql/nosql.md#categorías-principales)
+- **GraphQL** — [GraphQL](backend/graphql.md)
 
 ### H
 
 - **Hashing** — [Autenticación y Seguridad](backend/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)
+- **HATEOAS** — [REST](backend/rest.md#hateoas--la-restricción-que-casi-nadie-implementa)
 - **Hidratación (Hydration)** — [SSR](frontend-react/ssr.md#hidratación)
 - **HMAC** — [Webhooks](backend/webhooks.md#verificar-la-firma--no-confiar-en-el-body-a-ciegas)
 - **Hooks (React)** — [Hooks](frontend-react/hooks.md)
@@ -196,6 +199,7 @@
 - **OLTP** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#cubos-olap)
 - **Open/Closed Principle (O de SOLID)** — [SOLID principles](system-design/solid.md#o--openclosed-principle)
 - **Optimistic locking** — [Locks](sql/locks.md#pessimistic-vs-optimistic-locking)
+- **Over-fetching** — [GraphQL](backend/graphql.md#el-problema-que-resuelve-over-fetching-y-under-fetching)
 
 ### P
 
@@ -223,7 +227,9 @@
 - **Refresh token** — [Autenticación y Seguridad](backend/autenticacion.md#6-access-token-vs-refresh-token)
 - **Render tree** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#8-el-navegador-renderiza)
 - **ResizeObserver (Browser API)** — [Patrón Observer en el browser](frontend-react/observer-en-el-browser.md#resizeobserver)
+- **Resolver (GraphQL)** — [GraphQL](backend/graphql.md#resolvers-y-el-riesgo-de-n1)
 - **Resource limits (requests vs limits, Kubernetes)** — [Kubernetes](devops/kubernetes.md#resource-limits)
+- **REST** — [REST](backend/rest.md)
 - **Rollback** — [Rollback / savepoints](sql/rollback-savepoints.md#rollback)
 - **Round robin** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
 - **runInBand (Jest — equivalente a correr tests en serial)** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
@@ -273,6 +279,7 @@
 ### U
 
 - **Unauthorized (401)** — [Autenticación y Seguridad](backend/autenticacion.md#7-autenticación-vs-autorización)
+- **Under-fetching** — [GraphQL](backend/graphql.md#el-problema-que-resuelve-over-fetching-y-under-fetching)
 - **Unprocessable Entity (422)** — [HTTP Status Codes](system-design/http-status-codes.md#4xx--client-error)
 - **useEffect (React)** — [Diagnóstico Frontend](diagnostico/frontend.md#useeffect-mal-usado--re-renders-en-cadena)
 - **uv (Python)** — [Setup en macOS con uv](python/setup-uv.md)

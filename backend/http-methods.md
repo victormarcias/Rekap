@@ -37,4 +37,4 @@ Ya cubierto en detalle en [Idempotencia](../system-design/atributos-de-calidad.m
 Esto es exactamente por qué un reintento automático de red es seguro en un `PUT`/`DELETE` pero riesgoso en un `POST` sin una idempotency key.
 
 ---
-Relacionado: [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia), [HTTP Status Codes](../system-design/http-status-codes.md) (`405 Method Not Allowed` cuando un recurso no soporta el verbo pedido).
+Relacionado: [REST](rest.md) (los métodos son una pieza de su interfaz uniforme, no lo mismo que REST), [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia), [HTTP Status Codes](../system-design/http-status-codes.md) (`405 Method Not Allowed` cuando un recurso no soporta el verbo pedido).
