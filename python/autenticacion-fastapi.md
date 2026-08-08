@@ -1,6 +1,6 @@
 # Autenticación en FastAPI
 
-Implementación concreta de registro + login con Argon2 y JWT. Los conceptos de fondo (por qué hashear, qué es un salt, JWT stateless) están en [Autenticación y Seguridad — conceptos generales](../system-design/autenticacion.md).
+Implementación concreta de registro + login con Argon2 y JWT. Los conceptos de fondo (por qué hashear, qué es un salt, JWT stateless) están en [Autenticación y Seguridad — conceptos generales](../backend/autenticacion.md).
 
 ## 1. Hashing de passwords con Argon2 (`passlib`)
 
@@ -115,4 +115,4 @@ logger.info(f"Login attempt for user_id={user.id if user else 'unknown'}")
 ```
 
 ---
-Relacionado: [Autenticación y Seguridad — conceptos generales](../system-design/autenticacion.md), [Endpoints para microservicios](endpoints-microservicios.md) (`Depends`, exception handlers), [Sync vs Async en FastAPI](sync-vs-async-fastapi.md).
+Relacionado: [Autenticación y Seguridad — conceptos generales](../backend/autenticacion.md), [Endpoints para microservicios](endpoints-microservicios.md) (`Depends`, exception handlers), [Sync vs Async en FastAPI](sync-vs-async-fastapi.md).

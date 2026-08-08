@@ -1,6 +1,6 @@
 # Load Balancers
 
-Reparten el tráfico entrante entre varias instancias de un servicio — la pieza que hace posible la [escalabilidad horizontal](atributos-de-calidad.md#escalabilidad).
+Reparten el tráfico entrante entre varias instancias de un servicio — la pieza que hace posible la [escalabilidad horizontal](../system-design/atributos-de-calidad.md#escalabilidad).
 
 ## L4 vs L7
 
@@ -20,7 +20,7 @@ Reparten el tráfico entrante entre varias instancias de un servicio — la piez
 
 - **Round robin**: reparte en orden circular, uno por uno. Simple, funciona bien si todas las instancias tienen capacidad similar.
 - **Least connections**: manda la siguiente request a la instancia con menos conexiones activas en este momento — mejor cuando las requests tienen duración muy variable (una instancia con requests lentas no sigue recibiendo más tráfico solo porque "le tocaba" por turno).
-- **Sticky sessions (IP hash)**: la misma IP de cliente siempre va a la misma instancia — útil si hay estado en memoria del lado del servidor que no se puede compartir (lo ideal, ver [Escalabilidad](atributos-de-calidad.md#escalabilidad), es no necesitar esto).
+- **Sticky sessions (IP hash)**: la misma IP de cliente siempre va a la misma instancia — útil si hay estado en memoria del lado del servidor que no se puede compartir (lo ideal, ver [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), es no necesitar esto).
 
 ## Quién es quién
 
@@ -35,4 +35,4 @@ Reparten el tráfico entrante entre varias instancias de un servicio — la piez
 | **K8s Ingress** | L7 | La forma estándar de exponer servicios HTTP de un cluster K8s hacia afuera |
 
 ---
-Relacionado: [Kubernetes](../devops/kubernetes.md), [Escalabilidad](atributos-de-calidad.md#escalabilidad), [Deploy a un VPS](../devops/deploy-vps.md) (Nginx como reverse proxy).
+Relacionado: [Kubernetes](../devops/kubernetes.md), [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), [Deploy a un VPS](../devops/deploy-vps.md) (Nginx como reverse proxy).

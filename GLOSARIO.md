@@ -7,15 +7,17 @@
 ### A
 
 - **Abstract Factory** — [Patrones creacionales](system-design/patrones-creacionales.md#abstract-factory)
-- **Access token** — [Autenticación y Seguridad](system-design/autenticacion.md#6-access-token-vs-refresh-token)
+- **Access token** — [Autenticación y Seguridad](backend/autenticacion.md#6-access-token-vs-refresh-token)
 - **ACID** — [ACID / transacciones / isolation levels](sql/acid-transacciones-isolation.md#acid)
 - **Adapter (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#adapter)
 - **afterAll** — [Testing — conceptos generales](system-design/testing.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)
 - **afterEach** — [Testing — conceptos generales](system-design/testing.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)
+- **AMQP** — [Colas de mensajes](backend/colas-de-mensajes.md#amqp-no-es-un-producto--es-un-protocolo)
 - **Anomalías (inserción/actualización/borrado)** — [Normalización](sql/normalizacion.md#las-tres-anomalías-que-la-normalización-evita)
+- **API Gateway** — [API Gateway](backend/api-gateway.md)
 - **Argon2** — [Autenticación en FastAPI](python/autenticacion-fastapi.md#1-hashing-de-passwords-con-argon2-passlib)
-- **Autenticación** — [Autenticación y Seguridad](system-design/autenticacion.md#7-autenticación-vs-autorización)
-- **Autorización** — [Autenticación y Seguridad](system-design/autenticacion.md#7-autenticación-vs-autorización)
+- **Autenticación** — [Autenticación y Seguridad](backend/autenticacion.md#7-autenticación-vs-autorización)
+- **Autorización** — [Autenticación y Seguridad](backend/autenticacion.md#7-autenticación-vs-autorización)
 
 ### B
 
@@ -26,13 +28,14 @@
 - **BCNF (Boyce-Codd)** — [Normalización](sql/normalizacion.md#bcnf--boyce-codd-35nf)
 - **beforeAll** — [Testing — conceptos generales](system-design/testing.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)
 - **beforeEach** — [Testing — conceptos generales](system-design/testing.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)
+- **BFF (Backend for Frontend)** — [API Gateway](backend/api-gateway.md#gateway-vs-load-balancer)
 - **Bloqueo del hilo principal** — [Diagnóstico Frontend](diagnostico/frontend.md#bloqueo-del-hilo-principal)
 - **Bubbling (evento)** — [Eventos DOM](frontend-react/eventos-dom.md#bubbling-vs-capturing)
 - **Builder (patrón)** — [Patrones creacionales](system-design/patrones-creacionales.md#builder)
 
 ### C
 
-- **Cache stampede (thundering herd)** — [Cache Invalidation](system-design/cache-invalidation.md#cache-stampede-thundering-herd)
+- **Cache stampede (thundering herd)** — [Cache Invalidation](backend/cache-invalidation.md#cache-stampede-thundering-herd)
 - **Cache-aside pattern** — [Diagnóstico Backend](diagnostico/backend.md#falta-de-cache)
 - **Caja blanca (white box testing)** — [Testing — conceptos generales](system-design/testing.md#8-caja-negra-vs-caja-blanca)
 - **Caja negra (black box testing)** — [Testing — conceptos generales](system-design/testing.md#8-caja-negra-vs-caja-blanca)
@@ -40,6 +43,7 @@
 - **Capturing (evento)** — [Eventos DOM](frontend-react/eventos-dom.md#bubbling-vs-capturing)
 - **CDN (Content Delivery Network)** — [CDN](devops/cdn.md)
 - **Chain of Responsibility (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#chain-of-responsibility)
+- **Chattiness** — [Escalabilidad de CPU y Red](backend/escalabilidad-cpu-red.md#cuello-de-botella-de-red)
 - **Circuit breaker** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#tolerancia-a-fallos)
 - **Clustered index** — [Índices](sql/indices.md#clustered-vs-non-clustered)
 - **Clustering (multi-proceso)** — [Diagnóstico Backend](diagnostico/backend.md#clustering)
@@ -51,9 +55,9 @@
 - **Consistencia** — [ACID](sql/acid-transacciones-isolation.md#acid) · [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#consistencia)
 - **Consistencia eventual** — [NoSQL](sql/nosql.md#consistencia-eventual)
 - **Consistent hashing** — [Sharding vs partitioning](sql/sharding-vs-partitioning.md#sharding)
-- **Consumer Group (Kafka)** — [Arquitectura Kafka](system-design/kafka.md#producers--consumers-y-consumer-groups)
+- **Consumer Group (Kafka)** — [Arquitectura Kafka](backend/kafka.md#producers--consumers-y-consumer-groups)
 - **Context manager (`with`, Python)** — [Sintaxis general](python/sintaxis.md#context-managers--with)
-- **Controller / Service / Repository** — [Controller / Service / Repository](system-design/controller-service-repository.md)
+- **Controller / Service / Repository** — [Controller / Service / Repository](backend/controller-service-repository.md)
 - **Core Web Vitals (LCP, INP, CLS)** — [Performance Diagnostics](frontend-react/performance-diagnostics.md#lighthouse-genérico)
 - **Correlation ID** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#observabilidad)
 - **Covering index** — [Índices](sql/indices.md#covering-index)
@@ -66,6 +70,7 @@
 
 ### D
 
+- **DDoS Attack** — [DDoS Attack](backend/ddos-attack.md)
 - **Deadlock** — [Locks](sql/locks.md#deadlocks)
 - **Debounce / Throttle** — [Diagnóstico Frontend](diagnostico/frontend.md#manejo-incorrecto-de-eventos)
 - **Decorator (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#decorator)
@@ -76,18 +81,20 @@
 - **Depends (FastAPI)** — [Endpoints para microservicios](python/endpoints-microservicios.md#4-dependency-injection-con-depends)
 - **Dirty read** — [ACID / isolation levels](sql/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
 - **Disponibilidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#disponibilidad)
+- **Distributed lock** — [Redis](backend/redis.md#no-es-solo-cache)
+- **Distributed monolith** — [Monolito vs Microservicios](backend/monolito-vs-microservicios.md#el-anti-patrón-distributed-monolith)
 - **DNS (Domain Name System)** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#2-resolución-dns--de-dominio-a-ip)
 - **Document store** — [NoSQL](sql/nosql.md#categorías-principales)
 - **DOM (Document Object Model)** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#8-el-navegador-renderiza)
-- **DTO (Data Transfer Object)** — [Controller / Service / Repository](system-design/controller-service-repository.md#dto-data-transfer-object)
+- **DTO (Data Transfer Object)** — [Controller / Service / Repository](backend/controller-service-repository.md#dto-data-transfer-object)
 - **Dual write** — [Migraciones de base de datos](sql/migraciones.md#4-expandcontract-pattern-zero-downtime)
 
 ### E
 
 - **Ejecución de tests en paralelo vs serial** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 - **Elasticidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#elasticidad)
-- **Encoding** — [Autenticación y Seguridad](system-design/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)
-- **Encriptado** — [Autenticación y Seguridad](system-design/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)
+- **Encoding** — [Autenticación y Seguridad](backend/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)
+- **Encriptado** — [Autenticación y Seguridad](backend/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)
 - **Escala a cero (scale-to-zero)** — [Deploy a Cloud Run](devops/deploy-cloud-run.md#1-qué-es-un-contenedor-serverless-y-qué-significa-escala-a-cero)
 - **Estadísticas del planner** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#estadísticas-del-planner)
 - **Exclusive lock** — [Locks](sql/locks.md#shared-lock-s-vs-exclusive-lock-x)
@@ -100,7 +107,7 @@
 - **Facade (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#facade)
 - **Factory Method** — [Patrones creacionales](system-design/patrones-creacionales.md#factory-method)
 - **Fixture (testing)** — [Testing — conceptos generales](system-design/testing.md#9-fixtures)
-- **Forbidden (403)** — [Autenticación y Seguridad](system-design/autenticacion.md#7-autenticación-vs-autorización)
+- **Forbidden (403)** — [Autenticación y Seguridad](backend/autenticacion.md#7-autenticación-vs-autorización)
 - **Forward-only migration** — [Migraciones de base de datos](sql/migraciones.md#2-forward-only-vs-reversible)
 - **Found (302)** — [HTTP Status Codes](system-design/http-status-codes.md#3xx--redirection)
 - **Función almacenada** — [Stored procedures vs funciones](sql/stored-procedures-vs-funciones.md)
@@ -112,8 +119,9 @@
 
 ### H
 
-- **Hashing** — [Autenticación y Seguridad](system-design/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)
+- **Hashing** — [Autenticación y Seguridad](backend/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)
 - **Hidratación (Hydration)** — [SSR](frontend-react/ssr.md#hidratación)
+- **HMAC** — [Webhooks](backend/webhooks.md#verificar-la-firma--no-confiar-en-el-body-a-ciegas)
 - **Hooks (React)** — [Hooks](frontend-react/hooks.md)
 - **HPA (Horizontal Pod Autoscaler)** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#elasticidad)
 - **HTTP chaining** — [Diagnóstico Backend](diagnostico/backend.md#http-chaining)
@@ -133,7 +141,7 @@
 
 ### J
 
-- **JWT** — [Autenticación y Seguridad](system-design/autenticacion.md#5-jwt--estructura-y-stateless)
+- **JWT** — [Autenticación y Seguridad](backend/autenticacion.md#5-jwt--estructura-y-stateless)
 
 ### K
 
@@ -142,20 +150,23 @@
 
 ### L
 
-- **L4 (transport layer)** — [Load Balancers](system-design/load-balancers.md#l4-vs-l7)
-- **L7 (application layer)** — [Load Balancers](system-design/load-balancers.md#l4-vs-l7)
-- **Least connections** — [Load Balancers](system-design/load-balancers.md#algoritmos-de-balanceo)
+- **L4 (transport layer)** — [Load Balancers](backend/load-balancers.md#l4-vs-l7)
+- **L7 (application layer)** — [Load Balancers](backend/load-balancers.md#l4-vs-l7)
+- **Least connections** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
 - **Liskov Substitution Principle (L de SOLID)** — [SOLID principles](system-design/solid.md#l--liskov-substitution-principle)
 - **List comprehension (Python)** — [Sintaxis general](python/sintaxis.md#comprehensions)
+- **Long polling** — [Colas de mensajes](backend/colas-de-mensajes.md#sqs-amazon-simple-queue-service)
 
 ### M
 
 - **memo / useMemo / useCallback (React)** — [Diagnóstico Frontend](diagnostico/frontend.md#componentes-que-no-usan-memousememousecallback)
 - **Method Not Allowed (405)** — [HTTP Status Codes](system-design/http-status-codes.md#4xx--client-error)
 - **Micro-frontends** — [Module Federation](frontend-react/module-federation.md#el-problema-que-resuelve)
+- **Microservicios** — [Monolito vs Microservicios](backend/monolito-vs-microservicios.md#microservicios)
 - **Migración de schema** — [Migraciones de base de datos](sql/migraciones.md#1-versionado-de-schema)
 - **Mock** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
 - **Module Federation** — [Module Federation](frontend-react/module-federation.md)
+- **Monolito** — [Monolito vs Microservicios](backend/monolito-vs-microservicios.md#monolito)
 - **moto (Python)** — [Testing en FastAPI](python/testing-fastapi.md#4-mockear-servicios-externos)
 - **Moved Permanently (301)** — [HTTP Status Codes](system-design/http-status-codes.md#3xx--redirection)
 - **Multi-stage build (Docker)** — [Dockerización](devops/docker.md#2-multi-stage-build)
@@ -179,7 +190,7 @@
 - **Object Pooling** — [Object Pooling](frontend-react/object-pooling.md)
 - **Observabilidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#observabilidad)
 - **Observer (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#observer)
-- **Offset (Kafka)** — [Arquitectura Kafka](system-design/kafka.md#offset)
+- **Offset (Kafka)** — [Arquitectura Kafka](backend/kafka.md#offset)
 - **OK (200)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)
 - **OLAP** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#cubos-olap)
 - **OLTP** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#cubos-olap)
@@ -188,32 +199,39 @@
 
 ### P
 
-- **Partición (Kafka)** — [Arquitectura Kafka](system-design/kafka.md#topics-y-particiones)
+- **Partición (Kafka)** — [Arquitectura Kafka](backend/kafka.md#topics-y-particiones)
+- **Partition key (DynamoDB)** — [Key-Value Store / DynamoDB](backend/dynamodb-key-value-store.md#partition-key-y-sort-key)
 - **Partition pruning** — [Sharding vs partitioning](sql/sharding-vs-partitioning.md#partitioning)
 - **Partitioning** — [Sharding vs partitioning](sql/sharding-vs-partitioning.md#partitioning)
 - **Pessimistic locking** — [Locks](sql/locks.md#pessimistic-vs-optimistic-locking)
 - **Phantom read** — [ACID / isolation levels](sql/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
+- **Proveedores de identidad gestionados** — [Proveedores de Identidad Gestionados](backend/proveedores-de-identidad-gestionados.md)
 - **Proxy (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#proxy)
+- **Pub/Sub** — [Redis](backend/redis.md#no-es-solo-cache)
 - **Pydantic (BaseModel, Python)** — [Endpoints para microservicios](python/endpoints-microservicios.md#3-validación-de-entrada-con-pydantic)
 - **pyenv (Python)** — [Setup en macOS — flujo clásico](python/setup-macos.md#2-pyenv--manejo-de-versiones-de-python)
 - **pytest (fixtures / conftest.py, Python)** — [Testing en FastAPI](python/testing-fastapi.md#1-pytest-fixtures-y-conftestpy)
 
 ### R
 
+- **RabbitMQ** — [Colas de mensajes](backend/colas-de-mensajes.md#rabbitmq)
 - **Race condition** — [Locks](sql/locks.md#race-condition--el-problema-de-fondo)
 - **Range partitioning** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#range-partitioning)
+- **Rate limiting** — [Redis](backend/redis.md#no-es-solo-cache)
 - **Readiness probe (Kubernetes)** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#disponibilidad)
-- **Refresh token** — [Autenticación y Seguridad](system-design/autenticacion.md#6-access-token-vs-refresh-token)
+- **Redis** — [Redis](backend/redis.md)
+- **Refresh token** — [Autenticación y Seguridad](backend/autenticacion.md#6-access-token-vs-refresh-token)
 - **Render tree** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#8-el-navegador-renderiza)
 - **ResizeObserver (Browser API)** — [Patrón Observer en el browser](frontend-react/observer-en-el-browser.md#resizeobserver)
 - **Resource limits (requests vs limits, Kubernetes)** — [Kubernetes](devops/kubernetes.md#resource-limits)
 - **Rollback** — [Rollback / savepoints](sql/rollback-savepoints.md#rollback)
-- **Round robin** — [Load Balancers](system-design/load-balancers.md#algoritmos-de-balanceo)
+- **Round robin** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
 - **runInBand (Jest — equivalente a correr tests en serial)** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 
 ### S
 
-- **Salt** — [Autenticación y Seguridad](system-design/autenticacion.md#3-salt)
+- **Safe methods (HTTP)** — [HTTP Methods](backend/http-methods.md#safe-methods--sin-efectos-secundarios)
+- **Salt** — [Autenticación y Seguridad](backend/autenticacion.md#3-salt)
 - **SARGable** — [Queries non-sargable](sql/queries-non-sargable.md)
 - **Savepoint** — [Rollback / savepoints](sql/rollback-savepoints.md#savepoints)
 - **Security headers** — [Deploy a Cloud Run](devops/deploy-cloud-run.md#5-security-headers-vía-middleware)
@@ -224,13 +242,16 @@
 - **Single Responsibility Principle (S de SOLID)** — [SOLID principles](system-design/solid.md#s--single-responsibility-principle)
 - **Singleton (patrón)** — [Patrones creacionales](system-design/patrones-creacionales.md#singleton)
 - **SOLID** — [SOLID principles](system-design/solid.md)
+- **Sort key (DynamoDB)** — [Key-Value Store / DynamoDB](backend/dynamodb-key-value-store.md#partition-key-y-sort-key)
+- **SQS** — [Colas de mensajes](backend/colas-de-mensajes.md#sqs-amazon-simple-queue-service)
 - **SSE (Server-Sent Events)** — [WebSocket / SSE / Streaming](frontend-react/websocket-sse-streaming.md#sse-server-sent-events--unidireccional)
 - **SSG (Static Site Generation)** — [SSR](frontend-react/ssr.md#ssg-la-variante-prima)
 - **SSR (Server-Side Rendering)** — [SSR](frontend-react/ssr.md)
-- **Sticky sessions (IP hash)** — [Load Balancers](system-design/load-balancers.md#algoritmos-de-balanceo)
+- **Sticky sessions (IP hash)** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
 - **Stored Procedure** — [Stored procedures vs funciones](sql/stored-procedures-vs-funciones.md)
 - **Strategy (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#strategy)
 - **Stub** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
+- **SYN flood** — [DDoS Attack](backend/ddos-attack.md#tipos-de-más-simple-a-más-difícil-de-mitigar)
 
 ### T
 
@@ -244,14 +265,14 @@
 - **TLS handshake** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#4-tls-handshake-si-es-https)
 - **Tolerancia a fallos** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#tolerancia-a-fallos)
 - **Too Many Requests (429)** — [HTTP Status Codes](system-design/http-status-codes.md#4xx--client-error)
-- **Topic (Kafka)** — [Arquitectura Kafka](system-design/kafka.md#topics-y-particiones)
+- **Topic (Kafka)** — [Arquitectura Kafka](backend/kafka.md#topics-y-particiones)
 - **Transactional rollback pattern** — [Testing — conceptos generales](system-design/testing.md#5-transactional-rollback-pattern-para-tests-de-db)
 - **Tree shaking** — [Tree Shaking](frontend-react/tree-shaking.md)
-- **TTL (Time To Live)** — [Cache Invalidation](system-design/cache-invalidation.md#ttl-vs-invalidación-explícita)
+- **TTL (Time To Live)** — [Cache Invalidation](backend/cache-invalidation.md#ttl-vs-invalidación-explícita)
 
 ### U
 
-- **Unauthorized (401)** — [Autenticación y Seguridad](system-design/autenticacion.md#7-autenticación-vs-autorización)
+- **Unauthorized (401)** — [Autenticación y Seguridad](backend/autenticacion.md#7-autenticación-vs-autorización)
 - **Unprocessable Entity (422)** — [HTTP Status Codes](system-design/http-status-codes.md#4xx--client-error)
 - **useEffect (React)** — [Diagnóstico Frontend](diagnostico/frontend.md#useeffect-mal-usado--re-renders-en-cadena)
 - **uv (Python)** — [Setup en macOS con uv](python/setup-uv.md)
@@ -264,7 +285,9 @@
 
 ### W
 
+- **WAF (Web Application Firewall)** — [DDoS Attack](backend/ddos-attack.md#mitigaciones-por-capa)
 - **Web Worker (Browser API)** — [Diagnóstico Frontend](diagnostico/frontend.md#bloqueo-del-hilo-principal)
+- **Webhooks** — [Webhooks](backend/webhooks.md)
 - **WebSocket** — [WebSocket / SSE / Streaming](frontend-react/websocket-sse-streaming.md#websocket--bidireccional)
-- **Write-behind (write-back)** — [Cache Invalidation](system-design/cache-invalidation.md#cache-aside-write-through-write-behind)
-- **Write-through** — [Cache Invalidation](system-design/cache-invalidation.md#cache-aside-write-through-write-behind)
+- **Write-behind (write-back)** — [Cache Invalidation](backend/cache-invalidation.md#cache-aside-write-through-write-behind)
+- **Write-through** — [Cache Invalidation](backend/cache-invalidation.md#cache-aside-write-through-write-behind)

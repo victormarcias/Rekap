@@ -120,7 +120,7 @@ def test_create_order_triggers_notification(client, auth_headers, mocker):
 
 ## 8. Testear ownership/authorization checks
 
-El caso clásico: un usuario autenticado intenta tocar un recurso que no le pertenece — la respuesta correcta es `403`, no `401` (ver [Autenticación vs Autorización](../system-design/autenticacion.md)).
+El caso clásico: un usuario autenticado intenta tocar un recurso que no le pertenece — la respuesta correcta es `403`, no `401` (ver [Autenticación vs Autorización](../backend/autenticacion.md)).
 
 ```python
 def test_cannot_delete_other_users_order(client, auth_headers_user_a, order_owned_by_user_b):

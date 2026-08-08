@@ -5,7 +5,8 @@ Este repositorio contiene conocimiento general de informática.
 ## Índice
 
 - [🗄️ SQL](sql/) — bases de datos relacionales, transacciones, índices, NoSQL
-- [🏛️ System Design](system-design/) — patrones, atributos de calidad, arquitectura
+- [🏛️ System Design](system-design/) — patrones, atributos de calidad, protocolos
+- [🧩 Backend](backend/) — Kafka, auth, cache, arquitectura de servicios
 - [🩺 Diagnóstico](diagnostico/) — por qué una app anda lenta, por capa (frontend/backend/DB/devops)
 - [⚙️ DevOps](devops/) — escalabilidad, Kubernetes, CDN, cold starts
 - [⚛️ Frontend React](frontend-react/) — hooks, eventos DOM, performance, SSR
