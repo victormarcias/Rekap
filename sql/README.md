@@ -4,6 +4,7 @@ Machetes de referencia sobre bases de datos relacionales y SQL.
 
 - [x] [ACID / transacciones / isolation levels](acid-transacciones-isolation.md)
 - [x] [CRUD](crud.md)
+- [x] [Escalabilidad de Base de Datos](escalabilidad-db.md)
 - [x] [Índices](indices.md)
 - [x] [Locks](locks.md)
 - [x] [Migraciones de base de datos](migraciones.md)
