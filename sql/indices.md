@@ -46,7 +46,14 @@ CREATE INDEX idx_orders_covering ON orders(user_id) INCLUDE (status, total);
 
 - Cada índice acelera lecturas pero **ralentiza escrituras** (`INSERT`/`UPDATE`/`DELETE` deben mantener también el índice actualizado).
 - Ocupan espacio en disco.
-- Regla práctica: indexar columnas usadas en `WHERE`, `JOIN`, `ORDER BY` con alta selectividad (muchos valores distintos); evitar indexar columnas de baja cardinalidad (ej. `boolean`) salvo con índices parciales.
+- Indexar las columnas usadas en `JOIN` (típicamente las foreign keys) acelera esa operación por el mismo motivo que acelera un `WHERE`: el motor busca por índice en vez de escanear la tabla completa del otro lado del join.
+
+**"Indexar todo por las dudas" no es la solución** — es el error contrario al de no indexar nada. Cada índice de más:
+- Suma su propio costo de escritura, y ese costo se **acumula**: una tabla con 5 índices paga el costo de mantenimiento de los 5 en cada `INSERT`, no del más caro.
+- Puede quedar **redundante**: un índice sobre `(user_id)` es innecesario si ya existe uno sobre `(user_id, created_at)` — el compuesto ya cubre las queries que solo filtran por `user_id` (ver [índices compuestos](#índices-compuestos) y la regla de *leftmost prefix*).
+- Sirve para nada si la columna tiene **baja cardinalidad** (ej. un `boolean`, o un `status` con 3 valores posibles) — el motor puede decidir que escanear la tabla completa es más barato que usar ese índice, salvo con un [índice parcial](#índice-parcial-postgres) sobre el subconjunto realmente selectivo.
+
+La regla práctica es indexar según **los patrones de query reales** (mirando qué se usa en `WHERE`/`JOIN`/`ORDER BY` en producción, no "por si acaso"), y confirmar con [`EXPLAIN ANALYZE`](#cómo-saber-si-se-está-usando) que el índice efectivamente se usa antes de darlo por bueno.
 
 ## Índice parcial (Postgres)
 

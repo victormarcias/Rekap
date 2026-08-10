@@ -201,6 +201,7 @@
 - **Open/Closed Principle (O de SOLID)** — [SOLID principles](system-design/solid.md#o--openclosed-principle)
 - **Optimistic locking** — [Locks](sql/locks.md#pessimistic-vs-optimistic-locking)
 - **Over-fetching** — [GraphQL](backend/graphql.md#el-problema-que-resuelve-over-fetching-y-under-fetching)
+- **Over-indexing (indexar todo por las dudas)** — [Índices](sql/indices.md#costo-no-son-gratis)
 
 ### P
 
