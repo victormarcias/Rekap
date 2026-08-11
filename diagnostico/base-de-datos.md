@@ -58,6 +58,8 @@ REFRESH MATERIALIZED VIEW ventas_por_mes;
 
 Para analítica multidimensional pesada (BI, reportes históricos), separar el workload analítico (OLAP) del transaccional (OLTP) evita que queries de reporting compitan por recursos con el tráfico de producción. Ver [system-design](../system-design/README.md).
 
+**Caso clásico: finanzas.** Un cubo OLAP deja "cortar" los mismos ingresos por varias dimensiones a la vez (mes, región, producto, moneda) sin escribir una query nueva por cada combinación — el motivo por el que OLAP nació justo en ese mundo: reportes financieros que se arman una vez y se navegan desde muchos ángulos.
+
 ## Sharding entre distintas DBs (escalabilidad horizontal)
 
 Cuando ya se indexó, cacheó y particionó bien, pero un solo servidor sigue sin dar abasto en CPU, memoria o IOPS, la siguiente escala es distribuir los datos entre múltiples instancias independientes (shards). El costo: joins y transacciones que antes eran nativos ahora cruzan servidores distintos, y hay que resolverlos a mano en la capa de aplicación. Ver [Sharding vs partitioning](../sql/sharding-vs-partitioning.md).
