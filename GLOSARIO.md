@@ -194,6 +194,7 @@
 - **Object Pooling** — [Object Pooling](frontend-react/object-pooling.md)
 - **Observabilidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#observabilidad)
 - **Observer (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#observer)
+- **ODBC (Open Database Connectivity, legacy)** — [Controller / Service / Repository](backend/controller-service-repository.md#orm-object-relational-mapping)
 - **Offset (Kafka)** — [Arquitectura Kafka](backend/kafka.md#offset)
 - **OK (200)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)
 - **OLAP** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#cubos-olap)
@@ -201,6 +202,7 @@
 - **OOMKilled** — [Escalabilidad de Memoria](devops/escalabilidad-memoria.md#oomkilled)
 - **Open/Closed Principle (O de SOLID)** — [SOLID principles](system-design/solid.md#o--openclosed-principle)
 - **Optimistic locking** — [Locks](sql/locks.md#pessimistic-vs-optimistic-locking)
+- **ORM (Object-Relational Mapping)** — [Controller / Service / Repository](backend/controller-service-repository.md#orm-object-relational-mapping)
 - **Over-fetching** — [GraphQL](backend/graphql.md#el-problema-que-resuelve-over-fetching-y-under-fetching)
 - **Over-indexing (indexar todo por las dudas)** — [Índices](sql/indices.md#costo-no-son-gratis)
 

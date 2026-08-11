@@ -36,6 +36,22 @@ async def apply_discount(order_id: int, body: DiscountBody):
     return {"id": order.id, "total": order.total}
 ```
 
+## ORM (Object-Relational Mapping)
+
+Mapea filas de una tabla a objetos del lenguaje — en vez de escribir SQL a mano y parsear el resultado, el código trabaja con instancias de clases, y el ORM traduce eso a SQL por detrás. Es exactamente lo que el `Repository` de arriba está usando (`db.query(Order)...`).
+
+```python
+# ❌ sin ORM: SQL crudo + mapeo manual del resultado a objetos
+cursor.execute("SELECT * FROM orders WHERE status = %s", ("pending",))
+rows = cursor.fetchall()
+orders = [Order(id=r[0], status=r[1], total=r[2]) for r in rows]
+
+# ✅ con ORM: el mapeo lo hace la librería, el resultado ya son objetos
+orders = session.query(Order).filter_by(status="pending").all()
+```
+
+**ODBC (Open Database Connectivity) — la capa de más abajo, y legacy**: un ORM se conecta a la DB a través de algún driver — en Python, típicamente uno nativo (`psycopg2`, `asyncpg`), no ODBC. ODBC es un protocolo más viejo y de más bajo nivel, pensado para que **cualquier** aplicación (no solo de un lenguaje específico) se conecte a **cualquier** DB con un driver ODBC instalado. Hoy se ve sobre todo en herramientas de BI/reporting (Excel o Tableau conectándose a un data warehouse — ver [Cubos OLAP](../diagnostico/base-de-datos.md#cubos-olap)), no en el stack típico de un backend moderno.
+
 ## DTO (Data Transfer Object)
 
 Un objeto simple, sin lógica de negocio, que solo transporta datos entre capas o entre sistemas — nada de métodos con comportamiento, solo campos. En el Controller de arriba, `DiscountBody` (lo que entra) y el `dict` de la response (lo que sale) son DTOs: **desacoplan el contrato externo de la API del modelo de dominio interno** que usa el Service.
