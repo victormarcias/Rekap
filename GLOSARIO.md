@@ -212,6 +212,7 @@
 - **Pessimistic locking** — [Locks](sql/locks.md#pessimistic-vs-optimistic-locking)
 - **Phantom read** — [ACID / isolation levels](sql/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
 - **Procesar resultados en chunks (fetchmany)** — [Escalabilidad de Base de Datos](sql/escalabilidad-db.md#procesar-resultados-grandes-en-chunks)
+- **Producto cartesiano (JOIN)** — [Query Optimization](sql/query-optimization.md#joins-correctos--evitar-productos-cartesianos)
 - **Proveedores de identidad gestionados** — [Proveedores de Identidad Gestionados](backend/proveedores-de-identidad-gestionados.md)
 - **Proxy (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#proxy)
 - **Pub/Sub** — [Redis](backend/redis.md#no-es-solo-cache)
@@ -263,6 +264,7 @@
 - **Stored Procedure** — [Stored procedures vs funciones](sql/stored-procedures-vs-funciones.md)
 - **Strategy (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#strategy)
 - **Stub** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
+- **Subquery correlacionada** — [Query Optimization](sql/query-optimization.md#subqueries--cuándo-evitarlas)
 - **SYN flood** — [DDoS Attack](backend/ddos-attack.md#tipos-de-más-simple-a-más-difícil-de-mitigar)
 
 ### T
