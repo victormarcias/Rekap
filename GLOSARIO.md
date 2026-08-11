@@ -124,6 +124,7 @@
 - **Hashing** — [Autenticación y Seguridad](backend/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)
 - **HATEOAS** — [REST](backend/rest.md#hateoas--la-restricción-que-casi-nadie-implementa)
 - **Hidratación (Hydration)** — [SSR](frontend-react/ssr.md#hidratación)
+- **Histograma (estadísticas del planner)** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#estadísticas-del-planner)
 - **HMAC** — [Webhooks](backend/webhooks.md#verificar-la-firma--no-confiar-en-el-body-a-ciegas)
 - **Hooks (React)** — [Hooks](frontend-react/hooks.md)
 - **HPA (Horizontal Pod Autoscaler)** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#elasticidad)
@@ -254,6 +255,7 @@
 - **Shared lock** — [Locks](sql/locks.md#shared-lock-s-vs-exclusive-lock-x)
 - **Single Responsibility Principle (S de SOLID)** — [SOLID principles](system-design/solid.md#s--single-responsibility-principle)
 - **Singleton (patrón)** — [Patrones creacionales](system-design/patrones-creacionales.md#singleton)
+- **Snapshot table** — [Escalabilidad de Base de Datos](sql/escalabilidad-db.md#snapshot-tables-vs-vistas-materializadas)
 - **SOLID** — [SOLID principles](system-design/solid.md)
 - **Sort key (DynamoDB)** — [Key-Value Store / DynamoDB](backend/dynamodb-key-value-store.md#partition-key-y-sort-key)
 - **SQS** — [Colas de mensajes](backend/colas-de-mensajes.md#sqs-amazon-simple-queue-service)
@@ -269,6 +271,7 @@
 
 ### T
 
+- **Tabla activa vs histórica (archivado)** — [Escalabilidad de Base de Datos](sql/escalabilidad-db.md#tabla-activa-vs-histórica)
 - **TCP handshake (three-way handshake)** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#3-conexión-tcp--three-way-handshake)
 - **Test doubles (Mock/Stub/Fake/Spy)** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
 - **Test flaky** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
@@ -295,6 +298,7 @@
 ### V
 
 - **venv (Python)** — [Setup en macOS — flujo clásico](python/setup-macos.md#3-venv--entornos-virtuales)
+- **Vertical Partitioning** — [Escalabilidad de Base de Datos](sql/escalabilidad-db.md#vertical-partitioning)
 - **Virtualización / Windowing** — [Diagnóstico Frontend](diagnostico/frontend.md#falta-de-paginación--virtualización)
 - **Vistas materializadas** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#vistas-materializadas)
 

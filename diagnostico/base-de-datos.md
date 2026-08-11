@@ -34,6 +34,15 @@ EXPLAIN ANALYZE SELECT * FROM orders WHERE user_id = 42;
 
 El optimizador decide el plan según estadísticas de distribución de datos (cardinalidad, histogramas). Si están desactualizadas, elige planes subóptimos aunque el índice exista.
 
+**Histograma**: la forma en que el planner resume la distribución de valores de una columna — divide el rango de valores en intervalos (*buckets*) y guarda cuántas filas caen en cada uno. Sin esto, el planner tendría que asumir que los valores están repartidos parejo, algo que casi nunca es cierto en datos reales.
+
+```sql
+-- Postgres: ver el histograma que ANALYZE calculó para una columna
+SELECT histogram_bounds FROM pg_stats WHERE tablename = 'orders' AND attname = 'status';
+```
+
+Gracias al histograma, el planner sabe que `WHERE status = 'completed'` va a devolver muchísimas filas (mejor un `Seq Scan` que un `Index Scan`), mientras que `WHERE status = 'refunded'` devuelve pocas (ahí sí conviene el índice) — la misma columna, el mismo índice, pero un plan distinto según qué valor se busca, porque el planner conoce cómo están distribuidos los datos y no asume una distribución uniforme.
+
 ## Vistas materializadas
 
 Precalculan y persisten el resultado de una query costosa (agregaciones, joins pesados), a costa de tener que refrescarlas. Útiles para dashboards/reportes que no necesitan datos al segundo.

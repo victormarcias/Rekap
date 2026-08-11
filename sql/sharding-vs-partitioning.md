@@ -4,7 +4,7 @@ Ambas son estrategias para dividir datos y escalar más allá de lo que soporta 
 
 ## Partitioning
 
-Dividir una tabla **grande en un mismo servidor/instancia** en sub-tablas más chicas (particiones), transparente para las queries.
+Dividir una tabla **grande en un mismo servidor/instancia** en sub-tablas más chicas (particiones), transparente para las queries. Esto es partitioning **horizontal** — divide **filas**; ver [Vertical Partitioning](escalabilidad-db.md#vertical-partitioning) para la otra dimensión, dividir **columnas**.
 
 ### Tipos
 
@@ -58,4 +58,5 @@ Dividir los datos **entre múltiples servidores/instancias** independientes (cad
 
 Se combinan: cada shard puede a su vez estar particionado internamente. Ejemplo: 8 shards de Postgres, cada uno con la tabla `orders` particionada por mes.
 
-Relacionado: [Normalización](normalizacion.md) (denormalización suele acompañar sharding para evitar cross-shard joins), [NoSQL](nosql.md) (muchas bases NoSQL shardean nativamente, ej. Cassandra, MongoDB).
+---
+Relacionado: [Normalización](normalizacion.md) (denormalización suele acompañar sharding para evitar cross-shard joins), [NoSQL](nosql.md) (muchas bases NoSQL shardean nativamente, ej. Cassandra, MongoDB), [Escalabilidad de Base de Datos](escalabilidad-db.md) (vertical partitioning, tabla activa vs histórica, snapshot tables).
