@@ -18,7 +18,21 @@ Ocurre cuando dos o más operaciones acceden al mismo dato compartido al mismo t
 -- el UPDATE de T2 pisó el de T1 sin que ninguno de los dos se enterara del otro
 ```
 
-Todo lo que sigue en este archivo (locks, MVCC) son las distintas formas de evitar este escenario: o se bloquea el acceso concurrente al dato (pessimistic locking, shared/exclusive locks), o se detecta el conflicto al momento de escribir y se rechaza la escritura pisada (optimistic locking).
+## Sección crítica — el concepto general detrás de la solución
+
+El fragmento de código que toca el dato compartido (el `SELECT` + `UPDATE` de arriba) es una **sección crítica**: cualquier tramo que no puede ejecutarse por más de un hilo/proceso a la vez sin arriesgar una race condition. Las primitivas clásicas para protegerla son el **mutex** (exclusión mutua — un solo acceso a la vez) y el **semáforo** (permite hasta N accesos simultáneos; un mutex es, en el fondo, un semáforo con N=1).
+
+```python
+import threading
+
+lock = threading.Lock()  # mutex: exclusión mutua, un solo hilo a la vez
+
+def decrement_stock():
+    with lock:  # sección crítica: nadie más entra hasta que este bloque termine
+        stock[product_id] -= 1
+```
+
+Los locks de este archivo (pessimistic/optimistic, shared/exclusive, más abajo) son **un caso particular** de este concepto — la implementación de "proteger una sección crítica" a nivel de base de datos. No es la única: un [distributed lock con Redis](../backend/redis.md#no-es-solo-cache) protege la misma idea, pero coordinando entre procesos/instancias en vez de entre transacciones de una DB; y el `threading.Lock()` de arriba la protege dentro de un único proceso, sin ninguna base de datos de por medio. Todo lo que sigue en este archivo son formas de resolver esto específicamente para datos en una DB: o se bloquea el acceso concurrente (pessimistic locking, shared/exclusive locks), o se detecta el conflicto al momento de escribir y se rechaza la escritura pisada (optimistic locking).
 
 ## Pessimistic vs Optimistic locking
 

@@ -175,6 +175,7 @@
 - **Moved Permanently (301)** — [HTTP Status Codes](system-design/http-status-codes.md#3xx--redirection)
 - **Multi-stage build (Docker)** — [Dockerización](devops/docker.md#2-multi-stage-build)
 - **MutationObserver (Browser API)** — [Patrón Observer en el browser](frontend-react/observer-en-el-browser.md#mutationobserver)
+- **Mutex** — [Locks](sql/locks.md#sección-crítica--el-concepto-general-detrás-de-la-solución)
 - **MVCC (Multi-Version Concurrency Control)** — [Locks](sql/locks.md#mvcc-multi-version-concurrency-control)
 
 ### N
@@ -249,7 +250,9 @@
 - **Salt** — [Autenticación y Seguridad](backend/autenticacion.md#3-salt)
 - **SARGable** — [Queries non-sargable](sql/queries-non-sargable.md)
 - **Savepoint** — [Rollback / savepoints](sql/rollback-savepoints.md#savepoints)
+- **Sección crítica** — [Locks](sql/locks.md#sección-crítica--el-concepto-general-detrás-de-la-solución)
 - **Security headers** — [Deploy a Cloud Run](devops/deploy-cloud-run.md#5-security-headers-vía-middleware)
+- **Semáforo (concurrencia)** — [Locks](sql/locks.md#sección-crítica--el-concepto-general-detrás-de-la-solución)
 - **Server-side cursor** — [Escalabilidad de Base de Datos](sql/escalabilidad-db.md#procesar-resultados-grandes-en-chunks)
 - **Service Unavailable (503)** — [HTTP Status Codes](system-design/http-status-codes.md#5xx--server-error)
 - **Shallow copy** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#shallow-copy-vs-deep-copy)
