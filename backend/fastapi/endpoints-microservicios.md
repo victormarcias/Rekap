@@ -1,4 +1,4 @@
-# Endpoints para Microservicios (FastAPI)
+# Endpoints para Microservicios
 
 Cómo se ve en código Python/FastAPI la construcción de un endpoint pensado para vivir en un microservicio. No es teoría de REST (eso ya está cubierto en otros machetes) — es la sintaxis y los patrones concretos del framework.
 
@@ -75,7 +75,7 @@ class CreateOrderBody(BaseModel):
 
 ## 4. Dependency Injection con `Depends`
 
-`Depends` resuelve una dependencia compartida (sesión de DB, usuario autenticado desde el token) antes de correr el handler, evitando repetir esa lógica en cada endpoint — es Dependency Inversion (ver [SOLID](../system-design/solid.md)) aplicado a nivel framework: el endpoint recibe una sesión ya lista, sin saber cómo se construyó.
+`Depends` resuelve una dependencia compartida (sesión de DB, usuario autenticado desde el token) antes de correr el handler, evitando repetir esa lógica en cada endpoint — es Dependency Inversion (ver [SOLID](../../system-design/solid.md)) aplicado a nivel framework: el endpoint recibe una sesión ya lista, sin saber cómo se construyó.
 
 ```python
 from fastapi import Depends, HTTPException, Header
@@ -176,4 +176,4 @@ def test_create_order_validates_empty_items():
 ```
 
 ---
-Relacionado: [SOLID principles](../system-design/solid.md), [Atributos de calidad de sistemas](../system-design/atributos-de-calidad.md) (idempotencia, tolerancia a fallos), [Sintaxis general](sintaxis.md), [Sync vs Async en FastAPI](sync-vs-async-fastapi.md) (cuándo el `async def` de estos ejemplos realmente aporta algo).
+Relacionado: [SOLID principles](../../system-design/solid.md), [Atributos de calidad de sistemas](../../system-design/atributos-de-calidad.md) (idempotencia, tolerancia a fallos), [Sintaxis general](../../python/sintaxis.md), [Sync vs Async en FastAPI](sync-vs-async.md) (cuándo el `async def` de estos ejemplos realmente aporta algo).

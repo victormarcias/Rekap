@@ -1,6 +1,6 @@
 # Autenticación y Seguridad — Conceptos Generales
 
-Fundamentos que hay que tener claros antes de escribir una sola línea de login — aplican en cualquier lenguaje o framework. La implementación concreta en Python/FastAPI está en [Autenticación en FastAPI](../python/autenticacion-fastapi.md).
+Fundamentos que hay que tener claros antes de escribir una sola línea de login — aplican en cualquier lenguaje o framework. La implementación concreta en Python/FastAPI está en [Autenticación en FastAPI](fastapi/autenticacion.md).
 
 ## 1. Hashing vs Encriptado vs Encoding
 
@@ -81,4 +81,4 @@ El nombre de los status codes HTTP confunde esto seguido: `401 Unauthorized` en 
 No hay una opción "segura por default" — es un trade-off: `localStorage` expone el token a XSS, la cookie `httpOnly` lo protege de XSS pero abre la puerta a CSRF si no se configura bien (`SameSite=Strict/Lax` reduce mucho ese riesgo en la práctica).
 
 ---
-Relacionado: [Autenticación en FastAPI](../python/autenticacion-fastapi.md) (implementación concreta), [Atributos de calidad de sistemas](../system-design/atributos-de-calidad.md) (escalabilidad stateless), [Idempotencia y tolerancia a fallos](../system-design/atributos-de-calidad.md).
+Relacionado: [Autenticación en FastAPI](fastapi/autenticacion.md) (implementación concreta), [Atributos de calidad de sistemas](../system-design/atributos-de-calidad.md) (escalabilidad stateless), [Idempotencia y tolerancia a fallos](../system-design/atributos-de-calidad.md).

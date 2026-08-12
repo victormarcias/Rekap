@@ -1,6 +1,6 @@
-# Testing en FastAPI (pytest)
+# Testing (pytest)
 
-Implementación concreta con `pytest`, `httpx.AsyncClient` y mocking de servicios externos. Los conceptos de fondo (test pyramid, test doubles, por qué mockear, aislamiento) están en [Testing — conceptos generales](../system-design/testing.md).
+Implementación concreta con `pytest`, `httpx.AsyncClient` y mocking de servicios externos. Los conceptos de fondo (test pyramid, test doubles, por qué mockear, aislamiento) están en [Testing — conceptos generales](../../system-design/testing.md).
 
 ## 1. `pytest` fixtures y `conftest.py`
 
@@ -25,7 +25,7 @@ Cualquier test de cualquier archivo puede pedir `sample_user` o `db_session` com
 
 ## 2. Transactional rollback en SQLAlchemy async
 
-Aplicando el patrón de [Testing — conceptos generales](../system-design/testing.md) con una fixture real: se abre una transacción sobre la conexión, se la usa para crear la sesión que ve el test, y se revierte al final.
+Aplicando el patrón de [Testing — conceptos generales](../../system-design/testing.md) con una fixture real: se abre una transacción sobre la conexión, se la usa para crear la sesión que ve el test, y se revierte al final.
 
 ```python
 @pytest.fixture
@@ -80,7 +80,7 @@ def test_upload_to_s3():
 
 ## 5. Testear rutas protegidas por auth
 
-Reutilizando el mismo helper que usa `/login` en producción (ver [Autenticación en FastAPI](autenticacion-fastapi.md)) para generar un token válido dentro de una fixture, en vez de loguearse de verdad en cada test.
+Reutilizando el mismo helper que usa `/login` en producción (ver [Autenticación en FastAPI](autenticacion.md)) para generar un token válido dentro de una fixture, en vez de loguearse de verdad en cada test.
 
 ```python
 @pytest.fixture
@@ -120,7 +120,7 @@ def test_create_order_triggers_notification(client, auth_headers, mocker):
 
 ## 8. Testear ownership/authorization checks
 
-El caso clásico: un usuario autenticado intenta tocar un recurso que no le pertenece — la respuesta correcta es `403`, no `401` (ver [Autenticación vs Autorización](../backend/autenticacion.md)).
+El caso clásico: un usuario autenticado intenta tocar un recurso que no le pertenece — la respuesta correcta es `403`, no `401` (ver [Autenticación vs Autorización](../autenticacion.md)).
 
 ```python
 def test_cannot_delete_other_users_order(client, auth_headers_user_a, order_owned_by_user_b):
@@ -130,7 +130,7 @@ def test_cannot_delete_other_users_order(client, auth_headers_user_a, order_owne
 
 ## 9. Hooks de setup/teardown en pytest (`scope` de las fixtures)
 
-pytest no tiene `beforeEach`/`afterAll` como funciones separadas (ver el concepto general en [Testing — conceptos generales](../system-design/testing.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)) — resuelve lo mismo con el parámetro `scope` de una fixture: `scope="function"` (default) equivale a `beforeEach`/`afterEach`; `scope="session"` (o `"module"`, para compartir solo dentro de un archivo) equivale a `beforeAll`/`afterAll`.
+pytest no tiene `beforeEach`/`afterAll` como funciones separadas (ver el concepto general en [Testing — conceptos generales](../../system-design/testing.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)) — resuelve lo mismo con el parámetro `scope` de una fixture: `scope="function"` (default) equivale a `beforeEach`/`afterEach`; `scope="session"` (o `"module"`, para compartir solo dentro de un archivo) equivale a `beforeAll`/`afterAll`.
 
 ```python
 @pytest.fixture(scope="function")  # default — corre antes/después de CADA test, como beforeEach/afterEach
@@ -151,7 +151,7 @@ def test_db_connection():
 | `beforeEach` / `afterEach` | fixture con `scope="function"` (default) |
 | `beforeAll` / `afterAll` | fixture con `scope="session"` (o `"module"`) |
 
-Mismo cuidado que en JS: una fixture `scope="session"` que en realidad debería resetearse por test rompe el aislamiento — ver [Aislamiento de tests](../system-design/testing.md#4-aislamiento-de-tests).
+Mismo cuidado que en JS: una fixture `scope="session"` que en realidad debería resetearse por test rompe el aislamiento — ver [Aislamiento de tests](../../system-design/testing.md#4-aislamiento-de-tests).
 
 ---
-Relacionado: [Testing — conceptos generales](../system-design/testing.md), [Endpoints para microservicios](endpoints-microservicios.md), [Autenticación en FastAPI](autenticacion-fastapi.md), [Sync vs Async en FastAPI](sync-vs-async-fastapi.md).
+Relacionado: [Testing — conceptos generales](../../system-design/testing.md), [Endpoints para microservicios](endpoints-microservicios.md), [Autenticación en FastAPI](autenticacion.md), [Sync vs Async en FastAPI](sync-vs-async.md).

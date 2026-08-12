@@ -1,6 +1,6 @@
-# Autenticación en FastAPI
+# Autenticación
 
-Implementación concreta de registro + login con Argon2 y JWT. Los conceptos de fondo (por qué hashear, qué es un salt, JWT stateless) están en [Autenticación y Seguridad — conceptos generales](../backend/autenticacion.md).
+Implementación concreta de registro + login con Argon2 y JWT. Los conceptos de fondo (por qué hashear, qué es un salt, JWT stateless) están en [Autenticación y Seguridad — conceptos generales](../autenticacion.md).
 
 ## 1. Hashing de passwords con Argon2 (`passlib`)
 
@@ -60,7 +60,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSessi
 
 ## 4. `pydantic-settings` para configuración
 
-`SECRET_KEY` hardcodeado en el código termina, tarde o temprano, commiteado a git. Leerlo desde variables de entorno / `.env` (que va en `.gitignore`, ver [Setup clásico](setup-macos.md)) evita que el secreto viaje con el código fuente.
+`SECRET_KEY` hardcodeado en el código termina, tarde o temprano, commiteado a git. Leerlo desde variables de entorno / `.env` (que va en `.gitignore`, ver [Setup clásico](../../python/setup-macos.md)) evita que el secreto viaje con el código fuente.
 
 ```python
 from pydantic_settings import BaseSettings
@@ -115,4 +115,4 @@ logger.info(f"Login attempt for user_id={user.id if user else 'unknown'}")
 ```
 
 ---
-Relacionado: [Autenticación y Seguridad — conceptos generales](../backend/autenticacion.md), [Endpoints para microservicios](endpoints-microservicios.md) (`Depends`, exception handlers), [Sync vs Async en FastAPI](sync-vs-async-fastapi.md).
+Relacionado: [Autenticación y Seguridad — conceptos generales](../autenticacion.md), [Endpoints para microservicios](endpoints-microservicios.md) (`Depends`, exception handlers), [Sync vs Async en FastAPI](sync-vs-async.md).

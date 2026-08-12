@@ -15,7 +15,7 @@
 - **AMQP** — [Colas de mensajes](backend/colas-de-mensajes.md#amqp-no-es-un-producto--es-un-protocolo)
 - **Anomalías (inserción/actualización/borrado)** — [Normalización](sql/normalizacion.md#las-tres-anomalías-que-la-normalización-evita)
 - **API Gateway** — [API Gateway](backend/api-gateway.md)
-- **Argon2** — [Autenticación en FastAPI](python/autenticacion-fastapi.md#1-hashing-de-passwords-con-argon2-passlib)
+- **Argon2** — [Autenticación en FastAPI](backend/fastapi/autenticacion.md#1-hashing-de-passwords-con-argon2-passlib)
 - **Autenticación** — [Autenticación y Seguridad](backend/autenticacion.md#7-autenticación-vs-autorización)
 - **Autorización** — [Autenticación y Seguridad](backend/autenticacion.md#7-autenticación-vs-autorización)
 
@@ -79,7 +79,7 @@
 - **Delegación de eventos** — [Eventos DOM](frontend-react/eventos-dom.md#delegación-de-eventos)
 - **Denormalización** — [Normalización](sql/normalizacion.md#denormalización-el-trade-off)
 - **Dependency Inversion Principle (D de SOLID)** — [SOLID principles](system-design/solid.md#d--dependency-inversion-principle)
-- **Depends (FastAPI)** — [Endpoints para microservicios](python/endpoints-microservicios.md#4-dependency-injection-con-depends)
+- **Depends (FastAPI)** — [Endpoints para microservicios](backend/fastapi/endpoints-microservicios.md#4-dependency-injection-con-depends)
 - **Dirty read** — [ACID / isolation levels](sql/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
 - **Disponibilidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#disponibilidad)
 - **Distributed lock** — [Redis](backend/redis.md#no-es-solo-cache)
@@ -171,7 +171,7 @@
 - **Mock** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
 - **Module Federation** — [Module Federation](frontend-react/module-federation.md)
 - **Monolito** — [Monolito vs Microservicios](backend/monolito-vs-microservicios.md#monolito)
-- **moto (Python)** — [Testing en FastAPI](python/testing-fastapi.md#4-mockear-servicios-externos)
+- **moto (Python)** — [Testing en FastAPI](backend/fastapi/testing.md#4-mockear-servicios-externos)
 - **Moved Permanently (301)** — [HTTP Status Codes](system-design/http-status-codes.md#3xx--redirection)
 - **Multi-stage build (Docker)** — [Dockerización](devops/docker.md#2-multi-stage-build)
 - **MutationObserver (Browser API)** — [Patrón Observer en el browser](frontend-react/observer-en-el-browser.md#mutationobserver)
@@ -191,7 +191,7 @@
 
 ### O
 
-- **OAuth2PasswordBearer (FastAPI)** — [Autenticación en FastAPI](python/autenticacion-fastapi.md#5-proteger-rutas-con-oauth2passwordbearer--depends)
+- **OAuth2PasswordBearer (FastAPI)** — [Autenticación en FastAPI](backend/fastapi/autenticacion.md#5-proteger-rutas-con-oauth2passwordbearer--depends)
 - **Object Pooling** — [Object Pooling](frontend-react/object-pooling.md)
 - **Observabilidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#observabilidad)
 - **Observer (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#observer)
@@ -220,9 +220,9 @@
 - **Proveedores de identidad gestionados** — [Proveedores de Identidad Gestionados](backend/proveedores-de-identidad-gestionados.md)
 - **Proxy (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#proxy)
 - **Pub/Sub** — [Redis](backend/redis.md#no-es-solo-cache)
-- **Pydantic (BaseModel, Python)** — [Endpoints para microservicios](python/endpoints-microservicios.md#3-validación-de-entrada-con-pydantic)
+- **Pydantic (BaseModel, Python)** — [Endpoints para microservicios](backend/fastapi/endpoints-microservicios.md#3-validación-de-entrada-con-pydantic)
 - **pyenv (Python)** — [Setup en macOS — flujo clásico](python/setup-macos.md#2-pyenv--manejo-de-versiones-de-python)
-- **pytest (fixtures / conftest.py, Python)** — [Testing en FastAPI](python/testing-fastapi.md#1-pytest-fixtures-y-conftestpy)
+- **pytest (fixtures / conftest.py, Python)** — [Testing en FastAPI](backend/fastapi/testing.md#1-pytest-fixtures-y-conftestpy)
 
 ### R
 
@@ -281,7 +281,7 @@
 - **Test doubles (Mock/Stub/Fake/Spy)** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
 - **Test flaky** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 - **Test pyramid** — [Testing — conceptos generales](system-design/testing.md#1-test-pyramid)
-- **TestClient (FastAPI)** — [Endpoints para microservicios](python/endpoints-microservicios.md#8-testing-de-endpoints-con-testclient)
+- **TestClient (FastAPI)** — [Endpoints para microservicios](backend/fastapi/endpoints-microservicios.md#8-testing-de-endpoints-con-testclient)
 - **Tests frágiles (brittle tests)** — [Testing — conceptos generales](system-design/testing.md#7-tests-frágiles-vs-tests-robustos)
 - **Tests robustos (resilient tests)** — [Testing — conceptos generales](system-design/testing.md#7-tests-frágiles-vs-tests-robustos)
 - **TLS handshake** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#4-tls-handshake-si-es-https)
