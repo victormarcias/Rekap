@@ -44,7 +44,7 @@ Sin esto, el cliente necesita conocer de antemano **todas** las URLs posibles, t
 
 ## "RESTful" vs REST real
 
-En la práctica, casi ninguna API que se autodenomina "REST" implementa HATEOAS — la mayoría cumple solo con "recursos + verbos HTTP + JSON", que es apenas la mitad de la restricción de interfaz uniforme. Es un clásico de entrevista: preguntar "¿tu API es REST?" — la respuesta honesta casi siempre es "es HTTP con convenciones REST, no REST completo".
+En la práctica, casi ninguna API que se autodenomina "REST" implementa HATEOAS — la mayoría cumple solo con "recursos + verbos HTTP + JSON", que es apenas la mitad de la restricción de interfaz uniforme. Vale la pena tenerlo claro: si te preguntan "¿tu API es REST?", la respuesta honesta casi siempre es "es HTTP con convenciones REST, no REST completo".
 
 ---
 Relacionado: [HTTP Methods](http-methods.md), [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), [API Gateway](api-gateway.md), [CDN](../devops/cdn.md), [GraphQL](graphql.md) (la alternativa).

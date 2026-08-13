@@ -69,7 +69,7 @@ Separarlos acota la ventana de daño: si un access token se filtra, expira en mi
 - **Autenticación**: ¿quién sos? (verificar identidad — el login).
 - **Autorización**: ¿qué podés hacer? (permisos/roles — ocurre después de autenticar).
 
-El nombre de los status codes HTTP confunde esto seguido: `401 Unauthorized` en realidad significa "no autenticado" (falta o es inválido el token), y `403 Forbidden` significa "autenticado, pero no autorizado" (el usuario es quien dice ser, pero no tiene permiso para esa acción). Es un error clásico de entrevista devolver `403` cuando en realidad no hay token — ese caso es `401`.
+El nombre de los status codes HTTP confunde esto seguido: `401 Unauthorized` en realidad significa "no autenticado" (falta o es inválido el token), y `403 Forbidden` significa "autenticado, pero no autorizado" (el usuario es quien dice ser, pero no tiene permiso para esa acción). Es un error común devolver `403` cuando en realidad no hay token — ese caso es `401`.
 
 ## 8. Dónde guardar el token en el cliente
 

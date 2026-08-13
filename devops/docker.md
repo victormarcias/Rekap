@@ -2,6 +2,27 @@
 
 Cómo empaquetar una app en una imagen reproducible, sin importar de qué stack se trate (Python, Node, Go...) ni a dónde se despliegue después (VPS, Cloud Run, K8s). Los conceptos son de Docker, no del lenguaje — la sintaxis exacta del Dockerfile es lo único que cambia de un stack a otro.
 
+## Virtualización — el origen de los contenedores
+
+Antes de los contenedores, virtualizar significaba correr una **máquina virtual (VM)** completa: un *hypervisor* emula hardware, y cada VM corre arriba su propio sistema operativo entero (kernel incluido). Aísla por completo entre VMs, pero es pesado — minutos para arrancar, GBs de RAM/disco por instancia, solo para tener el SO de cada una corriendo.
+
+Un contenedor es mucho más liviano porque **no** virtualiza hardware ni corre un kernel propio: comparte el kernel del sistema operativo host, y usa mecanismos nativos de ese kernel (en Linux, *namespaces* para aislar qué ve cada proceso — su propio filesystem, red, lista de procesos — y *cgroups* para limitar cuánto CPU/RAM puede usar) para que cada contenedor se sienta aislado sin necesitar su propio SO completo. Por eso arranca en segundos/milisegundos en vez de minutos, y pesa MBs en vez de GBs.
+
+```
+VM                                Container
+┌───────┬───────┐                 ┌───────┬───────┐
+│ App A │ App B │                 │ App A │ App B │
+├───────┼───────┤                 ├───────┴───────┤
+│Guest OS│Guest OS│                │ Docker Engine  │
+├───────┴───────┤                 ├───────────────┤
+│  Hypervisor    │                 │ Kernel del host│  ← compartido
+├───────────────┤                 ├───────────────┤
+│    Host OS     │                 │    Host OS     │
+└───────────────┘                 └───────────────┘
+```
+
+**La diferencia real** no es solo "los containers son más livianos" — eso es la consecuencia. La causa es el **kernel compartido**: una VM aísla con hardware emulado y un SO completo por instancia; un container aísla con namespaces/cgroups sobre el mismo kernel, sin duplicar el sistema operativo.
+
 ## 1. Por qué dockerizar
 
 Sin Docker, "funciona en mi máquina" depende de qué versión del runtime tenés instalada, qué paquetes del sistema operativo están presentes, y qué variables de entorno seteaste a mano hace 3 meses y ya no te acordás. Un contenedor empaqueta el runtime, las dependencias y el código en una sola imagen inmutable — lo que corre en tu laptop es *exactamente* lo que corre en producción, byte por byte.

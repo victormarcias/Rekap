@@ -1,6 +1,6 @@
 # Qué pasa cuando escribís una URL
 
-Pregunta clásica de entrevista de system design: recorrido completo desde que apretás Enter hasta que la página está renderizada en pantalla. Sirve para mostrar que entendés todas las capas — red, servidor, y cliente — no solo una.
+Recorrido completo desde que apretás Enter hasta que la página está renderizada en pantalla — cubre todas las capas involucradas: red, servidor, y cliente.
 
 ## 1. Parseo de la URL
 

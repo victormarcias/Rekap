@@ -130,6 +130,7 @@
 - **HPA (Horizontal Pod Autoscaler)** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#elasticidad)
 - **HTTP chaining** — [Diagnóstico Backend](diagnostico/backend.md#http-chaining)
 - **HTTP Status Codes** — [HTTP Status Codes](system-design/http-status-codes.md)
+- **Hypervisor** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
 
 ### I
 
@@ -181,6 +182,7 @@
 ### N
 
 - **N+1 (problema)** — [Diagnóstico Backend](diagnostico/backend.md#problema-n1)
+- **Namespaces / cgroups** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
 - **No Content (204)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)
 - **Non-clustered index** — [Índices](sql/indices.md#clustered-vs-non-clustered)
 - **Non-repeatable read** — [ACID / isolation levels](sql/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
@@ -304,6 +306,7 @@
 
 - **venv (Python)** — [Setup en macOS — flujo clásico](python/setup-macos.md#3-venv--entornos-virtuales)
 - **Vertical Partitioning** — [Escalabilidad de Base de Datos](sql/escalabilidad-db.md#vertical-partitioning)
+- **Virtualización (VM vs Container)** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
 - **Virtualización / Windowing** — [Diagnóstico Frontend](diagnostico/frontend.md#falta-de-paginación--virtualización)
 - **Vistas materializadas** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#vistas-materializadas)
 
