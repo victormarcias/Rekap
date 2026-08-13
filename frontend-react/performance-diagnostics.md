@@ -4,11 +4,7 @@ Herramientas para medir en vez de adivinar dónde está el problema de performan
 
 ## Lighthouse (genérico)
 
-Auditoría automatizada que corre en cualquier página (Chrome DevTools, CLI, o CI) y devuelve un score de Performance, Accessibility, Best Practices y SEO, con recomendaciones puntuales. Mide los **Core Web Vitals**:
-
-- **LCP** (Largest Contentful Paint) — cuánto tarda en pintarse el elemento más grande visible (la métrica de "se siente cargado").
-- **INP** (Interaction to Next Paint) — cuánto tarda la UI en responder después de una interacción del usuario.
-- **CLS** (Cumulative Layout Shift) — cuánto "salta" el layout mientras carga (imágenes sin `width`/`height` reservado, por ejemplo).
+Auditoría automatizada que corre en cualquier página (Chrome DevTools, CLI, o CI) y devuelve un score de Performance, Accessibility, Best Practices y SEO, con recomendaciones puntuales. Mide los [Core Web Vitals](web-vitals.md) (LCP, INP, CLS).
 
 ```bash
 npx lighthouse https://miapp.com --view
@@ -33,4 +29,4 @@ Tab del React DevTools que graba una sesión de renders y muestra, por component
 Los otros dos (Lighthouse, bundle analyzer) dicen **qué tan grande/lenta es la carga inicial**; el Profiler dice **qué está pasando durante la interacción**, ya con la app corriendo.
 
 ---
-Relacionado: [Diagnóstico Frontend](../diagnostico/frontend.md), [Tree shaking](tree-shaking.md).
+Relacionado: [Web Vitals](web-vitals.md), [Diagnóstico Frontend](../diagnostico/frontend.md), [Tree shaking](tree-shaking.md).

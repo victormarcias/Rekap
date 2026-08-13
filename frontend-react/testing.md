@@ -1,0 +1,49 @@
+# Testing en React
+
+Para la teoría general (test pyramid, mocks/stubs, fixtures, tests frágiles vs robustos) ver [Testing — Conceptos Generales](../system-design/testing.md). Acá el foco es qué cambia específicamente al testear una UI de React.
+
+## Qué testeamos
+
+En frontend, lo que vale la pena testear es **comportamiento visible para el usuario** — qué se renderiza, qué pasa cuando el usuario interactúa — no detalles internos de implementación (nombres de funciones internas, estado interno de un hook). Un test que rompe porque se refactorizó un componente por dentro sin cambiar su comportamiento externo es un test frágil (ver [Tests frágiles vs robustos](../system-design/testing.md#7-tests-frágiles-vs-tests-robustos)).
+
+## Unit Testing con RTL (React Testing Library)
+
+La filosofía de RTL es testear el componente **como lo usaría un usuario real**: buscar elementos por texto, rol o label visible (no por clases CSS o IDs internos), y simular interacciones reales en vez de llamar funciones internas directamente.
+
+```jsx
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+test('muestra el mensaje de error al submitear sin email', async () => {
+  render(<LoginForm />);
+
+  // busca por rol/texto, no por selector CSS — así el test sigue funcionando
+  // aunque cambien las clases o la estructura interna del componente
+  await userEvent.click(screen.getByRole('button', { name: /ingresar/i }));
+
+  expect(screen.getByText(/el email es obligatorio/i)).toBeInTheDocument();
+});
+```
+
+`getByRole`/`getByLabelText` obligan a que el componente sea accesible para poder testearlo — un beneficio colateral: si RTL no puede "encontrar" el botón porque no tiene un rol/label claro, un screen reader tampoco podría.
+
+## End to End Testing con Cypress
+
+Mientras RTL testea un componente aislado (montado en un DOM simulado, sin backend real), Cypress corre la app **completa** en un browser real, contra un servidor real (o mockeado a nivel de red) — simula el flujo entero de un usuario real, de punta a punta.
+
+```js
+// cypress/e2e/login.cy.js
+describe('Login', () => {
+  it('permite loguearse y redirige al dashboard', () => {
+    cy.visit('/login');
+    cy.get('input[name="email"]').type('user@test.com');
+    cy.get('input[name="password"]').type('password123');
+    cy.get('button[type="submit"]').click();
+
+    cy.url().should('include', '/dashboard');
+    cy.contains('Bienvenido').should('be.visible');
+  });
+});
+```
+
+El costo de E2E es que es más lento y más frágil ante cambios de infraestructura (si el backend está caído, el test falla aunque el frontend esté perfecto) — por eso va en la punta angosta de la [test pyramid](../system-design/testing.md#1-test-pyramid): pocos tests E2E cubriendo los flujos críticos (login, checkout), muchos más unit tests con RTL cubriendo el resto.

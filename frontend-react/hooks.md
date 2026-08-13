@@ -51,5 +51,57 @@ function UserProfile({ userId }) {
 
 Un custom hook no comparte estado entre los componentes que lo usan — cada llamada tiene su propia instancia de `useState`/`useEffect`, como si el código estuviera copiado y pegado (pero sin estarlo).
 
+## `useRef`
+
+Guarda un valor mutable que **persiste entre renders sin causar un re-render** cuando cambia — a diferencia de `useState`, escribir en `ref.current` no le avisa a React que algo cambió. Dos usos típicos:
+
+```jsx
+// 1. Referencia a un nodo del DOM real (ej. para hacer foco manualmente)
+function SearchInput() {
+  const inputRef = useRef(null);
+  useEffect(() => { inputRef.current.focus(); }, []);
+  return <input ref={inputRef} />;
+}
+
+// 2. Guardar un valor que necesita sobrevivir renders pero no debe disparar un re-render
+function Timer() {
+  const intervalId = useRef(null);
+  const start = () => { intervalId.current = setInterval(() => {}, 1000); };
+  const stop = () => clearInterval(intervalId.current);
+  return <button onClick={start}>Start</button>;
+}
+```
+
+Si el valor debe reflejarse en la UI, es `useState`; si es "bookkeeping" interno que la UI no necesita mostrar, es `useRef`.
+
+## `useContext`
+
+Lee un valor provisto más arriba en el árbol por un `Context.Provider`, sin tener que pasarlo manualmente prop por prop a través de cada componente intermedio (ver [prop drilling](estado-global.md#prop-drilling-el-problema)).
+
+```jsx
+const ThemeContext = createContext('light');
+
+function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+
+function Toolbar() {
+  // Toolbar no usa el theme, pero antes tenía que recibirlo igual
+  // para poder pasárselo a ThemedButton — con Context ya no
+  return <ThemedButton />;
+}
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext); // 'dark' — lee directo, sin pasar por Toolbar
+  return <button className={theme}>Click</button>;
+}
+```
+
+Cualquier componente que use `useContext` se re-renderiza cuando el `value` del Provider cambia, sin importar cuán abajo esté en el árbol — ver [Estado global: Context API vs Redux](estado-global.md) para cuándo esto se vuelve un problema de performance y qué alternativas hay.
+
 ---
-Relacionado: [Diagnóstico Frontend](../diagnostico/frontend.md) (`useEffect`, `memo`/`useMemo`/`useCallback`).
+Relacionado: [Diagnóstico Frontend](../diagnostico/frontend.md) (`useEffect`, `memo`/`useMemo`/`useCallback`), [Estado global](estado-global.md), [React Fundamentos](react-fundamentos.md).
