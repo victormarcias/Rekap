@@ -15,6 +15,7 @@ Machetes sobre React y frontend moderno.
 - [x] [Object Pooling](object-pooling.md)
 - [x] [Patrón Observer](observer-en-el-browser.md)
 - [x] [Performance diagnostics](performance-diagnostics.md)
+- [x] [Privacidad y GDPR](privacidad-y-gdpr.md)
 - [x] [React Fundamentos](react-fundamentos.md)
 - [x] [Renderizado: SSR vs CSR vs SSG vs SPA](renderizado.md)
 - [x] [Testing en React](testing.md)

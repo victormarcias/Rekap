@@ -83,6 +83,8 @@
 
 ### D
 
+- **Dark pattern** — [Privacidad y GDPR](frontend-react/privacidad-y-gdpr.md#user-consent)
+- **Data Minimization** — [Privacidad y GDPR](frontend-react/privacidad-y-gdpr.md#data-minimization)
 - **Dataloader (GraphQL)** — [GraphQL](backend/graphql.md#resolvers-y-el-riesgo-de-n1)
 - **DDoS Attack** — [DDoS Attack](backend/ddos-attack.md)
 - **Deadlock** — [Locks](sql/locks.md#deadlocks)
@@ -132,6 +134,7 @@
 ### G
 
 - **Gateway Timeout (504)** — [HTTP Status Codes](system-design/http-status-codes.md#5xx--server-error)
+- **GDPR (General Data Protection Regulation)** — [Privacidad y GDPR](frontend-react/privacidad-y-gdpr.md)
 - **Graph database** — [NoSQL](sql/nosql.md#categorías-principales)
 - **GraphQL** — [GraphQL](backend/graphql.md)
 - **Grid (CSS Grid)** — [CSS](frontend-react/css.md#flexbox-vs-grid)
@@ -183,6 +186,7 @@
 - **Lazy loading (React.lazy / Suspense)** — [Code Splitting](frontend-react/code-splitting.md#reactlazy--suspense)
 - **LCP (Largest Contentful Paint)** — [Web Vitals](frontend-react/web-vitals.md#core-web-vitals)
 - **Least connections** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
+- **Least privilege (principio)** — [Privacidad y GDPR](frontend-react/privacidad-y-gdpr.md#correct-settings-configuración-segura-por-default)
 - **Liskov Substitution Principle (L de SOLID)** — [SOLID principles](system-design/solid.md#l--liskov-substitution-principle)
 - **List comprehension (Python)** — [Sintaxis general](python/sintaxis.md#comprehensions)
 - **localStorage** — [Almacenamiento en el cliente](frontend-react/almacenamiento-cliente.md#localstorage)
@@ -231,6 +235,7 @@
 - **OLTP** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#cubos-olap)
 - **OOMKilled** — [Escalabilidad de Memoria](devops/escalabilidad-memoria.md#oomkilled)
 - **Open/Closed Principle (O de SOLID)** — [SOLID principles](system-design/solid.md#o--openclosed-principle)
+- **Opt-in vs Opt-out (consentimiento)** — [Privacidad y GDPR](frontend-react/privacidad-y-gdpr.md#user-consent)
 - **Optimistic locking** — [Locks](sql/locks.md#pessimistic-vs-optimistic-locking)
 - **ORM (Object-Relational Mapping)** — [Controller / Service / Repository](backend/controller-service-repository.md#orm-object-relational-mapping)
 - **Over-fetching** — [GraphQL](backend/graphql.md#el-problema-que-resuelve-over-fetching-y-under-fetching)
