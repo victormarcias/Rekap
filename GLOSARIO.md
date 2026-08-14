@@ -167,6 +167,7 @@
 - **IntersectionObserver (Browser API)** — [Patrón Observer en el browser](frontend-react/observer-en-el-browser.md#intersectionobserver)
 - **Isolation levels** — [ACID / isolation levels](sql/acid-transacciones-isolation.md#isolation-levels-sql-standard)
 - **Isomorfismo (Universal apps)** — [Renderizado](frontend-react/renderizado.md#isomorfismo-universal-apps)
+- **ISR (Incremental Static Regeneration)** — [Renderizado](frontend-react/renderizado.md#isr-incremental-static-regeneration)
 
 ### J
 
@@ -311,6 +312,7 @@
 - **SSG (Static Site Generation)** — [Renderizado](frontend-react/renderizado.md#ssg-la-variante-prima)
 - **SSR (Server-Side Rendering)** — [Renderizado](frontend-react/renderizado.md)
 - **Stacking context** — [CSS](frontend-react/css.md#stacking-contexts-por-qué-mi-z-index-no-funciona)
+- **Stale-while-revalidate** — [Renderizado](frontend-react/renderizado.md#isr-incremental-static-regeneration)
 - **Sticky sessions (IP hash)** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
 - **Stored Procedure** — [Stored procedures vs funciones](sql/stored-procedures-vs-funciones.md)
 - **Strategy (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#strategy)

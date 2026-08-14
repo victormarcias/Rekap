@@ -1,4 +1,4 @@
-# Renderizado: SSR vs CSR vs SSG vs SPA
+# Renderizado: SSR vs CSR vs SSG vs ISR vs SPA
 
 Dónde y cuándo se genera el HTML de una página — en el servidor, en build time, o en el browser — y qué implica cada elección. Concepto genérico de arquitectura frontend; lo implementan Next.js, Nuxt, SvelteKit, Remix, cada uno con su propia sintaxis.
 
@@ -38,6 +38,27 @@ Que el **mismo código de componente** corra sin cambios tanto en el servidor co
 ## SSG, la variante prima
 
 **Static Site Generation**: el mismo concepto de "renderizar en el servidor" pero en **build time**, no por request — el HTML se genera una vez y se sirve igual para todos (con una CDN por delante, ver [CDN](../devops/cdn.md)). Sirve cuando el contenido no depende del usuario ni cambia entre requests (un blog, landing pages); SSR hace falta cuando sí depende (un dashboard con datos del usuario logueado).
+
+**El límite de SSG puro**: si el contenido cambia (ej. se actualiza el precio de un producto), la única forma de reflejarlo es rebuildear y redeployar **todo el sitio de nuevo** — aunque solo haya cambiado una página entre miles.
+
+## ISR (Incremental Static Regeneration)
+
+Resuelve justo ese límite: en vez de que todo el sitio quede fijo hasta el próximo deploy completo, cada página estática puede **regenerarse sola, en background, cada tanto** — sin rebuildear el resto del sitio.
+
+```jsx
+// Ej. con Next.js (Pages Router)
+export async function getStaticProps() {
+  const product = await fetchProduct();
+  return {
+    props: { product },
+    revalidate: 60, // esta página puede volver a generarse en background, como mucho cada 60 segundos
+  };
+}
+```
+
+Cómo funciona en la práctica: el primer usuario que pide la página después de que pasaron los 60 segundos **sigue recibiendo la versión vieja cacheada** (no espera nada) — pero dispara, en paralelo, una regeneración en background. El próximo usuario ya recibe la versión actualizada. Este patrón se llama *stale-while-revalidate*: nunca hay un usuario esperando a que el servidor renderice, a cambio de tolerar que a veces se sirva contenido levemente desactualizado por un ratito.
+
+**SSG vs ISR, la diferencia real**: SSG genera una vez en build time y ahí queda fijo hasta el próximo deploy manual. ISR también genera en build time, pero además se puede volver a regenerar sola después, sin deploy — es SSG con una fecha de vencimiento configurable por página, en vez de un solo build congelado para todo el sitio.
 
 ## Trade-off
 
