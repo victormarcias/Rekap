@@ -40,11 +40,11 @@ El dato más sensible o compartido entre dispositivos no vive en el cliente en a
 
 ## Cuál usar
 
-| | Persiste refresh | Persiste cerrar pestaña | Accesible por JS | Va en cada request |
-|---|---|---|---|---|
-| Memoria (`useState`) | ❌ | ❌ | ✅ | ❌ |
-| `sessionStorage` | ✅ | ❌ | ✅ | ❌ |
-| `localStorage` | ✅ | ✅ | ✅ | ❌ |
-| Cookie (`HttpOnly`) | ✅ | ✅ | ❌ | ✅ |
+| | Persiste refresh | Persiste cerrar pestaña | Accesible por JS | Va en cada request | Límite de tamaño |
+|---|---|---|---|---|---|
+| Memoria (`useState`) | ❌ | ❌ | ✅ | ❌ | Limitado por la memoria RAM disponible — en la práctica, sin límite fijo |
+| `sessionStorage` | ✅ | ❌ | ✅ | ❌ | ~5-10MB por origen (varía por browser) |
+| `localStorage` | ✅ | ✅ | ✅ | ❌ | ~5-10MB por origen (varía por browser) |
+| Cookie (`HttpOnly`) | ✅ | ✅ | ❌ | ✅ | ~4KB por cookie |
 
 Regla práctica: tokens de sesión / auth → cookie `HttpOnly`. Preferencias de UI sin nada sensible (tema, idioma) → `localStorage`. Estado de un flujo de varios pasos en la misma visita (ej. un wizard) → `sessionStorage`. Cualquier cosa que dependa de otros usuarios o deba ser la fuente de verdad → servidor.
