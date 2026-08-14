@@ -1,5 +1,25 @@
 # CSS
 
+## CSS Reset / Normalize
+
+Cada browser trae sus propios estilos por default para los elementos HTML (márgenes en `<body>`, `<ul>` con bullets y padding, tamaños de `<h1>`...`<h6>` distintos, etc.) — y no son exactamente iguales entre Chrome, Firefox y Safari. Un reset es una hoja de estilos que se carga primero, antes que cualquier CSS propio, para partir de una base predecible.
+
+```css
+/* Reset "duro" (ej. estilo Eric Meyer): borra todo, incluso lo útil —
+   después hay que redefinir tamaños de heading, listas, etc. a mano */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ul, ol { list-style: none; }
+a { text-decoration: none; color: inherit; }
+```
+
+**Normalize.css** es el enfoque más moderno: en vez de borrar todo, **corrige las inconsistencias entre browsers** manteniendo los defaults que sí son útiles (un `<h1>` sigue siendo más grande que el texto normal, pero el tamaño exacto queda igualado entre browsers). La mayoría de los proyectos actuales usan esto en vez de un reset duro — o ni siquiera lo agregan a mano: frameworks como Tailwind ya traen su propio reset moderno (el "preflight") incluido.
+
+Por qué importa: sin esto, el mismo HTML/CSS puede verse ligeramente distinto según el browser sin que haya ningún bug en el código — solo defaults distintos compitiendo con los estilos propios.
+
 ## Especificidad y selectores
 
 El browser resuelve conflictos entre reglas CSS por **especificidad**, no por quién "se ve más específico" a simple vista. De menor a mayor peso: selector de elemento (`div`) < clase/atributo/pseudo-clase (`.card`, `[type="text"]`, `:hover`) < id (`#header`) < estilos inline (`style="..."`) < `!important`.
@@ -10,6 +30,27 @@ div.card { color: blue; }      /* especificidad: 0-1-1 */
 ```
 
 `!important` rompe la cascada normal y gana casi siempre — por eso es una señal de alarma en un codebase: suele indicar que alguien no pudo (o no supo cómo) ganarle a otra regla de forma prolija, y termina generando una carrera de `!important` contra `!important`.
+
+### `@layer` — ordenar la cascada sin pelear con especificidad
+
+`@layer` (CSS Cascade Layers) declara explícitamente el orden de prioridad entre grupos de reglas — una capa declarada después le gana a una declarada antes, **sin importar la especificidad de cada regla individual dentro de esa capa**. Es la forma moderna de evitar la guerra de `!important` cuando conviven varias librerías (Bootstrap, un design system, tu propio CSS) que compiten por los mismos elementos.
+
+```css
+/* el orden de esta línea define la prioridad — de menor a mayor */
+@layer reset, libraries, components, utilities;
+
+@layer libraries {
+  @import url("bootstrap.css"); /* lo que traiga Bootstrap queda contenido en esta capa */
+}
+
+@layer components {
+  /* le gana a CUALQUIER regla de .libraries, aunque esa regla tenga
+     mayor especificidad (ej. un id) — la capa manda antes que la especificidad */
+  .boton { color: blue; }
+}
+```
+
+Dentro de una misma capa, la especificidad normal sigue aplicando — `@layer` no reemplaza esas reglas, agrega un nivel de prioridad **por encima** de ellas. Cualquier CSS que no esté dentro de ningún `@layer` se trata como la capa de mayor prioridad de todas, así que el código sin capas de siempre sigue ganando por default sin tener que migrarlo.
 
 ## Flexbox vs Grid
 

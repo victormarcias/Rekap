@@ -74,6 +74,7 @@
 - **CSR (Client-Side Rendering)** — [Renderizado](frontend-react/renderizado.md#csr-vs-ssr)
 - **CSS-in-JS** — [CSS](frontend-react/css.md#metodologías-para-organizar-y-scopear-estilos)
 - **CSS Modules** — [CSS](frontend-react/css.md#metodologías-para-organizar-y-scopear-estilos)
+- **CSS Reset / Normalize.css** — [CSS](frontend-react/css.md#css-reset--normalize)
 - **CSSOM** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#8-el-navegador-renderiza)
 - **CSS Variables (Custom Properties)** — [CSS](frontend-react/css.md#css-variables-custom-properties)
 - **Custom hook (React)** — [Hooks](frontend-react/hooks.md#custom-hooks)
@@ -178,6 +179,7 @@
 
 - **L4 (transport layer)** — [Load Balancers](backend/load-balancers.md#l4-vs-l7)
 - **L7 (application layer)** — [Load Balancers](backend/load-balancers.md#l4-vs-l7)
+- **Layer, `@layer` (CSS Cascade Layers)** — [CSS](frontend-react/css.md#layer--ordenar-la-cascada-sin-pelear-con-especificidad)
 - **Lazy loading (React.lazy / Suspense)** — [Code Splitting](frontend-react/code-splitting.md#reactlazy--suspense)
 - **LCP (Largest Contentful Paint)** — [Web Vitals](frontend-react/web-vitals.md#core-web-vitals)
 - **Least connections** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
