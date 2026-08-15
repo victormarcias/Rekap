@@ -99,6 +99,7 @@
 - **Disponibilidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#disponibilidad)
 - **Distributed lock** — [Redis](backend/redis.md#no-es-solo-cache)
 - **Distributed monolith** — [Monolito vs Microservicios](backend/monolito-vs-microservicios.md#el-anti-patrón-distributed-monolith)
+- **Django** — [Motores de SQL](database/motores-de-sql.md)
 - **DNS (Domain Name System)** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#2-resolución-dns--de-dominio-a-ip)
 - **Document store** — [NoSQL](database/nosql.md#categorías-principales)
 - **DOM (Document Object Model)** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#8-el-navegador-renderiza)
@@ -118,13 +119,16 @@
 - **Exclusive lock** — [Locks](database/locks.md#shared-lock-s-vs-exclusive-lock-x)
 - **Execution plan** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#execution-plan)
 - **Expand/contract pattern** — [Migraciones de base de datos](database/migraciones.md#4-expandcontract-pattern-zero-downtime)
+- **Express** — [Motores de SQL](database/motores-de-sql.md)
 
 ### F
 
 - **f-strings (Python)** — [Sintaxis general](python/sintaxis.md#f-strings--interpolación-de-strings)
 - **Facade (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#facade)
 - **Factory Method** — [Patrones creacionales](system-design/patrones-creacionales.md#factory-method)
+- **FastAPI** — [Motores de SQL](database/motores-de-sql.md)
 - **Fixture (testing)** — [Testing — conceptos generales](system-design/testing.md#9-fixtures)
+- **Flask** — [Motores de SQL](database/motores-de-sql.md)
 - **Flexbox** — [CSS](frontend-react/css.md#flexbox-vs-grid)
 - **Forbidden (403)** — [Autenticación y Seguridad](backend/autenticacion.md#7-autenticación-vs-autorización)
 - **Forward-only migration** — [Migraciones de base de datos](database/migraciones.md#2-forward-only-vs-reversible)
@@ -203,6 +207,8 @@
 - **Migración de schema** — [Migraciones de base de datos](database/migraciones.md#1-versionado-de-schema)
 - **Mock** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
 - **Module Federation** — [Module Federation](frontend-react/module-federation.md)
+- **MongoDB** — [Motores de SQL](database/motores-de-sql.md)
+- **Mongoose (ODM)** — [Motores de SQL](database/motores-de-sql.md)
 - **Monolito** — [Monolito vs Microservicios](backend/monolito-vs-microservicios.md#monolito)
 - **moto (Python)** — [Testing en FastAPI](backend/fastapi/testing.md#4-mockear-servicios-externos)
 - **Moved Permanently (301)** — [HTTP Status Codes](system-design/http-status-codes.md#3xx--redirection)
@@ -216,6 +222,7 @@
 
 - **N+1 (problema)** — [Diagnóstico Backend](diagnostico/backend.md#problema-n1)
 - **Namespaces / cgroups** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
+- **NestJS** — [Motores de SQL](database/motores-de-sql.md)
 - **No Content (204)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)
 - **Non-clustered index** — [Índices](database/indices.md#clustered-vs-non-clustered)
 - **Non-repeatable read** — [ACID / isolation levels](database/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
@@ -252,6 +259,7 @@
 - **Pessimistic locking** — [Locks](database/locks.md#pessimistic-vs-optimistic-locking)
 - **Phantom read** — [ACID / isolation levels](database/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
 - **Playwright** — [Testing en React](frontend-react/testing.md#herramientas-e2e-selenium-vs-cypress-vs-playwright)
+- **Prisma** — [Motores de SQL](database/motores-de-sql.md)
 - **Procesar resultados en chunks (fetchmany)** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#procesar-resultados-grandes-en-chunks)
 - **Producto cartesiano (JOIN)** — [Query Optimization](database/query-optimization.md#joins-correctos--evitar-productos-cartesianos)
 - **Prop drilling** — [Estado global](frontend-react/estado-global.md#prop-drilling--el-problema)
@@ -283,6 +291,7 @@
 - **REST** — [REST](backend/rest.md)
 - **Rollback** — [Rollback / savepoints](database/rollback-savepoints.md#rollback)
 - **Round robin** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
+- **Ruby on Rails** — [Motores de SQL](database/motores-de-sql.md)
 - **runInBand (Jest — equivalente a correr tests en serial)** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 
 ### S
@@ -310,6 +319,9 @@
 - **SOLID** — [SOLID principles](system-design/solid.md)
 - **Sort key (DynamoDB)** — [Key-Value Store / DynamoDB](backend/dynamodb-key-value-store.md#partition-key-y-sort-key)
 - **SPA (Single Page Application)** — [Renderizado](frontend-react/renderizado.md#spa-single-page-application)
+- **Spring Boot** — [Motores de SQL](database/motores-de-sql.md)
+- **SQLAlchemy** — [Motores de SQL](database/motores-de-sql.md)
+- **SQLite** — [Motores de SQL](database/motores-de-sql.md)
 - **SQS** — [Colas de mensajes](backend/colas-de-mensajes.md#sqs-amazon-simple-queue-service)
 - **SSE (Server-Sent Events)** — [WebSocket / SSE / Streaming](frontend-react/websocket-sse-streaming.md#sse-server-sent-events--unidireccional)
 - **SSG (Static Site Generation)** — [Renderizado](frontend-react/renderizado.md#ssg-la-variante-prima)
@@ -343,6 +355,7 @@
 - **Tree shaking** — [Tree Shaking](frontend-react/tree-shaking.md)
 - **Trigger (SQL)** — [Triggers y Vistas](database/triggers-y-vistas.md#triggers)
 - **TTL (Time To Live)** — [Cache Invalidation](backend/cache-invalidation.md#ttl-vs-invalidación-explícita)
+- **TypeORM** — [Motores de SQL](database/motores-de-sql.md)
 
 ### U
 
