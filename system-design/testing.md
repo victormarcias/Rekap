@@ -145,6 +145,14 @@ def test_shipping_ar_heavy_branch():
 
 **Trade-off**: caja negra es más robusta a refactors (no le importa cómo está hecho — ver el punto 7) y refleja mejor el contrato que le importa al usuario real. Caja blanca encuentra casos borde que el spec no contempló explícitamente (esa rama `weight > 10` capaz nadie la pidió, pero existe en el código y hay que cubrirla) — es la base de las métricas de *code coverage*. En la práctica, la mayoría de los tests de un equipo son caja negra a nivel de comportamiento, con caja blanca usada puntualmente para cazar ramas sin cubrir.
 
+| | Black Box | White Box |
+|---|---|---|
+| Qué mira | Solo input/output — la spec/contrato | El código interno — ramas, paths |
+| ¿Necesita ver el código? | No | Sí |
+| Ejemplo de caso | "Envío a Argentina cuesta X" | "Sé que hay un `if peso > 10` distinto" |
+| Riesgo principal | Puede no cubrir un branch interno raro que la spec no menciona | Frágil ante refactors que no cambian el comportamiento externo |
+| Quién lo suele escribir | QA, o cualquiera con la spec en mano | El propio dev que escribió esa función |
+
 ## 9. Fixtures
 
 Un **fixture** es el estado conocido y reproducible desde el que arranca un test — datos de prueba, un objeto ya construido, o el entorno ya preparado (una conexión, un usuario de prueba). La idea es que el test nunca dependa de "lo que haya quedado" de una corrida anterior: arranca siempre del mismo punto de partida, declarado explícitamente.

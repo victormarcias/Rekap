@@ -47,3 +47,18 @@ describe('Login', () => {
 ```
 
 El costo de E2E es que es más lento y más frágil ante cambios de infraestructura (si el backend está caído, el test falla aunque el frontend esté perfecto) — por eso va en la punta angosta de la [test pyramid](../system-design/testing.md#1-test-pyramid): pocos tests E2E cubriendo los flujos críticos (login, checkout), muchos más unit tests con RTL cubriendo el resto.
+
+## Herramientas E2E: Selenium vs Cypress vs Playwright
+
+| | Selenium | Cypress | Playwright |
+|---|---|---|---|
+| Generación | 2004 — el más viejo | 2017 | 2020, Microsoft |
+| Arquitectura | Corre *afuera* del browser (protocolo WebDriver) | Corre *adentro* del browser (mismo event loop) | Corre afuera, protocolo moderno tipo CDP |
+| Multi-browser | Sí — Chrome, Firefox, Safari, Edge | Limitado, históricamente atado a Chromium | Sí, nativo — Chromium, Firefox, WebKit |
+| Auto-wait de elementos | No, hay que esperarlo manual | Sí | Sí |
+| Velocidad | Más lento | Rápido | Muy rápido |
+| Paralelización en CI | Posible, pero infraestructura propia | Necesita Cypress Cloud (pago) para hacerlo bien | Nativo y gratis |
+| Lenguajes | Java, Python, C#, JS, Ruby... (el más políglota) | Solo JS/TS | JS/TS, Python, Java, C# |
+| Tendencia hoy | Legacy — muy instalado en empresas grandes ya armadas | Sigue muy usado | Ganando terreno rápido en proyectos nuevos |
+
+Ninguno reemplaza al otro por completo — la elección hoy en un proyecto nuevo suele ser Playwright por default, salvo que el equipo ya tenga experiencia/infraestructura hecha en Cypress o necesite el soporte políglota de Selenium (ej. un equipo de QA que ya escribe en Java).
