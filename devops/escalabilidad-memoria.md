@@ -14,8 +14,8 @@ resources:
 ## Cuándo escalar memoria
 
 - **Vertical**: subir el tamaño de instancia/el `limit` del pod, cuando el uso de memoria es genuinamente proporcional a la carga (más usuarios concurrentes, datasets más grandes en memoria).
-- **Cachés en RAM que crecen sin límite**: un cache sin política de evicción (sin TTL, sin límite de tamaño) eventualmente consume toda la memoria disponible — no es un leak técnico, pero el síntoma es el mismo. Ver [Redis](../backend/redis.md) para un store externo con políticas de evicción, en vez de cachear todo en memoria del proceso.
+- **Cachés en RAM que crecen sin límite**: un cache sin política de evicción (sin TTL, sin límite de tamaño) eventualmente consume toda la memoria disponible — no es un leak técnico, pero el síntoma es el mismo. Ver [Redis](../database/redis.md) para un store externo con políticas de evicción, en vez de cachear todo en memoria del proceso.
 - **Swap**: cuando la RAM física se agota, el sistema operativo puede usar disco como memoria virtual — funciona, pero el acceso a disco es órdenes de magnitud más lento que RAM; un proceso "swappeando" activamente tiene toda la pinta de estar colgado aunque técnicamente siga vivo.
 
 ---
-Relacionado: [Diagnóstico Backend](../diagnostico/backend.md#memoria) (memory leaks), [Kubernetes](kubernetes.md#resource-limits), [Redis](../backend/redis.md).
+Relacionado: [Diagnóstico Backend](../diagnostico/backend.md#memoria) (memory leaks), [Kubernetes](kubernetes.md#resource-limits), [Redis](../database/redis.md).
