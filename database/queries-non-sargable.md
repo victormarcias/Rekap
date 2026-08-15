@@ -69,6 +69,6 @@ Si la columna indexada aparece **dentro** de una función, cast, o cálculo del 
 EXPLAIN ANALYZE SELECT ...;
 ```
 
-Buscar `Seq Scan` donde se esperaría `Index Scan`. Ver [db-diagnostico](../db-diagnostico/README.md).
+Buscar `Seq Scan` donde se esperaría `Index Scan`. Ver [Diagnóstico Base de Datos](../diagnostico/base-de-datos.md).
 
 Relacionado: [Índices](indices.md).

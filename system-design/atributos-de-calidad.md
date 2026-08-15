@@ -18,11 +18,11 @@ app.post('/login', async (req, res) => {
 });
 ```
 
-Ver [Escalabilidad vertical vs horizontal](../diagnostico/devops.md) para la implementación concreta a nivel infraestructura, y [Sharding vs partitioning](../sql/sharding-vs-partitioning.md) para el ángulo de base de datos.
+Ver [Escalabilidad vertical vs horizontal](../diagnostico/devops.md) para la implementación concreta a nivel infraestructura, y [Sharding vs partitioning](../database/sharding-vs-partitioning.md) para el ángulo de base de datos.
 
 ## Inmutabilidad
 
-Una vez creado un dato, no cambia — cualquier "modificación" produce una copia nueva. Importa porque elimina una clase entera de bugs de concurrencia (nadie puede mutar algo que otro está leyendo al mismo tiempo — ver [Locks](../sql/locks.md)), hace el estado predecible, y permite detectar cambios comparando referencias en vez de hacer una comparación profunda costosa — es la base de cómo React decide si re-renderizar.
+Una vez creado un dato, no cambia — cualquier "modificación" produce una copia nueva. Importa porque elimina una clase entera de bugs de concurrencia (nadie puede mutar algo que otro está leyendo al mismo tiempo — ver [Locks](../database/locks.md)), hace el estado predecible, y permite detectar cambios comparando referencias en vez de hacer una comparación profunda costosa — es la base de cómo React decide si re-renderizar.
 
 ```python
 # ❌ mutable: cualquier código con una referencia al objeto puede alterarlo
@@ -91,7 +91,7 @@ readinessProbe:
   periodSeconds: 10
 ```
 
-Trade-off directo con **Consistencia** (ver más abajo) — es la esencia del CAP theorem, ver [NoSQL](../sql/nosql.md).
+Trade-off directo con **Consistencia** (ver más abajo) — es la esencia del CAP theorem, ver [NoSQL](../database/nosql.md).
 
 ## Consistencia
 
@@ -105,7 +105,7 @@ UPDATE accounts SET balance = balance - 100 WHERE id = 1;
 COMMIT;
 ```
 
-Ver [ACID / isolation levels](../sql/acid-transacciones-isolation.md) para consistencia fuerte, y [NoSQL](../sql/nosql.md) para el trade-off con disponibilidad (CAP theorem).
+Ver [ACID / isolation levels](../database/acid-transacciones-isolation.md) para consistencia fuerte, y [NoSQL](../database/nosql.md) para el trade-off con disponibilidad (CAP theorem).
 
 ## Tolerancia a fallos
 

@@ -10,7 +10,7 @@ Este repositorio contiene conocimiento general de informática.
 - [🎯 Fundamentals](fundamentals/) — repaso de fundamentos por lenguaje/stack
 - [⚛️ Frontend React](frontend-react/) — hooks, eventos DOM, performance, SSR
 - [💼 Job Hunting](job-hunting/) — hidden job market, cold outreach, LinkedIn
-- [🗄️ SQL](sql/) — bases de datos relacionales, transacciones, índices, NoSQL
+- [🗄️ Database](database/) — bases de datos relacionales, transacciones, índices, NoSQL
 - [🏛️ System Design](system-design/) — patrones, atributos de calidad, protocolos
 
 ## Glosario

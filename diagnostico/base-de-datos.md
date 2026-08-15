@@ -4,11 +4,11 @@ Causas más comunes de lentitud a nivel base de datos, de más a menos frecuente
 
 ## `WHERE` mal usados
 
-Condiciones que no permiten usar índices (funciones sobre la columna, wildcard al inicio de un `LIKE`, casts implícitos). Ver [Queries non-sargable](../sql/queries-non-sargable.md).
+Condiciones que no permiten usar índices (funciones sobre la columna, wildcard al inicio de un `LIKE`, casts implícitos). Ver [Queries non-sargable](../database/queries-non-sargable.md).
 
 ## Bloqueos y contenciones (transacciones)
 
-Transacciones largas o mal aisladas retienen locks y hacen esperar a otras — deadlocks, transacciones que hacen `SELECT` innecesarios dentro del lock, isolation level más estricto de lo necesario. Ver [Locks](../sql/locks.md) y [ACID / isolation levels](../sql/acid-transacciones-isolation.md).
+Transacciones largas o mal aisladas retienen locks y hacen esperar a otras — deadlocks, transacciones que hacen `SELECT` innecesarios dentro del lock, isolation level más estricto de lo necesario. Ver [Locks](../database/locks.md) y [ACID / isolation levels](../database/acid-transacciones-isolation.md).
 
 ## Queries complejas (joins de más, `WHERE` con `LIKE`)
 
@@ -16,11 +16,11 @@ Joins que traen columnas/tablas que no se usan, o filtros tipo `LIKE '%texto%'` 
 
 ## Falta de mantenimiento (reindexado y estadísticas)
 
-Índices fragmentados y estadísticas desactualizadas hacen que el planner tome malas decisiones. `ANALYZE` recalcula la distribución de valores por columna que el planner usa para estimar cuántas filas va a devolver cada filtro — sin eso, puede subestimar el costo de un `Seq Scan` y descartar un índice que sí convenía usar. `VACUUM` recupera el espacio de las filas "muertas" que deja MVCC tras updates/deletes (ver [Locks](../sql/locks.md)); sin él, la tabla y sus índices se inflan y cada scan lee más páginas de las necesarias. Reindexar hace falta cuando el índice se fragmenta por mucha escritura/borrado y ya no queda balanceado. Correr `VACUUM ANALYZE` (Postgres) / `ANALYZE TABLE` (MySQL) periódicamente en vez de esperar a que el problema aparezca.
+Índices fragmentados y estadísticas desactualizadas hacen que el planner tome malas decisiones. `ANALYZE` recalcula la distribución de valores por columna que el planner usa para estimar cuántas filas va a devolver cada filtro — sin eso, puede subestimar el costo de un `Seq Scan` y descartar un índice que sí convenía usar. `VACUUM` recupera el espacio de las filas "muertas" que deja MVCC tras updates/deletes (ver [Locks](../database/locks.md)); sin él, la tabla y sus índices se inflan y cada scan lee más páginas de las necesarias. Reindexar hace falta cuando el índice se fragmenta por mucha escritura/borrado y ya no queda balanceado. Correr `VACUUM ANALYZE` (Postgres) / `ANALYZE TABLE` (MySQL) periódicamente en vez de esperar a que el problema aparezca.
 
 ## Índices
 
-Faltantes, redundantes, o mal diseñados (orden de columnas en compuestos, baja selectividad). Ver [Índices](../sql/indices.md).
+Faltantes, redundantes, o mal diseñados (orden de columnas en compuestos, baja selectividad). Ver [Índices](../database/indices.md).
 
 ## Execution plan
 
@@ -62,11 +62,11 @@ Para analítica multidimensional pesada (BI, reportes históricos), separar el w
 
 ## Sharding entre distintas DBs (escalabilidad horizontal)
 
-Cuando ya se indexó, cacheó y particionó bien, pero un solo servidor sigue sin dar abasto en CPU, memoria o IOPS, la siguiente escala es distribuir los datos entre múltiples instancias independientes (shards). El costo: joins y transacciones que antes eran nativos ahora cruzan servidores distintos, y hay que resolverlos a mano en la capa de aplicación. Ver [Sharding vs partitioning](../sql/sharding-vs-partitioning.md).
+Cuando ya se indexó, cacheó y particionó bien, pero un solo servidor sigue sin dar abasto en CPU, memoria o IOPS, la siguiente escala es distribuir los datos entre múltiples instancias independientes (shards). El costo: joins y transacciones que antes eran nativos ahora cruzan servidores distintos, y hay que resolverlos a mano en la capa de aplicación. Ver [Sharding vs partitioning](../database/sharding-vs-partitioning.md).
 
 ## Range partitioning
 
-Caso particular de partitioning donde el criterio es un rango de valores, típicamente fechas (`orders_2024`, `orders_2025`). Sirve puntualmente cuando las queries casi siempre filtran por ese rango (ej. "pedidos del último mes"): el planner descarta directamente las particiones que no aplican (*partition pruning*) en vez de escanear la tabla completa, y permite borrar datos viejos eliminando una partición entera en vez de un `DELETE` masivo fila por fila. Ver [Sharding vs partitioning](../sql/sharding-vs-partitioning.md).
+Caso particular de partitioning donde el criterio es un rango de valores, típicamente fechas (`orders_2024`, `orders_2025`). Sirve puntualmente cuando las queries casi siempre filtran por ese rango (ej. "pedidos del último mes"): el planner descarta directamente las particiones que no aplican (*partition pruning*) en vez de escanear la tabla completa, y permite borrar datos viejos eliminando una partición entera en vez de un `DELETE` masivo fila por fila. Ver [Sharding vs partitioning](../database/sharding-vs-partitioning.md).
 
 ## Hardware específico
 
@@ -74,4 +74,4 @@ Antes de asumir que el problema es la query o el índice, descartar el piso fís
 
 ## NoSQL (si hace falta)
 
-Si después de indexar, cachear y particionar bien la base relacional sigue sin dar abasto, y el patrón de acceso es simple (búsquedas por key, sin joins complejos ni necesidad de integridad transaccional fuerte), vale la pena evaluar mover esa porción puntual del dominio a NoSQL en vez de seguir forzando el modelo relacional. No es un reemplazo general — es una herramienta para el caso donde el cuello de botella es escala horizontal, no relaciones. Ver [NoSQL](../sql/nosql.md).
+Si después de indexar, cachear y particionar bien la base relacional sigue sin dar abasto, y el patrón de acceso es simple (búsquedas por key, sin joins complejos ni necesidad de integridad transaccional fuerte), vale la pena evaluar mover esa porción puntual del dominio a NoSQL en vez de seguir forzando el modelo relacional. No es un reemplazo general — es una herramienta para el caso donde el cuello de botella es escala horizontal, no relaciones. Ver [NoSQL](../database/nosql.md).

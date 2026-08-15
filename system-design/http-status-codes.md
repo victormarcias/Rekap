@@ -37,7 +37,7 @@ El error es del lado del cliente — el request está mal formado, no autenticad
 - **403 Forbidden**: está autenticado, pero no tiene permiso para esta acción. Ver la distinción completa en [Autenticación vs Autorización](../backend/autenticacion.md#7-autenticación-vs-autorización) — es el error más confundido de toda la lista.
 - **404 Not Found**: el recurso no existe. También se usa a veces **a propósito** en vez de `403`, para no filtrarle a un atacante que un recurso existe pero no tiene permiso — depende de cuánta información querés exponer.
 - **405 Method Not Allowed**: el recurso existe, pero no soporta ese verbo HTTP (ej. `DELETE /orders` cuando esa ruta solo acepta `GET`/`POST`).
-- **409 Conflict**: el request es válido, pero choca con el estado actual del recurso — el caso típico es un update basado en una versión vieja (ver [Optimistic locking](../sql/locks.md#pessimistic-vs-optimistic-locking)).
+- **409 Conflict**: el request es válido, pero choca con el estado actual del recurso — el caso típico es un update basado en una versión vieja (ver [Optimistic locking](../database/locks.md#pessimistic-vs-optimistic-locking)).
 - **422 Unprocessable Entity**: el request tiene el formato correcto (JSON válido) pero los datos no pasan las reglas de negocio/validación — la línea con `400` es fina y varía según el equipo; muchos frameworks (FastAPI incluido) usan `422` específicamente para errores de validación de schema.
 - **429 Too Many Requests**: rate limit excedido — normalmente viene con un header `Retry-After` indicando cuánto esperar antes de reintentar.
 
