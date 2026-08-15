@@ -173,6 +173,44 @@ spec:
       resource: { name: cpu, target: { type: Utilization, averageUtilization: 70 } }
 ```
 
+## Mantenibilidad
+
+Qué tan fácil es entender, modificar y extender el sistema sin romper cosas ni tardar cada vez más en cada cambio. No hay un "medidor" directo — se infiere de proxies: código acoplado vs desacoplado, tests que dan confianza para refactorizar sin miedo, una misma regla de negocio viviendo en un solo lugar en vez de copiada en varios.
+
+```python
+# ❌ el mismo "threshold mágico" repetido en varios lugares —
+# cambiarlo implica encontrar y actualizar cada aparición, con riesgo de olvidarse una
+def can_checkout(cart_total):
+    return cart_total >= 50
+
+def apply_free_shipping(cart_total):
+    return cart_total >= 50
+
+# ✅ una sola fuente de verdad — cambiar la regla de negocio es un solo lugar
+FREE_SHIPPING_THRESHOLD = 50
+
+def can_checkout(cart_total):
+    return cart_total >= FREE_SHIPPING_THRESHOLD
+```
+
+[SOLID](solid.md) es, en esencia, un conjunto de principios pensados para maximizar esto — el Open/Closed Principle en particular ("abierto a extensión, cerrado a modificación") es la versión más directa de "agregar una feature nueva sin tener que tocar código que ya funciona y ya está probado".
+
+## Performance (Velocidad)
+
+Qué tan rápido responde el sistema — dos caras que no siempre van juntas: **latencia** (cuánto tarda una operación individual) y **throughput** (cuántas operaciones por segundo puede sostener). Optimizar una a veces empeora la otra (ej. procesar en batches grandes mejora throughput pero empeora la latencia de cada request individual que espera a que se junte el batch).
+
+```
+p50 (mediana): 90ms   — la mitad de los requests responde más rápido que esto
+p95: 320ms
+p99: 1800ms            — 1 de cada 100 requests tarda esto o más
+
+El promedio (ej. 150ms) esconde el p99: si un 1% de tus usuarios
+sufre 1.8 segundos de latencia, el promedio solo no lo muestra —
+mirar percentiles altos es la única forma de ver esa cola larga.
+```
+
+Medirlo bien importa más que cualquier técnica puntual — ver [Performance Diagnostics](../frontend-react/performance-diagnostics.md) y [Web Vitals](../frontend-react/web-vitals.md) del lado frontend, [Query Optimization](../database/query-optimization.md) del lado de base de datos, y [Diagnóstico Backend](../diagnostico/backend.md) / [Diagnóstico Frontend](../diagnostico/frontend.md) para las causas más comunes de un sistema lento.
+
 ## Resumen
 
 | Atributo | En una frase |
@@ -185,5 +223,8 @@ spec:
 | Idempotencia | Repetir la operación no cambia el resultado |
 | Observabilidad | Podés entender qué pasa adentro desde afuera |
 | Elasticidad | Escala sola, arriba y abajo, según demanda |
+| Mantenibilidad | Fácil de modificar sin romper todo lo demás |
+| Performance | Responde rápido y sostiene la carga |
+| Seguridad | Protege datos y accesos — ver [Autenticación y Seguridad](../backend/autenticacion.md) |
 
 Estos atributos suelen tironear entre sí (el ejemplo clásico: más Consistencia generalmente cuesta Disponibilidad). Toda decisión de arquitectura es elegir conscientemente qué priorizar para el caso de uso — no existe un diseño que maximice todos a la vez.

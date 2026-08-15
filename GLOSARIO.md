@@ -188,6 +188,7 @@
 
 - **L4 (transport layer)** — [Load Balancers](backend/load-balancers.md#l4-vs-l7)
 - **L7 (application layer)** — [Load Balancers](backend/load-balancers.md#l4-vs-l7)
+- **Latencia** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#performance-velocidad)
 - **Layer, `@layer` (CSS Cascade Layers)** — [CSS](frontend-react/css.md#layer--ordenar-la-cascada-sin-pelear-con-especificidad)
 - **Lazy loading (React.lazy / Suspense)** — [Code Splitting](frontend-react/code-splitting.md#reactlazy--suspense)
 - **LCP (Largest Contentful Paint)** — [Web Vitals](frontend-react/web-vitals.md#core-web-vitals)
@@ -200,6 +201,7 @@
 
 ### M
 
+- **Mantenibilidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#mantenibilidad)
 - **memo / useMemo / useCallback (React)** — [Diagnóstico Frontend](diagnostico/frontend.md#componentes-que-no-usan-memousememousecallback)
 - **Method Not Allowed (405)** — [HTTP Status Codes](system-design/http-status-codes.md#4xx--client-error)
 - **Micro-frontends** — [Module Federation](frontend-react/module-federation.md#el-problema-que-resuelve)
@@ -256,6 +258,7 @@
 - **Partition key (DynamoDB)** — [Key-Value Store / DynamoDB](database/dynamodb-key-value-store.md#partition-key-y-sort-key)
 - **Partition pruning** — [Sharding vs partitioning](database/sharding-vs-partitioning.md#partitioning)
 - **Partitioning** — [Sharding vs partitioning](database/sharding-vs-partitioning.md#partitioning)
+- **Percentiles (p50/p95/p99)** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#performance-velocidad)
 - **Pessimistic locking** — [Locks](database/locks.md#pessimistic-vs-optimistic-locking)
 - **Phantom read** — [ACID / isolation levels](database/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
 - **Playwright** — [Testing en React](frontend-react/testing.md#herramientas-e2e-selenium-vs-cypress-vs-playwright)
@@ -347,6 +350,7 @@
 - **TestClient (FastAPI)** — [Endpoints para microservicios](backend/fastapi/endpoints-microservicios.md#8-testing-de-endpoints-con-testclient)
 - **Tests frágiles (brittle tests)** — [Testing — conceptos generales](system-design/testing.md#7-tests-frágiles-vs-tests-robustos)
 - **Tests robustos (resilient tests)** — [Testing — conceptos generales](system-design/testing.md#7-tests-frágiles-vs-tests-robustos)
+- **Throughput** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#performance-velocidad)
 - **TLS handshake** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#4-tls-handshake-si-es-https)
 - **Tolerancia a fallos** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#tolerancia-a-fallos)
 - **Too Many Requests (429)** — [HTTP Status Codes](system-design/http-status-codes.md#4xx--client-error)
