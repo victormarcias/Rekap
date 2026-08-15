@@ -60,7 +60,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSessi
 
 ## 4. `pydantic-settings` para configuración
 
-`SECRET_KEY` hardcodeado en el código termina, tarde o temprano, commiteado a git. Leerlo desde variables de entorno / `.env` (que va en `.gitignore`, ver [Setup clásico](../../python/setup-macos.md)) evita que el secreto viaje con el código fuente.
+`SECRET_KEY` hardcodeado en el código termina, tarde o temprano, commiteado a git. Leerlo desde variables de entorno / `.env` (que va en `.gitignore`, ver [Setup clásico](../../stacks/python/setup-macos.md)) evita que el secreto viaje con el código fuente.
 
 ```python
 from pydantic_settings import BaseSettings

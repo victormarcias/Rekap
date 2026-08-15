@@ -63,7 +63,7 @@
 - **Consistent hashing** — [Sharding vs partitioning](database/sharding-vs-partitioning.md#sharding)
 - **Consumer Group (Kafka)** — [Arquitectura Kafka](backend/kafka.md#producers--consumers-y-consumer-groups)
 - **Context API (React)** — [Estado global](frontend-react/estado-global.md#context-api--la-solución-nativa)
-- **Context manager (`with`, Python)** — [Sintaxis general](python/sintaxis.md#context-managers--with)
+- **Context manager (`with`, Python)** — [Sintaxis general](stacks/python/sintaxis.md#context-managers--with)
 - **Controller / Service / Repository** — [Controller / Service / Repository](backend/controller-service-repository.md)
 - **Cookie (HttpOnly / Secure / SameSite)** — [Almacenamiento en el cliente](frontend-react/almacenamiento-cliente.md#cookies)
 - **Core Web Vitals (LCP, INP, CLS)** — [Web Vitals](frontend-react/web-vitals.md)
@@ -123,7 +123,7 @@
 
 ### F
 
-- **f-strings (Python)** — [Sintaxis general](python/sintaxis.md#f-strings--interpolación-de-strings)
+- **f-strings (Python)** — [Sintaxis general](stacks/python/sintaxis.md#f-strings--interpolación-de-strings)
 - **Facade (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#facade)
 - **Factory Method** — [Patrones creacionales](system-design/patrones-creacionales.md#factory-method)
 - **FastAPI** — [Motores de SQL](database/motores-de-sql.md)
@@ -194,7 +194,7 @@
 - **Least connections** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
 - **Least privilege (principio)** — [Privacidad y GDPR](frontend-react/privacidad-y-gdpr.md#correct-settings-configuración-segura-por-default)
 - **Liskov Substitution Principle (L de SOLID)** — [SOLID principles](system-design/solid.md#l--liskov-substitution-principle)
-- **List comprehension (Python)** — [Sintaxis general](python/sintaxis.md#comprehensions)
+- **List comprehension (Python)** — [Sintaxis general](stacks/python/sintaxis.md#comprehensions)
 - **localStorage** — [Almacenamiento en el cliente](frontend-react/almacenamiento-cliente.md#localstorage)
 - **Long polling** — [Colas de mensajes](backend/colas-de-mensajes.md#sqs-amazon-simple-queue-service)
 
@@ -267,7 +267,7 @@
 - **Proxy (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#proxy)
 - **Pub/Sub** — [Redis](backend/redis.md#no-es-solo-cache)
 - **Pydantic (BaseModel, Python)** — [Endpoints para microservicios](backend/fastapi/endpoints-microservicios.md#3-validación-de-entrada-con-pydantic)
-- **pyenv (Python)** — [Setup en macOS — flujo clásico](python/setup-macos.md#2-pyenv--manejo-de-versiones-de-python)
+- **pyenv (Python)** — [Setup en macOS — flujo clásico](stacks/python/setup-macos.md#2-pyenv--manejo-de-versiones-de-python)
 - **pytest (fixtures / conftest.py, Python)** — [Testing en FastAPI](backend/fastapi/testing.md#1-pytest-fixtures-y-conftestpy)
 
 ### R
@@ -366,11 +366,11 @@
 - **useContext (React)** — [Hooks](frontend-react/hooks.md#usecontext)
 - **useEffect (React)** — [Diagnóstico Frontend](diagnostico/frontend.md#useeffect-mal-usado--re-renders-en-cadena)
 - **useRef (React)** — [Hooks](frontend-react/hooks.md#useref)
-- **uv (Python)** — [Setup en macOS con uv](python/setup-uv.md)
+- **uv (Python)** — [Setup en macOS con uv](stacks/python/setup-uv.md)
 
 ### V
 
-- **venv (Python)** — [Setup en macOS — flujo clásico](python/setup-macos.md#3-venv--entornos-virtuales)
+- **venv (Python)** — [Setup en macOS — flujo clásico](stacks/python/setup-macos.md#3-venv--entornos-virtuales)
 - **Vertical Partitioning** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#vertical-partitioning)
 - **Virtual DOM** — [React Fundamentos](frontend-react/react-fundamentos.md#virtual-dom)
 - **Virtualización (VM vs Container)** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)

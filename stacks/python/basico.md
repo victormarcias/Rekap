@@ -22,7 +22,7 @@ pip uninstall fastapi
 pip list                        # paquetes instalados en el entorno activo
 ```
 
-Ver [Setup clásico en macOS](../../python/setup-macos.md) para cómo se combina con `venv`.
+Ver [Setup clásico en macOS](setup-macos.md) para cómo se combina con `venv`.
 
 ## `requirements.txt`
 
@@ -39,7 +39,7 @@ pip freeze > requirements.txt     # genera el archivo con las versiones exactas 
 pip install -r requirements.txt   # instala todo lo que lista el archivo
 ```
 
-`pip freeze` vuelca **todo** lo instalado en el entorno, incluyendo dependencias transitivas (las que instaló otra librería, no vos directamente) — por eso un `requirements.txt` generado así puede tener 50 líneas aunque el proyecto solo declare 5 dependencias directas. Herramientas más modernas (`uv`, `poetry`) separan "lo que vos pediste" del lockfile completo — ver [Setup con uv](../../python/setup-uv.md).
+`pip freeze` vuelca **todo** lo instalado en el entorno, incluyendo dependencias transitivas (las que instaló otra librería, no vos directamente) — por eso un `requirements.txt` generado así puede tener 50 líneas aunque el proyecto solo declare 5 dependencias directas. Herramientas más modernas (`uv`, `poetry`) separan "lo que vos pediste" del lockfile completo — ver [Setup con uv](setup-uv.md).
 
 ## `if __name__ == "__main__"`
 
@@ -71,4 +71,4 @@ from mi_paquete import models   # importa el módulo desde el paquete
 ```
 
 ---
-Relacionado: [Sintaxis general](../../python/sintaxis.md), [Setup con uv](../../python/setup-uv.md).
+Relacionado: [Sintaxis general](sintaxis.md), [Setup con uv](setup-uv.md).

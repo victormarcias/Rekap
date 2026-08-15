@@ -7,7 +7,7 @@ Este repositorio contiene conocimiento general de informática.
 - [🧩 Backend](backend/) — Kafka, auth, cache, arquitectura de servicios
 - [🩺 Diagnóstico](diagnostico/) — por qué una app anda lenta, por capa (frontend/backend/DB/devops)
 - [⚙️ DevOps](devops/) — escalabilidad, Kubernetes, CDN, cold starts
-- [🎯 Fundamentals](fundamentals/) — repaso de fundamentos por lenguaje/stack
+- [🎯 Stacks](stacks/) — setup, sintaxis y fundamentos por lenguaje/stack
 - [⚛️ Frontend React](frontend-react/) — hooks, eventos DOM, performance, SSR
 - [💼 Job Hunting](job-hunting/) — hidden job market, cold outreach, LinkedIn
 - [🗄️ Database](database/) — bases de datos relacionales, transacciones, índices, NoSQL
