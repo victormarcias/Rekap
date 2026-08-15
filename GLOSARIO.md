@@ -171,6 +171,7 @@
 
 ### J
 
+- **Jest** — [Testing en React](frontend-react/testing.md#jest--lo-básico)
 - **JSX** — [React Fundamentos](frontend-react/react-fundamentos.md#jsx)
 - **JWT** — [Autenticación y Seguridad](backend/autenticacion.md#5-jwt--estructura-y-stateless)
 

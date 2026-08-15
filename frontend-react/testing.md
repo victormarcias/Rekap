@@ -6,6 +6,42 @@ Para la teoría general (test pyramid, mocks/stubs, fixtures, tests frágiles vs
 
 En frontend, lo que vale la pena testear es **comportamiento visible para el usuario** — qué se renderiza, qué pasa cuando el usuario interactúa — no detalles internos de implementación (nombres de funciones internas, estado interno de un hook). Un test que rompe porque se refactorizó un componente por dentro sin cambiar su comportamiento externo es un test frágil (ver [Tests frágiles vs robustos](../system-design/testing.md#7-tests-frágiles-vs-tests-robustos)).
 
+## Jest — lo básico
+
+Jest es el **test runner**: quién descubre los archivos de test, los ejecuta, y da el `describe`/`test`/`expect` que arma la estructura del test. RTL (más abajo) corre **arriba** de Jest — Jest ejecuta, RTL busca elementos y simula interacciones.
+
+```js
+describe('sumar', () => {
+  test('suma dos números positivos', () => {
+    expect(sumar(2, 3)).toBe(5);
+  });
+
+  test('lanza un error con un argumento inválido', () => {
+    expect(() => sumar(2, "a")).toThrow();
+  });
+});
+```
+
+Matchers comunes de `expect`: `toBe` (igualdad estricta, `===`), `toEqual` (igualdad estructural — compara el contenido de un objeto/array, no la referencia), `toContain` (un array/string contiene algo), `toBeNull`/`toBeUndefined`, `toThrow` (la función lanza un error).
+
+**Mocks con `jest.fn()` / `jest.mock()`**: reemplazar una función o un módulo entero por una versión falsa controlada por el test — el mismo concepto de [Mock](../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) explicado en la teoría general, acá con la sintaxis concreta de Jest.
+
+```js
+const fetchUsuario = jest.fn(() => Promise.resolve({ id: 1, name: 'Vic' }));
+
+test('llama a fetchUsuario una sola vez', async () => {
+  await cargarPerfil(fetchUsuario);
+  expect(fetchUsuario).toHaveBeenCalledTimes(1);
+});
+
+// jest.mock() reemplaza un módulo entero — útil para no pegarle a una API real en el test
+jest.mock('./api', () => ({
+  fetchUsuario: jest.fn(() => Promise.resolve({ id: 1, name: 'Vic' })),
+}));
+```
+
+**Vitest es API-compatible**: el mismo código de arriba (`describe`, `test`, `expect`, incluso `vi.fn()` en vez de `jest.fn()` con un alias) corre igual en Vitest — es por eso que migrar un proyecto de Jest a Vitest suele ser mecánico, no una reescritura.
+
 ## Unit Testing con RTL (React Testing Library)
 
 La filosofía de RTL es testear el componente **como lo usaría un usuario real**: buscar elementos por texto, rol o label visible (no por clases CSS o IDs internos), y simular interacciones reales en vez de llamar funciones internas directamente.
