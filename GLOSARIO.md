@@ -177,6 +177,7 @@
 ### J
 
 - **Jest** — [Testing en React](frontend-react/testing.md#jest--lo-básico)
+- **Jetpack Compose (Android)** — [React Fundamentos](frontend-react/react-fundamentos.md#virtual-dom)
 - **JSX** — [React Fundamentos](frontend-react/react-fundamentos.md#jsx)
 - **JWT** — [Autenticación y Seguridad](backend/autenticacion.md#5-jwt--estructura-y-stateless)
 
@@ -337,6 +338,7 @@
 - **Stub** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
 - **Subquery correlacionada** — [Query Optimization](database/query-optimization.md#subqueries--cuándo-evitarlas)
 - **Suspense (React)** — [Code Splitting](frontend-react/code-splitting.md#reactlazy--suspense)
+- **SwiftUI (iOS)** — [React Fundamentos](frontend-react/react-fundamentos.md#virtual-dom)
 - **SYN flood** — [DDoS Attack](backend/ddos-attack.md#tipos-de-más-simple-a-más-difícil-de-mitigar)
 
 ### T
