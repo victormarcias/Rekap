@@ -2,5 +2,7 @@
 
 Repaso por lenguaje/stack — setup, sintaxis y fundamentos. Distinto del resto del repo: acá el foco es cobertura amplia de lo esencial, no arquitectura en profundidad.
 
+- [💛 JavaScript](javascript/sintaxis.md) — variables, arrays, objects, functions, arrow functions, destructuring
+- [💚 Node.js](node/runtime.md) — Event Loop, single-threaded no bloqueante, CommonJS vs ESM, streams, buffers
 - [🐍 Python](python/) — setup, sintaxis, Python 2 vs 3, GIL, mutabilidad, OOP, decorators, generators
-- [🔷 TypeScript](typescript/) — tipado de funciones, unions, utility types, generics
+- [🔷 TypeScript](typescript/tipos.md) — tipado de funciones, unions, utility types, generics
