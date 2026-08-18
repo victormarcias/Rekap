@@ -6,6 +6,7 @@
 | Union | `A \| B` | `A \| B` (3.10+) | No nativo — se resuelve con `enum` de associated values | No nativo — se resuelve con `sealed class` | No existe — se usa herencia |
 | Intersection | `A & B` | No tiene sintaxis nativa | `A & B` (protocol composition — mismo símbolo) | No nativo — se implementan varias interfaces | Se implementan varias interfaces |
 | Nullable | `T \| null` | `T \| None` (3.10+) / `Optional[T]` | `T?` | `T?` | `Optional<T>` (wrapper, no sintaxis nativa) |
+| Optional Chaining | `?.` | No tiene sintaxis nativa — `getattr(obj, 'attr', None)` o chequeo manual | `?.` (safe navigation, mismo símbolo) | `?.` (safe call, mismo símbolo) | No tiene sintaxis nativa — `Optional.map()` encadenado o chequeo manual |
 | Generics | `<T>` | `TypeVar` / `list[T]` | `<T>` | `<T>` | `<T>` |
 | `unknown` vs `any` | `unknown` (seguro) / `any` (apaga el chequeo) | No hay distinción — sin type hint, todo es dinámico | No tiene un equivalente directo | `Any` (obliga a castear, como `unknown`) | `Object` (obliga a castear, como `unknown`) |
 | `never` | `never` | `NoReturn` (de `typing`) | `Never` | `Nothing` | No existe un equivalente directo |

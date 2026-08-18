@@ -39,6 +39,63 @@ function crear(usuario: Usuario) { }
 
 **`type` vs `interface`**: para describir la forma de un objeto se solapan bastante. La diferencia práctica: `type` puede nombrar cualquier cosa (uniones, tuplas, primitivos), mientras que `interface` solo describe objetos, pero se puede extender/reabrir en varios lugares del código (útil en librerías). Regla simple: `interface` para la forma de un objeto que puede crecer con el tiempo, `type` para todo lo demás.
 
+## Literal Types
+
+A diferencia de `string` (que acepta cualquier string posible), un literal type fija el **valor exacto** permitido.
+
+```ts
+type Direction = "up" | "down" | "left" | "right"; // union de string literals
+
+let dir: Direction = "up";        // ✅
+let dir2: Direction = "diagonal";  // ❌ error — no es uno de los 4 valores permitidos
+
+type DiceRoll = 1 | 2 | 3 | 4 | 5 | 6; // también existen number literals
+```
+
+**`as const`**: por default, TypeScript infiere el tipo más general posible de un valor (`string`, `number`). `as const` fuerza a usar el tipo literal exacto en vez del general.
+
+```ts
+let a = "hello";           // tipo inferido: string
+let b = "hello" as const;   // tipo inferido: "hello" — el literal exacto
+
+const config = { mode: "dark" };            // config.mode es tipo string
+const config2 = { mode: "dark" } as const;   // config2.mode es tipo "dark"
+```
+
+Los literal types son la base de los ejemplos de union de la sección de abajo (`"idle" | "loading" | "error"`) — ahí ya se estaban usando, acá quedan nombrados como concepto propio.
+
+## Enum vs Union de literales
+
+Para representar "un valor de entre un conjunto cerrado de opciones" hay dos caminos — no son equivalentes, difieren en **costo de runtime**.
+
+```ts
+// enum: genera código JS real que existe en producción
+enum Direction { Up = "UP", Down = "DOWN" }
+
+// union de literales: puramente de compile-time, desaparece al compilar
+type Direction2 = "up" | "down";
+```
+
+`enum` no es solo un tipo — compila a un objeto JS real:
+
+```js
+// esto es lo que genera el enum de arriba, en el JS compilado
+var Direction;
+(function (Direction) {
+    Direction["Up"] = "UP";
+    Direction["Down"] = "DOWN";
+})(Direction || (Direction = {}));
+```
+
+La union de literales no genera nada — es información que el compilador usa y descarta, cero costo en runtime. Por eso varias guías de estilo (la de Google, entre otras) recomiendan directamente evitar `enum` a favor de union de literales.
+
+Dos problemas puntuales de `enum`, además del costo:
+
+- **Reverse mapping en enums numéricos** (`enum Direction { Up, Down }`, sin strings): TS crea un mapeo bidireccional automático (`Direction.Up === 0` y también `Direction[0] === "Up"`) — confunde más de lo que ayuda, casi nadie usa esa segunda dirección.
+- **`const enum`** (la variante sin costo runtime) rompe con bundlers modernos (Vite/esbuild) que requieren `isolatedModules` — muchos setups lo prohíben directamente.
+
+**Cuándo sí conviene `enum`**: cuando hace falta iterar los valores en runtime (`Object.values(Direction)`), o cuando el valor corresponde a algo numérico real que ya existe en otro lado (ej. una columna de DB con enteros). Fuera de esos casos puntuales, union de literales es el default más recomendado hoy.
+
 ## Unions e Intersections
 
 - **Union (`|`)**: el valor puede ser **uno entre varios** tipos posibles.
