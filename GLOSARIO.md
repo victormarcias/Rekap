@@ -177,7 +177,7 @@
 ### J
 
 - **Jest** — [Testing en React](frontend-react/testing.md#jest--lo-básico)
-- **Jetpack Compose (Android)** — [React Fundamentos](frontend-react/react-fundamentos.md#virtual-dom)
+- **Jetpack Compose (Android)** — [React Fundamentos](frontend-react/react-fundamentos.md#kotlin-jetpack-compose-android)
 - **JSX** — [React Fundamentos](frontend-react/react-fundamentos.md#jsx)
 - **JWT** — [Autenticación y Seguridad](backend/autenticacion.md#5-jwt--estructura-y-stateless)
 
@@ -280,6 +280,7 @@
 - **Race condition** — [Locks](database/locks.md#race-condition--el-problema-de-fondo)
 - **Range partitioning** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#range-partitioning)
 - **Rate limiting** — [Redis](database/redis.md#no-es-solo-cache)
+- **React Native** — [React Fundamentos](frontend-react/react-fundamentos.md#react-native)
 - **React Testing Library (RTL)** — [Testing en React](frontend-react/testing.md#unit-testing-con-rtl-react-testing-library)
 - **Read replica** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#read-replicas)
 - **Readiness probe (Kubernetes)** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#disponibilidad)
@@ -338,7 +339,7 @@
 - **Stub** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
 - **Subquery correlacionada** — [Query Optimization](database/query-optimization.md#subqueries--cuándo-evitarlas)
 - **Suspense (React)** — [Code Splitting](frontend-react/code-splitting.md#reactlazy--suspense)
-- **SwiftUI (iOS)** — [React Fundamentos](frontend-react/react-fundamentos.md#virtual-dom)
+- **SwiftUI (iOS)** — [React Fundamentos](frontend-react/react-fundamentos.md#swift-swiftui-ios)
 - **SYN flood** — [DDoS Attack](backend/ddos-attack.md#tipos-de-más-simple-a-más-difícil-de-mitigar)
 
 ### T

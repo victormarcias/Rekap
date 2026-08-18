@@ -17,36 +17,6 @@ function List({ items }) {
 
 **Por qué existe**: manipular el DOM real es caro (cada cambio puede disparar layout/paint del browser). Comparar objetos JS en memoria es barato. El Virtual DOM le permite a React calcular *qué* cambió sin tocar el DOM en cada paso intermedio, y aplicar todos los cambios reales de una sola vez, en el mínimo número de operaciones posible.
 
-**El mismo patrón en otros ecosistemas de UI**: "describir declarativamente cómo se ve la UI, comparar contra la versión anterior, aplicar solo el mínimo cambio real" no es una idea exclusiva de React — es la solución convergente de casi todo framework de UI declarativa moderno:
-
-- **SwiftUI** (iOS): las `View` son structs inmutables que describen la UI deseada; SwiftUI las compara contra el árbol anterior y actualiza solo lo que cambió en el render real.
-
-  ```swift
-  struct CounterView: View {
-      @State private var count = 0
-      var body: some View {
-          Button("Count: \(count)") { count += 1 }
-      }
-  }
-  // al cambiar `count`, SwiftUI recalcula `body`, compara contra el árbol
-  // anterior y actualiza solo el texto del botón — mismo mecanismo que React
-  ```
-
-- **Jetpack Compose** (Android): mismo mecanismo — funciones `@Composable` describen la UI, Compose hace su propio diffing ("recomposition") y actualiza solo las partes afectadas.
-
-  ```kotlin
-  @Composable
-  fun CounterView() {
-      var count by remember { mutableStateOf(0) }
-      Button(onClick = { count++ }) { Text("Count: $count") }
-  }
-  // al cambiar `count`, Compose "recompone" solo lo afectado — mismo mecanismo, otro nombre
-  ```
-
-- **React Native**: literalmente el mismo React/Virtual DOM que la versión web, pero con un renderer distinto al final — en vez de aplicar los cambios a nodos del DOM del browser, los aplica a vistas nativas reales (`UIView` en iOS, `View` de Android). Es React DOM (el renderer web) el que es específico de web, no React ni el Virtual DOM en sí.
-
-Cada ecosistema llegó a esto por separado porque el problema de fondo es el mismo: recalcular *todo* el árbol de UI real en cada cambio de estado es carísimo, sin importar si esa UI real es el DOM del browser o una vista nativa.
-
 **El rol de `key`**: cuando React reconcilia una lista, usa `key` para identificar qué elemento es cuál entre un render y el siguiente — sin una `key` estable, React puede confundir "se reordenó un item" con "se borró uno y se creó otro nuevo", perdiendo estado interno de esos componentes innecesariamente (ver [Falta de `key` en listas](../diagnostico/frontend.md#falta-de-key-en-listas)).
 
 ## JSX
@@ -63,6 +33,42 @@ const element = _jsx('h1', { className: 'title', children: `Hola ${nombre}` });
 ```
 
 Por eso JSX puede usar `{}` para meter cualquier expresión JS válida (variables, funciones, ternarios) — en tiempo de compilación termina siendo un argumento más de una llamada a función normal. Y por eso un componente de React **tiene** que devolver JSX válido (o `null`) — no es HTML libre, tiene las reglas de una expresión JS (ej. `class` no existe, es `className`, porque `class` es palabra reservada en JS).
+
+## El mismo patrón en Mobile
+
+"Describir declarativamente cómo se ve la UI, comparar contra la versión anterior, aplicar solo el mínimo cambio real" no es una idea exclusiva de React — es la solución convergente de casi todo framework de UI declarativa moderno. Cada ecosistema llegó a esto por separado porque el problema de fondo es el mismo: recalcular *todo* el árbol de UI real en cada cambio de estado es carísimo, sin importar si esa UI real es el DOM del browser o una vista nativa.
+
+### Swift (SwiftUI, iOS)
+
+Las `View` son structs inmutables que describen la UI deseada; SwiftUI las compara contra el árbol anterior y actualiza solo lo que cambió en el render real.
+
+```swift
+struct CounterView: View {
+    @State private var count = 0
+    var body: some View {
+        Button("Count: \(count)") { count += 1 }
+    }
+}
+// al cambiar `count`, SwiftUI recalcula `body`, compara contra el árbol
+// anterior y actualiza solo el texto del botón — mismo mecanismo que React
+```
+
+### Kotlin (Jetpack Compose, Android)
+
+Mismo mecanismo — funciones `@Composable` describen la UI, Compose hace su propio diffing ("recomposition") y actualiza solo las partes afectadas.
+
+```kotlin
+@Composable
+fun CounterView() {
+    var count by remember { mutableStateOf(0) }
+    Button(onClick = { count++ }) { Text("Count: $count") }
+}
+// al cambiar `count`, Compose "recompone" solo lo afectado — mismo mecanismo, otro nombre
+```
+
+### React Native
+
+Literalmente el mismo React/Virtual DOM que la versión web, pero con un renderer distinto al final — en vez de aplicar los cambios a nodos del DOM del browser, los aplica a vistas nativas reales (`UIView` en iOS, `View` de Android). Es **React DOM** (el renderer web) el que es específico de web, no React ni el Virtual DOM en sí — React Native reusa exactamente el mismo core y el mismo JSX de arriba.
 
 ---
 Relacionado: [Hooks](hooks.md), [Diagnóstico Frontend](../diagnostico/frontend.md).
