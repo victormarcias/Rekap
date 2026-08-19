@@ -35,6 +35,7 @@
 - **BFF (Backend for Frontend)** — [API Gateway](backend/api-gateway.md#gateway-vs-load-balancer)
 - **Bloqueo del hilo principal** — [Diagnóstico Frontend](diagnostico/frontend.md#bloqueo-del-hilo-principal)
 - **Bubbling (evento)** — [Eventos DOM](frontend-react/eventos-dom.md#bubbling-vs-capturing)
+- **Buffer pool** — [RDBMS](database/rdbms.md#cómo-funciona-por-dentro)
 - **Builder (patrón)** — [Patrones creacionales](system-design/patrones-creacionales.md#builder)
 
 ### C
@@ -280,6 +281,7 @@
 - **Race condition** — [Locks](database/locks.md#race-condition--el-problema-de-fondo)
 - **Range partitioning** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#range-partitioning)
 - **Rate limiting** — [Redis](database/redis.md#no-es-solo-cache)
+- **RDBMS (Relational Database Management System)** — [RDBMS](database/rdbms.md)
 - **React Native** — [React Fundamentos](frontend-react/react-fundamentos.md#react-native)
 - **React Testing Library (RTL)** — [Testing en React](frontend-react/testing.md#unit-testing-con-rtl-react-testing-library)
 - **Read replica** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#read-replicas)
@@ -386,6 +388,7 @@
 ### W
 
 - **WAF (Web Application Firewall)** — [DDoS Attack](backend/ddos-attack.md#mitigaciones-por-capa)
+- **WAL (Write-Ahead Log)** — [RDBMS](database/rdbms.md#write-ahead-log-wal--cómo-no-se-pierde-nada-si-el-servidor-se-cae)
 - **Web Worker (Browser API)** — [Diagnóstico Frontend](diagnostico/frontend.md#bloqueo-del-hilo-principal)
 - **Webhooks** — [Webhooks](backend/webhooks.md)
 - **WebSocket** — [WebSocket / SSE / Streaming](frontend-react/websocket-sse-streaming.md#websocket--bidireccional)

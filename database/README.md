@@ -15,6 +15,7 @@ Machetes de referencia sobre bases de datos — relacionales (SQL) y NoSQL.
 - [x] [Queries non-sargable](queries-non-sargable.md)
 - [x] [Query Optimization](query-optimization.md)
 - [x] [Redis](redis.md)
+- [x] [RDBMS (qué es, cuándo usarlo, cómo funciona)](rdbms.md)
 - [x] [Rollback / savepoints](rollback-savepoints.md)
 - [x] [Sharding vs partitioning](sharding-vs-partitioning.md)
 - [x] [Stored procedures vs funciones](stored-procedures-vs-funciones.md)

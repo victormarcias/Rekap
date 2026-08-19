@@ -22,13 +22,19 @@ En un sistema distribuido, ante una partición de red (**P**, inevitable en la p
 - **C**onsistency: todos los nodos ven el mismo dato al mismo tiempo.
 - **A**vailability: el sistema sigue respondiendo aunque algunos nodos no puedan comunicarse entre sí.
 
+### Las tres combinaciones
+
+- **CP** (Consistency + Partition tolerance): ante una partición, el sistema prioriza que el dato sea correcto — los nodos que no pueden confirmar consistencia con el resto **dejan de responder** (o rechazan la operación) en vez de arriesgarse a devolver algo desactualizado. Ejemplo: MongoDB en su configuración default — si un nodo no puede alcanzar la mayoría del replica set, rechaza la escritura en vez de aplicarla a ciegas.
+- **AP** (Availability + Partition tolerance): ante una partición, el sistema **sigue respondiendo siempre**, aunque eso signifique devolver un dato que todavía no se sincronizó con el resto de los nodos — consistencia eventual (ver abajo). Ejemplo: Cassandra, DynamoDB.
+- **CA** (Consistency + Availability): solo es posible si **nunca hay una partición** — en la práctica, eso significa un solo nodo, porque no hay "otros nodos" con los que desincronizarse. Un Postgres/MySQL de un único servidor cae acá; apenas se agrega replicación multi-nodo, la P vuelve a estar en juego y hay que elegir entre C y A como cualquier sistema distribuido.
+
 | Sistema | Prioriza |
 |---|---|
 | Postgres/MySQL (single-node) | CA (no aplica P en un solo nodo) |
 | MongoDB (config default) | CP |
 | Cassandra, DynamoDB | AP (consistencia eventual) |
 
-El teorema dice que, ante una partición de red, un sistema distribuido solo puede garantizar **una** de las dos — Consistency o Availability, nunca ambas al mismo tiempo — de ahí el nombre **CAP** (Consistency, Availability, Partition tolerance). La P no es una opción que se "elige": en un sistema realmente distribuido, las particiones de red van a pasar tarde o temprano: la elección real es entre C y A.
+El teorema dice que, ante una partición de red, un sistema distribuido solo puede garantizar **una** de las dos — Consistency o Availability, nunca ambas al mismo tiempo — de ahí el nombre **CAP** (Consistency, Availability, Partition tolerance). La P no es una opción que se "elige": en un sistema realmente distribuido, las particiones de red van a pasar tarde o temprano — la elección real es entre C y A, y CA solo existe como caso especial de "no soy realmente distribuido".
 
 ## Consistencia eventual
 
