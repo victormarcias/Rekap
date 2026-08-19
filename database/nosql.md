@@ -28,6 +28,8 @@ En un sistema distribuido, ante una partición de red (**P**, inevitable en la p
 | MongoDB (config default) | CP |
 | Cassandra, DynamoDB | AP (consistencia eventual) |
 
+El teorema dice que, ante una partición de red, un sistema distribuido solo puede garantizar **una** de las dos — Consistency o Availability, nunca ambas al mismo tiempo — de ahí el nombre **CAP** (Consistency, Availability, Partition tolerance). La P no es una opción que se "elige": en un sistema realmente distribuido, las particiones de red van a pasar tarde o temprano: la elección real es entre C y A.
+
 ## Consistencia eventual
 
 En sistemas AP (ej. Cassandra), un write puede no verse inmediatamente en todos los nodos — eventualmente converge, pero una lectura inmediata después de un write puede devolver el dato viejo. Aceptable para casos como contadores de likes; no aceptable para saldo de una cuenta bancaria.
