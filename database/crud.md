@@ -51,6 +51,23 @@ UPDATE users SET active = false WHERE last_login < now() - interval '1 year';
 | `TRUNCATE TABLE t` | Todas las filas | Depende del motor (Postgres sí dentro de transacción) | Sí | No (generalmente) |
 | `DROP TABLE t` | La tabla entera (estructura + datos) | Depende del motor | N/A | N/A |
 
+## Acciones referenciales — qué pasa con las filas relacionadas al borrar
+
+Cuando una tabla tiene una foreign key hacia otra (ej. `posts.user_id` → `users.id`), hay que decidir qué pasa con esas filas dependientes si se borra la fila referenciada. Se define al crear la foreign key:
+
+```sql
+CREATE TABLE posts (
+  id SERIAL PRIMARY KEY,
+  user_id INT REFERENCES users(id) ON DELETE CASCADE
+);
+```
+
+- **`ON DELETE CASCADE`**: si se borra el usuario, se borran automáticamente todas las filas que lo referencian (sus posts, sus comentarios). Cómodo, pero peligroso si no se lo espera — un solo `DELETE` puede propagarse en cadena por varias tablas.
+- **`ON DELETE RESTRICT`** (o el comportamiento por default en muchos motores si no se especifica nada): no deja borrar al usuario mientras todavía tenga posts o comentarios asociados — hay que borrar las dependencias primero, a mano o en un flujo explícito.
+- **`ON DELETE SET NULL`**: borra al usuario, pero en vez de borrar los posts/comentarios, les pone `user_id = NULL` (ej. para mostrar "usuario eliminado" en vez de perder el contenido). Requiere que la columna `user_id` permita `NULL`.
+
+**Cuál usar**: `CASCADE` cuando el hijo no tiene sentido sin el padre (comentarios de un post que se borra). `RESTRICT` cuando borrar por accidente algo con dependencias es más peligroso que ser molesto (borrar un usuario con pedidos activos). `SET NULL` cuando el contenido dependiente debe sobrevivir aunque pierda la referencia (posts de un usuario eliminado que siguen siendo públicos).
+
 ## Upsert (Create o Update según exista)
 
 ```sql

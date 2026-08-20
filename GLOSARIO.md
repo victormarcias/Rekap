@@ -250,6 +250,7 @@
 - **OK (200)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)
 - **OLAP** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#cubos-olap)
 - **OLTP** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#cubos-olap)
+- **ON DELETE CASCADE / RESTRICT / SET NULL** — [CRUD](database/crud.md#acciones-referenciales--qué-pasa-con-las-filas-relacionadas-al-borrar)
 - **OOMKilled** — [Escalabilidad de Memoria](devops/escalabilidad-memoria.md#oomkilled)
 - **Open/Closed Principle (O de SOLID)** — [SOLID principles](system-design/solid.md#o--openclosed-principle)
 - **Opt-in vs Opt-out (consentimiento)** — [Privacidad y GDPR](frontend-react/privacidad-y-gdpr.md#user-consent)
