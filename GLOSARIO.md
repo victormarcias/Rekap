@@ -395,6 +395,7 @@
 - **Virtualización / Windowing** — [Diagnóstico Frontend](diagnostico/frontend.md#falta-de-paginación--virtualización)
 - **Vista (SQL View)** — [Triggers y Vistas](database/triggers-y-vistas.md#vistas-views)
 - **Vistas materializadas** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#vistas-materializadas)
+- **VPS (Virtual Private Server)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#qué-es-un-vps)
 
 ### W
 

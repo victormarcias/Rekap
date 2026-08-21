@@ -1,5 +1,14 @@
 # VPS vs Cloud Run
 
+## Qué es un VPS
+
+**Virtual Private Server**: una porción de un servidor físico grande, virtualizada para que se comporte como una máquina propia e independiente — acceso root, tu propio SO, recursos (CPU/RAM/disco) garantizados y aislados del resto, aunque el hardware físico de abajo se comparta con otros VPS del mismo servidor (ver [Virtualización](../devops/docker.md#virtualización--el-origen-de-los-contenedores) para el mecanismo técnico). Se diferencia de:
+
+- **Shared hosting**: ahí ni siquiera tenés tu propio SO — compartís el mismo proceso/entorno con otros clientes, sin acceso root.
+- **Servidor dedicado**: hardware físico completo para vos solo, sin virtualización — más caro, sin los límites que impone compartir hardware.
+
+Proveedores típicos: DigitalOcean, Linode/Akamai, Hetzner, AWS EC2.
+
 Comparación entre [Deploy a un VPS](deploy-vps.md) (servidor propio, siempre prendido) y [Deploy a Cloud Run](deploy-cloud-run.md) (contenedor serverless, escala a cero).
 
 ## Comparación técnica
