@@ -41,6 +41,7 @@
 
 ### C
 
+- **CaaS (Container as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
 - **Cache stampede (thundering herd)** — [Cache Invalidation](backend/cache-invalidation.md#cache-stampede-thundering-herd)
 - **Cache-aside pattern** — [Diagnóstico Backend](diagnostico/backend.md#falta-de-cache)
 - **Caja blanca (white box testing)** — [Testing — conceptos generales](system-design/testing.md#8-caja-negra-vs-caja-blanca)
@@ -128,6 +129,7 @@
 
 ### F
 
+- **FaaS (Function as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
 - **Facade (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#facade)
 - **Factory Method** — [Patrones creacionales](system-design/patrones-creacionales.md#factory-method)
 - **FastAPI** — [Motores de SQL](database/motores-de-sql.md)
@@ -167,6 +169,7 @@
 
 ### I
 
+- **IaaS (Infrastructure as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
 - **Idempotencia** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#idempotencia)
 - **Índice** — [Índices](database/indices.md)
 - **Índice compuesto** — [Índices](database/indices.md#índices-compuestos)
@@ -264,6 +267,7 @@
 
 ### P
 
+- **PaaS (Platform as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
 - **Partición (Kafka)** — [Arquitectura Kafka](backend/kafka.md#topics-y-particiones)
 - **Partition key (DynamoDB)** — [Key-Value Store / DynamoDB](database/dynamodb-key-value-store.md#partition-key-y-sort-key)
 - **Partition pruning** — [Sharding vs partitioning](database/sharding-vs-partitioning.md#partitioning)

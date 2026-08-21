@@ -11,6 +11,17 @@ Proveedores típicos: DigitalOcean, Linode/Akamai, Hetzner, AWS EC2.
 
 Comparación entre [Deploy a un VPS](deploy-vps.md) (servidor propio, siempre prendido) y [Deploy a Cloud Run](deploy-cloud-run.md) (contenedor serverless, escala a cero).
 
+## El espectro completo: IaaS → PaaS → Serverless
+
+VPS y Cloud Run son dos puntos de un espectro más amplio — a medida que avanzás, le delegás más responsabilidad a la plataforma, a cambio de menos control:
+
+- **IaaS** (Infrastructure as a Service): un VPS es esto — te dan una máquina virtual vacía, vos instalás el SO, el runtime, todo. Máximo control, máxima responsabilidad.
+- **PaaS** (Platform as a Service): le das tu código (o un `git push`), la plataforma se encarga del SO, el runtime y el proceso de deploy — ya no tocás un servidor directamente. Ejemplos: Heroku, Render, Railway. Es un paso intermedio entre VPS y serverless: no hay cold start ni escala a cero (normalmente corre siempre, como el VPS), pero tampoco administrás infraestructura.
+- **Serverless / CaaS** (Container as a Service): Cloud Run es esto — le das un contenedor, la plataforma decide cuántas instancias correr y cuándo, incluyendo escalar a cero. Cero infraestructura que administrar, pero con cold starts y menos control fino.
+- **FaaS** (Function as a Service, ej. AWS Lambda): un paso más allá de Cloud Run — ni siquiera un contenedor, solo una función individual que la plataforma ejecuta bajo demanda.
+
+**Dónde entra PaaS en la práctica**: es la opción típica para no lidiar con servidores sin pagar el costo de cold starts — a cambio, suele ser más caro que un VPS equivalente a tráfico alto y constante (mismo trade-off que Cloud Run, pero sin el beneficio de escalar a cero).
+
 ## Comparación técnica
 
 | | VPS | Cloud Run |
