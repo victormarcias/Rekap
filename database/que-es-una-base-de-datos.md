@@ -27,6 +27,10 @@ Una base de datos resuelve, de fábrica, varios problemas que armar algo a mano 
 - **Consultas eficientes**: buscar, filtrar y ordenar sin tener que leer y parsear todo el archivo en memoria cada vez — ver [Índices](indices.md).
 - **Integridad**: reglas que la propia base fuerza, para que un dato nunca quede en un estado a medias o inválido — ver [ACID](acid-transacciones-isolation.md).
 
+## Breve historia de las bases de datos
+
+Video: [Breve historia de las bases de datos](https://www.youtube.com/watch?v=KG-mqHoXOXY)
+
 ## Los dos grandes tipos
 
 - **Relacional (RDBMS)**: datos organizados en tablas con relaciones estrictas entre ellas, SQL como lenguaje de consulta — ver [RDBMS](rdbms.md).
