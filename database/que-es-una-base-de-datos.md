@@ -31,6 +31,17 @@ Una base de datos resuelve, de fábrica, varios problemas que armar algo a mano 
 
 Video: [Breve historia de las bases de datos](https://www.youtube.com/watch?v=KG-mqHoXOXY)
 
+Antes de que el modelo relacional se impusiera, existieron (y en algunos nichos, todavía existen) otros modelos de datos:
+
+- **Jerárquico** (ej. IBM IMS, 1966; el registro de Windows): los datos se organizan en árbol, cada registro tiene un solo padre. Simple, pero rígido — modelar una relación muchos-a-muchos es forzado.
+- **De red** (CODASYL): como el jerárquico, pero un registro puede tener varios padres — más flexible, a costa de que navegar los datos requería conocer la estructura física de antemano. Es, conceptualmente, el antecesor directo de lo que hoy es una base de datos de grafo.
+- **Relacional**: el que ganó — tablas independientes de cómo se accede a ellas después, consultadas con SQL declarativo en vez de navegación manual entre registros. Ver [RDBMS](rdbms.md).
+- **Orientado a objetos** (ej. db4o, ObjectDB): guarda objetos tal como existen en memoria en un lenguaje OOP, sin traducirlos a tablas. Nunca despegó fuera de nichos puntuales — un ORM resuelve el mismo problema (persistir objetos) pero traduciéndolos a tablas relacionales por debajo, en vez de evitar esa traducción.
+- **Plano** (Flat file): un solo archivo, sin relaciones — un CSV es, en esencia, esto.
+- **Semi-estructurado**: JSON/XML sin schema fijo — es lo que hoy cubren las bases de datos NoSQL de tipo documento. Ver [NoSQL](nosql.md).
+
+**Entity-Relationship (E-R) no es un modelo de almacenamiento** como los de arriba — es una técnica de **diseño** (los diagramas E-R) para modelar entidades y relaciones antes de traducirlas a tablas de un modelo relacional. Un ORM no trabaja "sobre E-R" directamente: trabaja sobre el resultado de ese diseño (las tablas relacionales), el diagrama E-R es un paso previo en la cabeza de quien diseña el schema.
+
 ## Los dos grandes tipos
 
 - **Relacional (RDBMS)**: datos organizados en tablas con relaciones estrictas entre ellas, SQL como lenguaje de consulta — ver [RDBMS](rdbms.md).
