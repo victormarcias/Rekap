@@ -235,6 +235,7 @@
 ### N
 
 - **N+1 (problema)** — [Diagnóstico Backend](diagnostico/backend.md#problema-n1)
+- **n8n** — [n8n](agentic-ai/n8n.md)
 - **Namespaces / cgroups** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
 - **NestJS** — [Motores de SQL](database/motores-de-sql.md)
 - **No Content (204)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)
@@ -258,6 +259,7 @@
 - **OLTP** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#cubos-olap)
 - **ON DELETE CASCADE / RESTRICT / SET NULL** — [CRUD](database/crud.md#acciones-referenciales--qué-pasa-con-las-filas-relacionadas-al-borrar)
 - **OOMKilled** — [Escalabilidad de Memoria](devops/escalabilidad-memoria.md#oomkilled)
+- **Orchestrator-workers** — [Agentes vs Workflows](agentic-ai/agentes-vs-workflows.md#patrones-de-workflow-el-camino-es-fijo)
 - **Open/Closed Principle (O de SOLID)** — [SOLID principles](system-design/solid.md#o--openclosed-principle)
 - **Opt-in vs Opt-out (consentimiento)** — [Privacidad y GDPR](frontend-react/privacidad-y-gdpr.md#user-consent)
 - **Optimistic locking** — [Locks](database/locks.md#pessimistic-vs-optimistic-locking)
@@ -279,6 +281,7 @@
 - **Plugin Architecture (Microkernel Architecture)** — [Clean Architecture](system-design/clean-architecture.md#relación-con-hexagonal-architecture-ports--adapters)
 - **Prisma** — [Motores de SQL](database/motores-de-sql.md)
 - **Procesar resultados en chunks (fetchmany)** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#procesar-resultados-grandes-en-chunks)
+- **Prompt chaining** — [Agentes vs Workflows](agentic-ai/agentes-vs-workflows.md#patrones-de-workflow-el-camino-es-fijo)
 - **Producto cartesiano (JOIN)** — [Query Optimization](database/query-optimization.md#joins-correctos--evitar-productos-cartesianos)
 - **Prop drilling** — [Estado global](frontend-react/estado-global.md#prop-drilling--el-problema)
 - **Proveedores de identidad gestionados** — [Proveedores de Identidad Gestionados](backend/proveedores-de-identidad-gestionados.md)
@@ -295,6 +298,7 @@
 - **Range partitioning** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#range-partitioning)
 - **Rate limiting** — [Redis](database/redis.md#no-es-solo-cache)
 - **RDBMS (Relational Database Management System)** — [RDBMS](database/rdbms.md)
+- **ReAct (Reason + Act)** — [Agentes vs Workflows](agentic-ai/agentes-vs-workflows.md#patrón-de-agent-el-llm-controla-el-camino)
 - **React Native** — [React Fundamentos](frontend-react/react-fundamentos.md#react-native)
 - **React Testing Library (RTL)** — [Testing en React](frontend-react/testing.md#unit-testing-con-rtl-react-testing-library)
 - **Read replica** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#read-replicas)
@@ -311,6 +315,7 @@
 - **REST** — [REST](backend/rest.md)
 - **Rollback** — [Rollback / savepoints](database/rollback-savepoints.md#rollback)
 - **Round robin** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
+- **Routing (LLM)** — [Agentes vs Workflows](agentic-ai/agentes-vs-workflows.md#patrones-de-workflow-el-camino-es-fijo)
 - **Ruby on Rails** — [Motores de SQL](database/motores-de-sql.md)
 - **runInBand (Jest — equivalente a correr tests en serial)** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 
