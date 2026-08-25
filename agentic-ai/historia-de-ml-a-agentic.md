@@ -39,7 +39,7 @@ Prompt: "Clasificá este email como spam o no spam: '¡Ganaste un premio, hacé 
 
 ## 6. RAG — darle al LLM información que no tiene (2023+)
 
-Un LLM solo "sabe" lo que vio en su entrenamiento — no conoce datos privados de una empresa, ni eventos posteriores a su fecha de corte. **Retrieval-Augmented Generation**: antes de responder, se busca información relevante (típicamente en una base de datos vectorial) y se la agrega al prompt como contexto, para que el modelo responda basado en eso en vez de inventar.
+Un LLM solo "sabe" lo que vio en su entrenamiento — no conoce datos privados de una empresa, ni eventos posteriores a su fecha de corte. **Retrieval-Augmented Generation**: antes de responder, se busca información relevante (típicamente en una base de datos vectorial) y se la agrega al prompt como contexto, para que el modelo responda basado en eso en vez de inventar. Ver [RAG](rag.md) para el detalle completo del pipeline (chunking, embeddings, vector DB).
 
 ## 7. Tool Use / Function Calling — el LLM puede hacer, no solo hablar (2023+)
 

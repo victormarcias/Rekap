@@ -4,7 +4,7 @@
 
 ## Cómo se cobra, en general
 
-- **Precio por millón de tokens (MTok)**, separado en **input** (lo que le mandás) y **output** (lo que genera) — el output siempre cuesta varias veces más que el input, porque generar texto token por token es más caro computacionalmente que leerlo.
+- **Precio por millón de [tokens](que-es-un-token.md) (MTok)**, separado en **input** (lo que le mandás) y **output** (lo que genera) — el output siempre cuesta varias veces más que el input, porque generar texto token por token es más caro computacionalmente que leerlo.
 - Cada proveedor ofrece varios **tiers de modelo**: uno "flagship" (el más capaz, más caro), uno intermedio, y uno rápido/barato para tareas simples — mismo patrón en los tres proveedores, distintos nombres.
 - **Prompt caching**: reutilizar contexto ya procesado (un system prompt largo, un documento) cuesta una fracción del precio normal — en vez de pagar el precio completo de input cada vez que mandás el mismo contexto de nuevo.
 - **Batch API**: mandar requests que no necesitan respuesta inmediata (se procesan en background, en minutos u horas) a mitad de precio en la mayoría de los proveedores.
@@ -59,4 +59,4 @@ Todo lo de arriba asume requests normales — pero en un [agent](agentes-vs-work
 Modelos open-source (Llama, Mistral, entre otros) se pueden self-hostear — ahí el costo deja de ser "por token" y pasa a ser el costo del hardware/GPU que corre el modelo. Tiene sentido a volumen muy alto y sostenido, donde el costo fijo de la infraestructura termina siendo más barato que pagar por token indefinidamente — el mismo trade-off que ya vimos entre [VPS y Cloud Run](../devops/vps-vs-cloud-run.md): pagás infraestructura fija vs pagás por uso real.
 
 ---
-Relacionado: [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Agentes vs Workflows](agentes-vs-workflows.md), [Circuit Breaker](../system-design/atributos-de-calidad.md#tolerancia-a-fallos), [VPS vs Cloud Run](../devops/vps-vs-cloud-run.md).
+Relacionado: [Qué es un token](que-es-un-token.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Agentes vs Workflows](agentes-vs-workflows.md), [Circuit Breaker](../system-design/atributos-de-calidad.md#tolerancia-a-fallos), [VPS vs Cloud Run](../devops/vps-vs-cloud-run.md).

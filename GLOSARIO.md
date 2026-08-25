@@ -52,6 +52,7 @@
 - **CDN (Content Delivery Network)** — [CDN](devops/cdn.md)
 - **Chain of Responsibility (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#chain-of-responsibility)
 - **Chattiness** — [Diagnóstico Backend](diagnostico/backend.md#http-chaining)
+- **Chunking (RAG)** — [RAG](agentic-ai/rag.md#1-chunking--partir-los-documentos)
 - **Circuit breaker** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#tolerancia-a-fallos)
 - **Clean Architecture** — [Clean Architecture](system-design/clean-architecture.md)
 - **CLS (Cumulative Layout Shift)** — [Web Vitals](frontend-react/web-vitals.md#core-web-vitals)
@@ -68,6 +69,7 @@
 - **Consistent hashing** — [Sharding vs partitioning](database/sharding-vs-partitioning.md#sharding)
 - **Consumer Group (Kafka)** — [Arquitectura Kafka](backend/kafka.md#producers--consumers-y-consumer-groups)
 - **Context API (React)** — [Estado global](frontend-react/estado-global.md#context-api--la-solución-nativa)
+- **Context window (LLM)** — [Qué es un token](agentic-ai/que-es-un-token.md#por-qué-importa)
 - **Controller / Service / Repository** — [Controller / Service / Repository](backend/controller-service-repository.md)
 - **Cookie (HttpOnly / Secure / SameSite)** — [Almacenamiento en el cliente](frontend-react/almacenamiento-cliente.md#cookies)
 - **Core Web Vitals (LCP, INP, CLS)** — [Web Vitals](frontend-react/web-vitals.md)
@@ -116,6 +118,7 @@
 
 - **Ejecución de tests en paralelo vs serial** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 - **Elasticidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#elasticidad)
+- **Embedding (RAG)** — [RAG](agentic-ai/rag.md#2-embeddings--texto-a-vector-semántico)
 - **Encoding** — [Autenticación y Seguridad](backend/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)
 - **Encriptado** — [Autenticación y Seguridad](backend/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)
 - **Entity-Relationship (E-R)** — [Qué es una base de datos](database/que-es-una-base-de-datos.md#breve-historia-de-las-bases-de-datos)
@@ -296,7 +299,7 @@
 
 - **RabbitMQ** — [Colas de mensajes](backend/colas-de-mensajes.md#rabbitmq)
 - **Race condition** — [Locks](database/locks.md#race-condition--el-problema-de-fondo)
-- **RAG (Retrieval-Augmented Generation)** — [De ML clásico a Agentic AI](agentic-ai/historia-de-ml-a-agentic.md#6-rag--darle-al-llm-información-que-no-tiene-2023)
+- **RAG (Retrieval-Augmented Generation)** — [RAG](agentic-ai/rag.md)
 - **Range partitioning** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#range-partitioning)
 - **Rate limiting** — [Redis](database/redis.md#no-es-solo-cache)
 - **RDBMS (Relational Database Management System)** — [RDBMS](database/rdbms.md)
@@ -377,6 +380,7 @@
 - **Tests robustos (resilient tests)** — [Testing — conceptos generales](system-design/testing.md#7-tests-frágiles-vs-tests-robustos)
 - **Throughput** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#performance-velocidad)
 - **TLS handshake** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#4-tls-handshake-si-es-https)
+- **Token (LLM)** — [Qué es un token](agentic-ai/que-es-un-token.md)
 - **Tolerancia a fallos** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#tolerancia-a-fallos)
 - **Too Many Requests (429)** — [HTTP Status Codes](system-design/http-status-codes.md#4xx--client-error)
 - **Tool Use / Function Calling (LLM)** — [De ML clásico a Agentic AI](agentic-ai/historia-de-ml-a-agentic.md#7-tool-use--function-calling--el-llm-puede-hacer-no-solo-hablar-2023)
@@ -400,6 +404,7 @@
 
 ### V
 
+- **Vector DB** — [RAG](agentic-ai/rag.md#3-vector-db--guardar-y-buscar-por-similitud)
 - **Vertical Partitioning** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#vertical-partitioning)
 - **Virtual DOM** — [React Fundamentos](frontend-react/react-fundamentos.md#virtual-dom)
 - **Virtualización (VM vs Container)** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
