@@ -2,6 +2,20 @@
 
 Cómo se llegó de "entrenar un modelo para una tarea puntual" a "un LLM que planea y ejecuta tareas de varios pasos solo" — el contexto necesario para entender por qué agentic es lo que es hoy, y no un invento sin historia atrás.
 
+## Panorama: IA Clásica vs Generativa vs LLMs
+
+Antes de entrar al timeline, el contraste entre las tres categorías que van a aparecer:
+
+| | IA Clásica | IA Generativa | LLMs |
+|---|---|---|---|
+| Enfoque | Reglas y lógica explícita | Generación creativa de contenido | Predicción de texto basada en grandes datos |
+| Ejemplos | Sistemas expertos, árboles de decisión | GANs, VAEs | GPT, PaLM, LLaMA |
+| Uso principal | Clasificación, predicción estructurada | Creación de imágenes/audio/texto | Conversación, resumen, generación de texto |
+| Entrenamiento | Datos etiquetados, reglas manuales | Redes neuronales profundas | Preentrenamiento con grandes corpus |
+| Flexibilidad | Limitada, específica de una tarea | Alta, creativa | Alta, adaptativa a distintas tareas sin reentrenar |
+
+Los LLMs son, técnicamente, un caso particular de IA Generativa (generan texto) — se separan en la tabla porque su capacidad de razonar con instrucciones en lenguaje natural es lo que hizo posible todo lo que sigue en este timeline (RAG, tool use, agentic).
+
 ## 1. Machine Learning clásico — un modelo, una tarea
 
 Se entrena un modelo con datos etiquetados para que aprenda a resolver **una tarea específica** (clasificar spam, predecir un precio, agrupar clientes). El modelo no "entiende" nada fuera de eso — un modelo que predice precios de casas no sirve para clasificar emails, hay que entrenar uno nuevo desde cero.

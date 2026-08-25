@@ -17,6 +17,35 @@ El proceso que parte el texto en tokens (tokenización, típicamente algo como *
 
 En inglés, la aproximación típica es ~4 caracteres o ~0.75 palabras por token. **En español y otros idiomas suele ser menos eficiente** — los tokenizers se entrenan con más datos en inglés, así que un texto en español puede necesitar más tokens para decir lo mismo que su equivalente en inglés. Es la razón concreta detrás de algo que ya hablamos: escribir en inglés consume, en general, menos tokens que el mismo contenido en español.
 
+## Cómo el modelo elige el próximo token
+
+Generar texto es, en el fondo, predecir **un token a la vez**: dado todo el texto previo, el modelo calcula qué tan probable es cada token posible del vocabulario como "siguiente", y elige uno — después repite el proceso con ese token ya incluido en el contexto, uno por uno, hasta terminar.
+
+```
+Prompt: "El sol es..."
+
+El modelo no "sabe" la respuesta — calcula una probabilidad (logit) para
+cada palabra candidata del vocabulario, y las normaliza con softmax
+para que sumen 100%:
+
+  "amarillo"  → 0.5  (50% de probabilidad)
+  "rojo"      → 0.3  (30%)
+  "brillante" → 0.2  (20%)
+
+Con temperatura baja, elige casi siempre la más probable ("amarillo").
+Con temperatura alta, hay más chance de que elija una opción menos obvia.
+```
+
+**Softmax** es la función que convierte esos puntajes crudos (*logits*) en probabilidades que suman 1 — así el modelo puede "elegir" según esa distribución en vez de comparar números arbitrarios sin escala común.
+
+**Temperatura** (típicamente 0 a 2) controla qué tan determinística o creativa es esa elección:
+- **Temperatura baja (cerca de 0)**: casi siempre elige el token más probable — respuestas más consistentes y predecibles, ideal para tareas donde no querés variación (clasificación, extracción de datos).
+- **Temperatura alta (cerca de 2)**: más probabilidad de elegir tokens menos obvios — respuestas más variadas/creativas, pero también más erráticas.
+
+## Multimodal — tokens más allá del texto
+
+Los modelos multimodales tokenizan y procesan más que texto — audio e imágenes también se convierten en algún tipo de "token" que el modelo puede razonar en el mismo espacio que el texto (una imagen se parte en patches que funcionan como tokens, por ejemplo). El mecanismo de fondo (convertir el input a unidades discretas, predecir la salida token por token) es el mismo, solo cambia qué representa cada token.
+
 ## Por qué importa
 
 - **Precio**: los proveedores cobran por token, no por carácter ni por palabra — ver [Costos de LLMs](costos-llms.md).
