@@ -13,6 +13,7 @@
 - **afterAll** — [Testing — conceptos generales](system-design/testing.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)
 - **afterEach** — [Testing — conceptos generales](system-design/testing.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)
 - **Agentic AI** — [De ML clásico a Agentic AI](agentic-ai/historia-de-ml-a-agentic.md#8-agentic-ai--planear-actuar-observar-repetir-2023-2024)
+- **AGENTS.md** — [AGENTS.md y Skills](agentic-ai/agents-md-y-skills.md#agentsmd--el-problema-del-blank-slate)
 - **Alt text** — [Accesibilidad](frontend-react/accesibilidad.md#alt-texts)
 - **AMQP** — [Colas de mensajes](backend/colas-de-mensajes.md#amqp-no-es-un-producto--es-un-protocolo)
 - **Animation vs Transition (CSS)** — [CSS](frontend-react/css.md#animations-vs-transitions)
@@ -221,6 +222,7 @@
 
 - **Mantenibilidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#mantenibilidad)
 - **MAS (Sistemas Multiagente)** — [Tipos de Agentes de IA](agentic-ai/tipos-de-agentes.md#sistemas-multiagente-mas)
+- **MCP (Model Context Protocol)** — [MCP](agentic-ai/mcp.md)
 - **memo / useMemo / useCallback (React)** — [Diagnóstico Frontend](diagnostico/frontend.md#componentes-que-no-usan-memousememousecallback)
 - **Method Not Allowed (405)** — [HTTP Status Codes](system-design/http-status-codes.md#4xx--client-error)
 - **Micro-frontends** — [Module Federation](frontend-react/module-federation.md#el-problema-que-resuelve)
@@ -354,6 +356,7 @@
 - **Shallow copy** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#shallow-copy-vs-deep-copy)
 - **Sharding** — [Sharding vs partitioning](database/sharding-vs-partitioning.md#sharding)
 - **Shared lock** — [Locks](database/locks.md#shared-lock-s-vs-exclusive-lock-x)
+- **Skill (SKILL.md)** — [AGENTS.md y Skills](agentic-ai/agents-md-y-skills.md#skills--capacidades-modulares)
 - **Single Responsibility Principle (S de SOLID)** — [SOLID principles](system-design/solid.md#s--single-responsibility-principle)
 - **Singleton (patrón)** — [Patrones creacionales](system-design/patrones-creacionales.md#singleton)
 - **Snapshot table** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#snapshot-tables-vs-vistas-materializadas)
