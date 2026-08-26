@@ -58,5 +58,14 @@ Todo lo de arriba asume requests normales — pero en un [agent](agentes-vs-work
 
 Modelos open-source (Llama, Mistral, entre otros) se pueden self-hostear — ahí el costo deja de ser "por token" y pasa a ser el costo del hardware/GPU que corre el modelo. Tiene sentido a volumen muy alto y sostenido, donde el costo fijo de la infraestructura termina siendo más barato que pagar por token indefinidamente — el mismo trade-off que ya vimos entre [VPS y Cloud Run](../devops/vps-vs-cloud-run.md): pagás infraestructura fija vs pagás por uso real.
 
+**Ollama** es la forma más simple de hacer esto en una máquina propia (laptop, servidor local, VPS): corre modelos open-source localmente con un solo comando, sin configurar infraestructura de ML.
+
+```bash
+ollama run llama3.3      # descarga el modelo (si no está) y abre un chat en la terminal
+ollama serve              # expone una API local (compatible con el formato de OpenAI) en localhost:11434
+```
+
+Costo $0 por token — el límite pasa a ser el hardware (RAM/VRAM disponible determina qué tamaño de modelo entra) y la calidad de un modelo open-source corriendo local suele quedar por debajo de un flagship como Opus/GPT-5.5. Tiene sentido para prototipar sin gastar en API, para datos que no pueden salir de la máquina (privacidad), o para volumen alto y sostenido donde amortizar el hardware sale más barato que pagar por token.
+
 ---
 Relacionado: [Qué es un token](que-es-un-token.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Agentes vs Workflows](agentes-vs-workflows.md), [Circuit Breaker](../system-design/atributos-de-calidad.md#tolerancia-a-fallos), [VPS vs Cloud Run](../devops/vps-vs-cloud-run.md).

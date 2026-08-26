@@ -267,6 +267,7 @@
 - **Offset (Kafka)** — [Arquitectura Kafka](backend/kafka.md#offset)
 - **OK (200)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)
 - **OLAP** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#cubos-olap)
+- **Ollama** — [Costos de LLMs](agentic-ai/costos-llms.md#más-allá-de-la-api-self-hosted--open-source)
 - **OLTP** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#cubos-olap)
 - **ON DELETE CASCADE / RESTRICT / SET NULL** — [CRUD](database/crud.md#acciones-referenciales--qué-pasa-con-las-filas-relacionadas-al-borrar)
 - **OOMKilled** — [Escalabilidad de Memoria](devops/escalabilidad-memoria.md#oomkilled)
