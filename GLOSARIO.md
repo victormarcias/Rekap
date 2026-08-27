@@ -393,6 +393,7 @@
 - **Test doubles (Mock/Stub/Fake/Spy)** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
 - **Test flaky** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 - **Test pyramid** — [Testing — conceptos generales](system-design/testing.md#1-test-pyramid)
+- **Test-Time Compute (LLM)** — [Qué es un token](agentic-ai/que-es-un-token.md#test-time-compute--pensar-más-al-responder-no-al-entrenar)
 - **TestClient (FastAPI)** — [Endpoints para microservicios](backend/fastapi/endpoints-microservicios.md#8-testing-de-endpoints-con-testclient)
 - **Tests frágiles (brittle tests)** — [Testing — conceptos generales](system-design/testing.md#7-tests-frágiles-vs-tests-robustos)
 - **Tests robustos (resilient tests)** — [Testing — conceptos generales](system-design/testing.md#7-tests-frágiles-vs-tests-robustos)

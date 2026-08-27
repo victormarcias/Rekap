@@ -42,6 +42,23 @@ Con temperatura alta, hay más chance de que elija una opción menos obvia.
 - **Temperatura baja (cerca de 0)**: casi siempre elige el token más probable — respuestas más consistentes y predecibles, ideal para tareas donde no querés variación (clasificación, extracción de datos).
 - **Temperatura alta (cerca de 2)**: más probabilidad de elegir tokens menos obvios — respuestas más variadas/creativas, pero también más erráticas.
 
+## Test-Time Compute — pensar más al responder, no al entrenar
+
+Hasta acá, escalar un LLM significaba entrenarlo con más parámetros y más datos — ese cómputo se gasta **una sola vez**, durante el entrenamiento, y después el modelo responde a la misma velocidad sin importar si la pregunta es trivial o muy difícil. **Test-Time Compute** (o *inference-time scaling*) es la idea inversa: dejar que el modelo gaste más cómputo **al momento de responder**, generando un razonamiento más largo antes de dar la respuesta final, cuando la tarea lo amerita.
+
+Es la técnica detrás de los modelos "de razonamiento" (OpenAI o1/o3, Claude con *extended thinking*): en vez de ir directo a la respuesta, el modelo genera una cadena de razonamiento interna extensa antes de contestar — la misma idea de fondo que pedirle [Chain of Thought](tecnicas-de-prompting.md#chain-of-thought-cot) en el prompt, pero automático, mucho más largo, y entrenado específicamente para eso (en vez de depender de que el usuario lo pida).
+
+```
+Pregunta simple: "¿Capital de Francia?"
+  → poco test-time compute necesario, responde casi directo
+
+Pregunta compleja: "Demostrá que la suma de los primeros n números impares es n²"
+  → el modelo "piensa" más antes de responder: explora varios caminos
+    de razonamiento, descarta algunos, converge en uno, recién ahí contesta
+```
+
+**El trade-off**: más tokens de "pensamiento" = más [costo](costos-llms.md) y más latencia — no tiene sentido gastarlo en preguntas triviales. La ventaja real aparece en tareas de varios pasos lógicos (matemática, debugging, planificación), donde razonar más antes de contestar cambia el resultado.
+
 ## Multimodal — tokens más allá del texto
 
 Los modelos multimodales tokenizan y procesan más que texto — audio e imágenes también se convierten en algún tipo de "token" que el modelo puede razonar en el mismo espacio que el texto (una imagen se parte en patches que funcionan como tokens, por ejemplo). El mecanismo de fondo (convertir el input a unidades discretas, predecir la salida token por token) es el mismo, solo cambia qué representa cada token.
@@ -53,4 +70,4 @@ Los modelos multimodales tokenizan y procesan más que texto — audio e imágen
 - **Por qué un LLM a veces "corta raro" una palabra rara o un nombre propio**: si esa palabra nunca apareció seguido en el entrenamiento, el tokenizer la parte en varios pedazos poco intuitivos — es más frecuente con nombres propios, jerga técnica muy específica, o texto en un idioma con poca representación en el entrenamiento.
 
 ---
-Relacionado: [Costos de LLMs](costos-llms.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md).
+Relacionado: [Costos de LLMs](costos-llms.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Técnicas de Prompting](tecnicas-de-prompting.md).
