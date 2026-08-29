@@ -246,7 +246,6 @@
 ### N
 
 - **N+1 (problema)** — [Diagnóstico Backend](diagnostico/backend.md#problema-n1)
-- **n8n** — [n8n](agentic-ai/n8n.md)
 - **Namespaces / cgroups** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
 - **NestJS** — [Motores de SQL](database/motores-de-sql.md)
 - **No Content (204)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)

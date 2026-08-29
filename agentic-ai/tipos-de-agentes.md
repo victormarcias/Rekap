@@ -54,7 +54,7 @@ Mejoran con la experiencia — combinan un elemento de rendimiento (que actúa) 
 
 ### Agentes Basados en LLM
 
-El **LLM es el motor de razonamiento** — comprenden lenguaje natural complejo, generan planes sofisticados, y hacen razonamiento contextual avanzado sin reglas hardcodeadas para cada situación. Es el tipo de agente que ya desarrollamos en detalle en [Agentes vs Workflows](agentes-vs-workflows.md) (el loop ReAct) y [n8n](n8n.md) (el nodo AI Agent).
+El **LLM es el motor de razonamiento** — comprenden lenguaje natural complejo, generan planes sofisticados, y hacen razonamiento contextual avanzado sin reglas hardcodeadas para cada situación. Es el tipo de agente que ya desarrollamos en detalle en [Agentes vs Workflows](agentes-vs-workflows.md) (el loop ReAct) y [n8n](../stacks/n8n/n8n-y-agentic.md) (el nodo AI Agent).
 
 *Ejemplo*: un agente que orquesta un flujo de trabajo completo interpretando instrucciones complejas en lenguaje natural.
 

@@ -1,4 +1,4 @@
-# n8n
+# n8n — Fundamentos
 
 ## Qué es
 
@@ -7,10 +7,10 @@ Herramienta de automatización de workflows, **node-based** (arrastrar y conecta
 ## Dónde corre: Local vs Self-hosted (VPS) vs Cloud
 
 - **Local**: correr n8n en tu máquina (Docker o `npm install n8n`) para desarrollar y probar — no accesible desde afuera de tu red sin exponerlo.
-- **Self-hosted (VPS)**: tu propia instancia en un servidor propio (ver [Deploy a un VPS](../devops/deploy-vps.md)) — control total, sin los límites de un plan gratuito, pero administrás vos el uptime, los backups y las actualizaciones.
+- **Self-hosted (VPS)**: tu propia instancia en un servidor propio (ver [Deploy a un VPS](../../devops/deploy-vps.md)) — control total, sin los límites de un plan gratuito, pero administrás vos el uptime, los backups y las actualizaciones.
 - **n8n Cloud**: versión gestionada por los creadores de n8n — sin infraestructura propia que mantener, a cambio de un plan pago según uso.
 
-La elección es el mismo trade-off que ya vimos entre [VPS y Cloud Run](../devops/vps-vs-cloud-run.md): cuánto control querés vs cuánto mantenimiento estás dispuesto a asumir.
+La elección es el mismo trade-off que ya vimos entre [VPS y Cloud Run](../../devops/vps-vs-cloud-run.md): cuánto control querés vs cuánto mantenimiento estás dispuesto a asumir.
 
 ## Cómo funciona: nodes, triggers y JSON
 
@@ -26,7 +26,7 @@ Cada **nodo** es un paso del workflow — una acción, una condición, una trans
 }
 ```
 
-n8n trae cientos de integraciones prearmadas (Slack, Gmail, Google Sheets, bases de datos, etc.), pero el nodo más versátil es **HTTP Request** — llama a cualquier API REST que no tenga una integración nativa, con los mismos verbos/headers/body que armarías a mano (ver [REST](../backend/rest.md), [HTTP Methods](../backend/http-methods.md)).
+n8n trae cientos de integraciones prearmadas (Slack, Gmail, Google Sheets, bases de datos, etc.), pero el nodo más versátil es **HTTP Request** — llama a cualquier API REST que no tenga una integración nativa, con los mismos verbos/headers/body que armarías a mano (ver [REST](../../backend/rest.md), [HTTP Methods](../../backend/http-methods.md)).
 
 ## Configuración: tres cosas distintas que se llaman "config"
 
@@ -73,16 +73,5 @@ services:
 
 Un `package.json` solo aparece si se instala n8n vía `npm install n8n` en vez de Docker — ahí es gestión de paquetes estándar de Node, sin nada específico de n8n.
 
-## n8n y agentic
-
-n8n tiene un nodo **AI Agent** (con LangChain integrado por debajo) que le da a un LLM acceso al resto de los nodos del workflow como **tools** — es la versión visual/low-code del mismo patrón de [tool use y agentic](historia-de-ml-a-agentic.md#7-tool-use--function-calling--el-llm-puede-hacer-no-solo-hablar-2023) que se arma con código: el LLM decide qué nodo/tool usar, con qué datos, y encadena pasos hasta resolver la tarea.
-
-**Trade-off frente a escribir el agente en código**: n8n es mucho más rápido para prototipar y no requiere que todo el equipo sepa programar — pero lógica compleja, testing automatizado real, control de versiones granular (un workflow visual es más difícil de diffear en un PR que código) y performance crítica se manejan mejor escribiendo el agente directamente.
-
-## Cuándo conviene n8n vs código
-
-- **n8n**: prototipos rápidos, automatizaciones e integraciones entre SaaS sin lógica pesada, equipos donde gente no-dev necesita poder mantener el workflow.
-- **Código**: lógica de negocio compleja, necesidad de tests automatizados, control de versiones fino, performance crítica, o un equipo de ingeniería que ya tiene su propio stack y prefiere no depender de una herramienta externa para su producto principal.
-
 ---
-Relacionado: [Deploy a un VPS](../devops/deploy-vps.md), [VPS vs Cloud Run](../devops/vps-vs-cloud-run.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [REST](../backend/rest.md).
+Relacionado: [n8n y Agentic AI](n8n-y-agentic.md), [Cómo se testea](testing.md), [Deploy a un VPS](../../devops/deploy-vps.md), [VPS vs Cloud Run](../../devops/vps-vs-cloud-run.md), [REST](../../backend/rest.md).

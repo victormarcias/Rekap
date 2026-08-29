@@ -6,5 +6,6 @@ Repaso por lenguaje/stack — setup, sintaxis y fundamentos. Distinto del resto 
 - [💚 Node.js](node/runtime.md) — Event Loop, single-threaded no bloqueante, CommonJS vs ESM, streams, buffers
 - [🐍 Python](python/) — setup, sintaxis, Python 2 vs 3, GIL, mutabilidad, OOP, decorators, generators
 - [🔷 TypeScript](typescript/) — tipado de funciones, unions, utility types, generics, configuración de `tsconfig.json`
+- [🔗 n8n](n8n/) — automatización node-based, self-hosteable, nodo AI Agent
 
 Ver también: [Sistema de tipos comparado](tipos-comparativa.md) (TypeScript/Python/Swift/Kotlin/Java lado a lado).
