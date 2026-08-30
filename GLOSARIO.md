@@ -403,7 +403,7 @@
 - **Token (LLM)** — [Qué es un token](agentic-ai/que-es-un-token.md)
 - **Tolerancia a fallos** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#tolerancia-a-fallos)
 - **Too Many Requests (429)** — [HTTP Status Codes](system-design/http-status-codes.md#4xx--client-error)
-- **Tool Use / Function Calling (LLM)** — [De ML clásico a Agentic AI](agentic-ai/historia-de-ml-a-agentic.md#7-tool-use--function-calling--el-llm-puede-hacer-no-solo-hablar-2023)
+- **Tool Use / Function Calling (LLM)** — [Function Calling](agentic-ai/function-calling.md)
 - **Topic (Kafka)** — [Arquitectura Kafka](backend/kafka.md#topics-y-particiones)
 - **Transactional rollback pattern** — [Testing — conceptos generales](system-design/testing.md#5-transactional-rollback-pattern-para-tests-de-db)
 - **Transformers (arquitectura)** — [De ML clásico a Agentic AI](agentic-ai/historia-de-ml-a-agentic.md#3-transformers--la-arquitectura-base-de-todo-lo-que-vino-después-2017)
