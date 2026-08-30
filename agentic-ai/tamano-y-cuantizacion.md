@@ -4,6 +4,24 @@
 
 Un modelo se mide en **parámetros** — los "pesos" que aprendió durante el entrenamiento (7B = 7 mil millones). Más parámetros generalmente significa más capacidad, pero también más pesado y más lento de correr.
 
+## Dense vs MoE (Mixture of Experts)
+
+Hasta acá asumimos que un modelo usa **todos** sus parámetros para procesar cada token — eso es un modelo **dense** (denso). Un modelo **MoE** parte la red en varios "expertos" (sub-redes), y un mecanismo de *routing* elige, por token, solo un subconjunto chico de esos expertos para procesarlo — no todos.
+
+```
+Modelo dense de 70B:  cada token pasa por los 70B parámetros completos
+
+Modelo MoE de 397B (activa ~35B por token):
+  → 397B = parámetros TOTALES (todos los expertos sumados)
+  → ~35B = parámetros ACTIVOS (los que realmente procesan ese token puntual)
+```
+
+Por eso vas a ver notación tipo "397B MoE (~35B activos)" — son dos números distintos, no uno solo.
+
+**El error común**: pensar que un modelo MoE "pesa" o usa memoria como si fuera del tamaño de sus parámetros activos. No es así — **la memoria necesaria para cargarlo depende de los parámetros TOTALES**, no de los activos, porque no se sabe de antemano qué expertos va a necesitar cada token (puede variar token a token) — así que todos tienen que estar cargados en memoria, aunque solo se usen algunos por vez. Lo que MoE ahorra es **cómputo por token** (más rápido, más barato de correr), no memoria.
+
+La ventaja del approach: capacidad grande (muchos parámetros totales = el modelo "sabe" más) sin pagar el costo de cómputo completo en cada token — de ahí que modelos MoE como [Ornith](comparacion-modelos.md) o [Grok](comparacion-modelos.md) rindan cerca de modelos dense mucho más grandes, a una fracción del costo por token.
+
 ## Precisión: cuánto pesa cada parámetro
 
 Los parámetros no siempre se guardan igual — la **precisión numérica** con la que se almacenan determina cuánto ocupa un modelo en disco, independientemente de cuántos parámetros tenga.
@@ -42,11 +60,19 @@ RAM/VRAM total ≈ tamaño en disco de los pesos (cuantizados) + KV cache (crece
 | 70B | ~38–40 GB | 48–64 GB | Múltiples GPUs o servidor dedicado |
 | 400B+ | ~200 GB+ | Múltiples GPUs de datacenter | Fuera del alcance de hardware personal |
 
-Son órdenes de magnitud, no números exactos — varían según la implementación específica de cuantización (Q4_0, Q4_K_M, etc.) y el largo de contexto que uses.
+Son órdenes de magnitud, no números exactos — varían según la implementación específica de cuantización (Q4_0, Q4_K_M, etc.) y el largo de contexto que uses. Para un modelo **MoE**, esta tabla se lee por sus parámetros **totales**, no por los activos (ver arriba) — un "397B MoE" ocupa memoria como un 397B, aunque procese cada token con mucho menos cómputo.
+
+## Groq y las LPU — hardware especializado para velocidad
+
+Todo lo de arriba (RAM/VRAM, tamaño en disco) asume el hardware estándar para correr LLMs: **GPU**. **Groq** (con Q, no confundir con [Grok](comparacion-modelos.md) de xAI — son cosas totalmente distintas que solo comparten nombre parecido) es una empresa que fabrica un chip diferente: la **LPU** (Language Processing Unit), diseñada específicamente para **inferencia** de LLMs — no para entrenar, solo para servir respuestas de un modelo ya entrenado, lo más rápido posible.
+
+La diferencia técnica central: una GPU usa memoria HBM (gran capacidad, pero más lenta); una LPU usa **SRAM on-chip** (mucho más rápida, pero de capacidad más chica por chip) — ese trade-off es lo que le permite a una LPU generar tokens notablemente más rápido que una GPU equivalente, a costa de necesitar más chips en paralelo para modelos grandes (porque cada uno tiene menos memoria).
+
+No es algo que se instale en una laptop — es infraestructura de datacenter (GroqCloud, o el mismo diseño licenciado por NVIDIA a partir de 2026). La mencionamos acá porque es la otra variable, además del tamaño del modelo y su cuantización, que determina qué tan rápido responde un LLM en producción: no solo "¿entra en memoria?", también "¿en qué chip corre?".
 
 ## Por qué importa
 
 Esto es la letra chica detrás de "self-hosteás un modelo gratis" (ver [self-hosted / open source](costos-llms.md#más-allá-de-la-api-self-hosted--open-source)): el costo no es cero, se traduce directamente en qué hardware necesitás — y eso depende de dos decisiones concretas: qué tamaño de modelo elegís, y con qué nivel de cuantización lo corrés.
 
 ---
-Relacionado: [Costos de LLMs](costos-llms.md), [Comparación de Modelos](comparacion-modelos.md), [Qué es un token](que-es-un-token.md).
+Relacionado: [Costos de LLMs](costos-llms.md), [Comparación de Modelos](comparacion-modelos.md), [Qué es un token](que-es-un-token.md), [Historia de ML a Agentic AI](historia-de-ml-a-agentic.md#3-transformers--la-arquitectura-base-de-todo-lo-que-vino-después-2017).

@@ -158,6 +158,7 @@
 - **Graph database** — [NoSQL](database/nosql.md#categorías-principales)
 - **GraphQL** — [GraphQL](backend/graphql.md)
 - **Grid (CSS Grid)** — [CSS](frontend-react/css.md#flexbox-vs-grid)
+- **Groq / LPU (Language Processing Unit)** — [Tamaño y Cuantización de Modelos](agentic-ai/tamano-y-cuantizacion.md#groq-y-las-lpu--hardware-especializado-para-velocidad)
 
 ### H
 
@@ -233,6 +234,7 @@
 - **Mock** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
 - **Modelos de datos históricos (jerárquico, de red, orientado a objetos)** — [Qué es una base de datos](database/que-es-una-base-de-datos.md#breve-historia-de-las-bases-de-datos)
 - **Module Federation** — [Module Federation](frontend-react/module-federation.md)
+- **MoE (Mixture of Experts)** — [Tamaño y Cuantización de Modelos](agentic-ai/tamano-y-cuantizacion.md#dense-vs-moe-mixture-of-experts)
 - **MongoDB** — [Motores de SQL](database/motores-de-sql.md)
 - **Mongoose (ODM)** — [Motores de SQL](database/motores-de-sql.md)
 - **Monolito** — [Monolito vs Microservicios](backend/monolito-vs-microservicios.md#monolito)
