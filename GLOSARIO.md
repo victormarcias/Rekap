@@ -85,6 +85,7 @@
 - **CSS Reset / Normalize.css** — [CSS](frontend-react/css.md#css-reset--normalize)
 - **CSSOM** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#8-el-navegador-renderiza)
 - **CSS Variables (Custom Properties)** — [CSS](frontend-react/css.md#css-variables-custom-properties)
+- **Cuantización (LLM)** — [Tamaño y Cuantización de Modelos](agentic-ai/tamano-y-cuantizacion.md#cuantización-el-trade-off)
 - **Custom hook (React)** — [Hooks](frontend-react/hooks.md#custom-hooks)
 - **Cypress** — [Testing en React](frontend-react/testing.md#end-to-end-testing-con-cypress)
 - **Dockerización** — [Dockerización](devops/docker.md#1-por-qué-dockerizar)
@@ -202,6 +203,7 @@
 
 - **key (prop de listas, React)** — [Diagnóstico Frontend](diagnostico/frontend.md#falta-de-key-en-listas)
 - **Key-Value store** — [NoSQL](database/nosql.md#categorías-principales)
+- **KV cache (LLM)** — [Tamaño y Cuantización de Modelos](agentic-ai/tamano-y-cuantizacion.md#ramvram-real-al-correr--solo-el-tamaño-en-disco)
 
 ### L
 

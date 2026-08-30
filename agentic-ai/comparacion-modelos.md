@@ -1,0 +1,17 @@
+# Comparación de Modelos
+
+Vista rápida de los modelos más relevantes hoy — propietarios (vía API) y open-source (self-hosted, ver [Ollama](costos-llms.md#más-allá-de-la-api-self-hosted--open-source)) — sin precios exactos por token (eso está en [Costos de LLMs](costos-llms.md) y se desactualiza rápido). Acá el foco es **con qué te quedás y qué perdés** al elegir cada uno.
+
+| Modelo | Gratis / Costo | Tamaño promedio | Ventajas | Contras |
+|---|---|---|---|---|
+| **Claude** (Anthropic) | De pago, por token (API) | No publicado (propietario) | Fuerte en razonamiento y código, prompt caching agresivo, extended thinking ([test-time compute](que-es-un-token.md#test-time-compute--pensar-más-al-responder-no-al-entrenar)) | Sin opción de self-host — dependés 100% de la API y su disponibilidad |
+| **GPT** (OpenAI) | De pago, por token (API) | No publicado (propietario) | Ecosistema más grande (tools, plugins, comunidad), buen balance precio/calidad en los tiers medios | Mismo problema de no self-host; salto de precio grande entre tier medio y flagship |
+| **Gemini** (Google) | De pago, por token (API) | No publicado (propietario) | Context window más grande del mercado, integración nativa con el stack de Google (Workspace, Cloud) | Menos "probado en batalla" en producción fuera del ecosistema Google, comparado con Claude/GPT |
+| **Llama** (Meta) | Gratis, self-hosted | 7B – 405B según variante | El más adoptado del ecosistema open-source — mejor soporte de herramientas ([Ollama](costos-llms.md#más-allá-de-la-api-self-hosted--open-source) y otros), comunidad más grande | Calidad por debajo de los flagship propietarios; las variantes grandes (70B+) necesitan hardware serio |
+| **Mistral** | Gratis, self-hosted | 7B – 123B según variante | Buena relación performance/tamaño — rinde bien incluso en variantes chicas, corre en hardware más modesto | Menos variantes y fine-tunes disponibles que Llama |
+| **Dolphin** (fine-tune) | Gratis, self-hosted | Depende del modelo base (fine-tune de Llama/Mistral) | Sin las restricciones de contenido del modelo base — [modelo "sin censura"](costos-llms.md#open-source-self-hosted-vs-llm-propietario-api) | Hereda las limitaciones de performance del modelo base; usarlo de forma irresponsable es responsabilidad de quien lo corre, no del proveedor |
+
+**Cómo leer la tabla**: "Tamaño promedio" solo aplica a los open-source, porque se publica el conteo de parámetros del modelo (7B = 7 mil millones) — los propietarios no publican esa cifra, es parte de lo que venden como ventaja competitiva. Cuánto ocupa eso en disco/memoria real (y por qué no es lo mismo que el conteo de parámetros) está en [Tamaño y Cuantización de Modelos](tamano-y-cuantizacion.md).
+
+---
+Relacionado: [Costos de LLMs](costos-llms.md), [Tamaño y Cuantización de Modelos](tamano-y-cuantizacion.md), [Qué es un token](que-es-un-token.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md).
