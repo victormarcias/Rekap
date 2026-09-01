@@ -8,4 +8,4 @@ Repaso por lenguaje/stack — setup, sintaxis y fundamentos. Distinto del resto 
 - [🔷 TypeScript](typescript/) — tipado de funciones, unions, utility types, generics, configuración de `tsconfig.json`
 - [🔗 n8n](n8n/) — automatización node-based, self-hosteable, nodo AI Agent
 
-Ver también: [Sistema de tipos comparado](tipos-comparativa.md) (TypeScript/Python/Swift/Kotlin/Java lado a lado).
+Ver también: [Sistema de tipos comparado](tipos-comparativa.md) (TypeScript/Python/Swift/Kotlin/Java lado a lado), [Panorama: capas de un stack](mapa-de-stacks.md) (runtime vs framework vs ORM vs frontend — por qué "Node vs FastAPI vs Next.js" no es una comparación pareja).
