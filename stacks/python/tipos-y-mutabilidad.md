@@ -52,7 +52,7 @@ def add_item(item, cart=None):
     return cart
 ```
 
-Uno de los gotchas más preguntados en entrevistas de Python — la razón de fondo es que los valores default de una función se evalúan **una sola vez**, al definir la función, no en cada llamada.
+Uno de los gotchas más conocidos de Python — la razón de fondo es que los valores default de una función se evalúan **una sola vez**, al definir la función, no en cada llamada.
 
 ---
 Relacionado: [Shallow copy vs Deep copy](../../system-design/atributos-de-calidad.md#shallow-copy-vs-deep-copy), [Sintaxis general](sintaxis.md).
