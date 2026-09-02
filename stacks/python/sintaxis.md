@@ -107,6 +107,12 @@ squares = [x ** 2 for x in range(10) if x % 2 == 0]
 # el mismo patrón existe para dict y set
 squares_dict = {x: x ** 2 for x in range(5)}
 evens_set = {x for x in range(10) if x % 2 == 0}
+
+# filtrar por tipo — típico con tuplas/listas de contenido mixto
+datos = (1, "hola", 2.5, 3, None, True, 4)
+solo_ints = [x for x in datos if type(x) is int]   # [1, 3, 4] — type() (no isinstance) excluye bool,
+                                                     # porque bool es subclase de int pero type(True) is bool
+total = sum(x for x in datos if type(x) is int)     # generator directo en sum(), sin lista intermedia
 ```
 
 ## Funciones
