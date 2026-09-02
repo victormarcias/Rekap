@@ -33,6 +33,42 @@ def with_logging(fn):
     return wrapper
 ```
 
+## Closures
+
+Una función interna que "recuerda" una variable del scope de la función que la envuelve, incluso después de que esa función externa ya terminó de ejecutarse. Es el mecanismo detrás de los decorators de arriba: `wrapper` sigue teniendo acceso a `fn` mucho después de que `with_logging` retornó.
+
+```python
+def contador():
+    n = 0
+    def incrementar():
+        nonlocal n   # sin esto, sería un nuevo n local a incrementar(), no el de contador()
+        n += 1
+        return n
+    return incrementar
+
+sumar = contador()
+sumar()   # 1
+sumar()   # 2 — "recuerda" el n de la llamada anterior, no arranca de nuevo
+```
+
+**LEGB**: el orden en que Python busca un nombre — **L**ocal (la función actual) → **E**nclosing (la función que la envuelve, el caso de closures) → **G**lobal (el módulo) → **B**uilt-in (`len`, `print`, etc.). `nonlocal` habilita modificar una variable del scope *enclosing*; `global`, una del scope *global* — sin ninguno de los dos, una asignación siempre crea una variable local nueva en vez de tocar la de afuera.
+
+**El gotcha clásico: late binding en loops**
+
+```python
+# ❌ los tres lambdas comparten la MISMA variable i — cuando se llaman,
+# el loop ya terminó y i vale 2 para los tres
+funcs = [lambda: i for i in range(3)]
+[f() for f in funcs]   # [2, 2, 2] — no [0, 1, 2] como se esperaría
+
+# ✅ default argument fuerza a evaluar i en el momento de crear cada lambda,
+# no en el momento de llamarla
+funcs = [lambda i=i: i for i in range(3)]
+[f() for f in funcs]   # [0, 1, 2]
+```
+
+Un closure no captura el *valor* de la variable en el momento en que se define — captura una referencia al *nombre*, y lo resuelve recién cuando se llama. Si esa variable siguió cambiando (el `i` de un loop), todos los closures creados en ese loop ven el valor final, no el que tenía en su propia iteración.
+
 ## Generators — evaluación perezosa
 
 Una función con `yield` en vez de `return` es un **generator**: no calcula todos los valores de una — cede uno por vez, pausando su ejecución entre cada `yield`, y solo sigue calculando cuando se le pide el próximo.

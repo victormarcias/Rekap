@@ -166,6 +166,29 @@ finally:
 raise ValueError("Mensaje de error")  # lanzar una excepción manualmente
 ```
 
+**Cuándo corre `finally`**: siempre — con excepción capturada, sin excepción, con `return`/`break`/`continue` adentro del `try`, o incluso con una excepción que **no** matchea ningún `except` (corre el `finally` y recién después la excepción se sigue propagando hacia afuera).
+
+```python
+def f():
+    try:
+        return 1
+    finally:
+        print("esto corre igual, antes de que la función retorne")
+# imprime el mensaje y DESPUÉS devuelve 1
+```
+
+**El gotcha**: un `return` (o `raise`) dentro del `finally` **pisa** cualquier `return`/excepción que venía del `try` — la excepción original se pierde en silencio, sin ningún rastro de que existió.
+
+```python
+def f():
+    try:
+        raise ValueError("error real")
+    finally:
+        return "todo bien"   # ❌ esto gana — ValueError nunca se propaga, se pierde
+
+f()   # "todo bien" — el ValueError jamás llegó a nadie
+```
+
 ## Context managers — `with`
 
 Garantiza que un recurso se libere al salir del bloque, incluso si ocurre una excepción en el medio — evita el error clásico de un `close()` que nunca se ejecuta porque algo falló antes. Ver [Diagnóstico Backend](../../diagnostico/backend.md) (sección "No liberar recursos del sistema").
