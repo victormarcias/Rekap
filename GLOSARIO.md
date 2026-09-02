@@ -242,6 +242,7 @@
 - **Moved Permanently (301)** — [HTTP Status Codes](system-design/http-status-codes.md#3xx--redirection)
 - **MPA (Multi-Page Application)** — [Renderizado](frontend-react/renderizado.md#spa-single-page-application)
 - **Multi-stage build (Docker)** — [Dockerización](devops/docker.md#2-multi-stage-build)
+- **Multi-tenancy / Tenant** — [White-Label](system-design/white-label.md#multi-tenancy-el-problema-arquitectónico-central)
 - **Multimodal (LLM)** — [Qué es un token](agentic-ai/que-es-un-token.md#multimodal--tokens-más-allá-del-texto)
 - **MutationObserver (Browser API)** — [Patrón Observer en el browser](frontend-react/observer-en-el-browser.md#mutationobserver)
 - **Mutex** — [Locks](database/locks.md#sección-crítica--el-concepto-general-detrás-de-la-solución)
@@ -442,6 +443,7 @@
 - **Web Worker (Browser API)** — [Diagnóstico Frontend](diagnostico/frontend.md#bloqueo-del-hilo-principal)
 - **Webhooks** — [Webhooks](backend/webhooks.md)
 - **WebSocket** — [WebSocket / SSE / Streaming](frontend-react/websocket-sse-streaming.md#websocket--bidireccional)
+- **White-Label** — [White-Label](system-design/white-label.md)
 - **Write-behind (write-back)** — [Cache Invalidation](backend/cache-invalidation.md#cache-aside-write-through-write-behind)
 - **Write-through** — [Cache Invalidation](backend/cache-invalidation.md#cache-aside-write-through-write-behind)
 

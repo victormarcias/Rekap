@@ -11,3 +11,4 @@ Teoría de diseño de software que aplica más allá del backend — patrones, p
 - [x] [Qué pasa cuando escribís una URL](que-pasa-cuando-escribis-una-url.md)
 - [x] [SOLID principles](solid.md)
 - [x] [Testing — conceptos generales](testing.md)
+- [x] [White-Label: Consideraciones](white-label.md)
