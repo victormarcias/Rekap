@@ -76,7 +76,7 @@ Si el valor debe reflejarse en la UI, es `useState`; si es "bookkeeping" interno
 
 ## `useContext`
 
-Lee un valor provisto más arriba en el árbol por un `Context.Provider`, sin tener que pasarlo manualmente prop por prop a través de cada componente intermedio (ver [prop drilling](estado-global.md#prop-drilling-el-problema)).
+Lee un valor provisto más arriba en el árbol por un `Context.Provider`, sin tener que pasarlo manualmente prop por prop a través de cada componente intermedio (ver [prop drilling](estado-global.md#prop-drilling--el-problema)).
 
 ```jsx
 const ThemeContext = createContext('light');
