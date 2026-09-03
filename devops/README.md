@@ -1,6 +1,6 @@
 # DevOps
 
-Machetes sobre infraestructura, escalabilidad y operaciones.
+Guías sobre infraestructura, escalabilidad y operaciones.
 
 - [x] [CDN](cdn.md)
 - [x] [Cold starts](cold-starts.md)

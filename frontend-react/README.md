@@ -1,6 +1,6 @@
 # Frontend React
 
-Machetes sobre React y frontend moderno.
+Guías sobre React y frontend moderno.
 
 - [x] [Accesibilidad](accesibilidad.md)
 - [x] [Almacenamiento en el cliente](almacenamiento-cliente.md)

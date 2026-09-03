@@ -1,4 +1,4 @@
-# Machete
+# Wiki
 
 Este repositorio contiene conocimiento general de informática.
 

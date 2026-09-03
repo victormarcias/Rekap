@@ -1,6 +1,6 @@
 # Database
 
-Machetes de referencia sobre bases de datos — relacionales (SQL) y NoSQL.
+Guías de referencia sobre bases de datos — relacionales (SQL) y NoSQL.
 
 - [x] [ACID / transacciones / isolation levels](acid-transacciones-isolation.md)
 - [x] [CRUD](crud.md)
