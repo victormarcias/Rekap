@@ -1,6 +1,6 @@
 # Hooks
 
-A diferencia del resto de los temas de esta carpeta, esto no tiene versión "genérica" — los hooks son una API específica de React (y de los frameworks que copiaron el modelo, como Preact). `useState`/`useEffect`/`memo`/`useMemo`/`useCallback` ya se cubrieron en detalle, con el foco puesto en performance, en [Diagnóstico Frontend](../diagnostico/frontend.md). Acá el foco es el mecanismo por detrás: las reglas y cómo armar hooks propios.
+Los hooks son una API específica de React (y de los frameworks que copiaron el modelo, como Preact).
 
 ## Reglas de hooks
 
@@ -23,6 +23,40 @@ function Component({ show }) {
 ```
 
 **Por qué existe esta regla**: React no identifica cada hook por nombre, sino por el **orden** en que se llaman durante el render — internamente los guarda en una lista y los asocia por posición. Si un hook a veces se llama y a veces no, el orden se desalinea entre renders y React le asigna a un hook el estado que le correspondía a otro.
+
+## `useEffect`
+
+Corre después del render, para sincronizar el componente con algo externo (fetch, subscripción, timer, manipular el DOM directamente) — no para lógica que puede resolverse durante el render mismo.
+
+```jsx
+useEffect(() => {
+  fetchData();
+});             // sin array: corre después de CADA render
+
+useEffect(() => {
+  fetchData();
+}, []);         // array vacío: corre una sola vez, al montar
+
+useEffect(() => {
+  fetchData();
+}, [userId]);   // corre al montar, y de nuevo cada vez que userId cambia
+```
+
+**El array de dependencias no es opcional en la práctica**: sin él (o con dependencias mal declaradas), el efecto se dispara de más — y si adentro setea estado, cada disparo puede forzar otro render. Ver [`useEffect` mal usado](../diagnostico/frontend.md#useeffect-mal-usado--re-renders-en-cadena) para el caso concreto de performance.
+
+## `memo`, `useMemo`, `useCallback` — memoización
+
+```jsx
+const total = useMemo(() => calcularTotalPesado(items), [items]);   // memoiza un VALOR calculado
+const handleClick = useCallback(() => doSomething(id), [id]);        // memoiza una FUNCIÓN
+const Row = memo(function Row({ item }) { ... });                     // memoiza un COMPONENTE completo
+```
+
+- **`useMemo`**: evita recalcular algo costoso en cada render, si sus dependencias no cambiaron.
+- **`useCallback`**: evita crear una función nueva en cada render — importa cuando esa función es prop de un componente envuelto en `memo`, porque una función nueva rompe la comparación de referencia y anula el memo.
+- **`memo`**: envuelve un componente para que no se re-renderice si sus props no cambiaron (comparación superficial).
+
+No memoizar todo por default — agrega overhead de comparación; usarlo donde el costo evitado (render caro, o romper el memo de un hijo) lo justifica. Ver [Componentes que no usan `memo`/`useMemo`/`useCallback`](../diagnostico/frontend.md#componentes-que-no-usan-memousememousecallback) para el síntoma de performance que resuelve.
 
 ## Custom hooks
 
