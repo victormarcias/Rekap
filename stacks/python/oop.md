@@ -121,4 +121,4 @@ C.__mro__           # muestra el orden exacto de búsqueda
 ```
 
 ---
-Relacionado: [Patrones creacionales](../../system-design/patrones-creacionales.md) (Singleton usa `__new__`), [Patrones estructurales](../../system-design/patrones-estructurales.md) (Class Adapter necesita herencia múltiple), [Tipos y Mutabilidad](tipos-y-mutabilidad.md) (mutable default arguments, mismo mecanismo de fondo), [Python vs Swift](vs-swift.md#clases-y-oop) (atributo de clase = `static var`).
+Relacionado: [Patrones creacionales](../../system-design/patrones-creacionales.md) (Singleton usa `__new__`), [Patrones estructurales](../../system-design/patrones-estructurales.md) (Class Adapter necesita herencia múltiple), [Tipos y Mutabilidad](tipos-y-mutabilidad.md) (mutable default arguments, mismo mecanismo de fondo).

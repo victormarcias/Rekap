@@ -10,7 +10,4 @@ Repaso de fundamentos del lenguaje, setup y sintaxis. Para arquitectura/FastAPI,
 - [x] [Concurrencia y Memoria](concurrencia-y-memoria.md) — GIL, garbage collection
 - [x] [Módulo `collections`](collections-module.md) — `Counter`, `defaultdict`, `namedtuple`, `deque`
 - [x] [Algoritmos, Sorting y Big-O](algoritmos-y-sorting.md) — complejidad de `list`/`dict`/`set`, `sorted()`/`key=`, Timsort, `heapq`, datos time-based
-- [x] [Setup en macOS — flujo clásico](setup-macos.md)
-- [x] [Setup en macOS con uv](setup-uv.md)
 - [x] [Sintaxis general](sintaxis.md)
-  - [x] [vs Swift](vs-swift.md) — sintaxis y OOP lado a lado, dunder methods vs protocolos/operadores

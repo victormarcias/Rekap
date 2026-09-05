@@ -1,7 +1,5 @@
 # Python — Sintaxis General
 
-Recorrido de la sintaxis base de Python. Pensado para alguien que ya programa en otro lenguaje (JS/TS/Swift) — el foco está en las convenciones y los "gotchas" que cambian respecto a lo que ya conocés, no en explicar qué es una variable.
-
 ## Indentación en vez de llaves
 
 Python usa indentación (4 espacios, por convención de PEP 8) para definir bloques, no `{ }`. Mezclar tabs y espacios en el mismo archivo rompe el código con un `IndentationError`.
@@ -22,7 +20,7 @@ x = 5
 x = "ahora soy un string"  # válido — no hay error de tipo hasta que algo lo use mal
 ```
 
-**Type hints** son opcionales y no se enforcean en runtime por defecto — le sirven al linter/IDE para avisarte antes de correr el código, no al intérprete para bloquear la ejecución.
+**Type hints** son opcionales y no se enforcean en runtime por defecto — le sirven al linter/IDE para avisar antes de correr el código, no al intérprete para bloquear la ejecución.
 
 ```python
 def greet(name: str, age: int) -> str:
@@ -43,25 +41,14 @@ nada = None               # equivalente a null/nil
 
 ## Estructuras de datos
 
-| Tipo | Mutable | Ordenado | Ejemplo |
-|---|---|---|---|
-| `list` | Sí | Sí | `[1, 2, 3]` |
-| `tuple` | No | Sí | `(1, 2, 3)` |
-| `dict` | Sí | Sí (desde 3.7) | `{"a": 1, "b": 2}` |
-| `set` | Sí | No | `{1, 2, 3}` |
-
 ```python
-nums = [1, 2, 3]
-nums.append(4)                # [1, 2, 3, 4]
-
-punto = (10, 20)               # inmutable — no tiene .append(), pensado para datos que no cambian
-
-persona = {"name": "Ana", "age": 30}
-persona["age"] = 31             # los dict sí se mutan
-persona.get("email", "N/A")     # acceso seguro: devuelve "N/A" en vez de lanzar KeyError
-
-unicos = {1, 2, 2, 3}            # {1, 2, 3} — un set descarta duplicados automáticamente
+nums = [1, 2, 3]                # list
+punto = (10, 20)                 # tuple
+persona = {"name": "Ana", "age": 30}   # dict
+unicos = {1, 2, 3}                # set
 ```
+
+Cuál es mutable/ordenada de cada una está en [Tipos y Mutabilidad](tipos-y-mutabilidad.md#mutable-vs-inmutable).
 
 ## Slicing
 
@@ -232,7 +219,7 @@ print(f"{age + 1=}")                 # debug shorthand (3.8+): imprime "age + 1=
 | Constantes | `UPPER_SNAKE_CASE` | `MAX_RETRIES` |
 | "Privado" (convención, no lo enforcea el lenguaje) | prefijo `_` | `self._internal_state` |
 
-A diferencia de JS/TS (`camelCase` para casi todo) o Swift, Python separa `snake_case` para variables/funciones de `PascalCase` para clases — el linter (`ruff`, ver [Setup con uv](setup-uv.md)) marca las desviaciones, pero el intérprete no las bloquea.
+A diferencia de JS/TS (`camelCase` para casi todo) o Swift, Python separa `snake_case` para variables/funciones de `PascalCase` para clases — el linter (`ruff`) marca las desviaciones, pero el intérprete no las bloquea.
 
 ---
-Relacionado: [Setup con uv](setup-uv.md), [Setup clásico en macOS](setup-macos.md).
+Relacionado: [Tipos y Mutabilidad](tipos-y-mutabilidad.md), [Básico](basico.md), [OOP](oop.md).

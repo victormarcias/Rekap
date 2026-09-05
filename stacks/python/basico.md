@@ -1,10 +1,8 @@
 # Python — Básico
 
-Repaso rápido de fundamentos del lenguaje.
-
 ## Python 2 vs Python 3
 
-Python 2 dejó de tener soporte oficial en 2020 — hoy cualquier proyecto nuevo es Python 3, pero preguntan la diferencia para ver si conocés la historia del lenguaje:
+Python 2 dejó de tener soporte oficial en 2020 — hoy cualquier proyecto nuevo es Python 3, pero vale la pena conocer la historia del lenguaje para entender de dónde vienen ciertas convenciones:
 
 - `print` es una función en Python 3 (`print("hola")`); era una sentencia en Python 2 (`print "hola"`).
 - División: `5 / 2` da `2.5` en Python 3 (float por default); en Python 2 daba `2` (división entera si ambos son int). División entera explícita en Python 3: `5 // 2`.
@@ -22,8 +20,6 @@ pip uninstall fastapi
 pip list                        # paquetes instalados en el entorno activo
 ```
 
-Ver [Setup clásico en macOS](setup-macos.md) para cómo se combina con `venv`.
-
 ## `requirements.txt`
 
 Archivo de texto plano que lista las dependencias del proyecto (y opcionalmente sus versiones exactas), para que cualquiera pueda reproducir el mismo entorno.
@@ -39,7 +35,7 @@ pip freeze > requirements.txt     # genera el archivo con las versiones exactas 
 pip install -r requirements.txt   # instala todo lo que lista el archivo
 ```
 
-`pip freeze` vuelca **todo** lo instalado en el entorno, incluyendo dependencias transitivas (las que instaló otra librería, no vos directamente) — por eso un `requirements.txt` generado así puede tener 50 líneas aunque el proyecto solo declare 5 dependencias directas. Herramientas más modernas (`uv`, `poetry`) separan "lo que vos pediste" del lockfile completo — ver [Setup con uv](setup-uv.md).
+`pip freeze` vuelca **todo** lo instalado en el entorno, incluyendo dependencias transitivas (las que instaló otra librería, no algo pedido directamente) — por eso un `requirements.txt` generado así puede tener 50 líneas aunque el proyecto solo declare 5 dependencias directas. Herramientas más modernas (`uv`, `poetry`) separan las dependencias declaradas del lockfile completo.
 
 ## `if __name__ == "__main__"`
 
@@ -71,4 +67,4 @@ from mi_paquete import models   # importa el módulo desde el paquete
 ```
 
 ---
-Relacionado: [Sintaxis general](sintaxis.md), [Setup con uv](setup-uv.md).
+Relacionado: [Sintaxis general](sintaxis.md).

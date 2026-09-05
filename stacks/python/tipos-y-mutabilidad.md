@@ -2,8 +2,15 @@
 
 ## Mutable vs inmutable
 
-- **Mutables**: `list`, `dict`, `set` — se pueden modificar in-place, la misma referencia sigue siendo válida después de cambiar el contenido.
-- **Inmutables**: `tuple`, `str`, `int`, `float`, `bool`, `frozenset` — cualquier "modificación" en realidad crea un objeto nuevo.
+| Tipo | Mutable | Ordenado | Ejemplo |
+|---|---|---|---|
+| `list` | Sí | Sí | `[1, 2, 3]` |
+| `tuple` | No | Sí | `(1, 2, 3)` |
+| `dict` | Sí | Sí (desde 3.7) | `{"a": 1, "b": 2}` |
+| `set` | Sí | No | `{1, 2, 3}` |
+| `frozenset` | No | No | `frozenset({1, 2, 3})` |
+| `str` | No | Sí | `"hola"` |
+| `int` / `float` / `bool` | No | — | `42`, `3.14`, `True` |
 
 ```python
 a = [1, 2, 3]
@@ -11,6 +18,12 @@ a.append(4)       # ✅ modifica la misma lista, misma referencia (id(a) no camb
 
 b = "hola"
 b += " mundo"      # ❌ no modifica el string original — crea un string NUEVO y b apunta a ese nuevo objeto
+
+persona = {"name": "Ana", "age": 30}
+persona["age"] = 31             # los dict sí se mutan
+persona.get("email", "N/A")     # acceso seguro: devuelve "N/A" en vez de lanzar KeyError
+
+unicos = {1, 2, 2, 3}            # {1, 2, 3} — un set descarta duplicados automáticamente, porque es mutable pero sin orden
 ```
 
 Por qué importa: un objeto mutable pasado como argumento a una función puede ser modificado por esa función y el cambio "se ve" afuera; uno inmutable, no — ver [Shallow copy vs Deep copy](../../system-design/atributos-de-calidad.md#shallow-copy-vs-deep-copy) para el caso más sutil (mutar algo anidado dentro de una copia "nueva").
@@ -55,4 +68,4 @@ def add_item(item, cart=None):
 Uno de los gotchas más conocidos de Python — la razón de fondo es que los valores default de una función se evalúan **una sola vez**, al definir la función, no en cada llamada.
 
 ---
-Relacionado: [Shallow copy vs Deep copy](../../system-design/atributos-de-calidad.md#shallow-copy-vs-deep-copy), [Sintaxis general](sintaxis.md), [Python vs Swift](vs-swift.md#clases-y-oop) (mismo criterio aplicado a atributos de clase vs de instancia).
+Relacionado: [Shallow copy vs Deep copy](../../system-design/atributos-de-calidad.md#shallow-copy-vs-deep-copy), [Sintaxis general](sintaxis.md).
