@@ -110,7 +110,7 @@ Si el valor debe reflejarse en la UI, es `useState`; si es "bookkeeping" interno
 
 ## `useContext`
 
-Lee un valor provisto más arriba en el árbol por un `Context.Provider`, sin tener que pasarlo manualmente prop por prop a través de cada componente intermedio (ver [prop drilling](estado-global.md#prop-drilling--el-problema)).
+Lee un valor provisto más arriba en el árbol por un `Context.Provider`, sin tener que pasarlo manualmente prop por prop a través de cada componente intermedio (ver [prop drilling](estado-global.md#prop-drilling--el-problema)) — es la versión de React de **Dependency Injection**: el `Provider` es el contenedor que define qué valor está disponible, y `useContext` es pedir esa dependencia inyectada, sin que el componente sepa de dónde vino.
 
 ```jsx
 const ThemeContext = createContext('light');
@@ -136,6 +136,8 @@ function ThemedButton() {
 ```
 
 Cualquier componente que use `useContext` se re-renderiza cuando el `value` del Provider cambia, sin importar cuán abajo esté en el árbol — ver [Estado global: Context API vs Redux](estado-global.md) para cuándo esto se vuelve un problema de performance y qué alternativas hay.
+
+🐣 **Fun fact — de dónde viene el nombre**: "engancharse" (hook) a las features internas de React (estado, ciclo de vida, contexto) desde una función común. Antes de los hooks, eso solo lo tenía una class component (`this.state`, `componentDidMount`) — `useState` engancha al sistema de estado, `useEffect` al ciclo de vida, `useContext` al árbol de Context. Mismo concepto que un git hook: un punto de enganche para meter código propio en el comportamiento de un sistema que ya existe.
 
 ---
 Relacionado: [Diagnóstico Frontend](../diagnostico/frontend.md) (`useEffect`, `memo`/`useMemo`/`useCallback`), [Estado global](estado-global.md), [React Fundamentos](react-fundamentos.md).
