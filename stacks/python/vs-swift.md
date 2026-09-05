@@ -225,6 +225,12 @@ class Perro(Animal):                  # herencia
 
     def _protegido(self): ...         # protegido — convención, no enforced
     def __privado(self): ...          # privado — name mangling, no enforced
+
+class Contador:
+    vistos = []                       # atributo de clase — se crea UNA sola vez, compartido por todas las instancias
+
+    def __init__(self):
+        self.total = 0                # atributo de instancia — recién existe cuando corre __init__, uno por objeto
 ```
 
 ```swift
@@ -263,6 +269,12 @@ class Perro: Animal {                 // herencia
 
     fileprivate func protegido() { }  // protegido
     private func privado() { }        // privado — enforced por el compilador
+}
+
+class Contador {
+    static var vistos: [Int] = []     // atributo de clase — un solo array, compartido por todas las instancias
+
+    var total = 0                     // atributo de instancia — inicializado fresco en cada init
 }
 ```
 
@@ -398,4 +410,4 @@ func usarPunto() {
 `with` envuelve un bloque completo desde afuera; `defer` se declara adentro de la función y corre al salir de su scope, sin necesidad de envolver nada — mismo propósito (garantizar que algo se limpie), mecanismo distinto.
 
 ---
-Relacionado: [Sistema de tipos comparado](../tipos-comparativa.md) (mismo estilo de tabla, enfocado en tipos), [Sintaxis general de Python](sintaxis.md), [OOP en Python](oop.md).
+Relacionado: [Sistema de tipos comparado](../tipos-comparativa.md) (mismo estilo de tabla, enfocado en tipos), [Sintaxis general de Python](sintaxis.md), [OOP en Python](oop.md), [Mutable default arguments](tipos-y-mutabilidad.md#el-gotcha-clásico-mutable-default-arguments) (mismo criterio: se evalúa/crea una sola vez, no por instancia/llamada).

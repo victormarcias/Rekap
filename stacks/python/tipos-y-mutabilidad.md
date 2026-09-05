@@ -55,4 +55,4 @@ def add_item(item, cart=None):
 Uno de los gotchas más conocidos de Python — la razón de fondo es que los valores default de una función se evalúan **una sola vez**, al definir la función, no en cada llamada.
 
 ---
-Relacionado: [Shallow copy vs Deep copy](../../system-design/atributos-de-calidad.md#shallow-copy-vs-deep-copy), [Sintaxis general](sintaxis.md).
+Relacionado: [Shallow copy vs Deep copy](../../system-design/atributos-de-calidad.md#shallow-copy-vs-deep-copy), [Sintaxis general](sintaxis.md), [Python vs Swift](vs-swift.md#clases-y-oop) (mismo criterio aplicado a atributos de clase vs de instancia).
