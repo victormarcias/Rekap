@@ -21,16 +21,21 @@ Punto(1, 2)
 
 ```python
 class Contador:
-    vistos = []           # atributo de clase — compartido por TODAS las instancias
+    totalGlobal = 0               # atributo de clase — una sola vez, compartido
 
     def __init__(self):
-        self.total = 0     # atributo de instancia — uno nuevo por cada objeto
+        self.total = 0             # atributo de instancia — uno nuevo por cada objeto
+        Contador.totalGlobal += 1  # cada instancia nueva suma al contador compartido
 
-a, b = Contador(), Contador()
-a.vistos.append(1)
-b.vistos    # [1] — mismo objeto compartido
-a.total = 5
-b.total     # 0 — independiente entre instancias
+c1 = Contador()
+c2 = Contador()
+c1.totalGlobal, c2.totalGlobal    # (2, 2) — mismo atributo de clase, las dos ven el mismo valor
+
+c1.total += 5
+c1.total, c2.total                # (5, 0) — no se pisan: cada instancia tiene el suyo
+
+Contador.totalGlobal += 10
+c1.totalGlobal, c2.totalGlobal    # (12, 12) — sí se pisan: es el mismo atributo para las dos
 ```
 
 ## `staticmethod` vs `classmethod` vs método de instancia
