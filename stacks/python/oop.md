@@ -19,6 +19,20 @@ Punto(1, 2)
 # 2. Inicializando la instancia
 ```
 
+```python
+class Contador:
+    vistos = []           # atributo de clase — compartido por TODAS las instancias
+
+    def __init__(self):
+        self.total = 0     # atributo de instancia — uno nuevo por cada objeto
+
+a, b = Contador(), Contador()
+a.vistos.append(1)
+b.vistos    # [1] — mismo objeto compartido
+a.total = 5
+b.total     # 0 — independiente entre instancias
+```
+
 ## `staticmethod` vs `classmethod` vs método de instancia
 
 ```python
@@ -102,4 +116,4 @@ C.__mro__           # muestra el orden exacto de búsqueda
 ```
 
 ---
-Relacionado: [Patrones creacionales](../../system-design/patrones-creacionales.md) (Singleton usa `__new__`), [Patrones estructurales](../../system-design/patrones-estructurales.md) (Class Adapter necesita herencia múltiple).
+Relacionado: [Patrones creacionales](../../system-design/patrones-creacionales.md) (Singleton usa `__new__`), [Patrones estructurales](../../system-design/patrones-estructurales.md) (Class Adapter necesita herencia múltiple), [Tipos y Mutabilidad](tipos-y-mutabilidad.md) (mutable default arguments, mismo mecanismo de fondo), [Python vs Swift](vs-swift.md#clases-y-oop) (atributo de clase = `static var`).
