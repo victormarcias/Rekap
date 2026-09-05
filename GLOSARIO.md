@@ -355,6 +355,7 @@
 ### S
 
 - **S3 (AWS)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md)
+- **SaaS (Software as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
 - **Safe methods (HTTP)** — [HTTP Methods](backend/http-methods.md#safe-methods--sin-efectos-secundarios)
 - **Salt** — [Autenticación y Seguridad](backend/autenticacion.md#3-salt)
 - **SameSite (cookie flag)** — [Almacenamiento en el cliente](frontend-react/almacenamiento-cliente.md#cookies)

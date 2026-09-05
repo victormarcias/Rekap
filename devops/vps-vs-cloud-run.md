@@ -7,7 +7,7 @@
 - **Shared hosting**: ahí ni siquiera tenés tu propio SO — compartís el mismo proceso/entorno con otros clientes, sin acceso root.
 - **Servidor dedicado**: hardware físico completo para vos solo, sin virtualización — más caro, sin los límites que impone compartir hardware.
 
-Proveedores típicos: DigitalOcean, Linode/Akamai, Hetzner, AWS EC2.
+Proveedores típicos: DigitalOcean, Linode/Akamai, Hetzner, [AWS EC2](../cloud/aws/servicios-principales.md).
 
 Comparación entre [Deploy a un VPS](deploy-vps.md) (servidor propio, siempre prendido) y [Deploy a Cloud Run](deploy-cloud-run.md) (contenedor serverless, escala a cero).
 
@@ -15,12 +15,13 @@ Comparación entre [Deploy a un VPS](deploy-vps.md) (servidor propio, siempre pr
 
 VPS y Cloud Run son dos puntos de un espectro más amplio — a medida que avanzás, le delegás más responsabilidad a la plataforma, a cambio de menos control:
 
-- **IaaS** (Infrastructure as a Service): un VPS es esto — te dan una máquina virtual vacía, vos instalás el SO, el runtime, todo. Máximo control, máxima responsabilidad.
-- **PaaS** (Platform as a Service): le das tu código (o un `git push`), la plataforma se encarga del SO, el runtime y el proceso de deploy — ya no tocás un servidor directamente. Ejemplos: Heroku, Render, Railway. Es un paso intermedio entre VPS y serverless: no hay cold start ni escala a cero (normalmente corre siempre, como el VPS), pero tampoco administrás infraestructura.
-- **Serverless / CaaS** (Container as a Service): Cloud Run es esto — le das un contenedor, la plataforma decide cuántas instancias correr y cuándo, incluyendo escalar a cero. Cero infraestructura que administrar, pero con cold starts y menos control fino.
-- **FaaS** (Function as a Service, ej. AWS Lambda): un paso más allá de Cloud Run — ni siquiera un contenedor, solo una función individual que la plataforma ejecuta bajo demanda.
-
-**Dónde entra PaaS en la práctica**: es la opción típica para no lidiar con servidores sin pagar el costo de cold starts — a cambio, suele ser más caro que un VPS equivalente a tráfico alto y constante (mismo trade-off que Cloud Run, pero sin el beneficio de escalar a cero).
+| Modelo | Qué es | Ejemplos | Caso de uso típico |
+|---|---|---|---|
+| **IaaS** (Infrastructure as a Service) | Máquina virtual vacía — vos instalás el SO, el runtime, todo. Máximo control, máxima responsabilidad. | [AWS EC2](../cloud/aws/servicios-principales.md), un VPS | Necesitás control total, o algo que no encaja en un contenedor/función. |
+| **PaaS** (Platform as a Service) | Le das tu código (o un `git push`), la plataforma se encarga del SO, el runtime y el deploy — ya no tocás un servidor directamente. | Heroku, Render, Railway | No querés lidiar con servidores sin pagar el costo de cold starts — corre siempre (como un VPS), pero suele salir más caro que un VPS equivalente a tráfico alto y constante. |
+| **Serverless / CaaS** (Container as a Service) | Le das un contenedor, la plataforma decide cuántas instancias correr y cuándo, incluyendo escalar a cero. | Google Cloud Run | Tráfico variable/intermitente — aceptás cold starts a cambio de pagar $0 cuando no hay tráfico. |
+| **FaaS** (Function as a Service) | Ni siquiera un contenedor — una función individual que la plataforma ejecuta bajo demanda. | [AWS Lambda](../cloud/aws/servicios-principales.md) | Tareas puntuales event-driven (procesar un archivo, responder un webhook), sin mantener nada corriendo. |
+| **SaaS** (Software as a Service) | Eje distinto a los cuatro de arriba: usar el software ya terminado de otro, sin desplegar nada propio. | Gmail, Salesforce | La necesidad es "usar una herramienta", no "construir/desplegar algo propio". |
 
 ## Comparación técnica
 
