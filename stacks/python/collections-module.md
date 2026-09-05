@@ -65,5 +65,36 @@ d.appendleft(0)                # O(1) insertar al principio — una list normal 
 
 Preferir `deque` sobre `list` cuando se inserta/saca seguido de **ambos** extremos — `list.insert(0, x)` y `list.pop(0)` son O(n) (mueven todos los elementos), `deque.appendleft()`/`popleft()` son O(1).
 
+## `ChainMap` — encadenar varios dicts sin mergearlos
+
+```python
+from collections import ChainMap
+
+defaults = {"tema": "claro", "idioma": "es"}
+config_proyecto = {"idioma": "en"}
+config_usuario = {"tema": "oscuro"}
+
+config = ChainMap(config_usuario, config_proyecto, defaults)
+config["tema"]      # "oscuro" — busca en orden: usuario → proyecto → defaults
+config["idioma"]    # "en" — no está en config_usuario, lo encuentra en config_proyecto
+```
+
+Busca en orden de prioridad sin copiar ni mergear los dicts físicamente — útil para capas de configuración (usuario > proyecto > defaults), donde cada nivel puede sobreescribir al anterior sin duplicar datos.
+
+## `OrderedDict` — hoy, ya no exclusivo
+
+Desde Python 3.7 los `dict` normales ya mantienen el orden de inserción — `OrderedDict` perdió la mayor parte de su razón de ser. Lo que le queda de exclusivo:
+
+```python
+from collections import OrderedDict
+
+od = OrderedDict(a=1, b=2, c=3)
+od.move_to_end("a")      # mueve "a" al final — un dict normal no tiene este método
+list(od)                   # ['b', 'c', 'a']
+
+OrderedDict(a=1, b=2) == OrderedDict(b=2, a=1)   # False — compara también el orden
+{"a": 1, "b": 2} == {"b": 2, "a": 1}               # True — un dict normal ignora el orden al comparar
+```
+
 ---
 Relacionado: [Sintaxis general](sintaxis.md), [OOP](oop.md) (`dataclass` vs `namedtuple`).

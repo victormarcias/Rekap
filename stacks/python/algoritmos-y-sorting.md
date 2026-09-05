@@ -26,6 +26,20 @@ if user_id in ids_validos_set:
     ...
 ```
 
+## Operaciones de conjunto (`set`)
+
+```python
+a = {1, 2, 3}
+b = {2, 3, 4}
+
+a & b     # {2, 3} — intersección
+a | b     # {1, 2, 3, 4} — unión
+a - b     # {1} — diferencia (está en a pero no en b)
+a ^ b     # {1, 4} — diferencia simétrica (lo que no está en ambos)
+```
+
+Resolver esto a mano con `list` es O(n*m) (comparar cada elemento de una contra todos los de la otra); con `set`, cada operación es O(min(len(a), len(b))) — otra razón, además del lookup O(1) de arriba, para preferir `set` cuando la tarea es **comparar** colecciones, no solo guardar valores.
+
 ## `sorted()` vs `.sort()`
 
 ```python
@@ -84,6 +98,22 @@ heapq.nsmallest(3, numeros)    # [1, 2, 3] — los 3 más chicos
 ```
 
 Para encontrar los top-N de una colección grande, `heapq.nlargest`/`nsmallest` es O(n log k) — más eficiente que `sorted(numeros)[-3:]`, que ordena la colección **entera** (O(n log n)) solo para descartar casi todo después.
+
+## `bisect` — búsqueda binaria sobre una lista ya ordenada
+
+```python
+import bisect
+
+nums = [1, 3, 4, 4, 6, 8]
+
+bisect.bisect_left(nums, 4)     # 2 — primer índice donde insertar 4 sin romper el orden (antes de los 4 existentes)
+bisect.bisect_right(nums, 4)    # 4 — después de los 4 existentes
+
+bisect.insort(nums, 5)          # inserta 5 manteniendo el orden, sin ordenar todo de nuevo
+nums                              # [1, 3, 4, 4, 5, 6, 8]
+```
+
+O(log n) para encontrar el punto de inserción — mucho más rápido que agregar un elemento y volver a ordenar todo (O(n log n)) cada vez que se necesita insertar manteniendo el orden. Requiere que la lista ya esté ordenada de antemano — `bisect` no ordena, solo busca dónde insertar.
 
 ---
 Relacionado: [Módulo `collections`](collections-module.md) (`deque` para ventanas de eventos), [Índices](../../database/indices.md) (mismo espíritu de Big-O, a nivel de DB).
