@@ -13,3 +13,4 @@ Repaso de fundamentos del lenguaje, setup y sintaxis. Para arquitectura/FastAPI,
 - [x] [Setup en macOS — flujo clásico](setup-macos.md)
 - [x] [Setup en macOS con uv](setup-uv.md)
 - [x] [Sintaxis general](sintaxis.md)
+  - [x] [vs Swift](vs-swift.md) — sintaxis y OOP lado a lado, dunder methods vs protocolos/operadores
