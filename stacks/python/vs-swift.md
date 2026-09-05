@@ -1,287 +1,344 @@
-# Python vs Swift: Sintaxis y OOP lado a lado
+# Python vs Swift
 
 Sintaxis y OOP de ambos lenguajes lado a lado — muchos conceptos son el mismo mecanismo con otro nombre (ver el caso de los *dunder methods* más abajo, que en Swift se resuelven con protocolos y operadores custom).
 
 ## Sintaxis general
 
-| Nombre | Ejemplo en Python | Ejemplo en Swift |
-|---|---|---|
-| Variable | `x = 5` (dinámico, sin declarar tipo) | `var x = 5` |
-| Constante | No existe `const` real — convención `MAX = 100` (mayúsculas) | `let MAX = 100` (constante real, enforced por el compilador) |
-| Tipado | Opcional, con type hints: `x: int = 5` | Estático y obligatorio (con inferencia): `let x = 5` |
-| String interpolation | `f"Hola {nombre}"` | `"Hola \(nombre)"` |
-| String multilínea | `"""texto\nmulti"""` | `"""texto\nmulti"""` (mismo símbolo, triple comillas) |
-| Comentario | `# comentario` | `// comentario` |
-| Ausencia de valor | `None` | `nil` |
-| Optional | `Optional[int]` / `int \| None` (3.10+) | `Int?` |
-| Forced unwrap | No existe — siempre hay que chequear a mano | `valor!` (fuerza el unwrap, crashea si es `nil`) |
-| Optional binding | `if x is not None: usar(x)` | `if let x = x { usar(x) }` |
-| Nil-coalescing | `x if x is not None else default` | `x ?? default` |
-
-## Colecciones
-
-| Nombre | Ejemplo en Python | Ejemplo en Swift |
-|---|---|---|
-| Array / Lista | `lista = [1, 2, 3]` | `let lista = [1, 2, 3]` |
-| Diccionario | `d = {"a": 1}` | `let d = ["a": 1]` |
-| Set | `s = {1, 2, 3}` | `let s: Set = [1, 2, 3]` |
-| Tupla | `t = (1, "a")` | `let t = (1, "a")` |
-| Comprehension / map | `[x**2 for x in range(10)]` | `(0..<10).map { $0 * $0 }` (Swift no tiene comprehension nativa) |
-| Filter | `[x for x in lista if x > 0]` | `lista.filter { $0 > 0 }` |
-
-## Funciones y Closures
-
-| Nombre | Ejemplo en Python | Ejemplo en Swift |
-|---|---|---|
-| Función | `def sumar(a, b): return a + b` | `func sumar(_ a: Int, _ b: Int) -> Int { a + b }` |
-| Parámetro con default | `def f(x=10): ...` | `func f(x: Int = 10) { ... }` |
-| Argumentos con nombre | `f(x=1, y=2)` (opcional en la llamada) | `f(x: 1, y: 2)` (obligatorio salvo `_` en la firma) |
-| Variádica | `def f(*args): ...` | `func f(_ args: Int...) { ... }` |
-| Closure / Lambda | `lambda x: x * 2` | `{ x in x * 2 }` |
-| Trailing closure | No existe el concepto | `numeros.map { $0 * 2 }` (closure final sin paréntesis) |
-
-## Control de flujo
-
-| Nombre | Ejemplo en Python | Ejemplo en Swift |
-|---|---|---|
-| Guard (salida temprana) | No existe — `if not cond: return` | `guard cond else { return }` |
-| For-in | `for x in lista: usar(x)` | `for x in lista { usar(x) }` |
-| While | `while cond: ...` | `while cond { ... }` |
-| Range | `range(0, 10)` (exclusivo) | `0..<10` (exclusivo) / `0...10` (inclusivo) |
-
-### If / else
-
 ```python
-if x > 0:
-    hacer_algo()
-else:
-    hacer_otra_cosa()
+x = 5                          # variable — dinámico, sin declarar tipo
+MAX = 100                      # constante — no existe una real, es solo convención (mayúsculas)
+x: int = 5                     # tipado — opcional, con type hints
+
+saludo = f"Hola {nombre}"      # string interpolation
+texto = """texto
+multi"""                       # string multilínea
+
+# esto es un comentario
+
+valor = None                   # ausencia de valor
+
+from typing import Optional
+edad: Optional[int] = None     # optional — o int | None (3.10+)
+
+if x is not None:              # optional binding — no hay sintaxis dedicada, se chequea a mano
+    usar(x)
+
+resultado = x if x is not None else default   # nil-coalescing — no hay operador dedicado
 ```
 
 ```swift
-if x > 0 {
-    hacerAlgo()
-} else {
-    hacerOtraCosa()
+var x = 5                      // variable
+let MAX = 100                  // constante — real, enforced por el compilador
+let x = 5                      // tipado — estático y obligatorio (con inferencia)
+
+let saludo = "Hola \(nombre)"  // string interpolation
+let texto = """
+texto
+multi
+"""                             // string multilínea
+
+// esto es un comentario
+
+let valor: Int? = nil          // ausencia de valor
+
+var edad: Int? = nil           // optional
+
+if let x = x {                 // optional binding
+    usar(x)
 }
+
+let resultado = x ?? default   // nil-coalescing
+
+let forzado = x!                // forced unwrap — no existe en Python, siempre hay que chequear a mano
 ```
 
-### Switch / Match
+## Colecciones
 
 ```python
-match valor:
+lista = [1, 2, 3]                          # array / lista
+d = {"a": 1}                               # diccionario
+s = {1, 2, 3}                              # set
+t = (1, "a")                               # tupla
+
+cuadrados = [x**2 for x in range(10)]      # comprehension
+positivos = [x for x in lista if x > 0]    # filter
+```
+
+```swift
+let lista = [1, 2, 3]                      // array / lista
+let d = ["a": 1]                           // diccionario
+let s: Set = [1, 2, 3]                     // set
+let t = (1, "a")                           // tupla
+
+let cuadrados = (0..<10).map { $0 * $0 }   // map — Swift no tiene comprehension nativa
+let positivos = lista.filter { $0 > 0 }    // filter
+```
+
+## Funciones y Closures
+
+```python
+def sumar(a, b):                # función
+    return a + b
+
+def f(x=10):                    # parámetro con default
+    ...
+
+f(x=1, y=2)                     # argumentos con nombre — opcional en la llamada
+
+def f(*args):                   # variádica
+    ...
+
+duplicar = lambda x: x * 2      # closure / lambda
+```
+
+```swift
+func sumar(_ a: Int, _ b: Int) -> Int {   // función
+    a + b
+}
+
+func f(x: Int = 10) {           // parámetro con default
+    // ...
+}
+
+f(x: 1, y: 2)                   // argumentos con nombre — obligatorio salvo "_" en la firma
+
+func f(_ args: Int...) {        // variádica
+    // ...
+}
+
+let duplicar = { (x: Int) in x * 2 }   // closure / lambda
+
+numeros.map { $0 * 2 }          // trailing closure — no existe el concepto en Python
+```
+
+## Control de flujo
+
+```python
+if x > 0:                       # if / else
+    hacer_algo()
+else:
+    hacer_otra_cosa()
+
+if not cond:                    # guard (salida temprana) — no existe, se hace manual
+    return
+
+for x in lista:                 # for-in
+    usar(x)
+
+while cond:                     # while
+    ...
+
+match valor:                    # switch / match (3.10+)
     case 1:
         print("uno")
     case _:
         print("otro")
+
+range(0, 10)                    # range — exclusivo
 ```
 
 ```swift
-switch valor {
+if x > 0 {                      // if / else
+    hacerAlgo()
+} else {
+    hacerOtraCosa()
+}
+
+guard cond else { return }      // guard (salida temprana)
+
+for x in lista {                // for-in
+    usar(x)
+}
+
+while cond {                    // while
+    // ...
+}
+
+switch valor {                  // switch
 case 1:
     print("uno")
 default:
     print("otro")
 }
+
+0..<10                          // range exclusivo
+0...10                          // range inclusivo
 ```
 
 ## Manejo de errores
 
-| Nombre | Ejemplo en Python | Ejemplo en Swift |
-|---|---|---|
-| Declarar que puede fallar | No hace falta declarar nada | `func f() throws { ... }` (obligatorio marcar la función) |
-
-### Try / catch
-
 ```python
-try:
+try:                             # try / catch
     algo()
 except ValueError as e:
     manejar(e)
+
+raise ValueError("mensaje")      # lanzar un error propio
+
+def f():                         # declarar que puede fallar — no hace falta declarar nada
+    ...
 ```
 
 ```swift
-do {
+do {                              // try / catch
     try algo()
 } catch {
     manejar(error)
 }
-```
 
-### Lanzar un error propio
-
-```python
-raise ValueError("mensaje")
-```
-
-```swift
 enum MiError: Error { case mensaje }
-throw MiError.mensaje
+throw MiError.mensaje             // lanzar un error propio
+
+func f() throws {                 // declarar que puede fallar — obligatorio marcar la función
+    // ...
+}
 ```
 
 ## Clases y OOP
 
-| Nombre | Ejemplo en Python | Ejemplo en Swift |
-|---|---|---|
-| Definir clase | `class Animal:` | `class Animal {` |
-| Constructor | `def __init__(self, nombre): self.nombre = nombre` | `init(nombre: String) { self.nombre = nombre }` |
-| Herencia | `class Perro(Animal):` | `class Perro: Animal {` |
-| Llamar al padre | `super().__init__(nombre)` | `super.init(nombre: nombre)` |
-| Método de instancia | `def ladrar(self): ...` | `func ladrar() { ... }` |
-| Destructor | `def __del__(self): ...` | `deinit { ... }` |
-| Privado | `self.__x` (name mangling, convención — no enforced) | `private var x` (enforced por el compilador) |
-| Protegido | `self._x` (convención, no enforced) | `internal var x` (default) / `fileprivate var x` |
-
-### Propiedad computada
-
 ```python
-@property
-def area(self):
-    return self.ancho * self.alto
+class Animal:
+    def __init__(self, nombre):       # constructor
+        self.nombre = nombre
+
+class Perro(Animal):                  # herencia
+    def __init__(self, nombre):
+        super().__init__(nombre)      # llamar al padre
+
+    def ladrar(self):                 # método de instancia
+        print("Guau")
+
+    @property                         # propiedad computada
+    def descripcion(self):
+        return f"Perro: {self.nombre}"
+
+    @staticmethod                     # método estático — no se puede overridear
+    def crear_generico():
+        return Perro("Genérico")
+
+    @classmethod                      # método de clase — sí se puede overridear
+    def desde_nombre(cls, nombre):
+        return cls(nombre)
+
+    def __del__(self):                # destructor
+        print("adiós")
+
+    def _protegido(self): ...         # protegido — convención, no enforced
+    def __privado(self): ...          # privado — name mangling, no enforced
 ```
 
 ```swift
-var area: Double {
-    ancho * alto
+class Animal {
+    let nombre: String
+
+    init(nombre: String) {            // constructor
+        self.nombre = nombre
+    }
 }
-```
 
-### Método estático vs método de clase
-
-```python
-class Circulo:
-    @staticmethod
-    def crear_unitario():
-        return Circulo(radio=1)
-
-    @classmethod
-    def desde_diametro(cls, d):
-        return cls(radio=d / 2)
-```
-
-```swift
-class Circulo {
-    static func crearUnitario() -> Circulo {   // no se puede overridear
-        Circulo(radio: 1)
+class Perro: Animal {                 // herencia
+    override init(nombre: String) {
+        super.init(nombre: nombre)    // llamar al padre
     }
 
-    class func desdeDiametro(_ d: Double) -> Circulo {  // sí se puede overridear
-        Circulo(radio: d / 2)
+    func ladrar() {                   // método de instancia
+        print("Guau")
     }
+
+    var descripcion: String {         // propiedad computada
+        "Perro: \(nombre)"
+    }
+
+    static func crearGenerico() -> Perro {          // método estático — no se puede overridear
+        Perro(nombre: "Genérico")
+    }
+
+    class func desdeNombre(_ nombre: String) -> Perro {   // método de clase — sí se puede overridear
+        Perro(nombre: nombre)
+    }
+
+    deinit {                          // destructor
+        print("adiós")
+    }
+
+    fileprivate func protegido() { }  // protegido
+    private func privado() { }        // privado — enforced por el compilador
 }
 ```
 
 ## Protocolos, interfaces y "duck typing"
 
-| Nombre | Ejemplo en Python | Ejemplo en Swift |
-|---|---|---|
-| Extender un tipo existente | Monkey-patching (poco común, no idiomático) | `extension Int { func esPar() -> Bool { self % 2 == 0 } }` (idiomático) |
-| Value type (se copia) | No existe la distinción — todo objeto es referencia | `struct` |
-| Reference type (se comparte) | `class` (todo en Python es así) | `class` (mismo comportamiento que Python) |
-
-### Interfaz / Protocolo
-
 ```python
-class MiProtocolo(Protocol):
+from typing import Protocol
+
+class MiProtocolo(Protocol):          # interfaz / protocolo
     def hacer(self) -> None: ...
 
-class X(MiProtocolo):        # duck typing: alcanza con tener el método
+class X:                              # implementarlo — duck typing, alcanza con tener el método
     def hacer(self) -> None:
         print("hecho")
+
+# extender un tipo existente — monkey-patching, poco idiomático en Python
+
+# value type — no existe la distinción, todo objeto es referencia
+# reference type — class (todo en Python es así)
 ```
 
 ```swift
-protocol MiProtocolo {
+protocol MiProtocolo {                // interfaz / protocolo
     func hacer()
 }
 
-class X: MiProtocolo {       // conformancia explícita, declarada
+class X: MiProtocolo {                // implementarlo — conformancia explícita
     func hacer() {
         print("hecho")
     }
 }
+
+extension Int {                       // extender un tipo existente — idiomático en Swift
+    func esPar() -> Bool { self % 2 == 0 }
+}
+
+struct Punto { var x: Int; var y: Int }   // value type — se copia al pasar
+
+class Contador { var valor = 0 }      // reference type — se comparte (mismo comportamiento que Python)
 ```
 
 ## Dunder methods vs protocolos/operadores de Swift
 
 Los `__metodo__` de Python no son "magia" — son el mismo mecanismo que en Swift se resuelve con **conformancia a protocolos** y **operadores custom**: una forma estandarizada de que un tipo propio se comporte como los tipos nativos del lenguaje (se imprima, se compare, se sume, se itere).
 
-| Qué hace | Ejemplo en Python | Ejemplo en Swift |
-|---|---|---|
-| Suma (`+`) | `def __add__(self, other): ...` | `static func + (l: X, r: X) -> X { ... }` (operador custom, sin protocolo obligatorio) |
-| Longitud (`len(obj)`) | `def __len__(self): ...` | `var count: Int { ... }` (convención, o conformar `Collection`) |
-| Acceso por índice (`obj[i]`) | `def __getitem__(self, i): ...` | `subscript(i: Int) -> T { ... }` |
-| Llamar como función (`obj()`) | `def __call__(self): ...` | No hay equivalente directo — los closures ya son de primera clase, no hace falta este patrón |
-
-### Representación en texto (`str(obj)` / `print(obj)`)
-
 ```python
 class Punto:
-    def __str__(self):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):                # representación en texto — str(obj) / print(obj)
         return f"Punto({self.x}, {self.y})"
-```
 
-```swift
-extension Punto: CustomStringConvertible {
-    var description: String {
-        "Punto(\(x), \(y))"
-    }
-}
-```
-
-### Igualdad (`==`)
-
-```python
-class Punto:
-    def __eq__(self, other):
+    def __eq__(self, other):          # igualdad (==)
         return self.x == other.x and self.y == other.y
-```
 
-```swift
-extension Punto: Equatable {
-    static func == (l: Punto, r: Punto) -> Bool {
-        l.x == r.x && l.y == r.y
-    }
-}
-```
+    def __lt__(self, other):          # comparación (<)
+        return (self.x, self.y) < (other.x, other.y)
 
-### Comparación (`<`, `>`)
+    def __add__(self, other):         # suma (+)
+        return Punto(self.x + other.x, self.y + other.y)
 
-```python
-class Version:
-    def __lt__(self, other):
-        return self.numero < other.numero
-```
+    def __len__(self):                # longitud (len(obj))
+        return 2
 
-```swift
-extension Version: Comparable {
-    static func < (l: Version, r: Version) -> Bool {
-        l.numero < r.numero
-    }
-}
-```
+    def __getitem__(self, i):         # acceso por índice (obj[i])
+        return (self.x, self.y)[i]
 
-### Iterar (`for x in obj`)
+    def __call__(self):               # llamar como función (obj())
+        return f"{self.x},{self.y}"
 
-```python
-class Coleccion:
-    def __iter__(self):
-        return iter(self.items)
-```
+    def __iter__(self):               # iterar (for x in obj)
+        return iter((self.x, self.y))
 
-```swift
-extension Coleccion: Sequence {
-    func makeIterator() -> some IteratorProtocol {
-        items.makeIterator()
-    }
-}
-```
-
-### Cleanup garantizado (`with obj:` vs `defer`)
-
-```python
-class Recurso:
-    def __enter__(self):
+    def __enter__(self):              # cleanup garantizado — with obj:
         return self
 
     def __exit__(self, *args):
@@ -289,14 +346,56 @@ class Recurso:
 ```
 
 ```swift
-func usarRecurso() {
-    let recurso = Recurso()
-    defer { recurso.cerrar() }   // se ejecuta siempre al salir de la función
-    // usar recurso acá
+struct Punto {
+    var x: Int
+    var y: Int
+}
+
+extension Punto: CustomStringConvertible {   // representación en texto
+    var description: String { "Punto(\(x), \(y))" }
+}
+
+extension Punto: Equatable {                 // igualdad (==)
+    static func == (l: Punto, r: Punto) -> Bool {
+        l.x == r.x && l.y == r.y
+    }
+}
+
+extension Punto: Comparable {                // comparación (<)
+    static func < (l: Punto, r: Punto) -> Bool {
+        (l.x, l.y) < (r.x, r.y)
+    }
+}
+
+extension Punto {
+    static func + (l: Punto, r: Punto) -> Punto {   // suma (+) — operador custom
+        Punto(x: l.x + r.x, y: l.y + r.y)
+    }
+
+    var count: Int { 2 }              // "longitud" — convención, o conformar Collection
+
+    subscript(i: Int) -> Int {        // acceso por índice (obj[i])
+        i == 0 ? x : y
+    }
+
+    // llamar como función (obj()) — no hay equivalente directo,
+    // los closures ya son de primera clase, no hace falta este patrón
+}
+
+extension Punto: Sequence {           // iterar (for x in obj)
+    func makeIterator() -> some IteratorProtocol {
+        [x, y].makeIterator()
+    }
+}
+
+func usarPunto() {
+    let p = Punto(x: 1, y: 2)
+    defer { p.cerrar() }              // cleanup garantizado — mismo propósito que __exit__, mecanismo distinto
+    // usar p acá
 }
 ```
 
-Mismo propósito (garantizar que algo se limpie), mecanismo distinto: `with` envuelve un bloque completo desde afuera; `defer` se declara adentro de la función y corre al salir de su scope, sin necesidad de envolver nada.
+`with` envuelve un bloque completo desde afuera; `defer` se declara adentro de la función y corre al salir de su scope, sin necesidad de envolver nada — mismo propósito (garantizar que algo se limpie), mecanismo distinto.
 
 ---
 Relacionado: [Sistema de tipos comparado](../tipos-comparativa.md) (mismo estilo de tabla, enfocado en tipos), [Sintaxis general de Python](sintaxis.md), [OOP en Python](oop.md).
