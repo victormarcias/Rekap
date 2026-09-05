@@ -6,6 +6,7 @@ Este repositorio contiene conocimiento general de informática.
 
 - [🤖 Agentic AI](agentic-ai/) — de ML clásico a agentes, tool use, RAG
 - [🧩 Backend](backend/) — Kafka, auth, cache, arquitectura de servicios
+- [☁️ Cloud](cloud/) — servicios concretos por proveedor (AWS, ...)
 - [🩺 Diagnóstico](diagnostico/) — por qué una app anda lenta, por capa (frontend/backend/DB/devops)
 - [⚙️ DevOps](devops/) — escalabilidad, Kubernetes, CDN, cold starts
 - [🎯 Stacks](stacks/) — setup, sintaxis y fundamentos por lenguaje/stack
