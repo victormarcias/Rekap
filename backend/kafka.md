@@ -36,7 +36,7 @@ Cada consumer trackea su posición en cada partición con un **offset** (un núm
 |---|---|---|
 | Mensaje tras ser consumido | Se borra | Se conserva (según retención configurada) |
 | Múltiples consumers del mismo mensaje | Requiere fan-out explícito | Cada consumer group lee todo, independiente |
-| Replay | No | Sí (rebobinar el offset) |
+| Replay | ❌ | Sí (rebobinar el offset) |
 | Orden garantizado | Por cola | Por partición |
 
 ---

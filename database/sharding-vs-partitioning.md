@@ -52,7 +52,7 @@ Dividir los datos **entre múltiples servidores/instancias** independientes (cad
 | Nivel | Una tabla, un servidor | Múltiples servidores |
 | Objetivo | Manejabilidad, maintenance, partition pruning | Escalar horizontalmente más allá de un solo servidor |
 | Transparencia para queries | Alta (el motor lo resuelve) | Baja (requiere lógica de routing en la app o un proxy) |
-| Resuelve límite de hardware de un nodo | No | Sí |
+| Resuelve límite de hardware de un nodo | ❌ | ✅ |
 
 ## En la práctica
 

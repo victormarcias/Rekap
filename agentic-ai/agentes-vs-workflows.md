@@ -47,10 +47,10 @@ while not tarea_terminada:
 
 | | Workflow | Agent |
 |---|---|---|
-| Los pasos se conocen de antemano | Sí | No necesariamente |
+| Los pasos se conocen de antemano | ✅ | No necesariamente |
 | Predecibilidad | Alta — mismo input, mismo camino | Baja — el camino puede variar entre ejecuciones |
 | Costo | Menor (pasos fijos, sin exploración de más) | Mayor (puede iterar, reintentar, explorar caminos que no sirven) |
-| Testeable de forma determinística | Sí | Difícil — el mismo input puede tomar caminos distintos |
+| Testeable de forma determinística | ✅ | Difícil — el mismo input puede tomar caminos distintos |
 | Tareas abiertas / ambiguas | Se rompe fácil (no contempla lo inesperado) | Es justo para lo que sirve |
 
 **Por qué el costo es mayor en un agent, en concreto**: además de que la cantidad de llamados no es fija, en un loop de agent cada llamado nuevo suele incluir **todo el historial anterior** (qué tools llamó, qué le devolvieron) para que el modelo tenga memoria de qué ya probó — el paso 10 del loop es mucho más caro en tokens que el paso 1, porque arrastra todo lo previo. Un workflow no tiene ese problema: cada paso puede tener un prompt acotado solo a lo que ese paso necesita, sin acumular el historial completo.

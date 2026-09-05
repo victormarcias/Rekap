@@ -91,7 +91,7 @@ El costo de E2E es que es más lento y más frágil ante cambios de infraestruct
 | Generación | 2004 — el más viejo | 2017 | 2020, Microsoft |
 | Arquitectura | Corre *afuera* del browser (protocolo WebDriver) | Corre *adentro* del browser (mismo event loop) | Corre afuera, protocolo moderno tipo CDP |
 | Multi-browser | Sí — Chrome, Firefox, Safari, Edge | Limitado, históricamente atado a Chromium | Sí, nativo — Chromium, Firefox, WebKit |
-| Auto-wait de elementos | No, hay que esperarlo manual | Sí | Sí |
+| Auto-wait de elementos | No, hay que esperarlo manual | ✅ | ✅ |
 | Velocidad | Más lento | Rápido | Muy rápido |
 | Paralelización en CI | Posible, pero infraestructura propia | Necesita Cypress Cloud (pago) para hacerlo bien | Nativo y gratis |
 | Lenguajes | Java, Python, C#, JS, Ruby... (el más políglota) | Solo JS/TS | JS/TS, Python, Java, C# |

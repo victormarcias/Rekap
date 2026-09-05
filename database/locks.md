@@ -50,8 +50,8 @@ WHERE id = 1 AND version = 5;
 
 | Lock | Permite a otros leer | Permite a otros escribir | Uso |
 |---|---|---|---|
-| **Shared (S)** | Sí (otro S) | No | `SELECT ... FOR SHARE` |
-| **Exclusive (X)** | No | No | `UPDATE`, `DELETE`, `SELECT ... FOR UPDATE` |
+| **Shared (S)** | Sí (otro S) | ❌ | `SELECT ... FOR SHARE` |
+| **Exclusive (X)** | ❌ | ❌ | `UPDATE`, `DELETE`, `SELECT ... FOR UPDATE` |
 
 ```sql
 BEGIN;

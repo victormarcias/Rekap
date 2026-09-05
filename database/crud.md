@@ -47,8 +47,8 @@ UPDATE users SET active = false WHERE last_login < now() - interval '1 year';
 
 | Comando | Qué borra | Reversible (con transacción) | Reinicia auto-increment | Dispara triggers |
 |---|---|---|---|---|
-| `DELETE FROM t WHERE ...` | Filas específicas | Sí | No | Sí |
-| `TRUNCATE TABLE t` | Todas las filas | Depende del motor (Postgres sí dentro de transacción) | Sí | No (generalmente) |
+| `DELETE FROM t WHERE ...` | Filas específicas | ✅ | ❌ | ✅ |
+| `TRUNCATE TABLE t` | Todas las filas | Depende del motor (Postgres: sí, dentro de una transacción) | ✅ | No (generalmente) |
 | `DROP TABLE t` | La tabla entera (estructura + datos) | Depende del motor | N/A | N/A |
 
 ## Acciones referenciales — qué pasa con las filas relacionadas al borrar

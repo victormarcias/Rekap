@@ -37,7 +37,7 @@ while True:
 |---|---|---|
 | Mensaje tras consumirse | Se borra | Se conserva (retención configurable) |
 | Múltiples consumers del mismo mensaje | Requiere fan-out explícito (fanout exchange, o una cola por consumer) | Cada consumer group lee todo, independiente |
-| Replay | No | Sí |
+| Replay | ❌ | ✅ |
 | Caso de uso típico | Tareas de trabajo (procesar una orden, mandar un email) — cada tarea la resuelve **un solo** worker | Streaming de eventos, cuando varios sistemas necesitan ver el mismo evento de forma independiente |
 
 Ver la comparación completa cola vs log en [Arquitectura Kafka](kafka.md#kafka-vs-cola-tradicional).

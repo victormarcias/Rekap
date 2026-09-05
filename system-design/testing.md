@@ -24,10 +24,10 @@ Se usan como sinónimos y no lo son — cada uno resuelve un problema distinto a
 
 | Tipo | Qué hace | Verifica el "cómo" fue llamado |
 |---|---|---|
-| **Stub** | Devuelve una respuesta fija, sin lógica real | No |
-| **Mock** | Como un stub, pero además registra y permite verificar las llamadas que recibió | Sí |
-| **Fake** | Una implementación real pero simplificada (ej. una DB en memoria en vez de Postgres) | No |
-| **Spy** | Envuelve un objeto real, delega la llamada real y además la registra | Sí |
+| **Stub** | Devuelve una respuesta fija, sin lógica real | ❌ |
+| **Mock** | Como un stub, pero además registra y permite verificar las llamadas que recibió | ✅ |
+| **Fake** | Una implementación real pero simplificada (ej. una DB en memoria en vez de Postgres) | ❌ |
+| **Spy** | Envuelve un objeto real, delega la llamada real y además la registra | ✅ |
 
 ```python
 # Stub: devuelve un valor fijo, no le importa cómo ni cuántas veces se lo llamó
@@ -148,7 +148,7 @@ def test_shipping_ar_heavy_branch():
 | | Black Box | White Box |
 |---|---|---|
 | Qué mira | Solo input/output — la spec/contrato | El código interno — ramas, paths |
-| ¿Necesita ver el código? | No | Sí |
+| ¿Necesita ver el código? | ❌ | ✅ |
 | Ejemplo de caso | "Envío a Argentina cuesta X" | "Sé que hay un `if peso > 10` distinto" |
 | Riesgo principal | Puede no cubrir un branch interno raro que la spec no menciona | Frágil ante refactors que no cambian el comportamiento externo |
 | Quién lo suele escribir | QA, o cualquiera con la spec en mano | El propio dev que escribió esa función |

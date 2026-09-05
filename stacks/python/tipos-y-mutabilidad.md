@@ -4,13 +4,13 @@
 
 | Tipo | Mutable | Ordenado | Ejemplo |
 |---|---|---|---|
-| `list` | Sí | Sí | `[1, 2, 3]` |
-| `tuple` | No | Sí | `(1, 2, 3)` |
-| `dict` | Sí | Sí (desde 3.7) | `{"a": 1, "b": 2}` |
-| `set` | Sí | No | `{1, 2, 3}` |
-| `frozenset` | No | No | `frozenset({1, 2, 3})` |
-| `str` | No | Sí | `"hola"` |
-| `int` / `float` / `bool` | No | — | `42`, `3.14`, `True` |
+| `list` | ✅ | ✅ | `[1, 2, 3]` |
+| `tuple` | ❌ | ✅ | `(1, 2, 3)` |
+| `dict` | ✅ | Sí (desde 3.7) | `{"a": 1, "b": 2}` |
+| `set` | ✅ | ❌ | `{1, 2, 3}` |
+| `frozenset` | ❌ | ❌ | `frozenset({1, 2, 3})` |
+| `str` | ❌ | ✅ | `"hola"` |
+| `int` / `float` / `bool` | ❌ | — | `42`, `3.14`, `True` |
 
 ```python
 a = [1, 2, 3]

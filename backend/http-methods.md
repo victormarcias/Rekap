@@ -28,11 +28,11 @@ Ya cubierto en detalle en [Idempotencia](../system-design/atributos-de-calidad.m
 
 | Verbo | Idempotente | Por qué |
 |---|---|---|
-| GET | Sí | Leer no cambia nada, sin importar cuántas veces |
-| PUT | Sí | Reemplazar por el mismo valor N veces da el mismo resultado que una vez |
-| DELETE | Sí | Borrar algo que ya no existe sigue dando "no existe" |
+| GET | ✅ | Leer no cambia nada, sin importar cuántas veces |
+| PUT | ✅ | Reemplazar por el mismo valor N veces da el mismo resultado que una vez |
+| DELETE | ✅ | Borrar algo que ya no existe sigue dando "no existe" |
 | PATCH | Depende | Si el patch es `{"stock": 5}` sí; si es `{"stock": stock - 1}` no — cada aplicación resta de nuevo |
-| POST | No | Cada `POST` crea un recurso nuevo — reintentar sin idempotency key duplica |
+| POST | ❌ | Cada `POST` crea un recurso nuevo — reintentar sin idempotency key duplica |
 
 Esto es exactamente por qué un reintento automático de red es seguro en un `PUT`/`DELETE` pero riesgoso en un `POST` sin una idempotency key.
 

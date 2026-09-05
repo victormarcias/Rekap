@@ -75,8 +75,8 @@ El nombre de los status codes HTTP confunde esto seguido: `401 Unauthorized` en 
 
 | Storage | Accesible por JS | Riesgo principal |
 |---|---|---|
-| `localStorage` | Sí | **XSS**: cualquier script inyectado puede leer el token y robarlo |
-| Cookie `httpOnly` | No | **CSRF**: se manda automáticamente en cada request a ese dominio, hay que mitigar con `SameSite` y/o un CSRF token |
+| `localStorage` | ✅ | **XSS**: cualquier script inyectado puede leer el token y robarlo |
+| Cookie `httpOnly` | ❌ | **CSRF**: se manda automáticamente en cada request a ese dominio, hay que mitigar con `SameSite` y/o un CSRF token |
 
 No hay una opción "segura por default" — es un trade-off: `localStorage` expone el token a XSS, la cookie `httpOnly` lo protege de XSS pero abre la puerta a CSRF si no se configura bien (`SameSite=Strict/Lax` reduce mucho ese riesgo en la práctica).
 
