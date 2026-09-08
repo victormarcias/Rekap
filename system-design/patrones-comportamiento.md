@@ -86,7 +86,7 @@ queue.push(new SendEmailCommand('ana@mail.com', 'Bienvenida'));
 
 ## Chain of Responsibility
 
-Pasa una request a través de una cadena de handlers, donde cada uno decide si la procesa, la modifica, o la pasa al siguiente. Los middlewares (Express, Django, cualquier framework HTTP) son el ejemplo más común de este patrón en el día a día.
+Pasa un request a través de una cadena de handlers, donde cada uno decide si lo procesa, lo modifica, o lo pasa al siguiente. Los middlewares (Express, Django, cualquier framework HTTP) son el ejemplo más común de este patrón en el día a día.
 
 ```python
 class Handler:

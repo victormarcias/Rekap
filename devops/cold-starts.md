@@ -1,6 +1,6 @@
 # Cold starts
 
-Latencia extra que paga la primera request cuando una función serverless o un contenedor que [escala a cero](vps-vs-cloud-run.md) tiene que arrancar desde cero: inicializar el runtime, cargar dependencias, y a veces abrir conexiones (DB, etc.) antes de poder responder. Se nota como picos de latencia intermitentes en tráfico esporádico — las requests siguientes, mientras la instancia sigue "caliente", no pagan ese costo.
+Latencia extra que paga el primer request cuando una función serverless o un contenedor que [escala a cero](vps-vs-cloud-run.md) tiene que arrancar desde cero: inicializar el runtime, cargar dependencias, y a veces abrir conexiones (DB, etc.) antes de poder responder. Se nota como picos de latencia intermitentes en tráfico esporádico — las requests siguientes, mientras la instancia sigue "caliente", no pagan ese costo.
 
 **Mitigaciones típicas**:
 - *Provisioned concurrency* — pagar por mantener N instancias siempre calientes, sacrificando parte del ahorro de escalar a cero.

@@ -4,7 +4,7 @@ Cómo llevar la imagen de [Dockerización](docker.md) a producción sin administ
 
 ## 1. Qué es un contenedor serverless y qué significa "escala a cero"
 
-En un VPS, la máquina está prendida y facturando todo el tiempo, tenga tráfico o no. Cloud Run corre tu contenedor **solo cuando llega una request** — si no hay tráfico, apaga la instancia por completo (escala a **cero** réplicas) y no pagás nada por ese tiempo. La primera request después de estar en cero paga el costo de arrancar el contenedor de nuevo — ver [Cold start](../diagnostico/devops.md).
+En un VPS, la máquina está prendida y facturando todo el tiempo, tenga tráfico o no. Cloud Run corre tu contenedor **solo cuando llega un request** — si no hay tráfico, apaga la instancia por completo (escala a **cero** réplicas) y no pagás nada por ese tiempo. El primer request después de estar en cero paga el costo de arrancar el contenedor de nuevo — ver [Cold start](../diagnostico/devops.md).
 
 ```bash
 # el mismo comando de build de siempre — Cloud Run no necesita nada especial en el Dockerfile

@@ -52,7 +52,7 @@ TLS 1.3 redujo esto a 1 round trip (contra 2 de TLS 1.2). Este paso es el que ga
 
 ## 5. Request HTTP
 
-Con la conexión cifrada lista, el navegador manda la request:
+Con la conexión cifrada lista, el navegador manda el request:
 
 ```http
 GET /productos?id=1 HTTP/1.1
@@ -62,7 +62,7 @@ Accept: text/html
 Cookie: session=abc123
 ```
 
-## 6. El servidor procesa la request
+## 6. El servidor procesa el request
 
 Del lado del servidor puede haber varias capas antes de llegar a una respuesta:
 

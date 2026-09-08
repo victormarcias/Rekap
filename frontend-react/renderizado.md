@@ -5,7 +5,7 @@ Dónde y cuándo se genera el HTML de una página — en el servidor, en build t
 ## CSR vs SSR
 
 - **CSR (Client-Side Rendering)**: el servidor manda un HTML casi vacío (`<div id="root"></div>`) más un bundle de JS. El browser tiene que descargar y ejecutar ese JS antes de que aparezca cualquier contenido — pantalla en blanco mientras tanto, y nada que un crawler de buscador pueda leer sin ejecutar JS.
-- **SSR**: el servidor ejecuta la app y devuelve el HTML **ya renderizado con el contenido real** para esa request. El usuario ve contenido apenas llega la respuesta, sin esperar a que el JS cargue — mejor First Contentful Paint y SEO out-of-the-box.
+- **SSR**: el servidor ejecuta la app y devuelve el HTML **ya renderizado con el contenido real** para ese request. El usuario ve contenido apenas llega la respuesta, sin esperar a que el JS cargue — mejor First Contentful Paint y SEO out-of-the-box.
 
 ## SPA (Single Page Application)
 

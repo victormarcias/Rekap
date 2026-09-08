@@ -29,7 +29,7 @@ VPS y Cloud Run son dos puntos de un espectro más amplio — a medida que avanz
 |---|---|---|
 | Quién administra el SO | Vos (parches, firewall, SSH) | Google |
 | Costo con cero tráfico | Full precio, 24/7 | ~$0 (escala a cero) |
-| Cold start | No existe (siempre prendido) | Sí, en la primera request tras estar en cero |
+| Cold start | No existe (siempre prendido) | Sí, en el primer request tras estar en cero |
 | Certificado HTTPS | Manual (`certbot`, renovación cada 90 días) | Automático |
 | Control fino de infraestructura | Total | Limitado a lo que expone la plataforma |
 

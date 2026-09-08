@@ -8,6 +8,7 @@ Guías sobre React y frontend moderno.
 - [x] [CSS](css.md)
 - [x] [Error Boundaries](error-boundaries.md)
 - [x] [Estado global: Context API vs Redux](estado-global.md)
+- [x] [Estados de un Request](estados-de-un-request.md)
 - [x] [Eventos DOM](eventos-dom.md)
 - [x] [Hooks](hooks.md)
 - [x] [HTML](html.md)

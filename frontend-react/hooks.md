@@ -85,6 +85,8 @@ function UserProfile({ userId }) {
 
 Un custom hook no comparte estado entre los componentes que lo usan — cada llamada tiene su propia instancia de `useState`/`useEffect`, como si el código estuviera copiado y pegado (pero sin estarlo).
 
+Este `useFetch` de ejemplo solo cubre `data`/`loading` — le faltan `error` y `retry` para estar completo, ver [Estados de un Request](estados-de-un-request.md).
+
 ## `useRef`
 
 Guarda un valor mutable que **persiste entre renders sin causar un re-render** cuando cambia — a diferencia de `useState`, escribir en `ref.current` no le avisa a React que algo cambió. Dos usos típicos:

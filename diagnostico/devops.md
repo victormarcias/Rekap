@@ -35,7 +35,7 @@ Cache-Control: public, max-age=31536000, immutable
 
 ## Cold start
 
-Funciones serverless (Lambda, Cloud Functions) o contenedores que escalan a cero cuando no hay tráfico tardan en arrancar la primera request tras estar inactivos: hay que inicializar el runtime, cargar dependencias y a veces establecer conexiones (DB, etc.) antes de responder. Se nota como latencia alta e intermitente en requests esporádicos. Mitigaciones típicas: *provisioned concurrency*, mantener una instancia mínima siempre caliente, o reducir el tamaño del paquete/dependencias para arrancar más rápido. Ver [Cold starts](../devops/cold-starts.md).
+Funciones serverless (Lambda, Cloud Functions) o contenedores que escalan a cero cuando no hay tráfico tardan en arrancar el primer request tras estar inactivos: hay que inicializar el runtime, cargar dependencias y a veces establecer conexiones (DB, etc.) antes de responder. Se nota como latencia alta e intermitente en requests esporádicos. Mitigaciones típicas: *provisioned concurrency*, mantener una instancia mínima siempre caliente, o reducir el tamaño del paquete/dependencias para arrancar más rápido. Ver [Cold starts](../devops/cold-starts.md).
 
 ```js
 // ✅ Node Lambda: conexión a DB fuera del handler, se reutiliza entre invocaciones "calientes"

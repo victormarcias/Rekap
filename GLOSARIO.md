@@ -134,6 +134,7 @@
 - **Escala a cero (scale-to-zero)** — [Deploy a Cloud Run](devops/deploy-cloud-run.md#1-qué-es-un-contenedor-serverless-y-qué-significa-escala-a-cero)
 - **Especificidad (CSS)** — [CSS](frontend-react/css.md#especificidad-y-selectores)
 - **Estadísticas del planner** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#estadísticas-del-planner)
+- **Estados de un Request (loading/success/error/retry)** — [Estados de un Request](frontend-react/estados-de-un-request.md)
 - **Exclusive lock** — [Locks](database/locks.md#shared-lock-s-vs-exclusive-lock-x)
 - **Execution plan** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#execution-plan)
 - **Expand/contract pattern** — [Migraciones de base de datos](database/migraciones.md#4-expandcontract-pattern-zero-downtime)

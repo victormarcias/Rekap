@@ -82,7 +82,7 @@ Ya lo venías usando sin el nombre: el `response_model` y el modelo del body en 
 
 ## Por qué separar
 
-Cada capa tiene una sola razón para cambiar — es [Single Responsibility](../system-design/solid.md#s--single-responsibility-principle) aplicado a la arquitectura de una request completa: un cambio en el formato de la API toca solo el Controller, un cambio en la regla de negocio toca solo el Service, un cambio de Postgres a Mongo toca solo el Repository.
+Cada capa tiene una sola razón para cambiar — es [Single Responsibility](../system-design/solid.md#s--single-responsibility-principle) aplicado a la arquitectura de un request completo: un cambio en el formato de la API toca solo el Controller, un cambio en la regla de negocio toca solo el Service, un cambio de Postgres a Mongo toca solo el Repository.
 
 ## El beneficio real: testear sin HTTP ni DB
 

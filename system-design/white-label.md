@@ -29,7 +29,7 @@ Es el mismo problema de fondo que [Sharding vs Partitioning](../database/shardin
 Cada tenant necesita su logo, paleta de colores, tipografía — sin que eso implique un deploy o una rama de código por cliente. El patrón estándar: **CSS Variables** (ver [CSS](../frontend-react/css.md#css-variables-custom-properties)) cargadas en runtime según el tenant activo, más un objeto de config con las URLs de sus assets.
 
 ```json
-// config de tenant, resuelta según el dominio/subdominio de la request
+// config de tenant, resuelta según el dominio/subdominio del request
 {
   "tenantId": "cliente-123",
   "branding": {
@@ -42,7 +42,7 @@ Cada tenant necesita su logo, paleta de colores, tipografía — sin que eso imp
 
 ## Dominios: subdominio vs dominio propio
 
-- **Subdominio** (`cliente1.miapp.com`): simple — un solo certificado TLS wildcard sirve a todos, el código lee el subdominio de la request para saber qué tenant es.
+- **Subdominio** (`cliente1.miapp.com`): simple — un solo certificado TLS wildcard sirve a todos, el código lee el subdominio del request para saber qué tenant es.
 - **Dominio propio del cliente** (`app.clienteweb.com`, con un CNAME apuntando a tu infra): más profesional (el cliente no ve tu marca en la URL), pero cada dominio necesita su propio certificado ([TLS handshake](que-pasa-cuando-escribis-una-url.md#4-tls-handshake-si-es-https)) — Let's Encrypt automatiza la emisión/renovación, pero es infraestructura extra a mantener y a monitorear.
 
 ## Seguridad: el aislamiento entre tenants no es opcional

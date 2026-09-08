@@ -28,7 +28,7 @@ events.onmessage = (event) => console.log('Notificación:', event.data);
 
 ## Streaming (fetch + `ReadableStream`)
 
-Una respuesta HTTP normal, pero enviada en pedazos (*chunked*) a medida que el servidor los va generando, en vez de esperar a tener la respuesta completa. No es un protocolo aparte como WebSocket/SSE — es la misma request de siempre, leída incrementalmente.
+Una respuesta HTTP normal, pero enviada en pedazos (*chunked*) a medida que el servidor los va generando, en vez de esperar a tener la respuesta completa. No es un protocolo aparte como WebSocket/SSE — es el mismo request de siempre, leído incrementalmente.
 
 ```js
 const response = await fetch('/api/generate');
@@ -49,5 +49,5 @@ while (true) {
 |---|---|---|---|
 | Dirección | Bidireccional | Servidor → cliente | Servidor → cliente |
 | Protocolo | Upgrade a `ws://` | HTTP normal | HTTP normal |
-| Reconexión automática | No (hay que implementarla) | Sí, nativa del browser | No aplica (una request, un stream) |
+| Reconexión automática | No (hay que implementarla) | Sí, nativa del browser | No aplica (un request, un stream) |
 | Caso típico | Chat, colaboración en vivo | Notificaciones, feeds | Respuestas largas generadas incrementalmente |

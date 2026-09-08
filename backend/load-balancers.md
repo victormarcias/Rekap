@@ -4,12 +4,12 @@ Reparten el tráfico entrante entre varias instancias de un servicio — la piez
 
 ## L4 vs L7
 
-- **L4 (transport layer)**: decide a dónde mandar el tráfico mirando solo IP y puerto — no abre el contenido del paquete. Más rápido (menos trabajo por request), pero no puede rutear según el contenido de la request.
+- **L4 (transport layer)**: decide a dónde mandar el tráfico mirando solo IP y puerto — no abre el contenido del paquete. Más rápido (menos trabajo por request), pero no puede rutear según el contenido del request.
 - **L7 (application layer)**: entiende el protocolo de aplicación (HTTP) — puede rutear según path (`/api` a un servicio, `/admin` a otro), header, o cookie. Más lento que L4 (tiene que parsear el request), pero mucho más flexible.
 
 ```
 # L4: decide solo por IP:puerto — no sabe qué path está pidiendo el cliente
-443 → instancia A o B (round robin, sin mirar la request)
+443 → instancia A o B (round robin, sin mirar el request)
 
 # L7: puede rutear por contenido
 /api/*    → cluster de backend
