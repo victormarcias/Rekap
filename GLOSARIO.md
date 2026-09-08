@@ -19,7 +19,7 @@
 - **Animation vs Transition (CSS)** — [CSS](frontend-react/css.md#animations-vs-transitions)
 - **Anomalías (inserción/actualización/borrado)** — [Normalización](database/normalizacion.md#las-tres-anomalías-que-la-normalización-evita)
 - **API Gateway** — [API Gateway](backend/api-gateway.md)
-- **Argon2** — [Autenticación en FastAPI](backend/fastapi/autenticacion.md#1-hashing-de-passwords-con-argon2-passlib)
+- **Argon2** — [Autenticación en FastAPI](stacks/fastapi/autenticacion.md#1-hashing-de-passwords-con-argon2-passlib)
 - **ARIA (aria-label, aria-expanded, role)** — [Accesibilidad](frontend-react/accesibilidad.md#screen-readers)
 - **Autenticación** — [Autenticación y Seguridad](backend/autenticacion.md#7-autenticación-vs-autorización)
 - **Autorización** — [Autenticación y Seguridad](backend/autenticacion.md#7-autenticación-vs-autorización)
@@ -108,7 +108,7 @@
 - **Denormalización** — [Normalización](database/normalizacion.md#denormalización-el-trade-off)
 - **Dependency Inversion Principle (D de SOLID)** — [SOLID principles](system-design/solid.md#d--dependency-inversion-principle)
 - **Dependency Rule (Clean Architecture)** — [Clean Architecture](system-design/clean-architecture.md#la-regla-de-dependencia)
-- **Depends (FastAPI)** — [Endpoints para microservicios](backend/fastapi/endpoints-microservicios.md#4-dependency-injection-con-depends)
+- **Depends (FastAPI)** — [Endpoints para microservicios](stacks/fastapi/endpoints-microservicios.md#4-dependency-injection-con-depends)
 - **Dirty read** — [ACID / isolation levels](database/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
 - **Disponibilidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#disponibilidad)
 - **Distributed lock** — [Redis](database/redis.md#no-es-solo-cache)
@@ -135,6 +135,7 @@
 - **Especificidad (CSS)** — [CSS](frontend-react/css.md#especificidad-y-selectores)
 - **Estadísticas del planner** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#estadísticas-del-planner)
 - **Estados de un Request (loading/success/error/retry)** — [Estados de un Request](frontend-react/estados-de-un-request.md)
+- **Exception Filter (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.md#exception-filters--transformar-excepciones-en-respuestas-http)
 - **Exclusive lock** — [Locks](database/locks.md#shared-lock-s-vs-exclusive-lock-x)
 - **Execution plan** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#execution-plan)
 - **Expand/contract pattern** — [Migraciones de base de datos](database/migraciones.md#4-expandcontract-pattern-zero-downtime)
@@ -165,6 +166,7 @@
 - **GraphQL** — [GraphQL](backend/graphql.md)
 - **Grid (CSS Grid)** — [CSS](frontend-react/css.md#flexbox-vs-grid)
 - **Groq / LPU (Language Processing Unit)** — [Tamaño y Cuantización de Modelos](agentic-ai/tamano-y-cuantizacion.md#groq-y-las-lpu--hardware-especializado-para-velocidad)
+- **Guard (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.md#guards--autenticación-y-autorización)
 
 ### H
 
@@ -193,6 +195,7 @@
 - **Índice parcial** — [Índices](database/indices.md#índice-parcial-postgres)
 - **Inmutabilidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#inmutabilidad)
 - **INP (Interaction to Next Paint)** — [Web Vitals](frontend-react/web-vitals.md#core-web-vitals)
+- **Interceptor (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.md#interceptors--comportamiento-antes-y-después-del-handler)
 - **Interface Segregation Principle (I de SOLID)** — [SOLID principles](system-design/solid.md#i--interface-segregation-principle)
 - **Internal Server Error (500)** — [HTTP Status Codes](system-design/http-status-codes.md#5xx--server-error)
 - **IntersectionObserver (Browser API)** — [Patrón Observer en el browser](frontend-react/observer-en-el-browser.md#intersectionobserver)
@@ -247,7 +250,7 @@
 - **MongoDB** — [Motores de SQL](database/motores-de-sql.md)
 - **Mongoose (ODM)** — [Motores de SQL](database/motores-de-sql.md)
 - **Monolito** — [Monolito vs Microservicios](backend/monolito-vs-microservicios.md#monolito)
-- **moto (Python)** — [Testing en FastAPI](backend/fastapi/testing.md#4-mockear-servicios-externos)
+- **moto (Python)** — [Testing en FastAPI](stacks/fastapi/testing.md#4-mockear-servicios-externos)
 - **Moved Permanently (301)** — [HTTP Status Codes](system-design/http-status-codes.md#3xx--redirection)
 - **MPA (Multi-Page Application)** — [Renderizado](frontend-react/renderizado.md#spa-single-page-application)
 - **Multi-stage build (Docker)** — [Dockerización](devops/docker.md#2-multi-stage-build)
@@ -261,7 +264,7 @@
 
 - **N+1 (problema)** — [Diagnóstico Backend](diagnostico/backend.md#problema-n1)
 - **Namespaces / cgroups** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
-- **NestJS** — [Motores de SQL](database/motores-de-sql.md)
+- **NestJS** — [NestJS — Arquitectura](stacks/nestjs/arquitectura.md)
 - **Nginx** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md#complementos-nice-to-have) · [Nginx como reverse proxy](devops/deploy-vps.md#4-nginx-como-reverse-proxy)
 - **No Content (204)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)
 - **Non-clustered index** — [Índices](database/indices.md#clustered-vs-non-clustered)
@@ -273,7 +276,7 @@
 
 ### O
 
-- **OAuth2PasswordBearer (FastAPI)** — [Autenticación en FastAPI](backend/fastapi/autenticacion.md#5-proteger-rutas-con-oauth2passwordbearer--depends)
+- **OAuth2PasswordBearer (FastAPI)** — [Autenticación en FastAPI](stacks/fastapi/autenticacion.md#5-proteger-rutas-con-oauth2passwordbearer--depends)
 - **Object Pooling** — [Object Pooling](frontend-react/object-pooling.md)
 - **Observabilidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#observabilidad)
 - **Observer (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#observer)
@@ -303,6 +306,7 @@
 - **Percentiles (p50/p95/p99)** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#performance-velocidad)
 - **Pessimistic locking** — [Locks](database/locks.md#pessimistic-vs-optimistic-locking)
 - **Phantom read** — [ACID / isolation levels](database/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
+- **Pipe (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.md#dtos-y-pipes--validartransformar-los-datos-de-entrada)
 - **Plan-and-Execute** — [Diseño de Agentes de IA](agentic-ai/diseno-de-agentes.md#plan-and-execute)
 - **Playwright** — [Testing en React](frontend-react/testing.md#herramientas-e2e-selenium-vs-cypress-vs-playwright)
 - **Plugin Architecture (Microkernel Architecture)** — [Clean Architecture](system-design/clean-architecture.md#relación-con-hexagonal-architecture-ports--adapters)
@@ -318,8 +322,8 @@
 - **Proveedores de identidad gestionados** — [Proveedores de Identidad Gestionados](backend/proveedores-de-identidad-gestionados.md)
 - **Proxy (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#proxy)
 - **Pub/Sub** — [Redis](database/redis.md#no-es-solo-cache)
-- **Pydantic (BaseModel, Python)** — [Endpoints para microservicios](backend/fastapi/endpoints-microservicios.md#3-validación-de-entrada-con-pydantic)
-- **pytest (fixtures / conftest.py, Python)** — [Testing en FastAPI](backend/fastapi/testing.md#1-pytest-fixtures-y-conftestpy)
+- **Pydantic (BaseModel, Python)** — [Endpoints para microservicios](stacks/fastapi/endpoints-microservicios.md#3-validación-de-entrada-con-pydantic)
+- **pytest (fixtures / conftest.py, Python)** — [Testing en FastAPI](stacks/fastapi/testing.md#1-pytest-fixtures-y-conftestpy)
 
 ### R
 
@@ -414,7 +418,7 @@
 - **Test flaky** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 - **Test pyramid** — [Testing — conceptos generales](system-design/testing.md#1-test-pyramid)
 - **Test-Time Compute (LLM)** — [Qué es un token](agentic-ai/que-es-un-token.md#test-time-compute--pensar-más-al-responder-no-al-entrenar)
-- **TestClient (FastAPI)** — [Endpoints para microservicios](backend/fastapi/endpoints-microservicios.md#8-testing-de-endpoints-con-testclient)
+- **TestClient (FastAPI)** — [Endpoints para microservicios](stacks/fastapi/endpoints-microservicios.md#8-testing-de-endpoints-con-testclient)
 - **Tests frágiles (brittle tests)** — [Testing — conceptos generales](system-design/testing.md#7-tests-frágiles-vs-tests-robustos)
 - **Tests robustos (resilient tests)** — [Testing — conceptos generales](system-design/testing.md#7-tests-frágiles-vs-tests-robustos)
 - **Throughput** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#performance-velocidad)

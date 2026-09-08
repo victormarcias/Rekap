@@ -56,7 +56,7 @@ imprimir_perimetro(Cuadrado(3))   # ✅ el linter lo acepta — Cuadrado no here
 
 **`Protocol` vs heredar de una clase abstracta (`ABC`)**: con `ABC`, una clase tiene que declarar explícitamente que implementa la interfaz (`class Cuadrado(TienePerimetro)`) — es *nominal typing*. Con `Protocol`, cualquier clase que "tenga la forma" correcta califica automáticamente, sin heredar de nada ni saber que el `Protocol` existe — es duck typing formalizado y chequeado estáticamente, no en runtime.
 
-**`Protocol` no es lo mismo que `Depends` de FastAPI** — son de dominios distintos y no se comparan de igual a igual: `Protocol` es una herramienta del **sistema de tipos** (define una interfaz, la verifica el linter, no existe en runtime); `Depends` es un mecanismo de **Dependency Injection en runtime** (FastAPI resuelve y ejecuta algo antes de correr el handler). Uno describe forma; el otro inyecta comportamiento — ver `Depends` en [Endpoints para microservicios](../../backend/fastapi/endpoints-microservicios.md#4-dependency-injection-con-depends).
+**`Protocol` no es lo mismo que `Depends` de FastAPI** — son de dominios distintos y no se comparan de igual a igual: `Protocol` es una herramienta del **sistema de tipos** (define una interfaz, la verifica el linter, no existe en runtime); `Depends` es un mecanismo de **Dependency Injection en runtime** (FastAPI resuelve y ejecuta algo antes de correr el handler). Uno describe forma; el otro inyecta comportamiento — ver `Depends` en [Endpoints para microservicios](../fastapi/endpoints-microservicios.md#4-dependency-injection-con-depends).
 
 ---
-Relacionado: [Sintaxis general](sintaxis.md), [OOP](oop.md) (duck typing), [Backend — Endpoints para microservicios](../../backend/fastapi/endpoints-microservicios.md) (`Depends`).
+Relacionado: [Sintaxis general](sintaxis.md), [OOP](oop.md) (duck typing), [Backend — Endpoints para microservicios](../fastapi/endpoints-microservicios.md) (`Depends`).

@@ -91,4 +91,4 @@ Ver [REST](../backend/rest.md) y [GraphQL](../backend/graphql.md).
 | Go | — | Gin, Echo, stdlib |
 
 ---
-Relacionado: [Motores de SQL](../database/motores-de-sql.md), [Node.js — runtime](node/runtime.md), [Concurrencia y Memoria (Python)](python/concurrencia-y-memoria.md), [Sync vs Async en FastAPI](../backend/fastapi/sync-vs-async.md), [Sistema de tipos comparado](tipos-comparativa.md).
+Relacionado: [Motores de SQL](../database/motores-de-sql.md), [Node.js — runtime](node/runtime.md), [Concurrencia y Memoria (Python)](python/concurrencia-y-memoria.md), [Sync vs Async en FastAPI](fastapi/sync-vs-async.md), [Sistema de tipos comparado](tipos-comparativa.md).

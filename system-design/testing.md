@@ -1,6 +1,6 @@
 # Testing — Conceptos Generales
 
-Fundamentos de testing que aplican en cualquier lenguaje. La implementación concreta con pytest/FastAPI está en [Testing en FastAPI](../backend/fastapi/testing.md).
+Fundamentos de testing que aplican en cualquier lenguaje. La implementación concreta con pytest/FastAPI está en [Testing en FastAPI](../stacks/fastapi/testing.md).
 
 ## 1. Test pyramid
 
@@ -93,7 +93,7 @@ def after_each():        # equivalente a afterEach — después de cada test
 
 **Por qué importa el "una vez" vs "cada vez"**: usar `beforeAll` para algo que debería resetearse por test rompe el [aislamiento de tests](#4-aislamiento-de-tests) del punto 4 — si un test muta un estado que `beforeAll` solo creó una vez, el siguiente test hereda esa mutación sin declararlo como dependencia. Regla práctica: `beforeAll`/`afterAll` para trabajo caro y realmente compartible; `beforeEach`/`afterEach` para todo lo que necesita empezar limpio en cada test.
 
-pytest no tiene estas cuatro funciones como tal — resuelve lo mismo con el parámetro `scope` de una fixture (ver la implementación completa en [Testing en FastAPI](../backend/fastapi/testing.md#9-hooks-de-setupteardown-en-pytest-scope-de-las-fixtures)).
+pytest no tiene estas cuatro funciones como tal — resuelve lo mismo con el parámetro `scope` de una fixture (ver la implementación completa en [Testing en FastAPI](../stacks/fastapi/testing.md#9-hooks-de-setupteardown-en-pytest-scope-de-las-fixtures)).
 
 ## 7. Tests frágiles vs tests robustos
 
@@ -176,7 +176,7 @@ def user_fixture():
 
 No todos los frameworks lo modelan igual: en pytest es una **función inyectable** (con setup/teardown propio vía `yield`); en muchos frameworks de JS es más común que sea **datos estáticos** (un archivo JSON/objeto de ejemplo) cargados al principio del test. La idea de fondo — estado conocido y reproducible — es la misma en los dos casos.
 
-Ver la implementación en pytest en [Testing en FastAPI](../backend/fastapi/testing.md#1-pytest-fixtures-y-conftestpy).
+Ver la implementación en pytest en [Testing en FastAPI](../stacks/fastapi/testing.md#1-pytest-fixtures-y-conftestpy).
 
 ## 10. Ejecución de tests en paralelo vs serial
 
@@ -196,4 +196,4 @@ Cada ecosistema nombra esto distinto (en Jest, JS, es el flag `--runInBand`) per
 **La causa raíz real**: si correr serial "arregla" un test que fallaba en paralelo, el problema no es el paralelismo en sí — es que ese test no estaba realmente aislado, compartía estado con otro. Forzar serial es un diagnóstico/workaround para confirmar la sospecha, no la solución: el fix real es garantizar que cada test tenga su propio [fixture](#9-fixtures) sin nada compartido con los demás.
 
 ---
-Relacionado: [Testing en FastAPI](../backend/fastapi/testing.md), [ACID / transacciones / isolation levels](../database/acid-transacciones-isolation.md) (transacciones y rollback), [Idempotencia](atributos-de-calidad.md).
+Relacionado: [Testing en FastAPI](../stacks/fastapi/testing.md), [ACID / transacciones / isolation levels](../database/acid-transacciones-isolation.md) (transacciones y rollback), [Idempotencia](atributos-de-calidad.md).

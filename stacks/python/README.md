@@ -1,6 +1,6 @@
 # Python
 
-Repaso de fundamentos del lenguaje, setup y sintaxis. Para arquitectura/FastAPI, ver [Backend](../../backend/).
+Repaso de fundamentos del lenguaje, setup y sintaxis.
 
 - [x] [Sintaxis general](sintaxis.md)
 - [x] [Básico](basico.md) — Python 2 vs 3, pip, requirements.txt, `__name__ == "__main__"`, módulo vs paquete
@@ -11,3 +11,5 @@ Repaso de fundamentos del lenguaje, setup y sintaxis. Para arquitectura/FastAPI,
 - [x] [Módulo `collections`](collections-module.md) — `Counter`, `defaultdict`, `namedtuple`, `deque`, `ChainMap`, `OrderedDict`
 - [x] [Algoritmos, Sorting y Big-O](algoritmos-y-sorting.md) — complejidad de `list`/`dict`/`set`, operaciones de `set`, `sorted()`/`key=`, Timsort, `heapq`, `bisect`, datos time-based
 - [x] [Concurrencia y Memoria](concurrencia-y-memoria.md) — GIL, garbage collection
+
+Ver también: [FastAPI](../fastapi/) (implementación concreta de arquitectura backend en Python).

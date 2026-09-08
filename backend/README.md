@@ -10,7 +10,6 @@ Decisiones concretas de arquitectura de un sistema backend: qué pieza usar y po
 - [x] [Controller / Service / Repository](controller-service-repository.md)
 - [x] [DDoS Attack](ddos-attack.md)
 - [x] [Escalabilidad de CPU](escalabilidad-cpu.md)
-- [x] [FastAPI](fastapi/) — implementación concreta en Python: endpoints, sync/async, auth, testing
 - [x] [GraphQL](graphql.md)
 - [x] [HTTP Methods](http-methods.md)
 - [x] [Load balancers](load-balancers.md)
@@ -18,3 +17,5 @@ Decisiones concretas de arquitectura de un sistema backend: qué pieza usar y po
 - [x] [Proveedores de Identidad Gestionados (Cognito, Auth0, Firebase Auth)](proveedores-de-identidad-gestionados.md)
 - [x] [REST](rest.md)
 - [x] [Webhooks](webhooks.md)
+
+Ver también: implementaciones concretas por framework en `stacks/<lenguaje>/<framework>/` — [FastAPI](../stacks/fastapi/) (Python), [NestJS](../stacks/nestjs/) (TypeScript/Node).
