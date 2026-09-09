@@ -5,3 +5,7 @@ Servicios concretos de cada proveedor cloud — distinto de [DevOps](../devops/)
 - [🟧 AWS](aws/)
 
 Ver también: [Comparación de Proveedores](comparacion-proveedores.md) (AWS/Azure/GCP, servicio equivalente lado a lado).
+
+cloud/<br>
+├── aws/ [➡️](aws/)<br>
+└── comparacion-proveedores.md [➡️](comparacion-proveedores.md)

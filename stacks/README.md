@@ -11,3 +11,14 @@ Repaso por lenguaje/stack — setup, sintaxis y fundamentos — más la implemen
 - [🔗 n8n](n8n/) — automatización node-based, self-hosteable, nodo AI Agent
 
 Ver también: [Sistema de tipos comparado](tipos-comparativa.md) (TypeScript/Python/Swift/Kotlin/Java lado a lado), [Panorama: capas de un stack](mapa-de-stacks.md) (runtime vs framework vs ORM vs frontend — por qué "Node vs FastAPI vs Next.js" no es una comparación pareja).
+
+stacks/<br>
+├── javascript/ [➡️](javascript/sintaxis.md)<br>
+├── node/ [➡️](node/runtime.md)<br>
+├── python/ [➡️](python/)<br>
+├── typescript/ [➡️](typescript/)<br>
+├── fastapi/ [➡️](fastapi/) ← suelto, no `stacks/python/fastapi/`<br>
+├── nestjs/ [➡️](nestjs/) ← suelto, no `stacks/typescript/nestjs/`<br>
+├── n8n/ [➡️](n8n/)<br>
+├── mapa-de-stacks.md [➡️](mapa-de-stacks.md)<br>
+└── tipos-comparativa.md [➡️](tipos-comparativa.md)
