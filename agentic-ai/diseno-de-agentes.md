@@ -66,4 +66,4 @@ def ejecutar_con_hitl(accion_propuesta):
 Crítico en dominios de alto riesgo (salud, finanzas) — aumenta la confiabilidad a costa de perder algo de la autonomía completa que promete un agent puro.
 
 ---
-Relacionado: [Tipos de Agentes](tipos-de-agentes.md), [Agentes vs Workflows](agentes-vs-workflows.md), [Riesgos y Mitigaciones](riesgos-y-mitigaciones.md).
+Relacionado: [Tipos de Agentes](tipos-de-agentes.md), [Agentes vs Workflows](agentes-vs-workflows.md), [Prompt Engineering](prompt-engineering.md#estructura-de-un-system-prompt), [Riesgos y Mitigaciones](riesgos-y-mitigaciones.md).

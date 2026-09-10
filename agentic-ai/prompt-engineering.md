@@ -1,8 +1,8 @@
-# Técnicas de Prompting
+# Prompt Engineering
 
 Formas de mejorar la salida de un LLM **sin reentrenar el modelo** — todas actúan sobre el prompt, no sobre los pesos del modelo (a diferencia del fine-tuning, que sí los ajusta — ver el final de este archivo).
 
-## Prompt Engineering
+## Instrucciones claras y contexto
 
 Diseñar el prompt con intención: instrucciones claras, contexto suficiente, formato de salida especificado — la diferencia entre una respuesta útil y una genérica suele estar más en cómo se pide que en qué modelo se usa.
 
@@ -17,6 +17,40 @@ pero nunca vio índices. Usá un ejemplo concreto con una tabla de usuarios.
 Respondé en 3 párrafos cortos, sin código.
 """
 ```
+
+## Estructura de un system prompt
+
+Un system prompt de agente conviene ordenarlo de lo más general a lo más específico, para que el modelo tenga el marco antes que el detalle:
+
+1. **Rol y objetivo** (*role prompting*): quién es el agente y cuál es su tarea (`"Sos un asistente de soporte; tu tarea es resolver tickets de nivel 1"`). Acota el espacio de respuestas más que ninguna otra parte del prompt.
+2. **Contexto**: lo que el agente necesita saber y no puede inferir — reglas del negocio, formato de los datos que va a recibir, qué queda fuera de alcance.
+3. **Instrucciones**: qué hacer y qué no, paso a paso. Acá van los ejemplos [few-shot](#zero-shot-vs-few-shot-learning) si el formato de salida tiene que ser exacto.
+4. **Tools**: qué herramientas tiene y **cuándo** usar cada una — exponer la tool no alcanza, hay que decir en qué situación corresponde (ver [Function Calling](function-calling.md)).
+5. **Variables**: los datos que cambian en cada request (fecha, usuario, historial) entran como placeholders que se rellenan en runtime — si se hardcodean, el prompt queda desactualizado apenas cambia el dato.
+
+```text
+# Rol
+Sos un asistente de agendamiento para una clínica. Tu tarea es coordinar turnos.
+
+# Contexto
+- Horario: lunes a viernes, 9 a 18h. Un turno dura 30 minutos.
+
+# Instrucciones
+- Confirmá nombre y motivo de consulta antes de agendar.
+- Si el horario pedido no está libre, ofrecé los dos más cercanos.
+
+# Tools
+- Calendar_Check → ver disponibilidad. Usala antes de confirmar cualquier turno.
+- Calendar_Book → reservar una vez confirmado con el paciente.
+
+# Variables
+Fecha y hora actual: {now}
+Paciente: {user_name}
+```
+
+**Formato**: usar headers Markdown (`#`, `##`) para separar las secciones — el modelo los lee como jerarquía y no mezcla, por ejemplo, contexto con instrucciones.
+
+**Largo**: completo pero no verboso. Cada token del system prompt se paga en **cada** llamado (ver [Costos de LLMs](costos-llms.md)), y en un agente el system prompt viaja en todas las vueltas del loop — lo de más se multiplica por iteración.
 
 ## Chain of Thought (CoT)
 
@@ -34,6 +68,8 @@ Resolvé esto paso a paso, mostrando cada cálculo antes de dar la respuesta fin
 ```
 
 Es, en esencia, la misma lógica del [loop ReAct](agentes-vs-workflows.md#patrón-de-agent-el-llm-controla-el-camino) — "razonar antes de actuar" — pero aplicada dentro de una sola respuesta, sin necesidad de un loop de tools.
+
+**Dónde va**: al final del prompt, después de las instrucciones. Con modelos que ya razonan de fábrica (OpenAI o1/o3, Claude con *extended thinking*, DeepSeek R1) pedir CoT explícito es redundante — generan una cadena de razonamiento interna antes de responder sin que se lo pidas (ver [test-time compute](que-es-un-token.md#test-time-compute--pensar-más-al-responder-no-al-entrenar)).
 
 ## Zero-shot vs Few-shot Learning
 
@@ -65,4 +101,4 @@ A diferencia de todo lo anterior, el fine-tuning sí **ajusta los pesos del mode
 **Regla práctica**: probar primero con prompt engineering + few-shot (rápido, barato, iterable) — recién considerar fine-tuning si eso no alcanza.
 
 ---
-Relacionado: [Qué es un token](que-es-un-token.md), [Agentes vs Workflows](agentes-vs-workflows.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md).
+Relacionado: [Qué es un token](que-es-un-token.md), [Function Calling](function-calling.md), [Costos de LLMs](costos-llms.md), [Diseño de Agentes de IA](diseno-de-agentes.md), [Agentes vs Workflows](agentes-vs-workflows.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md).

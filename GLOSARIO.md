@@ -53,7 +53,7 @@
 - **CDK (AWS Cloud Development Kit)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md#complementos-nice-to-have)
 - **CDN (Content Delivery Network)** — [CDN](devops/cdn.md)
 - **Chain of Responsibility (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#chain-of-responsibility)
-- **Chain of Thought (CoT)** — [Técnicas de Prompting](agentic-ai/tecnicas-de-prompting.md#chain-of-thought-cot)
+- **Chain of Thought (CoT)** — [Prompt Engineering](agentic-ai/prompt-engineering.md#chain-of-thought-cot)
 - **Chattiness** — [Diagnóstico Backend](diagnostico/backend.md#http-chaining)
 - **Chunking (RAG)** — [RAG](agentic-ai/rag.md#1-chunking--partir-los-documentos)
 - **Circuit breaker** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#tolerancia-a-fallos)
@@ -147,7 +147,7 @@
 - **Facade (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#facade)
 - **Factory Method** — [Patrones creacionales](system-design/patrones-creacionales.md#factory-method)
 - **FastAPI** — [Motores de SQL](database/motores-de-sql.md)
-- **Few-shot Learning** — [Técnicas de Prompting](agentic-ai/tecnicas-de-prompting.md#zero-shot-vs-few-shot-learning)
+- **Few-shot Learning** — [Prompt Engineering](agentic-ai/prompt-engineering.md#zero-shot-vs-few-shot-learning)
 - **Fine-tuning** — [De ML clásico a Agentic AI](agentic-ai/historia-de-ml-a-agentic.md#4-modelos-preentrenados--un-modelo-base-muchos-usos-2018-2020)
 - **Fixture (testing)** — [Testing — conceptos generales](system-design/testing.md#9-fixtures)
 - **Flask** — [Motores de SQL](database/motores-de-sql.md)
@@ -316,7 +316,7 @@
 - **Producto cartesiano (JOIN)** — [Query Optimization](database/query-optimization.md#joins-correctos--evitar-productos-cartesianos)
 - **Prompt caching (LLM)** — [Costos de LLMs](agentic-ai/costos-llms.md#prompt-caching-con-números-reales-anthropic)
 - **Prompt chaining** — [Agentes vs Workflows](agentic-ai/agentes-vs-workflows.md#patrones-de-workflow-el-camino-es-fijo)
-- **Prompt Engineering** — [Técnicas de Prompting](agentic-ai/tecnicas-de-prompting.md#prompt-engineering)
+- **Prompt Engineering** — [Prompt Engineering](agentic-ai/prompt-engineering.md)
 - **Prompt Injection** — [Riesgos y Mitigaciones en Agentes de IA](agentic-ai/riesgos-y-mitigaciones.md#riesgos-de-seguridad-y-técnicos)
 - **Prop drilling** — [Estado global](frontend-react/estado-global.md#prop-drilling--el-problema)
 - **Proveedores de identidad gestionados** — [Proveedores de Identidad Gestionados](backend/proveedores-de-identidad-gestionados.md)
@@ -351,6 +351,7 @@
 - **Resolver (GraphQL)** — [GraphQL](backend/graphql.md#resolvers-y-el-riesgo-de-n1)
 - **Resource limits (requests vs limits, Kubernetes)** — [Kubernetes](devops/kubernetes.md#resource-limits)
 - **REST** — [REST](backend/rest.md)
+- **Role prompting** — [Prompt Engineering](agentic-ai/prompt-engineering.md#estructura-de-un-system-prompt)
 - **Rollback** — [Rollback / savepoints](database/rollback-savepoints.md#rollback)
 - **Round robin** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
 - **Routing (LLM)** — [Agentes vs Workflows](agentic-ai/agentes-vs-workflows.md#patrones-de-workflow-el-camino-es-fijo)
@@ -405,6 +406,7 @@
 - **Suspense (React)** — [Code Splitting](frontend-react/code-splitting.md#reactlazy--suspense)
 - **SwiftUI (iOS)** — [React Fundamentos](frontend-react/react-fundamentos.md#swift-swiftui-ios)
 - **SYN flood** — [DDoS Attack](backend/ddos-attack.md#tipos-de-más-simple-a-más-difícil-de-mitigar)
+- **System prompt** — [Prompt Engineering](agentic-ai/prompt-engineering.md#estructura-de-un-system-prompt)
 
 ### T
 
@@ -469,4 +471,4 @@
 
 ### Z
 
-- **Zero-shot Learning** — [Técnicas de Prompting](agentic-ai/tecnicas-de-prompting.md#zero-shot-vs-few-shot-learning)
+- **Zero-shot Learning** — [Prompt Engineering](agentic-ai/prompt-engineering.md#zero-shot-vs-few-shot-learning)

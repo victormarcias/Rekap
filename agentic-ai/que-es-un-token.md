@@ -46,7 +46,7 @@ Con temperatura alta, hay más chance de que elija una opción menos obvia.
 
 Hasta acá, escalar un LLM significaba entrenarlo con más parámetros y más datos — ese cómputo se gasta **una sola vez**, durante el entrenamiento, y después el modelo responde a la misma velocidad sin importar si la pregunta es trivial o muy difícil. **Test-Time Compute** (o *inference-time scaling*) es la idea inversa: dejar que el modelo gaste más cómputo **al momento de responder**, generando un razonamiento más largo antes de dar la respuesta final, cuando la tarea lo amerita.
 
-Es la técnica detrás de los modelos "de razonamiento" (OpenAI o1/o3, Claude con *extended thinking*): en vez de ir directo a la respuesta, el modelo genera una cadena de razonamiento interna extensa antes de contestar — la misma idea de fondo que pedirle [Chain of Thought](tecnicas-de-prompting.md#chain-of-thought-cot) en el prompt, pero automático, mucho más largo, y entrenado específicamente para eso (en vez de depender de que el usuario lo pida).
+Es la técnica detrás de los modelos "de razonamiento" (OpenAI o1/o3, Claude con *extended thinking*): en vez de ir directo a la respuesta, el modelo genera una cadena de razonamiento interna extensa antes de contestar — la misma idea de fondo que pedirle [Chain of Thought](prompt-engineering.md#chain-of-thought-cot) en el prompt, pero automático, mucho más largo, y entrenado específicamente para eso (en vez de depender de que el usuario lo pida).
 
 ```
 Pregunta simple: "¿Capital de Francia?"
@@ -70,4 +70,4 @@ Los modelos multimodales tokenizan y procesan más que texto — audio e imágen
 - **Por qué un LLM a veces "corta raro" una palabra rara o un nombre propio**: si esa palabra nunca apareció seguido en el entrenamiento, el tokenizer la parte en varios pedazos poco intuitivos — es más frecuente con nombres propios, jerga técnica muy específica, o texto en un idioma con poca representación en el entrenamiento.
 
 ---
-Relacionado: [Costos de LLMs](costos-llms.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Técnicas de Prompting](tecnicas-de-prompting.md).
+Relacionado: [Costos de LLMs](costos-llms.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Prompt Engineering](prompt-engineering.md).

@@ -11,11 +11,11 @@ Fase 2 del repo: agentic programming en profundidad (agentes, tool use, RAG), ML
 - [x] [Function Calling (Tool Use)](function-calling.md)
 - [x] [MCP (Model Context Protocol)](mcp.md)
 - [x] [PRD y Spec-Driven Development](prd-y-spec-driven-development.md)
+- [x] [Prompt Engineering](prompt-engineering.md)
 - [x] [Qué es un token](que-es-un-token.md)
 - [x] [RAG (Retrieval-Augmented Generation)](rag.md)
 - [x] [Riesgos y Mitigaciones en Agentes de IA](riesgos-y-mitigaciones.md)
 - [x] [Tamaño y Cuantización de Modelos](tamano-y-cuantizacion.md)
-- [x] [Técnicas de Prompting](tecnicas-de-prompting.md)
 - [x] [Tipos de Agentes de IA](tipos-de-agentes.md)
 
 Ver también: [n8n](../stacks/n8n/) (herramienta concreta, vive en `stacks/` junto a los demás lenguajes/tools).
