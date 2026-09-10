@@ -10,6 +10,7 @@ Panorama rápido de qué se usa hoy para armar un backend — bases de datos, OR
 | **Mongo** | DB — NoSQL (Document) | — | Esquema flexible (JSON/BSON), iteración rápida sin migraciones formales |
 | **Redis** | DB — NoSQL (Key-Value / in-memory) | — | Cache, rate limiting, colas simples, Pub/Sub — no reemplaza a una DB principal |
 | **Dynamo** | DB — NoSQL (Key-Value / Document) | Gestionado por AWS | Patrones de acceso conocidos de antemano, alta escala sin administrar servidores |
+| **Pinecone** | DB — NoSQL (Vector) | Gestionado | RAG, búsqueda semántica — embeddings + búsqueda por similitud (ANN) |
 | **SQLAlchemy** | ORM (Data Mapper) | Python | Separa el objeto de cómo se persiste — flexible pero más verboso |
 | **Django ORM** | ORM (Active Record) | Python | El modelo se sabe persistir a sí mismo (`modelo.save()`), integrado a Django, no se usa suelto |
 | **Prisma** | ORM | Node/TypeScript | Genera un cliente tipado a partir de un schema declarativo — fuerte tipado end-to-end |
@@ -26,4 +27,4 @@ Panorama rápido de qué se usa hoy para armar un backend — bases de datos, OR
 **FastAPI vs Django**, la comparación más común en el mundo Python: Django es "todo incluido" (ORM, admin, auth, forms) pensado para arrancar rápido con convenciones fuertes; FastAPI es minimalista y async-first, pensado para APIs — se arma eligiendo cada pieza (ORM, auth, etc.) por separado. Ninguno reemplaza al otro por completo: Django sigue siendo común en apps con panel de administración pesado, FastAPI domina en APIs puras y microservicios donde importa el rendimiento async.
 
 ---
-Ver [NoSQL](nosql.md), [DynamoDB](dynamodb-key-value-store.md), [Redis](redis.md) y [ORM (Object-Relational Mapping)](../backend/controller-service-repository.md#orm-object-relational-mapping) para el detalle de cada uno. Para separar runtime de framework de ORM de frontend (por qué "Node vs FastAPI" no es una comparación pareja), ver [Panorama: capas de un stack](../stacks/mapa-de-stacks.md).
+Ver [NoSQL](nosql.md) y [ORM (Object-Relational Mapping)](../backend/controller-service-repository.md#orm-object-relational-mapping) para el detalle de cada uno. Para separar runtime de framework de ORM de frontend (por qué "Node vs FastAPI" no es una comparación pareja), ver [Panorama: capas de un stack](../stacks/mapa-de-stacks.md).

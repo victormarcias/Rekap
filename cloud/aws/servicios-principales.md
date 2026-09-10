@@ -8,7 +8,7 @@ Mapa rápido de los servicios más nombrados de AWS y para qué sirve cada uno �
 | **API Gateway** | Networking / API | Punto de entrada administrado para exponer APIs (REST/WebSocket) hacia Lambda, EC2 u otros backends — ver [API Gateway](../../backend/api-gateway.md) para el patrón genérico. |
 | **Lambda** | Cómputo serverless | Ejecutar código sin gestionar servidores, factura por invocación — el FaaS de AWS, ver [El espectro IaaS → PaaS → Serverless](../../devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless). |
 | **S3** (Simple Storage Service) | Almacenamiento | Objetos (archivos, backups, hosting estático) — durabilidad muy alta, no pensado para queries relacionales. |
-| **DynamoDB** | Base de datos NoSQL | Key-Value/documento gestionado, escala horizontal automática — ver [Key-Value Store / DynamoDB](../../database/dynamodb-key-value-store.md). |
+| **DynamoDB** | Base de datos NoSQL | Key-Value/documento gestionado, escala horizontal automática — ver [NoSQL](../../database/nosql.md). |
 | **RDS** (Relational Database Service) | Base de datos SQL | Relacional administrada (Postgres, MySQL, etc.) — AWS se encarga de backups, patching, failover. |
 | **CloudWatch** | Observabilidad | Logs, métricas y alarmas de todo lo que corre en la cuenta — el punto central de monitoreo. |
 | **Cognito** | Identidad | Autenticación/autorización de usuarios gestionada (user pools, login social) — ver [Proveedores de Identidad Gestionados](../../backend/proveedores-de-identidad-gestionados.md). |

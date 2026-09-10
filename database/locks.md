@@ -32,7 +32,7 @@ def decrement_stock():
         stock[product_id] -= 1
 ```
 
-Los locks de este archivo (pessimistic/optimistic, shared/exclusive, más abajo) son **un caso particular** de este concepto — la implementación de "proteger una sección crítica" a nivel de base de datos. No es la única: un [distributed lock con Redis](redis.md#no-es-solo-cache) protege la misma idea, pero coordinando entre procesos/instancias en vez de entre transacciones de una DB; y el `threading.Lock()` de arriba la protege dentro de un único proceso, sin ninguna base de datos de por medio. Todo lo que sigue en este archivo son formas de resolver esto específicamente para datos en una DB: o se bloquea el acceso concurrente (pessimistic locking, shared/exclusive locks), o se detecta el conflicto al momento de escribir y se rechaza la escritura pisada (optimistic locking).
+Los locks de este archivo (pessimistic/optimistic, shared/exclusive, más abajo) son **un caso particular** de este concepto — la implementación de "proteger una sección crítica" a nivel de base de datos. No es la única: un *distributed lock* (ej. con Redis) protege la misma idea, pero coordinando entre procesos/instancias en vez de entre transacciones de una DB; y el `threading.Lock()` de arriba la protege dentro de un único proceso, sin ninguna base de datos de por medio. Todo lo que sigue en este archivo son formas de resolver esto específicamente para datos en una DB: o se bloquea el acceso concurrente (pessimistic locking, shared/exclusive locks), o se detecta el conflicto al momento de escribir y se rechaza la escritura pisada (optimistic locking).
 
 ## Pessimistic vs Optimistic locking
 

@@ -10,6 +10,7 @@ Bases de datos que se apartan del modelo relacional clásico (tablas + SQL + ACI
 | **Documento** | Documentos JSON/BSON anidados | MongoDB, Couchbase | Datos semi-estructurados, schemas que cambian seguido |
 | **Column-family** | Filas con columnas dinámicas agrupadas por familia | Cassandra, HBase | Escritura masiva, series temporales, alta disponibilidad multi-región |
 | **Grafo** | Nodos + relaciones (edges) | Neo4j, Amazon Neptune | Datos altamente relacionales (redes sociales, recomendaciones, fraude) |
+| **Vector** | Embedding (vector numérico) → búsqueda por similitud | Pinecone, Weaviate, pgvector | RAG, búsqueda semántica, recomendaciones por similitud |
 
 ## Por qué NoSQL: el trade-off central
 
@@ -51,6 +52,12 @@ db.users.insertOne({
 ```
 
 Ventaja: no hace falta definir el schema por adelantado, y datos anidados/relacionados van en un solo documento (menos joins). Desventaja: duplicación de datos, más difícil garantizar integridad referencial.
+
+## Vector — características fundamentales
+
+A diferencia de las demás categorías, acá no se busca por clave exacta ni por filtro estructurado, sino por **similitud**: cada dato se representa como un embedding (un vector numérico que captura su significado), y la consulta es "¿cuáles de estos vectores están más cerca del vector de mi pregunta?". Resolverlo por fuerza bruta contra millones de vectores no escala — estas bases usan índices **ANN** (Approximate Nearest Neighbor, ej. HNSW) que sacrifican algo de precisión exacta a cambio de responder en milisegundos. La mayoría también soporta **metadata filtering**: combinar la búsqueda por similitud con filtros exactos (ej. "solo documentos de este usuario").
+
+Es la pieza de infraestructura detrás de RAG — ver [RAG (Retrieval-Augmented Generation)](../agentic-ai/rag.md#3-vector-db--guardar-y-buscar-por-similitud) para el pipeline completo (chunking → embeddings → vector DB → retrieval).
 
 ## Cuándo elegir NoSQL vs SQL
 

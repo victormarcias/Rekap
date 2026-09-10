@@ -30,7 +30,7 @@ Cliente (SQL) → Parser → Query Optimizer → Execution Engine → Storage En
 1. **Parser**: valida que el SQL sea sintácticamente correcto.
 2. **Query Optimizer**: entre varias formas posibles de ejecutar la query, elige la que estima más barata — usando estadísticas de las tablas (ver [Estadísticas del planner](../diagnostico/base-de-datos.md#estadísticas-del-planner)) y decidiendo si conviene un [índice](indices.md) o escanear la tabla entera.
 3. **Execution Engine**: corre el plan elegido, leyendo/escribiendo filas.
-4. **Storage Engine**: no lee/escribe fila por fila directo a disco — trabaja en **páginas** (bloques de varios KB), y mantiene un **buffer pool** en memoria con las páginas usadas más recientemente, para no ir a disco en cada operación (el mismo principio que un cache — ver [Redis](redis.md) para el concepto de cache en general).
+4. **Storage Engine**: no lee/escribe fila por fila directo a disco — trabaja en **páginas** (bloques de varios KB), y mantiene un **buffer pool** en memoria con las páginas usadas más recientemente, para no ir a disco en cada operación (el mismo principio que un cache — ver [Diagnóstico Backend](../diagnostico/backend.md#falta-de-cache) para el concepto de cache en general).
 
 ## Write-Ahead Log (WAL) — cómo no se pierde nada si el servidor se cae
 
