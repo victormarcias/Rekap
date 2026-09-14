@@ -6,9 +6,19 @@ Cualquier agente, sin importar su tipo (ver [Tipos de Agentes](tipos-de-agentes.
 
 - **Percepción**: procesamiento de los datos de entrada (texto, imágenes, eventos) — multimodal si hace falta.
 - **Razonamiento**: el motor de decisiones — puede ser un LLM, un modelo de ML clásico, o reglas fijas.
-- **Memoria**: estado de corto plazo (la conversación actual) y de largo plazo (qué pasó en interacciones anteriores) — sin esto, el agente "olvida" todo entre pasos.
+- **Memoria**: estado de corto plazo (la conversación actual) y de largo plazo (qué pasó en interacciones anteriores) — sin esto, el agente "olvida" todo entre pasos. Ver [Memoria Conversacional](memoria-conversacional.md) para las estrategias concretas de cómo administrarla.
 - **Acción**: la ejecución real — conectar con APIs, sistemas externos, bases de datos.
 - **Retroalimentación**: monitoreo del resultado, para aprender y ajustar el comportamiento futuro.
+
+## En la práctica: Model + Memory + Tools
+
+Los componentes de arriba son el marco conceptual — en la práctica, cuando se arma un agente con un LLM, se simplifican a tres piezas concretas:
+
+- **Model**: el LLM que razona y decide — el **Razonamiento** de arriba.
+- **Memory**: el historial de la conversación, y opcionalmente memoria de largo plazo — ver [Memoria Conversacional](memoria-conversacional.md).
+- **Tools**: las funciones/APIs que el agente puede invocar — la **Acción** de arriba, ver [Function Calling](function-calling.md).
+
+**Percepción** y **Retroalimentación** casi nunca son un módulo aparte en este armado: la percepción es lo que entra en el prompt en cada llamado (texto, resultado de una tool), y la retroalimentación queda fuera del runtime del agente — se evalúa después, sobre logs y resultados, no como una pieza que corre en cada paso.
 
 ## Arquitectura en capas
 

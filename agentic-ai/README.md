@@ -10,6 +10,7 @@ Fase 2 del repo: agentic programming en profundidad (agentes, tool use, RAG), ML
 - [x] [Diseño de Agentes de IA](diseno-de-agentes.md)
 - [x] [Function Calling (Tool Use)](function-calling.md)
 - [x] [MCP (Model Context Protocol)](mcp.md)
+- [x] [Memoria Conversacional](memoria-conversacional.md)
 - [x] [PRD y Spec-Driven Development](prd-y-spec-driven-development.md)
 - [x] [Prompt Engineering](prompt-engineering.md)
 - [x] [Qué es un token](que-es-un-token.md)

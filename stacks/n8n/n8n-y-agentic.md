@@ -2,7 +2,7 @@
 
 ## El nodo AI Agent
 
-n8n tiene un nodo **AI Agent** (con LangChain integrado por debajo) que le da a un LLM acceso al resto de los nodos del workflow como **tools** — es la versión visual/low-code del mismo patrón de [tool use y agentic](../../agentic-ai/historia-de-ml-a-agentic.md#7-tool-use--function-calling--el-llm-puede-hacer-no-solo-hablar-2023) que se arma con código: el LLM decide qué nodo/tool usar, con qué datos, y encadena pasos hasta resolver la tarea.
+n8n tiene un nodo **AI Agent** (con LangChain integrado por debajo) que le da a un LLM acceso al resto de los nodos del workflow como **tools** — es la versión visual/low-code del mismo patrón de [tool use y agentic](../../agentic-ai/historia-de-ml-a-agentic.md#7-tool-use--function-calling--el-llm-puede-hacer-no-solo-hablar-2023) que se arma con código: el LLM decide qué nodo/tool usar, con qué datos, y encadena pasos hasta resolver la tarea. Se configura conectándole tres piezas — Model, Memory, Tools — la misma arquitectura de [Model + Memory + Tools](../../agentic-ai/diseno-de-agentes.md#en-la-práctica-model--memory--tools) que se arma a mano en código.
 
 Es también un ejemplo concreto del patrón "[workflow con un agent adentro](../../agentic-ai/agentes-vs-workflows.md#no-es-una-elección-binaria)": el workflow en sí sigue siendo la estructura fija de nodos conectados (predecible, con guardrails), pero el nodo AI Agent corre internamente un loop agentic cuando ese paso puntual necesita razonamiento abierto.
 
