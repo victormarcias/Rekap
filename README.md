@@ -1,6 +1,6 @@
-# Wiki
+# Rekap
 
-Este repositorio contiene conocimiento general de informática.
+Repaso técnico condensado, organizado para repasar rápido.
 
 ## Índice
 
