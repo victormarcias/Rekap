@@ -2,7 +2,7 @@
 
 ## Índice
 
-[A](#a) · [B](#b) · [C](#c) · [D](#d) · [E](#e) · [F](#f) · [G](#g) · [H](#h) · [I](#i) · [J](#j) · [K](#k) · [L](#l) · [M](#m) · [N](#n) · [O](#o) · [P](#p) · [R](#r) · [S](#s) · [T](#t) · [U](#u) · [V](#v) · [W](#w)
+[A](#a) · [B](#b) · [C](#c) · [D](#d) · [E](#e) · [F](#f) · [G](#g) · [H](#h) · [I](#i) · [J](#j) · [K](#k) · [L](#l) · [M](#m) · [N](#n) · [O](#o) · [P](#p) · [R](#r) · [S](#s) · [T](#t) · [U](#u) · [V](#v) · [W](#w) · [X](#x) · [Z](#z)
 
 ### A
 
@@ -10,6 +10,7 @@
 - **Access token** — [Autenticación y Seguridad](backend/autenticacion.md#6-access-token-vs-refresh-token)
 - **ACID** — [ACID / transacciones / isolation levels](database/acid-transacciones-isolation.md#acid)
 - **Adapter (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#adapter)
+- **Adversarial input** — [Riesgos y Mitigaciones en Agentes de IA](agentic-ai/riesgos-y-mitigaciones.md#riesgos-de-seguridad-y-técnicos)
 - **afterAll** — [Testing — conceptos generales](system-design/testing.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)
 - **afterEach** — [Testing — conceptos generales](system-design/testing.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)
 - **Agentic AI** — [De ML clásico a Agentic AI](agentic-ai/historia-de-ml-a-agentic.md#8-agentic-ai--planear-actuar-observar-repetir-2023-2024)
@@ -58,6 +59,7 @@
 - **Chunking (RAG)** — [RAG](agentic-ai/rag.md#1-chunking--partir-los-documentos)
 - **Circuit breaker** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#tolerancia-a-fallos)
 - **Clean Architecture** — [Clean Architecture](system-design/clean-architecture.md)
+- **Clickjacking** — [Security Headers](security/security-headers.md#x-frame-options--frame-ancestors-csp)
 - **CloudWatch (AWS)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md)
 - **CLS (Cumulative Layout Shift)** — [Web Vitals](frontend-react/web-vitals.md#core-web-vitals)
 - **Clustered index** — [Índices](database/indices.md#clustered-vs-non-clustered)
@@ -82,7 +84,9 @@
 - **Covering index** — [Índices](database/indices.md#covering-index)
 - **Created (201)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)
 - **CRUD** — [CRUD](database/crud.md)
+- **CSP (Content Security Policy)** — [Security Headers](security/security-headers.md#content-security-policy-csp)
 - **CSR (Client-Side Rendering)** — [Renderizado](frontend-react/renderizado.md#csr-vs-ssr)
+- **CSRF (Cross-Site Request Forgery)** — [CSRF](security/csrf.md)
 - **CSS-in-JS** — [CSS](frontend-react/css.md#metodologías-para-organizar-y-scopear-estilos)
 - **CSS Modules** — [CSS](frontend-react/css.md#metodologías-para-organizar-y-scopear-estilos)
 - **CSS Reset / Normalize.css** — [CSS](frontend-react/css.md#css-reset--normalize)
@@ -370,7 +374,7 @@
 - **SASS/SCSS** — [CSS](frontend-react/css.md#metodologías-para-organizar-y-scopear-estilos)
 - **Savepoint** — [Rollback / savepoints](database/rollback-savepoints.md#savepoints)
 - **Sección crítica** — [Locks](database/locks.md#sección-crítica--el-concepto-general-detrás-de-la-solución)
-- **Security headers** — [Deploy a Cloud Run](devops/deploy-cloud-run.md#5-security-headers-vía-middleware)
+- **Security headers** — [Security Headers](security/security-headers.md)
 - **Selenium** — [Testing en React](frontend-react/testing.md#herramientas-e2e-selenium-vs-cypress-vs-playwright)
 - **Semáforo (concurrencia)** — [Locks](database/locks.md#sección-crítica--el-concepto-general-detrás-de-la-solución)
 - **SEO** — [HTML](frontend-react/html.md#seo)
@@ -392,12 +396,14 @@
 - **SPA (Single Page Application)** — [Renderizado](frontend-react/renderizado.md#spa-single-page-application)
 - **Spec-Driven Development** — [PRD y Spec-Driven Development](agentic-ai/prd-y-spec-driven-development.md#spec-driven-development-aplicado-a-agentic-coding)
 - **Spring Boot** — [Motores de SQL](database/motores-de-sql.md)
+- **SQL Injection** — [SQL Injection](security/sql-injection.md)
 - **SQLAlchemy** — [Motores de SQL](database/motores-de-sql.md)
 - **SQLite** — [Motores de SQL](database/motores-de-sql.md)
 - **SQS** — [Colas de mensajes](backend/colas-de-mensajes.md#sqs-amazon-simple-queue-service)
 - **SSE (Server-Sent Events)** — [WebSocket / SSE / Streaming](frontend-react/websocket-sse-streaming.md#sse-server-sent-events--unidireccional)
 - **SSG (Static Site Generation)** — [Renderizado](frontend-react/renderizado.md#ssg-la-variante-prima)
 - **SSR (Server-Side Rendering)** — [Renderizado](frontend-react/renderizado.md)
+- **SSRF (Server-Side Request Forgery)** — [SSRF](security/ssrf.md)
 - **Stacking context** — [CSS](frontend-react/css.md#stacking-contexts-por-qué-mi-z-index-no-funciona)
 - **Stale-while-revalidate** — [Renderizado](frontend-react/renderizado.md#isr-incremental-static-regeneration)
 - **Sticky sessions (IP hash)** — [Load Balancers](backend/load-balancers.md#algoritmos-de-balanceo)
@@ -471,6 +477,10 @@
 - **White-Label** — [White-Label](system-design/white-label.md)
 - **Write-behind (write-back)** — [Cache Invalidation](backend/cache-invalidation.md#cache-aside-write-through-write-behind)
 - **Write-through** — [Cache Invalidation](backend/cache-invalidation.md#cache-aside-write-through-write-behind)
+
+### X
+
+- **XSS (Cross-Site Scripting)** — [XSS](security/xss.md)
 
 ### Z
 

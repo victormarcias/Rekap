@@ -63,4 +63,4 @@ app.add_middleware(SecurityHeadersMiddleware)
 ```
 
 ---
-Relacionado: [Dockerización](docker.md), [Deploy a un VPS](deploy-vps.md), [VPS vs Cloud Run](vps-vs-cloud-run.md), [Cold start](../diagnostico/devops.md), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad).
+Relacionado: [Dockerización](docker.md), [Deploy a un VPS](deploy-vps.md), [VPS vs Cloud Run](vps-vs-cloud-run.md), [Cold start](../diagnostico/devops.md), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad), [Security Headers](../security/security-headers.md) (qué previene cada uno).

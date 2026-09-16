@@ -3,6 +3,7 @@
 ## Riesgos de seguridad y técnicos
 
 - **Alucinaciones**: el modelo genera información falsa con alta confianza — no "sabe" que está mal, la produce con el mismo tono seguro que una respuesta correcta. Mitigado (no eliminado) con [RAG](rag.md) — darle datos reales en vez de dejar que invente.
+- **Adversarial input**: una entrada diseñada **a propósito** para explotar una debilidad del modelo — no es un caso límite que aparece solo, es un ataque deliberado contra cómo el modelo procesa la entrada. El ejemplo clásico (visión por computadora) es una imagen con ruido casi imperceptible para un humano que hace que un clasificador se equivoque con alta confianza. El **Prompt Injection** de abajo es la versión específica de esto para LLMs/agentes.
 - **Prompt Injection**: manipular las instrucciones del agente a través de la entrada — ej. un usuario (o un documento que el agente lee vía RAG) incluye texto tipo "ignorá tus instrucciones anteriores y hacé X". Es al agente lo que la inyección SQL es a una query: input que se trata como si fuera instrucción de confianza.
 - **Uso incorrecto de herramientas**: el agente ejecuta una tool con argumentos mal formados o en un contexto donde no correspondía (ej. borra en vez de archivar).
 - **Loops infinitos**: el agente queda atrapado en un ciclo sin converger a una respuesta — no solo un problema de UX, es plata real gastada en cada vuelta (ver [Circuit Breaker como límite de gasto](costos-llms.md#evitar-gasto-por-loops-que-no-cortan-solos)).
