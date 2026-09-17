@@ -1,5 +1,9 @@
 # Big-O
 
+<table width="100%"><tr><td align="center" bgcolor="#ffffff">
+<img src="big-o-chart.png" width="600">
+</td></tr></table>
+
 Big-O mide **cómo crece** el tiempo (o la memoria) que necesita un algoritmo a medida que crece el tamaño del input — no cuántos milisegundos tarda exactamente. Dos algoritmos O(n) pueden tener tiempos reales muy distintos (uno con más overhead por operación que el otro), pero ambos van a duplicar su tiempo si el input se duplica; eso es lo que la notación captura, no el número absoluto.
 
 ## Cómo se deriva de código
@@ -54,6 +58,43 @@ Big-O casi siempre se habla en **peor caso** (worst case) por default, salvo que
 ## Tiempo vs espacio
 
 Big-O también mide **memoria**, no solo tiempo — un algoritmo puede ser más rápido a costa de usar más memoria (ej. guardar resultados ya calculados para no recalcularlos, *memoization*) o más lento pero con memoria constante. Es un trade-off explícito, no siempre se optimiza para lo mismo.
+
+## Tabla de referencia — estructuras de datos
+
+| Estructura | Access (avg) | Search (avg) | Insertion (avg) | Deletion (avg) | Access (worst) | Search (worst) | Insertion (worst) | Deletion (worst) | Space (worst) |
+|---|---|---|---|---|---|---|---|---|---|
+| Array | O(1) | O(n) | O(n) | O(n) | O(1) | O(n) | O(n) | O(n) | O(n) |
+| Stack | O(n) | O(n) | O(1) | O(1) | O(n) | O(n) | O(1) | O(1) | O(n) |
+| Queue | O(n) | O(n) | O(1) | O(1) | O(n) | O(n) | O(1) | O(1) | O(n) |
+| Singly-Linked List | O(n) | O(n) | O(1) | O(1) | O(n) | O(n) | O(1) | O(1) | O(n) |
+| Doubly-Linked List | O(n) | O(n) | O(1) | O(1) | O(n) | O(n) | O(1) | O(1) | O(n) |
+| Skip List | O(log n) | O(log n) | O(log n) | O(log n) | O(n) | O(n) | O(n) | O(n) | O(n log n) |
+| Hash Table | N/A | O(1) | O(1) | O(1) | N/A | O(n) | O(n) | O(n) | O(n) |
+| Binary Search Tree | O(log n) | O(log n) | O(log n) | O(log n) | O(n) | O(n) | O(n) | O(n) | O(n) |
+| Cartesian Tree | N/A | O(log n) | O(log n) | O(log n) | N/A | O(n) | O(n) | O(n) | O(n) |
+| B-Tree | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(n) |
+| Red-Black Tree | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(n) |
+| Splay Tree | N/A | O(log n) | O(log n) | O(log n) | N/A | O(log n) | O(log n) | O(log n) | O(n) |
+| AVL Tree | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(log n) | O(n) |
+| KD Tree | O(log n) | O(log n) | O(log n) | O(log n) | O(n) | O(n) | O(n) | O(n) | O(n) |
+
+## Tabla de referencia — algoritmos de sorting (arrays)
+
+| Algoritmo | Best | Average | Worst | Space (worst) |
+|---|---|---|---|---|
+| Quicksort | O(n log n) | O(n log n) | O(n²) | O(log n) |
+| Mergesort | O(n log n) | O(n log n) | O(n log n) | O(n) |
+| Timsort | O(n) | O(n log n) | O(n log n) | O(n) |
+| Heapsort | O(n log n) | O(n log n) | O(n log n) | O(1) |
+| Bubble Sort | O(n) | O(n²) | O(n²) | O(1) |
+| Insertion Sort | O(n) | O(n²) | O(n²) | O(1) |
+| Selection Sort | O(n²) | O(n²) | O(n²) | O(1) |
+| Tree Sort | O(n log n) | O(n log n) | O(n²) | O(n) |
+| Shell Sort | O(n log n) | O(n (log n)²) | O(n (log n)²) | O(1) |
+| Bucket Sort | O(n+k) | O(n+k) | O(n²) | O(n) |
+| Radix Sort | O(nk) | O(nk) | O(nk) | O(n+k) |
+| Counting Sort | O(n+k) | O(n+k) | O(n+k) | O(k) |
+| Cubesort | O(n) | O(n log n) | O(n log n) | O(n) |
 
 ---
 Relacionado: [Algoritmos, Sorting y Estructuras de Datos en Python](../stacks/python/algoritmos-y-sorting.md) (aplicación concreta a `list`/`dict`/`set`/`heapq`/`bisect`), [Índices](../database/indices.md) (mismo espíritu de Big-O, a nivel de DB).
