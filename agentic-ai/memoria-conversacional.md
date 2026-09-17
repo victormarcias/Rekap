@@ -97,4 +97,4 @@ Es el mismo [pipeline de RAG](rag.md#el-pipeline-paso-a-paso) (chunking, embeddi
 Buffer completo para prototipos o conversaciones cortas. Sliding window o token-limited buffer cuando el volumen crece pero alcanza con memoria de corto plazo. Summarization cuando importa retener el hilo completo de una conversación larga sin pagar el costo de todo el historial crudo. Vector DB cuando el chatbot necesita recordar entre sesiones distintas, no solo dentro de una misma conversación.
 
 ---
-Relacionado: [Diseño de Agentes de IA](diseno-de-agentes.md#componentes-centrales), [Qué es un token](que-es-un-token.md#por-qué-importa), [RAG](rag.md), [Costos de LLMs](costos-llms.md).
+Relacionado: [Diseño de Agentes de IA](diseno-de-agentes.md#componentes-centrales), [Qué es un token](que-es-un-token.md#por-qué-importa), [RAG](rag.md), [Costos de LLMs](costos-llms.md), [Context Engineering](context-engineering.md).

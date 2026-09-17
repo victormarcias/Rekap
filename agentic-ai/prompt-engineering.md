@@ -101,4 +101,4 @@ A diferencia de todo lo anterior, el fine-tuning sí **ajusta los pesos del mode
 **Regla práctica**: probar primero con prompt engineering + few-shot (rápido, barato, iterable) — recién considerar fine-tuning si eso no alcanza.
 
 ---
-Relacionado: [Qué es un token](que-es-un-token.md), [Function Calling](function-calling.md), [Costos de LLMs](costos-llms.md), [Diseño de Agentes de IA](diseno-de-agentes.md), [Agentes vs Workflows](agentes-vs-workflows.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md).
+Relacionado: [Qué es un token](que-es-un-token.md), [Function Calling](function-calling.md), [Costos de LLMs](costos-llms.md), [Diseño de Agentes de IA](diseno-de-agentes.md), [Agentes vs Workflows](agentes-vs-workflows.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Context Engineering](context-engineering.md).

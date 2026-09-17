@@ -100,4 +100,4 @@ Si los documentos fuente entran enteros en el [context window](que-es-un-token.m
 - **La pregunta no se parece semánticamente a la respuesta**: embeddings buscan por similitud de significado, no siempre alineado con qué información responde la pregunta — un problema conocido, mitigado con [Reranking](#4-reranking-opcional) o *hypothetical document embeddings*.
 
 ---
-Relacionado: [Qué es un token](que-es-un-token.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md#6-rag--darle-al-llm-información-que-no-tiene-2023), [Costos de LLMs](costos-llms.md).
+Relacionado: [Qué es un token](que-es-un-token.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md#6-rag--darle-al-llm-información-que-no-tiene-2023), [Costos de LLMs](costos-llms.md), [Context Engineering](context-engineering.md).

@@ -5,6 +5,7 @@ Fase 2 del repo: agentic programming en profundidad (agentes, tool use, RAG), ML
 - [x] [Agentes vs Workflows](agentes-vs-workflows.md)
 - [x] [AGENTS.md y Skills](agents-md-y-skills.md)
 - [x] [Comparación de Modelos](comparacion-modelos.md)
+- [x] [Context Engineering](context-engineering.md)
 - [x] [Costos de LLMs: Anthropic vs OpenAI vs Google](costos-llms.md)
 - [x] [De ML clásico a Agentic AI (historia)](historia-de-ml-a-agentic.md)
 - [x] [Diseño de Agentes de IA](diseno-de-agentes.md)

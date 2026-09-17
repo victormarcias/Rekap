@@ -70,4 +70,4 @@ Los modelos multimodales tokenizan y procesan más que texto — audio e imágen
 - **Por qué un LLM a veces "corta raro" una palabra rara o un nombre propio**: si esa palabra nunca apareció seguido en el entrenamiento, el tokenizer la parte en varios pedazos poco intuitivos — es más frecuente con nombres propios, jerga técnica muy específica, o texto en un idioma con poca representación en el entrenamiento.
 
 ---
-Relacionado: [Costos de LLMs](costos-llms.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Prompt Engineering](prompt-engineering.md).
+Relacionado: [Costos de LLMs](costos-llms.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Prompt Engineering](prompt-engineering.md), [Context Engineering](context-engineering.md).
