@@ -1,9 +1,5 @@
 # Big-O
 
-<table width="100%"><tr><td align="center" bgcolor="#ffffff">
-<img src="big-o-chart.png" width="600">
-</td></tr></table>
-
 Big-O mide **cómo crece** el tiempo (o la memoria) que necesita un algoritmo a medida que crece el tamaño del input — no cuántos milisegundos tarda exactamente. Dos algoritmos O(n) pueden tener tiempos reales muy distintos (uno con más overhead por operación que el otro), pero ambos van a duplicar su tiempo si el input se duplica; eso es lo que la notación captura, no el número absoluto.
 
 ## Cómo se deriva de código
@@ -49,6 +45,28 @@ def busqueda_binaria(lista_ordenada, objetivo):  # O(log n)
     return -1
 ```
 
+```python
+def merge_sort(lista):    # O(n log n)
+    if len(lista) <= 1:
+        return lista
+    medio = len(lista) // 2
+    izquierda = merge_sort(lista[:medio])   # log n niveles de división a la mitad
+    derecha = merge_sort(lista[medio:])
+    return merge(izquierda, derecha)        # cada nivel hace O(n) trabajo mezclando
+
+def merge(izquierda, derecha):
+    resultado = []
+    i = j = 0
+    while i < len(izquierda) and j < len(derecha):   # recorre ambas mitades una sola vez: O(n)
+        if izquierda[i] <= derecha[j]:
+            resultado.append(izquierda[i]); i += 1
+        else:
+            resultado.append(derecha[j]); j += 1
+    return resultado + izquierda[i:] + derecha[j:]
+```
+
+`merge_sort` divide la lista a la mitad recursivamente (`log n` niveles, como la búsqueda binaria) y en cada nivel mezcla todos los elementos (`O(n)` trabajo) — `log n` niveles × `O(n)` por nivel = `O(n log n)` en total. Es la misma razón por la que Timsort, mergesort y quicksort comparten esa complejidad: dividir y combinar.
+
 Cada clase, en orden, crece **mucho** más rápido que la anterior — con `n = 1.000.000`, O(log n) son ~20 pasos, O(n) es un millón de pasos, y O(n²) es un billón. La diferencia entre elegir bien o mal la estructura/algoritmo no es un detalle menor a esa escala.
 
 ## Peor caso, caso promedio, mejor caso
@@ -59,44 +77,21 @@ Big-O casi siempre se habla en **peor caso** (worst case) por default, salvo que
 
 Big-O también mide **memoria**, no solo tiempo — un algoritmo puede ser más rápido a costa de usar más memoria (ej. guardar resultados ya calculados para no recalcularlos, *memoization*) o más lento pero con memoria constante. Es un trade-off explícito, no siempre se optimiza para lo mismo.
 
+<table width="100%"><tr><td align="center" bgcolor="#ffffff">
+<img src="big-o-chart.png" width="600">
+</td></tr></table>
+
 ## Tabla de referencia — estructuras de datos
 
-<table>
-<tr><th align="left">Estructura</th><th align="left">Access (avg)</th><th align="left">Search (avg)</th><th align="left">Insertion (avg)</th><th align="left">Deletion (avg)</th><th align="left">Access (worst)</th><th align="left">Search (worst)</th><th align="left">Insertion (worst)</th><th align="left">Deletion (worst)</th><th align="left">Space (worst)</th></tr>
-<tr><td><strong>Array</strong></td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Stack</strong></td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Queue</strong></td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Singly-Linked List</strong></td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Doubly-Linked List</strong></td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Skip List</strong></td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td></tr>
-<tr><td><strong>Hash Table</strong></td><td align="center" style="background:#e0e0e0;color:#000">N/A</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td><td align="center" style="background:#e0e0e0;color:#000">N/A</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Binary Search Tree</strong></td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Cartesian Tree</strong></td><td align="center" style="background:#e0e0e0;color:#000">N/A</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#e0e0e0;color:#000">N/A</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>B-Tree</strong></td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Red-Black Tree</strong></td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Splay Tree</strong></td><td align="center" style="background:#e0e0e0;color:#000">N/A</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#e0e0e0;color:#000">N/A</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>AVL Tree</strong></td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>KD Tree</strong></td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-</table>
+<table width="100%"><tr><td align="center" bgcolor="#ffffff">
+<img src="big-o-data-structures.png" width="700">
+</td></tr></table>
 
 ## Tabla de referencia — algoritmos de sorting (arrays)
 
-<table>
-<tr><th align="left">Algoritmo</th><th align="left">Best</th><th align="left">Average</th><th align="left">Worst</th><th align="left">Space (worst)</th></tr>
-<tr><td><strong>Quicksort</strong></td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ef5350;color:#000">O(n²)</td><td align="center" style="background:#8bc34a;color:#000">O(log n)</td></tr>
-<tr><td><strong>Mergesort</strong></td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Timsort</strong></td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Heapsort</strong></td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td></tr>
-<tr><td><strong>Bubble Sort</strong></td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ef5350;color:#000">O(n²)</td><td align="center" style="background:#ef5350;color:#000">O(n²)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td></tr>
-<tr><td><strong>Insertion Sort</strong></td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ef5350;color:#000">O(n²)</td><td align="center" style="background:#ef5350;color:#000">O(n²)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td></tr>
-<tr><td><strong>Selection Sort</strong></td><td align="center" style="background:#ef5350;color:#000">O(n²)</td><td align="center" style="background:#ef5350;color:#000">O(n²)</td><td align="center" style="background:#ef5350;color:#000">O(n²)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td></tr>
-<tr><td><strong>Tree Sort</strong></td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ef5350;color:#000">O(n²)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Shell Sort</strong></td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ef5350;color:#000">O(n (log n)²)</td><td align="center" style="background:#ef5350;color:#000">O(n (log n)²)</td><td align="center" style="background:#4caf50;color:#000">O(1)</td></tr>
-<tr><td><strong>Bucket Sort</strong></td><td align="center" style="background:#4caf50;color:#000">O(n+k)</td><td align="center" style="background:#4caf50;color:#000">O(n+k)</td><td align="center" style="background:#ef5350;color:#000">O(n²)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-<tr><td><strong>Radix Sort</strong></td><td align="center" style="background:#66bb6a;color:#000">O(nk)</td><td align="center" style="background:#66bb6a;color:#000">O(nk)</td><td align="center" style="background:#66bb6a;color:#000">O(nk)</td><td align="center" style="background:#4caf50;color:#000">O(n+k)</td></tr>
-<tr><td><strong>Counting Sort</strong></td><td align="center" style="background:#4caf50;color:#000">O(n+k)</td><td align="center" style="background:#4caf50;color:#000">O(n+k)</td><td align="center" style="background:#4caf50;color:#000">O(n+k)</td><td align="center" style="background:#4caf50;color:#000">O(k)</td></tr>
-<tr><td><strong>Cubesort</strong></td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ffa726;color:#000">O(n log n)</td><td align="center" style="background:#ffeb3b;color:#000">O(n)</td></tr>
-</table>
+<table width="100%"><tr><td align="center" bgcolor="#ffffff">
+<img src="big-o-array-sorting.png" width="700">
+</td></tr></table>
 
 ---
 Relacionado: [Algoritmos, Sorting y Estructuras de Datos en Python](../stacks/python/algoritmos-y-sorting.md) (aplicación concreta a `list`/`dict`/`set`/`heapq`/`bisect`), [Índices](../database/indices.md) (mismo espíritu de Big-O, a nivel de DB).
