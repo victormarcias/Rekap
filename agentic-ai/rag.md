@@ -7,7 +7,7 @@ Un LLM solo "sabe" lo que vio en su entrenamiento — no conoce datos privados d
 ```
 Documentos → Chunking → Embeddings → Vector DB
                                           ↓
-Pregunta del usuario → Embedding → Búsqueda por similitud → Top-K chunks relevantes
+Pregunta del usuario → Embedding → Búsqueda por similitud → Candidatos (top-20) → Reranking → Top-K final
                                           ↓
                     Prompt final = pregunta + chunks recuperados → LLM → Respuesta
 ```
@@ -51,7 +51,29 @@ embedding_pregunta = modelo_embeddings.encode(pregunta_usuario)
 chunks_relevantes = vector_db.search(embedding_pregunta, top_k=5)  # los 5 más parecidos
 ```
 
-### 4. Prompt aumentado
+### 4. Reranking (opcional)
+
+La búsqueda en la vector DB es rápida pero menos precisa — un embedding compara la pregunta y cada documento **por separado**, sin verlos juntos. Un **reranker** (modelo *cross-encoder*) evalúa la pregunta y un candidato **a la vez, juntos**, lo que da un score de relevancia mucho más fino — pero es más lento, así que no se usa para buscar entre millones de vectores, solo para reordenar un puñado de candidatos que la vector DB ya filtró.
+
+```python
+from sentence_transformers import CrossEncoder
+
+reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+
+# se recuperan MÁS candidatos de los que hacen falta (top 20, no directo top 5)
+candidatos = vector_db.search(embedding_pregunta, top_k=20)
+
+# el reranker evalúa pregunta + documento juntos, par por par — más preciso que el embedding solo
+pares = [(pregunta_usuario, chunk) for chunk in candidatos]
+scores = reranker.predict(pares)
+
+# se ordenan por score del reranker y recién ahí se toman los mejores para el prompt final
+chunks_relevantes = [c for _, c in sorted(zip(scores, candidatos), reverse=True)][:5]
+```
+
+El patrón general (búsqueda rápida y aproximada primero, filtrado más caro y preciso después, solo sobre lo que ya sobrevivió el primer filtro) aparece seguido en sistemas grandes — acá aplicado a hacer viable la precisión de un cross-encoder sin pagar su costo sobre todo el corpus.
+
+### 5. Prompt aumentado
 
 Los chunks recuperados se agregan al prompt como contexto, junto con la pregunta original:
 
@@ -75,7 +97,7 @@ Si los documentos fuente entran enteros en el [context window](que-es-un-token.m
 
 - **Chunking mal hecho**: si un chunk corta una idea a la mitad, la búsqueda puede no encontrarlo o traerlo sin sentido.
 - **Top-K mal calibrado**: muy pocos chunks pierden información relevante; demasiados diluyen el contexto con ruido y suben el costo.
-- **La pregunta no se parece semánticamente a la respuesta**: embeddings buscan por similitud de significado, no siempre alineado con qué información responde la pregunta (un problema conocido, mitigado con técnicas como *re-ranking* o *hypothetical document embeddings*).
+- **La pregunta no se parece semánticamente a la respuesta**: embeddings buscan por similitud de significado, no siempre alineado con qué información responde la pregunta — un problema conocido, mitigado con [Reranking](#4-reranking-opcional) o *hypothetical document embeddings*.
 
 ---
 Relacionado: [Qué es un token](que-es-un-token.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md#6-rag--darle-al-llm-información-que-no-tiene-2023), [Costos de LLMs](costos-llms.md).

@@ -353,6 +353,7 @@
 - **Reinforcement Learning (RL)** — [Tipos de Agentes de IA](agentic-ai/tipos-de-agentes.md#agentes-de-aprendizaje-rl)
 - **Render tree** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#8-el-navegador-renderiza)
 - **Replication lag** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#read-replicas)
+- **Reranking (RAG)** — [RAG](agentic-ai/rag.md#4-reranking-opcional)
 - **ResizeObserver (Browser API)** — [Patrón Observer en el browser](frontend-react/observer-en-el-browser.md#resizeobserver)
 - **Resolver (GraphQL)** — [GraphQL](backend/graphql.md#resolvers-y-el-riesgo-de-n1)
 - **Resource limits (requests vs limits, Kubernetes)** — [Kubernetes](devops/kubernetes.md#resource-limits)
