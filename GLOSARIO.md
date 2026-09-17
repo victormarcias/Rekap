@@ -37,6 +37,7 @@
 - **beforeEach** — [Testing — conceptos generales](system-design/testing.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)
 - **BEM (Block__Element--Modifier)** — [CSS](frontend-react/css.md#metodologías-para-organizar-y-scopear-estilos)
 - **BFF (Backend for Frontend)** — [API Gateway](backend/api-gateway.md#gateway-vs-load-balancer)
+- **Big-O (complejidad algorítmica)** — [Big-O](system-design/big-o.md)
 - **Bloqueo del hilo principal** — [Diagnóstico Frontend](diagnostico/frontend.md#bloqueo-del-hilo-principal)
 - **Bubbling (evento)** — [Eventos DOM](frontend-react/eventos-dom.md#bubbling-vs-capturing)
 - **Buffer pool** — [RDBMS](database/rdbms.md#cómo-funciona-por-dentro)

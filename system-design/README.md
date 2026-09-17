@@ -3,6 +3,7 @@
 Teoría de diseño de software que aplica más allá del backend — patrones, principios y protocolos universales.
 
 - [x] [Atributos de calidad de sistemas / "-ilities"](atributos-de-calidad.md)
+- [x] [Big-O](big-o.md)
 - [x] [Clean Architecture](clean-architecture.md)
 - [x] [HTTP Status Codes](http-status-codes.md)
 - [x] [Patrones de diseño — Comportamiento](patrones-comportamiento.md)
