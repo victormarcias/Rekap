@@ -2,6 +2,8 @@
 
 Repaso técnico condensado, organizado para repasar rápido.
 
+🌐 **[Ver en victormarcias.online/rekap](https://victormarcias.online/rekap)** — versión navegable con lindo formato, leyendo este mismo repo en vivo.
+
 ## Índice
 
 - [🤖 Agentic AI](agentic-ai/) — de ML clásico a agentes, tool use, RAG
