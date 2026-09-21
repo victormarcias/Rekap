@@ -81,4 +81,4 @@ El nombre de los status codes HTTP confunde esto seguido: `401 Unauthorized` en 
 No hay una opción "segura por default" — es un trade-off: `localStorage` expone el token a XSS, la cookie `httpOnly` lo protege de XSS pero abre la puerta a CSRF si no se configura bien (`SameSite=Strict/Lax` reduce mucho ese riesgo en la práctica).
 
 ---
-Relacionado: [Autenticación en FastAPI](../stacks/fastapi/autenticacion.md) (implementación concreta), [Atributos de calidad de sistemas](../system-design/atributos-de-calidad.md) (escalabilidad stateless), [Idempotencia y tolerancia a fallos](../system-design/atributos-de-calidad.md), [XSS](../security/xss.md), [CSRF](../security/csrf.md).
+Relacionado: [Autenticación en FastAPI](../stacks/fastapi/autenticacion.md) (implementación concreta), [Atributos de calidad de sistemas](../system-design/atributos-de-calidad.md) (escalabilidad stateless), [Idempotencia y tolerancia a fallos](../system-design/atributos-de-calidad.md), [XSS](../security/xss.md), [CSRF](../security/csrf.md), [Zero Trust](../security/zero-trust.md).

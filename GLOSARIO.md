@@ -262,6 +262,7 @@
 - **moto (Python)** — [Testing en FastAPI](stacks/fastapi/testing.md#4-mockear-servicios-externos)
 - **Moved Permanently (301)** — [HTTP Status Codes](system-design/http-status-codes.md#3xx--redirection)
 - **MPA (Multi-Page Application)** — [Renderizado](frontend-react/renderizado.md#spa-single-page-application)
+- **mTLS (mutual TLS)** — [Zero Trust](security/zero-trust.md#mtls-entre-microservicios)
 - **Multi-stage build (Docker)** — [Dockerización](devops/docker.md#2-multi-stage-build)
 - **Multi-tenancy / Tenant** — [White-Label](system-design/white-label.md#multi-tenancy-el-problema-arquitectónico-central)
 - **Multimodal (LLM)** — [Qué es un token](agentic-ai/que-es-un-token.md#multimodal--tokens-más-allá-del-texto)
@@ -490,3 +491,4 @@
 ### Z
 
 - **Zero-shot Learning** — [Prompt Engineering](agentic-ai/prompt-engineering.md#zero-shot-vs-few-shot-learning)
+- **Zero Trust** — [Zero Trust](security/zero-trust.md)
