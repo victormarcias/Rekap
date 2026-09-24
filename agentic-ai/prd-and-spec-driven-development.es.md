@@ -22,7 +22,7 @@ y el resultado se puede verificar comparándolo con la spec
 
 Esto da dos cosas que un prompt suelto no da:
 
-1. El agente puede partir la tarea en pasos **verificables contra la spec** (ver [Plan-and-Execute](diseno-de-agentes.md#plan-and-execute)) — en vez de improvisar el criterio de éxito en cada paso.
+1. El agente puede partir la tarea en pasos **verificables contra la spec** (ver [Plan-and-Execute](agent-design.es.md#plan-and-execute)) — en vez de improvisar el criterio de éxito en cada paso.
 2. Quien revisa el resultado puede chequearlo contra un documento fijo, no contra su propia memoria de qué había pedido en el chat.
 
 ## PRD vs Spec técnica — no son lo mismo
@@ -34,4 +34,4 @@ El PRD es el punto de partida (qué construir, para quién, por qué) — pero e
 Sin una spec, verificar si un agente "hizo lo correcto" depende de la memoria/criterio de quien lo está usando en ese momento — con una spec escrita, la verificación es objetiva: ¿el resultado cumple lo que dice el documento? Es la misma lógica de fondo que un [PRD tradicional](#qué-es-un-prd) aporta a un equipo humano, aplicada a que un agente tenga algo estable contra qué trabajar en vez de un prompt que se puede reinterpretar cada vez.
 
 ---
-Relacionado: [Diseño de Agentes](diseno-de-agentes.md), [Agentes vs Workflows](agentes-vs-workflows.md).
+Relacionado: [Diseño de Agentes](agent-design.es.md), [Agentes vs Workflows](agents-vs-workflows.es.md).

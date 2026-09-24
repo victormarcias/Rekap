@@ -9,7 +9,7 @@ The classic model concentrates security at the network edge — firewall, VPN �
 ## Core principles
 
 - **Verify explicitly**: every request is authenticated and authorized — regardless of whether it comes from the internet or the internal network. "Internal" stops being a synonym for "trustworthy."
-- **Least privilege**: access limited to strictly what that specific identity needs, never more "just in case" — the same principle we already saw in [SQL Injection](sql-injection.md#how-its-prevented) at the DB level, or in an [AI agent's](../agentic-ai/riesgos-y-mitigaciones.md#mitigaciones-técnicas) permissions.
+- **Least privilege**: access limited to strictly what that specific identity needs, never more "just in case" — the same principle we already saw in [SQL Injection](sql-injection.md#how-its-prevented) at the DB level, or in an [AI agent's](../agentic-ai/risks-and-mitigations.md#technical-mitigations) permissions.
 - **Assume breach**: design as if the attacker is already inside — segment the network, encrypt internal traffic as well as external, actively monitor instead of trusting that the perimeter held.
 
 ## Example: authenticating "internal" traffic too
@@ -41,4 +41,4 @@ The same idea applied to service-to-service communication: with **mTLS** (mutual
 Microservices architectures, multi-tenant environments, remote teams where a single office perimeter to protect no longer exists. It's the conceptual foundation behind products like BeyondCorp (Google) or a service mesh doing mTLS by default between services — the idea that network location stopped being a valid trust signal.
 
 ---
-Related: [Authentication and Security](../backend/authentication.md), [SQL Injection](sql-injection.md#how-its-prevented), [Risks and Mitigations in AI Agents](../agentic-ai/riesgos-y-mitigaciones.md#mitigaciones-técnicas).
+Related: [Authentication and Security](../backend/authentication.md), [SQL Injection](sql-injection.md#how-its-prevented), [Risks and Mitigations in AI Agents](../agentic-ai/risks-and-mitigations.md#technical-mitigations).

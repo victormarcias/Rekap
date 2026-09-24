@@ -46,7 +46,7 @@ Con temperatura alta, hay más chance de que elija una opción menos obvia.
 
 Hasta acá, escalar un LLM significaba entrenarlo con más parámetros y más datos — ese cómputo se gasta **una sola vez**, durante el entrenamiento, y después el modelo responde a la misma velocidad sin importar si la pregunta es trivial o muy difícil. **Test-Time Compute** (o *inference-time scaling*) es la idea inversa: dejar que el modelo gaste más cómputo **al momento de responder**, generando un razonamiento más largo antes de dar la respuesta final, cuando la tarea lo amerita.
 
-Es la técnica detrás de los modelos "de razonamiento" (OpenAI o1/o3, Claude con *extended thinking*): en vez de ir directo a la respuesta, el modelo genera una cadena de razonamiento interna extensa antes de contestar — la misma idea de fondo que pedirle [Chain of Thought](prompt-engineering.md#chain-of-thought-cot) en el prompt, pero automático, mucho más largo, y entrenado específicamente para eso (en vez de depender de que el usuario lo pida).
+Es la técnica detrás de los modelos "de razonamiento" (OpenAI o1/o3, Claude con *extended thinking*): en vez de ir directo a la respuesta, el modelo genera una cadena de razonamiento interna extensa antes de contestar — la misma idea de fondo que pedirle [Chain of Thought](prompt-engineering.es.md#chain-of-thought-cot) en el prompt, pero automático, mucho más largo, y entrenado específicamente para eso (en vez de depender de que el usuario lo pida).
 
 ```
 Pregunta simple: "¿Capital de Francia?"
@@ -57,7 +57,7 @@ Pregunta compleja: "Demostrá que la suma de los primeros n números impares es 
     de razonamiento, descarta algunos, converge en uno, recién ahí contesta
 ```
 
-**El trade-off**: más tokens de "pensamiento" = más [costo](costos-llms.md) y más latencia — no tiene sentido gastarlo en preguntas triviales. La ventaja real aparece en tareas de varios pasos lógicos (matemática, debugging, planificación), donde razonar más antes de contestar cambia el resultado.
+**El trade-off**: más tokens de "pensamiento" = más [costo](llm-costs.es.md) y más latencia — no tiene sentido gastarlo en preguntas triviales. La ventaja real aparece en tareas de varios pasos lógicos (matemática, debugging, planificación), donde razonar más antes de contestar cambia el resultado.
 
 ## Multimodal — tokens más allá del texto
 
@@ -65,9 +65,9 @@ Los modelos multimodales tokenizan y procesan más que texto — audio e imágen
 
 ## Por qué importa
 
-- **Precio**: los proveedores cobran por token, no por carácter ni por palabra — ver [Costos de LLMs](costos-llms.md).
+- **Precio**: los proveedores cobran por token, no por carácter ni por palabra — ver [Costos de LLMs](llm-costs.es.md).
 - **Context window**: el límite de cuánto texto puede "ver" un modelo a la vez se mide en tokens, no en palabras — un context window de 200K tokens no son 200K palabras, son bastantes menos (según el idioma y el contenido).
 - **Por qué un LLM a veces "corta raro" una palabra rara o un nombre propio**: si esa palabra nunca apareció seguido en el entrenamiento, el tokenizer la parte en varios pedazos poco intuitivos — es más frecuente con nombres propios, jerga técnica muy específica, o texto en un idioma con poca representación en el entrenamiento.
 
 ---
-Relacionado: [Costos de LLMs](costos-llms.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Prompt Engineering](prompt-engineering.md), [Context Engineering](context-engineering.md).
+Relacionado: [Costos de LLMs](llm-costs.es.md), [De ML clásico a Agentic AI](from-ml-to-agentic-ai.es.md), [Prompt Engineering](prompt-engineering.es.md), [Context Engineering](context-engineering.es.md).

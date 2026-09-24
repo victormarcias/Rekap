@@ -1,6 +1,6 @@
 # Memoria Conversacional
 
-Un LLM no tiene estado entre llamados — cada request a la API es independiente, no "recuerda" nada del anterior. Para que un chatbot mantenga una conversación, la aplicación tiene que reenviar el historial (o una versión de él) en **cada** mensaje nuevo. El problema: ese historial crece con cada turno, hasta chocar contra el [context window](que-es-un-token.md#por-qué-importa) del modelo — y cada token reenviado se paga de nuevo (ver [Costos de LLMs](costos-llms.md)). Las estrategias de abajo son las formas estándar de administrar eso.
+Un LLM no tiene estado entre llamados — cada request a la API es independiente, no "recuerda" nada del anterior. Para que un chatbot mantenga una conversación, la aplicación tiene que reenviar el historial (o una versión de él) en **cada** mensaje nuevo. El problema: ese historial crece con cada turno, hasta chocar contra el [context window](what-is-a-token.es.md#por-qué-importa) del modelo — y cada token reenviado se paga de nuevo (ver [Costos de LLMs](llm-costs.es.md)). Las estrategias de abajo son las formas estándar de administrar eso.
 
 ## Buffer completo
 
@@ -16,7 +16,7 @@ def chat(mensaje_usuario):
     return respuesta
 ```
 
-La más simple, pero no escala: cada turno es más caro que el anterior (mismo problema de costo que un loop de [agent](agentes-vs-workflows.md#cuándo-usar-cada-uno)), y eventualmente el historial no entra en el context window.
+La más simple, pero no escala: cada turno es más caro que el anterior (mismo problema de costo que un loop de [agent](agents-vs-workflows.es.md#cuándo-usar-cada-uno)), y eventualmente el historial no entra en el context window.
 
 ## Sliding window
 
@@ -90,11 +90,11 @@ def chat(mensaje_usuario, historial_reciente):
     return respuesta
 ```
 
-Es el mismo [pipeline de RAG](rag.md#el-pipeline-paso-a-paso) (chunking, embeddings, vector DB), aplicado a conversaciones pasadas en vez de una base de documentos.
+Es el mismo [pipeline de RAG](rag.es.md#el-pipeline-paso-a-paso) (chunking, embeddings, vector DB), aplicado a conversaciones pasadas en vez de una base de documentos.
 
 ## Cómo elegir
 
 Buffer completo para prototipos o conversaciones cortas. Sliding window o token-limited buffer cuando el volumen crece pero alcanza con memoria de corto plazo. Summarization cuando importa retener el hilo completo de una conversación larga sin pagar el costo de todo el historial crudo. Vector DB cuando el chatbot necesita recordar entre sesiones distintas, no solo dentro de una misma conversación.
 
 ---
-Relacionado: [Diseño de Agentes de IA](diseno-de-agentes.md#componentes-centrales), [Qué es un token](que-es-un-token.md#por-qué-importa), [RAG](rag.md), [Costos de LLMs](costos-llms.md), [Context Engineering](context-engineering.md).
+Relacionado: [Diseño de Agentes de IA](agent-design.es.md#componentes-centrales), [Qué es un token](what-is-a-token.es.md#por-qué-importa), [RAG](rag.es.md), [Costos de LLMs](llm-costs.es.md), [Context Engineering](context-engineering.es.md).

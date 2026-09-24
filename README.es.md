@@ -6,7 +6,7 @@ Repaso técnico condensado, organizado para repasar rápido.
 
 ## Índice
 
-- [🤖 Agentic AI](agentic-ai/) — de ML clásico a agentes, tool use, RAG
+- [🤖 Agentic AI](agentic-ai/README.es.md) — de ML clásico a agentes, tool use, RAG
 - [🧩 Backend](backend/README.es.md) — Kafka, auth, cache, arquitectura de servicios
 - [☁️ Cloud](cloud/) — servicios concretos por proveedor (AWS, ...)
 - [🩺 Diagnóstico](diagnostics/README.es.md) — por qué una app anda lenta, por capa (frontend/backend/DB/devops)

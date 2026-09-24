@@ -20,7 +20,7 @@ Por eso vas a ver notación tipo "397B MoE (~35B activos)" — son dos números 
 
 **El error común**: pensar que un modelo MoE "pesa" o usa memoria como si fuera del tamaño de sus parámetros activos. No es así — **la memoria necesaria para cargarlo depende de los parámetros TOTALES**, no de los activos, porque no se sabe de antemano qué expertos va a necesitar cada token (puede variar token a token) — así que todos tienen que estar cargados en memoria, aunque solo se usen algunos por vez. Lo que MoE ahorra es **cómputo por token** (más rápido, más barato de correr), no memoria.
 
-La ventaja del approach: capacidad grande (muchos parámetros totales = el modelo "sabe" más) sin pagar el costo de cómputo completo en cada token — de ahí que modelos MoE como [Ornith](comparacion-modelos.md) o [Grok](comparacion-modelos.md) rindan cerca de modelos dense mucho más grandes, a una fracción del costo por token.
+La ventaja del approach: capacidad grande (muchos parámetros totales = el modelo "sabe" más) sin pagar el costo de cómputo completo en cada token — de ahí que modelos MoE como [Ornith](model-comparison.es.md) o [Grok](model-comparison.es.md) rindan cerca de modelos dense mucho más grandes, a una fracción del costo por token.
 
 ## Precisión: cuánto pesa cada parámetro
 
@@ -64,7 +64,7 @@ Son órdenes de magnitud, no números exactos — varían según la implementaci
 
 ## Groq y las LPU — hardware especializado para velocidad
 
-Todo lo de arriba (RAM/VRAM, tamaño en disco) asume el hardware estándar para correr LLMs: **GPU**. **Groq** (con Q, no confundir con [Grok](comparacion-modelos.md) de xAI — son cosas totalmente distintas que solo comparten nombre parecido) es una empresa que fabrica un chip diferente: la **LPU** (Language Processing Unit), diseñada específicamente para **inferencia** de LLMs — no para entrenar, solo para servir respuestas de un modelo ya entrenado, lo más rápido posible.
+Todo lo de arriba (RAM/VRAM, tamaño en disco) asume el hardware estándar para correr LLMs: **GPU**. **Groq** (con Q, no confundir con [Grok](model-comparison.es.md) de xAI — son cosas totalmente distintas que solo comparten nombre parecido) es una empresa que fabrica un chip diferente: la **LPU** (Language Processing Unit), diseñada específicamente para **inferencia** de LLMs — no para entrenar, solo para servir respuestas de un modelo ya entrenado, lo más rápido posible.
 
 La diferencia técnica central: una GPU usa memoria HBM (gran capacidad, pero más lenta); una LPU usa **SRAM on-chip** (mucho más rápida, pero de capacidad más chica por chip) — ese trade-off es lo que le permite a una LPU generar tokens notablemente más rápido que una GPU equivalente, a costa de necesitar más chips en paralelo para modelos grandes (porque cada uno tiene menos memoria).
 
@@ -72,7 +72,7 @@ No es algo que se instale en una laptop — es infraestructura de datacenter (Gr
 
 ## Por qué importa
 
-Esto es la letra chica detrás de "self-hosteás un modelo gratis" (ver [self-hosted / open source](costos-llms.md#más-allá-de-la-api-self-hosted--open-source)): el costo no es cero, se traduce directamente en qué hardware necesitás — y eso depende de dos decisiones concretas: qué tamaño de modelo elegís, y con qué nivel de cuantización lo corrés.
+Esto es la letra chica detrás de "self-hosteás un modelo gratis" (ver [self-hosted / open source](llm-costs.es.md#más-allá-de-la-api-self-hosted--open-source)): el costo no es cero, se traduce directamente en qué hardware necesitás — y eso depende de dos decisiones concretas: qué tamaño de modelo elegís, y con qué nivel de cuantización lo corrés.
 
 ---
-Relacionado: [Costos de LLMs](costos-llms.md), [Comparación de Modelos](comparacion-modelos.md), [Qué es un token](que-es-un-token.md), [Historia de ML a Agentic AI](historia-de-ml-a-agentic.md#3-transformers--la-arquitectura-base-de-todo-lo-que-vino-después-2017).
+Relacionado: [Costos de LLMs](llm-costs.es.md), [Comparación de Modelos](model-comparison.es.md), [Qué es un token](what-is-a-token.es.md), [Historia de ML a Agentic AI](from-ml-to-agentic-ai.es.md#3-transformers--la-arquitectura-base-de-todo-lo-que-vino-después-2017).

@@ -54,7 +54,7 @@ description: Deploy a preview environment for the branch
 
 ## La diferencia con MCP
 
-Un [servidor MCP](mcp.md) le da al agente **acceso a un sistema externo** (una API, una base de datos). Un Skill le da al agente **una receta de cómo hacer algo** — puede usar herramientas MCP en el proceso, pero el Skill en sí es solo instrucciones, no una integración técnica nueva. AGENTS.md, a su vez, es contexto pasivo (el agente lo lee, no lo "ejecuta") — Skills son capacidades activas que el agente decide invocar.
+Un [servidor MCP](mcp.es.md) le da al agente **acceso a un sistema externo** (una API, una base de datos). Un Skill le da al agente **una receta de cómo hacer algo** — puede usar herramientas MCP en el proceso, pero el Skill en sí es solo instrucciones, no una integración técnica nueva. AGENTS.md, a su vez, es contexto pasivo (el agente lo lee, no lo "ejecuta") — Skills son capacidades activas que el agente decide invocar.
 
 ---
-Relacionado: [MCP](mcp.md), [PRD y Spec-Driven Development](prd-y-spec-driven-development.md), [Diseño de Agentes](diseno-de-agentes.md).
+Relacionado: [MCP](mcp.es.md), [PRD y Spec-Driven Development](prd-and-spec-driven-development.es.md), [Diseño de Agentes](agent-design.es.md).

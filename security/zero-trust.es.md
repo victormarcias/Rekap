@@ -9,7 +9,7 @@ El modelo clásico concentra la seguridad en el borde de la red — firewall, VP
 ## Principios centrales
 
 - **Verificar explícitamente**: cada request se autentica y autoriza — sin importar si viene de internet o de la red interna. "Interno" deja de ser sinónimo de "confiable".
-- **Mínimo privilegio**: acceso acotado a lo estrictamente necesario para esa identidad puntual, nunca de más "por las dudas" — mismo criterio que ya vimos en [SQL Injection](sql-injection.es.md#cómo-se-previene) a nivel de DB, o en los permisos de un [agente de IA](../agentic-ai/riesgos-y-mitigaciones.md#mitigaciones-técnicas).
+- **Mínimo privilegio**: acceso acotado a lo estrictamente necesario para esa identidad puntual, nunca de más "por las dudas" — mismo criterio que ya vimos en [SQL Injection](sql-injection.es.md#cómo-se-previene) a nivel de DB, o en los permisos de un [agente de IA](../agentic-ai/risks-and-mitigations.es.md#mitigaciones-técnicas).
 - **Asumir la brecha**: diseñar como si el atacante ya estuviera adentro — segmentar la red, cifrar tráfico interno además del externo, monitorear activamente en vez de confiar en que el perímetro aguantó.
 
 ## Ejemplo: autenticar también el tráfico "interno"
@@ -41,4 +41,4 @@ La misma idea aplicada a comunicación servicio-a-servicio: con **mTLS** (mutual
 Arquitecturas de microservicios, entornos multi-tenant, equipos remotos donde ya no existe un único perímetro de oficina que proteger. Es la base conceptual detrás de productos como BeyondCorp (Google) o de que un service mesh haga mTLS por default entre servicios — la idea de que la ubicación en la red dejó de ser una señal de confianza válida.
 
 ---
-Relacionado: [Autenticación y Seguridad](../backend/authentication.es.md), [SQL Injection](sql-injection.es.md#cómo-se-previene), [Riesgos y Mitigaciones en Agentes de IA](../agentic-ai/riesgos-y-mitigaciones.md#mitigaciones-técnicas).
+Relacionado: [Autenticación y Seguridad](../backend/authentication.es.md), [SQL Injection](sql-injection.es.md#cómo-se-previene), [Riesgos y Mitigaciones en Agentes de IA](../agentic-ai/risks-and-mitigations.es.md#mitigaciones-técnicas).

@@ -1,104 +1,104 @@
 # Prompt Engineering
 
-Formas de mejorar la salida de un LLM **sin reentrenar el modelo** — todas actúan sobre el prompt, no sobre los pesos del modelo (a diferencia del fine-tuning, que sí los ajusta — ver el final de este archivo).
+Ways to improve an LLM's output **without retraining the model** — all of them act on the prompt, not on the model's weights (unlike fine-tuning, which does adjust them — see the end of this file).
 
-## Instrucciones claras y contexto
+## Clear instructions and context
 
-Diseñar el prompt con intención: instrucciones claras, contexto suficiente, formato de salida especificado — la diferencia entre una respuesta útil y una genérica suele estar más en cómo se pide que en qué modelo se usa.
+Design the prompt with intent: clear instructions, sufficient context, specified output format — the difference between a useful answer and a generic one usually lies more in how it's asked than which model is used.
 
 ```python
-# ❌ vago: el modelo tiene que adivinar qué formato/nivel de detalle esperás
-prompt = "Explicame qué es un índice de base de datos"
+# ❌ vague: the model has to guess what format/level of detail you expect
+prompt = "Explain what a database index is"
 
-# ✅ específico: contexto, audiencia, formato esperado
+# ✅ specific: context, audience, expected format
 prompt = """
-Explicá qué es un índice de base de datos para alguien que ya sabe SQL básico
-pero nunca vio índices. Usá un ejemplo concreto con una tabla de usuarios.
-Respondé en 3 párrafos cortos, sin código.
+Explain what a database index is to someone who already knows basic SQL
+but has never seen indexes. Use a concrete example with a users table.
+Answer in 3 short paragraphs, no code.
 """
 ```
 
-## Estructura de un system prompt
+## Structure of a system prompt
 
-Un system prompt de agente conviene ordenarlo de lo más general a lo más específico, para que el modelo tenga el marco antes que el detalle:
+An agent's system prompt is best ordered from most general to most specific, so the model has the framework before the detail:
 
-1. **Rol y objetivo** (*role prompting*): quién es el agente y cuál es su tarea (`"Sos un asistente de soporte; tu tarea es resolver tickets de nivel 1"`). Acota el espacio de respuestas más que ninguna otra parte del prompt.
-2. **Contexto**: lo que el agente necesita saber y no puede inferir — reglas del negocio, formato de los datos que va a recibir, qué queda fuera de alcance.
-3. **Instrucciones**: qué hacer y qué no, paso a paso. Acá van los ejemplos [few-shot](#zero-shot-vs-few-shot-learning) si el formato de salida tiene que ser exacto.
-4. **Tools**: qué herramientas tiene y **cuándo** usar cada una — exponer la tool no alcanza, hay que decir en qué situación corresponde (ver [Function Calling](function-calling.md)).
-5. **Variables**: los datos que cambian en cada request (fecha, usuario, historial) entran como placeholders que se rellenan en runtime — si se hardcodean, el prompt queda desactualizado apenas cambia el dato.
+1. **Role and goal** (*role prompting*): who the agent is and what its task is (`"You are a support assistant; your task is to resolve level 1 tickets"`). Constrains the response space more than any other part of the prompt.
+2. **Context**: what the agent needs to know and can't infer — business rules, the format of data it'll receive, what's out of scope.
+3. **Instructions**: what to do and what not to, step by step. This is where [few-shot](#zero-shot-vs-few-shot-learning) examples go if the output format needs to be exact.
+4. **Tools**: what tools it has and **when** to use each one — exposing the tool isn't enough, you have to say in which situation it applies (see [Function Calling](function-calling.md)).
+5. **Variables**: the data that changes on every request (date, user, history) goes in as placeholders filled in at runtime — if hardcoded, the prompt goes stale as soon as the data changes.
 
 ```text
-# Rol
-Sos un asistente de agendamiento para una clínica. Tu tarea es coordinar turnos.
+# Role
+You are a scheduling assistant for a clinic. Your task is to coordinate appointments.
 
-# Contexto
-- Horario: lunes a viernes, 9 a 18h. Un turno dura 30 minutos.
+# Context
+- Hours: Monday to Friday, 9am to 6pm. An appointment lasts 30 minutes.
 
-# Instrucciones
-- Confirmá nombre y motivo de consulta antes de agendar.
-- Si el horario pedido no está libre, ofrecé los dos más cercanos.
+# Instructions
+- Confirm the name and reason for the visit before scheduling.
+- If the requested time isn't available, offer the two closest ones.
 
 # Tools
-- Calendar_Check → ver disponibilidad. Usala antes de confirmar cualquier turno.
-- Calendar_Book → reservar una vez confirmado con el paciente.
+- Calendar_Check → check availability. Use it before confirming any appointment.
+- Calendar_Book → book once confirmed with the patient.
 
 # Variables
-Fecha y hora actual: {now}
-Paciente: {user_name}
+Current date and time: {now}
+Patient: {user_name}
 ```
 
-**Formato**: usar headers Markdown (`#`, `##`) para separar las secciones — el modelo los lee como jerarquía y no mezcla, por ejemplo, contexto con instrucciones.
+**Format**: use Markdown headers (`#`, `##`) to separate sections — the model reads them as hierarchy and doesn't mix, for example, context with instructions.
 
-**Largo**: completo pero no verboso. Cada token del system prompt se paga en **cada** llamado (ver [Costos de LLMs](costos-llms.md)), y en un agente el system prompt viaja en todas las vueltas del loop — lo de más se multiplica por iteración.
+**Length**: complete but not verbose. Every token of the system prompt gets paid for on **every** call (see [LLM Costs](llm-costs.md)), and in an agent the system prompt travels on every round of the loop — the extra gets multiplied per iteration.
 
 ## Chain of Thought (CoT)
 
-Pedirle al modelo que **razone paso a paso antes de dar la respuesta final**, en vez de saltar directo a una conclusión — mejora notablemente la precisión en tareas que requieren varios pasos lógicos (matemática, debugging, decisiones con múltiples condiciones).
+Asking the model to **reason step by step before giving the final answer**, instead of jumping straight to a conclusion — noticeably improves accuracy on tasks requiring several logical steps (math, debugging, decisions with multiple conditions).
 
 ```python
-# sin CoT: el modelo puede saltar a una respuesta sin haber "pensado" los pasos intermedios
-prompt = "¿Cuánto sale el envío si el pedido pesa 12kg y cuesta $50 con envío gratis solo arriba de $100?"
+# without CoT: the model can jump to an answer without having "thought through" the intermediate steps
+prompt = "How much does shipping cost if the order weighs 12kg and costs $50, with free shipping only above $100?"
 
-# con CoT: se le pide explícitamente que muestre el razonamiento antes de concluir
+# with CoT: explicitly asked to show the reasoning before concluding
 prompt = """
-Resolvé esto paso a paso, mostrando cada cálculo antes de dar la respuesta final:
-¿Cuánto sale el envío si el pedido pesa 12kg y cuesta $50 con envío gratis solo arriba de $100?
+Solve this step by step, showing each calculation before giving the final answer:
+How much does shipping cost if the order weighs 12kg and costs $50, with free shipping only above $100?
 """
 ```
 
-Es, en esencia, la misma lógica del [loop ReAct](agentes-vs-workflows.md#patrón-de-agent-el-llm-controla-el-camino) — "razonar antes de actuar" — pero aplicada dentro de una sola respuesta, sin necesidad de un loop de tools.
+It's, in essence, the same logic as the [ReAct loop](agents-vs-workflows.md#agent-pattern-the-llm-controls-the-path) — "reason before acting" — but applied within a single response, with no need for a tool loop.
 
-**Dónde va**: al final del prompt, después de las instrucciones. Con modelos que ya razonan de fábrica (OpenAI o1/o3, Claude con *extended thinking*, DeepSeek R1) pedir CoT explícito es redundante — generan una cadena de razonamiento interna antes de responder sin que se lo pidas (ver [test-time compute](que-es-un-token.md#test-time-compute--pensar-más-al-responder-no-al-entrenar)).
+**Where it goes**: at the end of the prompt, after the instructions. With models that already reason out of the box (OpenAI o1/o3, Claude with *extended thinking*, DeepSeek R1) asking for explicit CoT is redundant — they generate an internal reasoning chain before responding without being asked (see [test-time compute](what-is-a-token.md#test-time-compute--thinking-more-when-answering-not-when-training)).
 
 ## Zero-shot vs Few-shot Learning
 
-- **Zero-shot**: pedirle al modelo que resuelva una tarea **sin ningún ejemplo previo** en el prompt — confía en lo que ya aprendió en su entrenamiento general.
-- **Few-shot**: incluir unos pocos ejemplos de input/output deseado dentro del mismo prompt, para que el modelo infiera el patrón exacto que se espera.
+- **Zero-shot**: asking the model to solve a task **with no prior example** in the prompt — relies on what it already learned during general training.
+- **Few-shot**: including a few examples of the desired input/output within the same prompt, so the model infers the exact pattern expected.
 
 ```python
-# Zero-shot: solo la instrucción
-prompt = "Clasificá el sentimiento de este review: 'Llegó roto y tarde'"
+# Zero-shot: just the instruction
+prompt = "Classify the sentiment of this review: 'Arrived broken and late'"
 
-# Few-shot: se muestran ejemplos del formato exacto de salida esperado
+# Few-shot: examples of the exact expected output format are shown
 prompt = """
-Clasificá el sentimiento como POSITIVO, NEGATIVO o NEUTRO.
+Classify the sentiment as POSITIVE, NEGATIVE, or NEUTRAL.
 
-Review: "Excelente calidad, lo recomiendo" → POSITIVO
-Review: "Nunca llegó" → NEGATIVO
-Review: "Es como cualquier otro" → NEUTRO
+Review: "Excellent quality, I recommend it" → POSITIVE
+Review: "Never arrived" → NEGATIVE
+Review: "It's like any other" → NEUTRAL
 
-Review: "Llegó roto y tarde" →
+Review: "Arrived broken and late" →
 """
 ```
 
-Few-shot suele mejorar la consistencia del formato de salida (útil cuando el output tiene que ser parseable, ej. JSON con una estructura exacta) — el costo es que cada ejemplo agrega [tokens](que-es-un-token.md) al prompt, y por ende al costo de cada llamado (ver [Costos de LLMs](costos-llms.md)).
+Few-shot tends to improve output format consistency (useful when the output has to be parseable, e.g. JSON with an exact structure) — the cost is that each example adds [tokens](what-is-a-token.md) to the prompt, and therefore to the cost of every call (see [LLM Costs](llm-costs.md)).
 
-## Fine-tuning (para comparar)
+## Fine-tuning (for comparison)
 
-A diferencia de todo lo anterior, el fine-tuning sí **ajusta los pesos del modelo** entrenándolo con datos propios — ya lo vimos en la [historia de la evolución hacia LLMs](historia-de-ml-a-agentic.md#4-modelos-preentrenados--un-modelo-base-muchos-usos-2018-2020). Es más caro y lento de iterar que ajustar un prompt, pero sirve cuando el comportamiento que necesitás no se logra con ninguna técnica de prompting — ej. un estilo/formato muy específico que hay que repetir consistentemente miles de veces, o conocimiento de dominio que no entra razonablemente en un prompt.
+Unlike everything above, fine-tuning does **adjust the model's weights** by training it on your own data — already covered in the [history of the evolution toward LLMs](from-ml-to-agentic-ai.md#4-pretrained-models--one-base-model-many-uses-2018-2020). It's more expensive and slower to iterate on than adjusting a prompt, but it's useful when the behavior you need can't be achieved with any prompting technique — e.g. a very specific style/format that has to be repeated consistently thousands of times, or domain knowledge that doesn't reasonably fit in a prompt.
 
-**Regla práctica**: probar primero con prompt engineering + few-shot (rápido, barato, iterable) — recién considerar fine-tuning si eso no alcanza.
+**Practical rule**: try prompt engineering + few-shot first (fast, cheap, iterable) — only consider fine-tuning if that's not enough.
 
 ---
-Relacionado: [Qué es un token](que-es-un-token.md), [Function Calling](function-calling.md), [Costos de LLMs](costos-llms.md), [Diseño de Agentes de IA](diseno-de-agentes.md), [Agentes vs Workflows](agentes-vs-workflows.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Context Engineering](context-engineering.md).
+Related: [What is a token](what-is-a-token.md), [Function Calling](function-calling.md), [LLM Costs](llm-costs.md), [AI Agent Design](agent-design.md), [Agents vs Workflows](agents-vs-workflows.md), [From Classical ML to Agentic AI](from-ml-to-agentic-ai.md), [Context Engineering](context-engineering.md).

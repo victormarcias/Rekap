@@ -65,4 +65,4 @@ En la práctica, muchos sistemas reales combinan los dos, **en ambas direcciones
 - **Agent con un workflow adentro**: el agent decide llamar a una tool, pero esa tool no es una acción atómica — por dentro corre un pipeline fijo de varios pasos (ej. "procesar pedido" = validar → cobrar → mandar email → actualizar stock). El agent no sabe ni le importa que ahí adentro hay un workflow determinístico; desde su perspectiva es "un llamado a una tool, un resultado". Es el patrón más común en sistemas de producción: no le das al agent control fino de cada paso de bajo nivel (sería más caro y menos confiable), le das una tool de alto nivel que ya encapsula un workflow probado, y el agent orquesta a un nivel más alto.
 
 ---
-Relacionado: [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Function Calling](function-calling.md), [n8n](../stacks/n8n/n8n-y-agentic.md).
+Relacionado: [De ML clásico a Agentic AI](from-ml-to-agentic-ai.es.md), [Function Calling](function-calling.es.md), [n8n](../stacks/n8n/n8n-y-agentic.md).

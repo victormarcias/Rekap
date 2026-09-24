@@ -2,11 +2,11 @@
 
 ## Componentes centrales
 
-Cualquier agente, sin importar su tipo (ver [Tipos de Agentes](tipos-de-agentes.md)), se arma con estas piezas:
+Cualquier agente, sin importar su tipo (ver [Tipos de Agentes](types-of-agents.es.md)), se arma con estas piezas:
 
 - **Percepción**: procesamiento de los datos de entrada (texto, imágenes, eventos) — multimodal si hace falta.
 - **Razonamiento**: el motor de decisiones — puede ser un LLM, un modelo de ML clásico, o reglas fijas.
-- **Memoria**: estado de corto plazo (la conversación actual) y de largo plazo (qué pasó en interacciones anteriores) — sin esto, el agente "olvida" todo entre pasos. Ver [Memoria Conversacional](memoria-conversacional.md) para las estrategias concretas de cómo administrarla.
+- **Memoria**: estado de corto plazo (la conversación actual) y de largo plazo (qué pasó en interacciones anteriores) — sin esto, el agente "olvida" todo entre pasos. Ver [Memoria Conversacional](conversational-memory.es.md) para las estrategias concretas de cómo administrarla.
 - **Acción**: la ejecución real — conectar con APIs, sistemas externos, bases de datos.
 - **Retroalimentación**: monitoreo del resultado, para aprender y ajustar el comportamiento futuro.
 
@@ -15,8 +15,8 @@ Cualquier agente, sin importar su tipo (ver [Tipos de Agentes](tipos-de-agentes.
 Los componentes de arriba son el marco conceptual — en la práctica, cuando se arma un agente con un LLM, se simplifican a tres piezas concretas:
 
 - **Model**: el LLM que razona y decide — el **Razonamiento** de arriba.
-- **Memory**: el historial de la conversación, y opcionalmente memoria de largo plazo — ver [Memoria Conversacional](memoria-conversacional.md).
-- **Tools**: las funciones/APIs que el agente puede invocar — la **Acción** de arriba, ver [Function Calling](function-calling.md).
+- **Memory**: el historial de la conversación, y opcionalmente memoria de largo plazo — ver [Memoria Conversacional](conversational-memory.es.md).
+- **Tools**: las funciones/APIs que el agente puede invocar — la **Acción** de arriba, ver [Function Calling](function-calling.es.md).
 
 **Percepción** y **Retroalimentación** casi nunca son un módulo aparte en este armado: la percepción es lo que entra en el prompt en cada llamado (texto, resultado de una tool), y la retroalimentación queda fuera del runtime del agente — se evalúa después, sobre logs y resultados, no como una pieza que corre en cada paso.
 
@@ -34,7 +34,7 @@ Capa de Salida        → Ejecutor | Integraciones | Actuadores
       └── Ciclo de retroalimentación (vuelve a alimentar la Capa de Entrada)
 ```
 
-**Principios clave** del diseño: **modularidad** (cada capa se puede reemplazar sin tocar las demás — cambiar de LLM no debería romper la capa de entrada), **escalabilidad**, y **observabilidad** (poder ver qué decidió el agente y por qué, no una caja negra — ver [Transparencia en Riesgos y Mitigaciones](riesgos-y-mitigaciones.md#mitigaciones-técnicas)).
+**Principios clave** del diseño: **modularidad** (cada capa se puede reemplazar sin tocar las demás — cambiar de LLM no debería romper la capa de entrada), **escalabilidad**, y **observabilidad** (poder ver qué decidió el agente y por qué, no una caja negra — ver [Transparencia en Riesgos y Mitigaciones](risks-and-mitigations.es.md#mitigaciones-técnicas)).
 
 ## Patrones de ejecución
 
@@ -52,7 +52,7 @@ Ideal para tareas **estructuradas** donde los pasos se pueden prever de antemano
 
 ### ReAct (Reason + Act)
 
-Ciclo iterativo de razonar y actuar, un paso a la vez — ya desarrollado en detalle en [Agentes vs Workflows](agentes-vs-workflows.md#patrón-de-agent-el-llm-controla-el-camino). Ideal para entornos dinámicos/exploratorios, donde no se puede planificar todo de antemano porque cada paso depende del resultado del anterior.
+Ciclo iterativo de razonar y actuar, un paso a la vez — ya desarrollado en detalle en [Agentes vs Workflows](agents-vs-workflows.es.md#patrón-de-agent-el-llm-controla-el-camino). Ideal para entornos dinámicos/exploratorios, donde no se puede planificar todo de antemano porque cada paso depende del resultado del anterior.
 
 **Plan-and-Execute vs ReAct**: el primero decide todo el camino antes de dar el primer paso; el segundo decide un paso, ve qué pasó, y recién ahí decide el siguiente. Plan-and-Execute es más predecible pero más rígido — si algo sale distinto a lo planeado a mitad de camino, no se auto-corrige tan bien como ReAct.
 
@@ -76,4 +76,4 @@ def ejecutar_con_hitl(accion_propuesta):
 Crítico en dominios de alto riesgo (salud, finanzas) — aumenta la confiabilidad a costa de perder algo de la autonomía completa que promete un agent puro.
 
 ---
-Relacionado: [Tipos de Agentes](tipos-de-agentes.md), [Agentes vs Workflows](agentes-vs-workflows.md), [Prompt Engineering](prompt-engineering.md#estructura-de-un-system-prompt), [Riesgos y Mitigaciones](riesgos-y-mitigaciones.md).
+Relacionado: [Tipos de Agentes](types-of-agents.es.md), [Agentes vs Workflows](agents-vs-workflows.es.md), [Prompt Engineering](prompt-engineering.es.md#estructura-de-un-system-prompt), [Riesgos y Mitigaciones](risks-and-mitigations.es.md).

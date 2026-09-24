@@ -57,7 +57,7 @@ Advantage: no need to define the schema ahead of time, and nested/related data g
 
 Unlike the other categories, here you don't search by exact key or structured filter, but by **similarity**: each piece of data is represented as an embedding (a numeric vector capturing its meaning), and the query is "which of these vectors are closest to my query's vector?". Solving this by brute force against millions of vectors doesn't scale — these databases use **ANN** (Approximate Nearest Neighbor, e.g. HNSW) indexes that trade some exact precision for millisecond responses. Most also support **metadata filtering**: combining the similarity search with exact filters (e.g. "only documents from this user").
 
-It's the infrastructure piece behind RAG — see [RAG (Retrieval-Augmented Generation)](../agentic-ai/rag.md#3-vector-db--guardar-y-buscar-por-similitud) for the full pipeline (chunking → embeddings → vector DB → retrieval).
+It's the infrastructure piece behind RAG — see [RAG (Retrieval-Augmented Generation)](../agentic-ai/rag.md#3-vector-db--storing-and-searching-by-similarity) for the full pipeline (chunking → embeddings → vector DB → retrieval).
 
 ## When to choose NoSQL vs SQL
 
