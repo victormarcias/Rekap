@@ -28,9 +28,9 @@ A diferencia de la creencia popular, **cookies es la forma más segura de guarda
 Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict
 ```
 
-- **`HttpOnly`**: la cookie es invisible para JavaScript (`document.cookie` no la muestra) — si la app tiene una vulnerabilidad [XSS](../security/xss.md), el script malicioso inyectado puede leer todo lo que haya en `localStorage`, pero no una cookie `HttpOnly`. Este es el motivo de fondo: `localStorage` es 100% accesible por cualquier JS que corra en la página, cookies pueden no serlo.
+- **`HttpOnly`**: la cookie es invisible para JavaScript (`document.cookie` no la muestra) — si la app tiene una vulnerabilidad [XSS](../security/xss.es.md), el script malicioso inyectado puede leer todo lo que haya en `localStorage`, pero no una cookie `HttpOnly`. Este es el motivo de fondo: `localStorage` es 100% accesible por cualquier JS que corra en la página, cookies pueden no serlo.
 - **`Secure`**: solo se manda por HTTPS, nunca en texto plano.
-- **`SameSite`**: controla si la cookie se manda en requests que vienen de otro sitio — `Strict`/`Lax` mitigan [CSRF](../security/csrf.md).
+- **`SameSite`**: controla si la cookie se manda en requests que vienen de otro sitio — `Strict`/`Lax` mitigan [CSRF](../security/csrf.es.md).
 
 El trade-off: cookies se mandan automáticamente en **cada** request al mismo dominio (suman peso a cada request) y tienen un límite de tamaño chico (~4KB) — por eso no sirven para guardar blobs grandes de datos, solo identificadores como un session token.
 

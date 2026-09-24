@@ -75,10 +75,10 @@ El nombre de los status codes HTTP confunde esto seguido: `401 Unauthorized` en 
 
 | Storage | Accesible por JS | Riesgo principal |
 |---|---|---|
-| `localStorage` | ✅ | [**XSS**](../security/xss.md): cualquier script inyectado puede leer el token y robarlo |
-| Cookie `httpOnly` | ❌ | [**CSRF**](../security/csrf.md): se manda automáticamente en cada request a ese dominio, hay que mitigar con `SameSite` y/o un CSRF token |
+| `localStorage` | ✅ | [**XSS**](../security/xss.es.md): cualquier script inyectado puede leer el token y robarlo |
+| Cookie `httpOnly` | ❌ | [**CSRF**](../security/csrf.es.md): se manda automáticamente en cada request a ese dominio, hay que mitigar con `SameSite` y/o un CSRF token |
 
 No hay una opción "segura por default" — es un trade-off: `localStorage` expone el token a XSS, la cookie `httpOnly` lo protege de XSS pero abre la puerta a CSRF si no se configura bien (`SameSite=Strict/Lax` reduce mucho ese riesgo en la práctica).
 
 ---
-Relacionado: [Autenticación en FastAPI](../stacks/fastapi/autenticacion.md) (implementación concreta), [Atributos de calidad de sistemas](../system-design/atributos-de-calidad.md) (escalabilidad stateless), [Idempotencia y tolerancia a fallos](../system-design/atributos-de-calidad.md), [XSS](../security/xss.md), [CSRF](../security/csrf.md), [Zero Trust](../security/zero-trust.md).
+Relacionado: [Autenticación en FastAPI](../stacks/fastapi/autenticacion.md) (implementación concreta), [Atributos de calidad de sistemas](../system-design/atributos-de-calidad.md) (escalabilidad stateless), [Idempotencia y tolerancia a fallos](../system-design/atributos-de-calidad.md), [XSS](../security/xss.es.md), [CSRF](../security/csrf.es.md), [Zero Trust](../security/zero-trust.es.md).

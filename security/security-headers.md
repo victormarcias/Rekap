@@ -1,18 +1,18 @@
 # Security Headers
 
-El servidor no agrega headers de seguridad por sí solo — hay que declararlos explícitamente en cada respuesta (ver el [middleware de ejemplo en Deploy a Cloud Run](../devops/deploy-cloud-run.es.md#5-security-headers-vía-middleware) para la implementación concreta). Acá el detalle de qué previene cada uno.
+The server doesn't add security headers on its own — they have to be declared explicitly on every response (see the [example middleware in Deploy to Cloud Run](../devops/deploy-cloud-run.md#5-security-headers-via-middleware) for a concrete implementation). Here's the detail of what each one prevents.
 
 ## Content-Security-Policy (CSP)
 
-Restringe de qué orígenes puede la página cargar y ejecutar scripts, estilos, imágenes, etc. Es la defensa que mitiga el impacto de un [XSS](xss.md) aunque el escape falle en algún lugar puntual — incluso si un script malicioso logra inyectarse, el navegador no lo ejecuta si viene de un origen no permitido.
+Restricts which origins the page can load and execute scripts, styles, images, etc. from. It's the defense that mitigates the impact of an [XSS](xss.md) even if escaping fails somewhere specific — even if a malicious script manages to get injected, the browser won't execute it if it comes from a disallowed origin.
 
 ```
-Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.confiable.com
+Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted-cdn.com
 ```
 
 ## X-Frame-Options / `frame-ancestors` (CSP)
 
-Evita que el sitio se cargue dentro de un `<iframe>` de otro dominio — mitiga **clickjacking**: el atacante superpone tu sitio (invisible, con opacidad 0) sobre una página propia, para que el usuario crea que hace click en algo inofensivo cuando en realidad hace click en un botón tuyo (ej. "Confirmar transferencia").
+Prevents the site from being loaded inside another domain's `<iframe>` — mitigates **clickjacking**: the attacker overlays your site (invisible, with opacity 0) on top of their own page, so the user thinks they're clicking on something harmless when they're actually clicking one of your buttons (e.g. "Confirm transfer").
 
 ```
 X-Frame-Options: DENY
@@ -20,7 +20,7 @@ X-Frame-Options: DENY
 
 ## X-Content-Type-Options: nosniff
 
-Evita que el navegador intente "adivinar" el tipo de contenido de una respuesta e ignore el `Content-Type` declarado — sin esto, un archivo subido como imagen pero que en realidad contiene JavaScript podría terminar ejecutándose como script en vez de mostrarse como imagen.
+Prevents the browser from trying to "guess" a response's content type and ignoring the declared `Content-Type` — without this, a file uploaded as an image but that actually contains JavaScript could end up executing as a script instead of displaying as an image.
 
 ```
 X-Content-Type-Options: nosniff
@@ -28,11 +28,11 @@ X-Content-Type-Options: nosniff
 
 ## Strict-Transport-Security (HSTS)
 
-Le dice al navegador que fuerce HTTPS en **todos** los requests futuros a ese dominio, incluso si el usuario escribe `http://` a mano o hace click en un link viejo con `http`. Sin esto, cada visita queda expuesta a un downgrade a HTTP en la primera conexión (y a un ataque man-in-the-middle en esa ventana).
+Tells the browser to force HTTPS on **every** future request to that domain, even if the user types `http://` by hand or clicks an old link with `http`. Without this, every visit is exposed to a downgrade to HTTP on the first connection (and to a man-in-the-middle attack during that window).
 
 ```
 Strict-Transport-Security: max-age=63072000; includeSubDomains
 ```
 
 ---
-Relacionado: [XSS](xss.md), [Deploy a Cloud Run](../devops/deploy-cloud-run.es.md#5-security-headers-vía-middleware).
+Related: [XSS](xss.md), [Deploy to Cloud Run](../devops/deploy-cloud-run.md#5-security-headers-via-middleware).
