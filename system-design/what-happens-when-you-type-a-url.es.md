@@ -71,7 +71,7 @@ Del lado del servidor puede haber varias capas antes de llegar a una respuesta:
 - Posiblemente pega contra **cache** (Redis) antes de ir a la base de datos.
 - Arma la respuesta (HTML renderizado en servidor, JSON, etc.).
 
-Ver [Load balancers](README.md) y [Diagnóstico Backend](../diagnostics/backend.es.md)/[Diagnóstico Base de Datos](../diagnostics/database.es.md) para qué puede salir mal en este paso.
+Ver [Load balancers](README.es.md) y [Diagnóstico Backend](../diagnostics/backend.es.md)/[Diagnóstico Base de Datos](../diagnostics/database.es.md) para qué puede salir mal en este paso.
 
 ## 7. Response HTTP
 

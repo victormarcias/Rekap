@@ -1,6 +1,6 @@
 # n8n — Cómo se testea
 
-n8n no tiene un framework de tests tipo [pytest](../../system-design/testing.md) ni impone una arquitectura de código sobre la que escribir unit tests. La **unidad testeable es el workflow completo**, no una función aislada — y lo que hay para probarlo es manual/integración, apoyado en herramientas que trae la propia UI, no un test runner separado.
+n8n no tiene un framework de tests tipo [pytest](../../system-design/testing.es.md) ni impone una arquitectura de código sobre la que escribir unit tests. La **unidad testeable es el workflow completo**, no una función aislada — y lo que hay para probarlo es manual/integración, apoyado en herramientas que trae la propia UI, no un test runner separado.
 
 ## Ejecución manual — paso a paso o completa
 
@@ -20,7 +20,7 @@ Sirve para iterar rápido en los nodos SIGUIENTES sin gastar cuota,
 esperar latencia real, ni depender de que el servicio externo esté arriba
 ```
 
-Es conceptualmente parecido a un [mock](../../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) — reemplazar una dependencia externa por un valor fijo, conocido, para poder probar el resto de la lógica de forma aislada y repetible.
+Es conceptualmente parecido a un [mock](../../system-design/testing.es.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) — reemplazar una dependencia externa por un valor fijo, conocido, para poder probar el resto de la lógica de forma aislada y repetible.
 
 ## Execution history — el log de qué pasó
 
@@ -42,7 +42,7 @@ Es un approach casero (arma el equipo, no viene integrado) — para casos donde 
 
 ## Por qué importa
 
-Esto es, en concreto, lo que está detrás del trade-off que ya mencionamos en [n8n y Agentic AI](n8n-y-agentic.md#trade-off-frente-a-escribir-el-agente-en-código): "testing automatizado real" no es algo que n8n ofrezca nativamente — lo que hay es un conjunto de herramientas manuales/de inspección, útiles para desarrollar e iterar, pero lejos del [test pyramid](../../system-design/testing.md#1-test-pyramid) (unit → integration → e2e) que se arma con código.
+Esto es, en concreto, lo que está detrás del trade-off que ya mencionamos en [n8n y Agentic AI](n8n-y-agentic.md#trade-off-frente-a-escribir-el-agente-en-código): "testing automatizado real" no es algo que n8n ofrezca nativamente — lo que hay es un conjunto de herramientas manuales/de inspección, útiles para desarrollar e iterar, pero lejos del [test pyramid](../../system-design/testing.es.md#1-test-pyramid) (unit → integration → e2e) que se arma con código.
 
 ---
-Relacionado: [Fundamentos de n8n](basico.md), [n8n y Agentic AI](n8n-y-agentic.md), [Testing — conceptos generales](../../system-design/testing.md).
+Relacionado: [Fundamentos de n8n](basico.md), [n8n y Agentic AI](n8n-y-agentic.md), [Testing — conceptos generales](../../system-design/testing.es.md).

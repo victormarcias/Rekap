@@ -121,4 +121,4 @@ C.__mro__           # muestra el orden exacto de búsqueda
 ```
 
 ---
-Relacionado: [Patrones creacionales](../../system-design/patrones-creacionales.md) (Singleton usa `__new__`), [Patrones estructurales](../../system-design/patrones-estructurales.md) (Class Adapter necesita herencia múltiple), [Tipos y Mutabilidad](tipos-y-mutabilidad.md) (mutable default arguments, mismo mecanismo de fondo).
+Relacionado: [Patrones creacionales](../../system-design/creational-patterns.es.md) (Singleton usa `__new__`), [Patrones estructurales](../../system-design/structural-patterns.es.md) (Class Adapter necesita herencia múltiple), [Tipos y Mutabilidad](tipos-y-mutabilidad.md) (mutable default arguments, mismo mecanismo de fondo).

@@ -30,7 +30,7 @@ Concepts asked about less often than the table above, but worth keeping in mind 
 | **Nginx** | Reverse proxy / web server | Terminates TLS, serves static files, acts as a reverse proxy in front of the app. Already covered in [Nginx as reverse proxy](../../devops/deploy-vps.md#4-nginx-as-reverse-proxy). |
 | **CDN (CloudFront)** | Networking / content delivery | Caches content close to the end user — CloudFront is AWS's CDN, see [Provider Comparison](../provider-comparison.md) for the Azure/GCP equivalent and [CDN](../../devops/cdn.md) for the generic concept. |
 | **VPC** | Networking | Isolated virtual network where a cloud account's resources run — see [Provider Comparison](../provider-comparison.md). |
-| **DNS** | Networking | Translates domain names to IPs — already covered in [DNS Resolution](../../system-design/que-pasa-cuando-escribis-una-url.md#2-resolución-dns--de-dominio-a-ip). |
+| **DNS** | Networking | Translates domain names to IPs — already covered in [DNS Resolution](../../system-design/what-happens-when-you-type-a-url.md#2-dns-resolution--from-domain-to-ip). |
 
 ---
 Related: [Provider Comparison](../provider-comparison.md), [Backend](../../backend/), [Database](../../database/), [DevOps](../../devops/).

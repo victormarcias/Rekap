@@ -76,4 +76,4 @@ Each phase, on its own, is compatible with both the old and new code — there's
 An `ALTER TABLE` isn't free on large tables: adding a column with a default value in old versions of Postgres (<11) rewrote the entire table under an exclusive lock, blocking reads and writes for the whole operation. See [Locks](locks.md) — it's worth confirming what kind of lock each operation takes on your specific engine before running a migration on a table with real production traffic.
 
 ---
-Related: [Locks](locks.md), [ACID / transactions / isolation levels](acid.md), [System quality attributes](../system-design/atributos-de-calidad.md) (Availability).
+Related: [Locks](locks.md), [ACID / transactions / isolation levels](acid.md), [System quality attributes](../system-design/quality-attributes.md) (Availability).

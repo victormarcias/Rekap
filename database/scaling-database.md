@@ -120,4 +120,4 @@ ON CONFLICT (date) DO UPDATE SET total = EXCLUDED.total;
 Read replicas and sharding aren't mutually exclusive — a large system typically combines both: several shards, each with its own read replicas.
 
 ---
-Related: [Sharding vs partitioning](sharding-vs-partitioning.md), [Consistency](../system-design/atributos-de-calidad.md#consistencia), [Connection pooling](../diagnostics/backend.md#poorly-managed-connections), [Memory Scalability](../devops/scaling-memory.es.md), [NoSQL](nosql.md).
+Related: [Sharding vs partitioning](sharding-vs-partitioning.md), [Consistency](../system-design/quality-attributes.md#consistency), [Connection pooling](../diagnostics/backend.md#poorly-managed-connections), [Memory Scalability](../devops/scaling-memory.es.md), [NoSQL](nosql.md).

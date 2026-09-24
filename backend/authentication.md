@@ -55,7 +55,7 @@ hash("1234" + salt_user_a) != hash("1234" + salt_user_b)  # True
 
 A JWT has three parts separated by dots: `header.payload.signature`, each Base64URL-encoded — **not encrypted**. Anyone with the token can read the entire payload (a common beginner mistake is assuming it's secret) — the signature only guarantees it **wasn't modified**, not that it's confidential. That's why a password or secret never goes in the payload.
 
-"Stateless" means the server doesn't store any session: it just verifies the signature with its key (secret or public, depending on the algorithm) and trusts the content if the signature is valid. This is what allows scaling horizontally without hitting a shared store on every request — see the Redis session vs in-memory session example in [Scalability](../system-design/atributos-de-calidad.md).
+"Stateless" means the server doesn't store any session: it just verifies the signature with its key (secret or public, depending on the algorithm) and trusts the content if the signature is valid. This is what allows scaling horizontally without hitting a shared store on every request — see the Redis session vs in-memory session example in [Scalability](../system-design/quality-attributes.md).
 
 ## 6. Access token vs Refresh token
 
@@ -81,4 +81,4 @@ The names of the HTTP status codes confuse this often: `401 Unauthorized` actual
 There's no "secure by default" option — it's a trade-off: `localStorage` exposes the token to XSS, the `httpOnly` cookie protects it from XSS but opens the door to CSRF if not configured well (`SameSite=Strict/Lax` reduces that risk a lot in practice).
 
 ---
-Related: [Authentication in FastAPI](../stacks/fastapi/autenticacion.md) (concrete implementation), [System quality attributes](../system-design/atributos-de-calidad.md) (stateless scalability), [Idempotency and fault tolerance](../system-design/atributos-de-calidad.md), [XSS](../security/xss.md), [CSRF](../security/csrf.md), [Zero Trust](../security/zero-trust.md).
+Related: [Authentication in FastAPI](../stacks/fastapi/autenticacion.md) (concrete implementation), [System quality attributes](../system-design/quality-attributes.md) (stateless scalability), [Idempotency and fault tolerance](../system-design/quality-attributes.md), [XSS](../security/xss.md), [CSRF](../security/csrf.md), [Zero Trust](../security/zero-trust.md).

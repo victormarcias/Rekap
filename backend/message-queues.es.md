@@ -43,4 +43,4 @@ while True:
 Ver la comparación completa cola vs log en [Arquitectura Kafka](kafka.es.md#kafka-vs-cola-tradicional).
 
 ---
-Relacionado: [Arquitectura Kafka](kafka.es.md), [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia) (un mensaje puede reprocesarse tras un fallo de red — el consumer necesita ser idempotente).
+Relacionado: [Arquitectura Kafka](kafka.es.md), [Idempotencia](../system-design/quality-attributes.es.md#idempotencia) (un mensaje puede reprocesarse tras un fallo de red — el consumer necesita ser idempotente).

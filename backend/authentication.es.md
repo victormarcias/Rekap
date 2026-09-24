@@ -55,7 +55,7 @@ hash("1234" + salt_user_a) != hash("1234" + salt_user_b)  # True
 
 Un JWT tiene tres partes separadas por puntos: `header.payload.signature`, cada una codificada en Base64URL — **no encriptadas**. Cualquiera con el token puede leer el payload completo (es un error común de principiante asumir que es secreto) — la firma solo garantiza que **no fue modificado**, no que sea confidencial. Por eso nunca va una contraseña o un secreto en el payload.
 
-"Stateless" significa que el servidor no guarda ninguna sesión: solo verifica la firma con su clave (secreta o pública, según el algoritmo) y confía en el contenido si la firma es válida. Esto es lo que permite escalar horizontalmente sin pegarle a un store compartido en cada request — ver el ejemplo de sesión en Redis vs sesión en memoria en [Escalabilidad](../system-design/atributos-de-calidad.md).
+"Stateless" significa que el servidor no guarda ninguna sesión: solo verifica la firma con su clave (secreta o pública, según el algoritmo) y confía en el contenido si la firma es válida. Esto es lo que permite escalar horizontalmente sin pegarle a un store compartido en cada request — ver el ejemplo de sesión en Redis vs sesión en memoria en [Escalabilidad](../system-design/quality-attributes.es.md).
 
 ## 6. Access token vs Refresh token
 
@@ -81,4 +81,4 @@ El nombre de los status codes HTTP confunde esto seguido: `401 Unauthorized` en 
 No hay una opción "segura por default" — es un trade-off: `localStorage` expone el token a XSS, la cookie `httpOnly` lo protege de XSS pero abre la puerta a CSRF si no se configura bien (`SameSite=Strict/Lax` reduce mucho ese riesgo en la práctica).
 
 ---
-Relacionado: [Autenticación en FastAPI](../stacks/fastapi/autenticacion.md) (implementación concreta), [Atributos de calidad de sistemas](../system-design/atributos-de-calidad.md) (escalabilidad stateless), [Idempotencia y tolerancia a fallos](../system-design/atributos-de-calidad.md), [XSS](../security/xss.es.md), [CSRF](../security/csrf.es.md), [Zero Trust](../security/zero-trust.es.md).
+Relacionado: [Autenticación en FastAPI](../stacks/fastapi/autenticacion.md) (implementación concreta), [Atributos de calidad de sistemas](../system-design/quality-attributes.es.md) (escalabilidad stateless), [Idempotencia y tolerancia a fallos](../system-design/quality-attributes.es.md), [XSS](../security/xss.es.md), [CSRF](../security/csrf.es.md), [Zero Trust](../security/zero-trust.es.md).

@@ -39,7 +39,7 @@ costo_estimado(50_000, 15_000, precio_input_mtok=5, precio_output_mtok=25)  # Cl
 
 ## Evitar gasto por loops que no cortan solos
 
-Todo lo de arriba asume requests normales — pero en un [agent](agentes-vs-workflows.md#patrón-de-agent-el-llm-controla-el-camino), donde el número de pasos no está fijo, un loop que queda reintentando contra una tool o API caída no solo es un problema de resiliencia, es plata: cada intento fallido consume tokens (el LLM razona, decide reintentar, arma el llamado) sin producir ningún resultado útil. Un [Circuit Breaker](../system-design/atributos-de-calidad.md#tolerancia-a-fallos) corta esos reintentos después de N fallos — ahí el mismo patrón que sirve para no tumbar un sistema en cascada, también sirve como límite de gasto concreto en un agent.
+Todo lo de arriba asume requests normales — pero en un [agent](agentes-vs-workflows.md#patrón-de-agent-el-llm-controla-el-camino), donde el número de pasos no está fijo, un loop que queda reintentando contra una tool o API caída no solo es un problema de resiliencia, es plata: cada intento fallido consume tokens (el LLM razona, decide reintentar, arma el llamado) sin producir ningún resultado útil. Un [Circuit Breaker](../system-design/quality-attributes.es.md#tolerancia-a-fallos) corta esos reintentos después de N fallos — ahí el mismo patrón que sirve para no tumbar un sistema en cascada, también sirve como límite de gasto concreto en un agent.
 
 ## Más allá de la API: self-hosted / open source
 
@@ -68,4 +68,4 @@ Más allá del costo, es un trade-off con ventajas y desventajas concretas de ca
 - **Hardware propio necesario**: hace falta GPU/RAM suficiente (propia o de un proveedor cloud que la alquile) — es un costo de infraestructura y de mantenimiento que la API propietaria directamente evita.
 
 ---
-Relacionado: [Qué es un token](que-es-un-token.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Agentes vs Workflows](agentes-vs-workflows.md), [Circuit Breaker](../system-design/atributos-de-calidad.md#tolerancia-a-fallos), [VPS vs Cloud Run](../devops/vps-vs-cloud-run.es.md), [Riesgos y Mitigaciones](riesgos-y-mitigaciones.md), [Tamaño y Cuantización de Modelos](tamano-y-cuantizacion.md).
+Relacionado: [Qué es un token](que-es-un-token.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md), [Agentes vs Workflows](agentes-vs-workflows.md), [Circuit Breaker](../system-design/quality-attributes.es.md#tolerancia-a-fallos), [VPS vs Cloud Run](../devops/vps-vs-cloud-run.es.md), [Riesgos y Mitigaciones](riesgos-y-mitigaciones.md), [Tamaño y Cuantización de Modelos](tamano-y-cuantizacion.md).

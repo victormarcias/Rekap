@@ -14,9 +14,9 @@ The entire application is **one codebase, one process, one deploy**. The differe
 
 Each part of the system is an **independent service**, with its own process, its own deploy, and (ideally) its own database. They communicate over the network — HTTP, or asynchronously via queues/events (see [Kafka Architecture](kafka.md), [Message Queues](message-queues.md)).
 
-**Pros**: each service scales independently (see [Scalability](../system-design/atributos-de-calidad.md#escalabilidad)); a team can deploy its service without coordinating with others; a bug in one service doesn't necessarily take down the others.
+**Pros**: each service scales independently (see [Scalability](../system-design/quality-attributes.md#scalability)); a team can deploy its service without coordinating with others; a bug in one service doesn't necessarily take down the others.
 
-**Cons**: what used to be a function call is now a network call — slower, and it can fail (see [Fault tolerance](../system-design/atributos-de-calidad.md#tolerancia-a-fallos)); a transaction that crosses two services is no longer a simple DB transaction — it has to be solved with more complex patterns (sagas, eventual consistency); a lot more operational complexity (monitoring, deploys, contract versioning between services).
+**Cons**: what used to be a function call is now a network call — slower, and it can fail (see [Fault tolerance](../system-design/quality-attributes.md#fault-tolerance)); a transaction that crosses two services is no longer a simple DB transaction — it has to be solved with more complex patterns (sagas, eventual consistency); a lot more operational complexity (monitoring, deploys, contract versioning between services).
 
 ## The anti-pattern: distributed monolith
 
@@ -27,4 +27,4 @@ The worst of both worlds: services separated at deploy time, but so tightly coup
 "Monolith first" is common advice: start with a well-layered monolith (see [Controller / Service / Repository](controller-service-repository.md)) and **extract** services only once a specific part genuinely needs to scale or deploy independently — don't split into microservices from day one without yet knowing where the domain's natural boundaries are.
 
 ---
-Related: [Scalability](../system-design/atributos-de-calidad.md#escalabilidad), [Controller / Service / Repository](controller-service-repository.md), [API Gateway](api-gateway.md).
+Related: [Scalability](../system-design/quality-attributes.md#scalability), [Controller / Service / Repository](controller-service-repository.md), [API Gateway](api-gateway.md).

@@ -17,7 +17,7 @@ const orders = await Order.findAll({ include: User });
 
 ## Falta de cache
 
-Recalcular o refetchear datos que cambian poco (config, catálogos, resultados de queries costosas) en cada request. Agregar cache en memoria (Redis) con invalidación adecuada — ver [system-design](../system-design/README.md).
+Recalcular o refetchear datos que cambian poco (config, catálogos, resultados de queries costosas) en cada request. Agregar cache en memoria (Redis) con invalidación adecuada — ver [system-design](../system-design/README.es.md).
 
 ```js
 // ✅ Node + Redis: cache-aside pattern

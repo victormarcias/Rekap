@@ -43,4 +43,4 @@ while True:
 See the full queue vs log comparison in [Kafka Architecture](kafka.md#kafka-vs-traditional-queue).
 
 ---
-Related: [Kafka Architecture](kafka.md), [Idempotency](../system-design/atributos-de-calidad.md#idempotencia) (a message can be reprocessed after a network failure — the consumer needs to be idempotent).
+Related: [Kafka Architecture](kafka.md), [Idempotency](../system-design/quality-attributes.md#idempotency) (a message can be reprocessed after a network failure — the consumer needs to be idempotent).

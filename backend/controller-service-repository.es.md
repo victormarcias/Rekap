@@ -82,11 +82,11 @@ Ya lo venías usando sin el nombre: el `response_model` y el modelo del body en 
 
 ## Por qué separar
 
-Cada capa tiene una sola razón para cambiar — es [Single Responsibility](../system-design/solid.md#s--single-responsibility-principle) aplicado a la arquitectura de un request completo: un cambio en el formato de la API toca solo el Controller, un cambio en la regla de negocio toca solo el Service, un cambio de Postgres a Mongo toca solo el Repository.
+Cada capa tiene una sola razón para cambiar — es [Single Responsibility](../system-design/solid.es.md#s--single-responsibility-principle) aplicado a la arquitectura de un request completo: un cambio en el formato de la API toca solo el Controller, un cambio en la regla de negocio toca solo el Service, un cambio de Postgres a Mongo toca solo el Repository.
 
 ## El beneficio real: testear sin HTTP ni DB
 
-El Service recibe el Repository como dependencia en vez de crearlo él mismo — [Dependency Inversion](../system-design/solid.md#d--dependency-inversion-principle) — así que en un test se le puede pasar un Repository falso en memoria en vez del real, y testear la lógica de negocio sin levantar un servidor HTTP ni una base de datos.
+El Service recibe el Repository como dependencia en vez de crearlo él mismo — [Dependency Inversion](../system-design/solid.es.md#d--dependency-inversion-principle) — así que en un test se le puede pasar un Repository falso en memoria en vez del real, y testear la lógica de negocio sin levantar un servidor HTTP ni una base de datos.
 
 ```python
 class FakeOrderRepository:
@@ -102,4 +102,4 @@ def test_apply_discount_rejects_non_pending_order():
 ```
 
 ---
-Relacionado: [Clean Architecture](../system-design/clean-architecture.md) (la teoría completa detrás de esta separación en capas), [SOLID principles](../system-design/solid.md), [Testing — conceptos generales](../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) (el `FakeOrderRepository` de arriba es un Fake, no un Mock), [Endpoints para microservicios](../stacks/fastapi/endpoints-microservicios.md) (`response_model` y Pydantic como DTOs en la práctica).
+Relacionado: [Clean Architecture](../system-design/clean-architecture.es.md) (la teoría completa detrás de esta separación en capas), [SOLID principles](../system-design/solid.es.md), [Testing — conceptos generales](../system-design/testing.es.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) (el `FakeOrderRepository` de arriba es un Fake, no un Mock), [Endpoints para microservicios](../stacks/fastapi/endpoints-microservicios.md) (`response_model` y Pydantic como DTOs en la práctica).

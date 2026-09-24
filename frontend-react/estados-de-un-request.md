@@ -4,7 +4,7 @@ Cualquier componente que muestra datos que vienen de una API tiene que contempla
 
 1. **Loading / Pending** — el request está en vuelo, todavía no hay respuesta.
 2. **Success / Data** — resolvió bien, ya tenés los datos para mostrar.
-3. **Error** — falló (error de red, o un status code que no es 2xx — ver [HTTP Status Codes](../system-design/http-status-codes.md)).
+3. **Error** — falló (error de red, o un status code que no es 2xx — ver [HTTP Status Codes](../system-design/http-status-codes.es.md)).
 4. **Retry** — qué hacer cuando falla: ¿reintentar automático?, ¿cuántas veces?, ¿con qué espera entre intentos?
 
 ```jsx
@@ -46,9 +46,9 @@ function UserProfile({ userId }) {
 
 **Por qué falta tan seguido**: es fácil cubrir Loading y Success (son los dos casos "felices"), y quedarse corto en Error y Retry — el resultado es una UI que se cuelga silenciosa o muestra un error sin salida cuando la red falla, en vez de darle al usuario una forma de reintentar.
 
-**Reintentos automáticos vs manuales**: reintentar automático (sin límite) puede convertirse en un loop que nunca corta — mismo problema, mismo mecanismo de solución que ya vimos con [Circuit Breaker](../system-design/atributos-de-calidad.md#tolerancia-a-fallos): cortar después de N intentos fallidos, en vez de reintentar para siempre.
+**Reintentos automáticos vs manuales**: reintentar automático (sin límite) puede convertirse en un loop que nunca corta — mismo problema, mismo mecanismo de solución que ya vimos con [Circuit Breaker](../system-design/quality-attributes.es.md#tolerancia-a-fallos): cortar después de N intentos fallidos, en vez de reintentar para siempre.
 
 Este es, en el fondo, el problema que resuelven librerías como React Query o SWR — modelan estos 4 estados (más cache, revalidación, reintentos con backoff) para no tener que reimplementarlos a mano en cada `useFetch` propio.
 
 ---
-Relacionado: [Hooks](hooks.md) (`useEffect`, el `useFetch` de ejemplo), [HTTP Status Codes](../system-design/http-status-codes.md), [Circuit Breaker](../system-design/atributos-de-calidad.md#tolerancia-a-fallos), [Error Boundaries](error-boundaries.md) (errores de render, no de red — concepto distinto).
+Relacionado: [Hooks](hooks.md) (`useEffect`, el `useFetch` de ejemplo), [HTTP Status Codes](../system-design/http-status-codes.es.md), [Circuit Breaker](../system-design/quality-attributes.es.md#tolerancia-a-fallos), [Error Boundaries](error-boundaries.md) (errores de render, no de red — concepto distinto).

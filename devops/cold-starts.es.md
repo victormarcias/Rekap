@@ -8,4 +8,4 @@ Latencia extra que paga el primer request cuando una función serverless o un co
 - Abrir conexiones (DB, clientes HTTP) fuera del handler, para que se reutilicen entre invocaciones calientes en vez de recrearse en cada cold start — ver el ejemplo en [Diagnóstico DevOps](../diagnostics/devops.es.md).
 
 ---
-Relacionado: [Diagnóstico DevOps](../diagnostics/devops.es.md), [Deploy a Cloud Run](deploy-cloud-run.es.md) (escala a cero), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad).
+Relacionado: [Diagnóstico DevOps](../diagnostics/devops.es.md), [Deploy a Cloud Run](deploy-cloud-run.es.md) (escala a cero), [Elasticidad](../system-design/quality-attributes.es.md#elasticidad).

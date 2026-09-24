@@ -44,4 +44,4 @@ def get_product(id):
 ```
 
 ---
-Related: [Backend Diagnostics](../diagnostics/backend.md#missing-cache) (cache-aside), [Consistency](../system-design/atributos-de-calidad.md#consistencia).
+Related: [Backend Diagnostics](../diagnostics/backend.md#missing-cache) (cache-aside), [Consistency](../system-design/quality-attributes.md#consistency).

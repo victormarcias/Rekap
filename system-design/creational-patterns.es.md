@@ -119,7 +119,7 @@ class Logger {
 const logger = Logger.getInstance();
 ```
 
-**Cuidado**: es el patrón más criticado de la lista — introduce estado global compartido, dificulta el testing (no podés inyectar un mock fácilmente en su lugar) y esconde una dependencia que debería ser explícita en la firma de la clase que lo usa. En la práctica, muchos frameworks resuelven el mismo problema con **Dependency Injection** en vez de un Singleton manual (ver [DIP en SOLID](solid.md)).
+**Cuidado**: es el patrón más criticado de la lista — introduce estado global compartido, dificulta el testing (no podés inyectar un mock fácilmente en su lugar) y esconde una dependencia que debería ser explícita en la firma de la clase que lo usa. En la práctica, muchos frameworks resuelven el mismo problema con **Dependency Injection** en vez de un Singleton manual (ver [DIP en SOLID](solid.es.md)).
 
 ---
-Relacionado: [SOLID principles](solid.md) · catálogo completo en [refactoring.guru](https://refactoring.guru/design-patterns/creational-patterns).
+Relacionado: [SOLID principles](solid.es.md) · catálogo completo en [refactoring.guru](https://refactoring.guru/design-patterns/creational-patterns).

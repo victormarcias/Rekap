@@ -40,4 +40,4 @@ Each consumer tracks its position in each partition with an **offset** (a number
 | Guaranteed order | Per queue | Per partition |
 
 ---
-Related: [Idempotency](../system-design/atributos-de-calidad.md#idempotencia) (a consumer can reprocess the same message more than once after a crash — the handler needs to be idempotent), [Observability](../system-design/atributos-de-calidad.md#observabilidad).
+Related: [Idempotency](../system-design/quality-attributes.md#idempotency) (a consumer can reprocess the same message more than once after a crash — the handler needs to be idempotent), [Observability](../system-design/quality-attributes.md#observability).

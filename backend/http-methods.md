@@ -24,7 +24,7 @@ PATCH /users/1  {"email": "new@mail.com"}
 
 ## Idempotency by verb
 
-Already covered in detail in [Idempotency](../system-design/atributos-de-calidad.md#idempotencia) — quick recap applied to the verbs:
+Already covered in detail in [Idempotency](../system-design/quality-attributes.md#idempotency) — quick recap applied to the verbs:
 
 | Verb | Idempotent | Why |
 |---|---|---|
@@ -37,4 +37,4 @@ Already covered in detail in [Idempotency](../system-design/atributos-de-calidad
 This is exactly why an automatic network retry is safe on a `PUT`/`DELETE` but risky on a `POST` without an idempotency key.
 
 ---
-Related: [REST](rest.md) (the methods are one piece of its uniform interface, not the same thing as REST), [Idempotency](../system-design/atributos-de-calidad.md#idempotencia), [HTTP Status Codes](../system-design/http-status-codes.md) (`405 Method Not Allowed` when a resource doesn't support the requested verb).
+Related: [REST](rest.md) (the methods are one piece of its uniform interface, not the same thing as REST), [Idempotency](../system-design/quality-attributes.md#idempotency), [HTTP Status Codes](../system-design/http-status-codes.md) (`405 Method Not Allowed` when a resource doesn't support the requested verb).

@@ -56,7 +56,7 @@ REFRESH MATERIALIZED VIEW ventas_por_mes;
 
 ## Cubos OLAP
 
-Para analítica multidimensional pesada (BI, reportes históricos), separar el workload analítico (OLAP) del transaccional (OLTP) evita que queries de reporting compitan por recursos con el tráfico de producción. Ver [system-design](../system-design/README.md).
+Para analítica multidimensional pesada (BI, reportes históricos), separar el workload analítico (OLAP) del transaccional (OLTP) evita que queries de reporting compitan por recursos con el tráfico de producción. Ver [system-design](../system-design/README.es.md).
 
 **Caso clásico: finanzas.** Un cubo OLAP deja "cortar" los mismos ingresos por varias dimensiones a la vez (mes, región, producto, moneda) sin escribir una query nueva por cada combinación — el motivo por el que OLAP nació justo en ese mundo: reportes financieros que se arman una vez y se navegan desde muchos ángulos.
 

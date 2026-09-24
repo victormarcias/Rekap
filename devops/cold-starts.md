@@ -8,4 +8,4 @@ Extra latency paid by the first request when a serverless function or a containe
 - Open connections (DB, HTTP clients) outside the handler, so they're reused across warm invocations instead of being recreated on every cold start — see the example in [DevOps Diagnostics](../diagnostics/devops.md).
 
 ---
-Related: [DevOps Diagnostics](../diagnostics/devops.md), [Deploy to Cloud Run](deploy-cloud-run.md) (scale to zero), [Elasticity](../system-design/atributos-de-calidad.md#elasticidad).
+Related: [DevOps Diagnostics](../diagnostics/devops.md), [Deploy to Cloud Run](deploy-cloud-run.md) (scale to zero), [Elasticity](../system-design/quality-attributes.md#elasticity).

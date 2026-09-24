@@ -33,7 +33,7 @@ def verify_webhook_signature(payload: bytes, signature_header: str, secret: str)
 
 ## Idempotency — the same webhook can arrive duplicated
 
-If your endpoint doesn't respond in time (or responds with an error), the sender usually **retries** the same webhook later — your handler has to be able to process it twice without duplicating the effect (see [Idempotency](../system-design/atributos-de-calidad.md#idempotencia)). Most providers include a unique event ID in the payload — save it and check whether it was already processed before applying the effect again.
+If your endpoint doesn't respond in time (or responds with an error), the sender usually **retries** the same webhook later — your handler has to be able to process it twice without duplicating the effect (see [Idempotency](../system-design/quality-attributes.md#idempotency)). Most providers include a unique event ID in the payload — save it and check whether it was already processed before applying the effect again.
 
 ```python
 def handle_webhook(event):
@@ -48,4 +48,4 @@ def handle_webhook(event):
 Payments (Stripe, MercadoPago notify when a charge is confirmed), CI/CD (GitHub notifies an external service on a push or a PR), integrations (Slack, Discord notifying a bot of events).
 
 ---
-Related: [Idempotency](../system-design/atributos-de-calidad.md#idempotencia), [WebSocket / SSE / Streaming](../frontend-react/websocket-sse-streaming.md) (another way to receive data without polling, but with a persistent connection instead of one request per event).
+Related: [Idempotency](../system-design/quality-attributes.md#idempotency), [WebSocket / SSE / Streaming](../frontend-react/websocket-sse-streaming.md) (another way to receive data without polling, but with a persistent connection instead of one request per event).

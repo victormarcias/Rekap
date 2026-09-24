@@ -5,7 +5,7 @@ Estilo arquitectónico para diseñar APIs — no es lo mismo que "usar HTTP meth
 ## Las 6 restricciones
 
 1. **Cliente-servidor**: separación de responsabilidades — el cliente no sabe cómo está implementado el servidor (lenguaje, DB), el servidor no sabe cómo se renderiza la UI. Cada lado evoluciona independiente.
-2. **Stateless**: cada request trae toda la información necesaria para procesarlo — el servidor no guarda contexto de requests anteriores del mismo cliente entre llamadas. Ver [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad) (sesión compartida vs sesión en memoria — statelessness es lo que lo habilita).
+2. **Stateless**: cada request trae toda la información necesaria para procesarlo — el servidor no guarda contexto de requests anteriores del mismo cliente entre llamadas. Ver [Escalabilidad](../system-design/quality-attributes.es.md#escalabilidad) (sesión compartida vs sesión en memoria — statelessness es lo que lo habilita).
 3. **Cacheable**: las respuestas indican explícitamente si son cacheables (`Cache-Control`), para que el cliente o intermediarios las reusen sin volver a pedirlas. Ver [CDN](../devops/cdn.es.md).
 4. **Interfaz uniforme**: recursos identificados por URLs, manipulados con verbos HTTP estándar (ver [HTTP Methods](http-methods.es.md)) y representaciones auto-descriptivas (JSON con Content-Type) — más HATEOAS, ver abajo.
 5. **Sistema en capas**: el cliente no puede (ni necesita) saber si habla directo con el servidor de origen o con un proxy/gateway/load balancer en el medio. Ver [API Gateway](api-gateway.es.md), [Load balancers](load-balancers.es.md).
@@ -47,4 +47,4 @@ Sin esto, el cliente necesita conocer de antemano **todas** las URLs posibles, t
 En la práctica, casi ninguna API que se autodenomina "REST" implementa HATEOAS — la mayoría cumple solo con "recursos + verbos HTTP + JSON", que es apenas la mitad de la restricción de interfaz uniforme. Vale la pena tenerlo claro: si te preguntan "¿tu API es REST?", la respuesta honesta casi siempre es "es HTTP con convenciones REST, no REST completo".
 
 ---
-Relacionado: [HTTP Methods](http-methods.es.md), [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), [API Gateway](api-gateway.es.md), [CDN](../devops/cdn.es.md), [GraphQL](graphql.es.md) (la alternativa).
+Relacionado: [HTTP Methods](http-methods.es.md), [Escalabilidad](../system-design/quality-attributes.es.md#escalabilidad), [API Gateway](api-gateway.es.md), [CDN](../devops/cdn.es.md), [GraphQL](graphql.es.md) (la alternativa).

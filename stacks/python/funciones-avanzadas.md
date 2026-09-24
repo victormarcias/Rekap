@@ -2,7 +2,7 @@
 
 ## Decorators — la sintaxis del lenguaje
 
-Ya usamos decorators como ejemplo del [patrón Decorator](../../system-design/patrones-estructurales.md#decorator) — esto es la mecánica de la sintaxis `@` en sí.
+Ya usamos decorators como ejemplo del [patrón Decorator](../../system-design/structural-patterns.es.md#decorator) — esto es la mecánica de la sintaxis `@` en sí.
 
 `@decorador` arriba de una función es azúcar sintáctico — `func = decorador(func)`, aplicado automáticamente.
 
@@ -112,4 +112,4 @@ for n in Contador(3):   # 1, 2, 3
 Un generator (arriba) es, por detrás, un Iterator armado automáticamente por Python — no hace falta escribir `__iter__`/`__next__` a mano para lograr el mismo resultado.
 
 ---
-Relacionado: [Patrones estructurales](../../system-design/patrones-estructurales.md#decorator), [Escalabilidad de Base de Datos](../../database/scaling-database.es.md#procesar-resultados-grandes-en-chunks).
+Relacionado: [Patrones estructurales](../../system-design/structural-patterns.es.md#decorator), [Escalabilidad de Base de Datos](../../database/scaling-database.es.md#procesar-resultados-grandes-en-chunks).

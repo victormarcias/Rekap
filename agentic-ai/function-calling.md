@@ -60,7 +60,7 @@ Es exactamente el mecanismo de bajo nivel detrás del [loop de ReAct](agentes-vs
 
 ## Multi-turn y tool calls en paralelo
 
-Una tarea puede necesitar varias vueltas de este loop (llamar una tool, ver el resultado, decidir llamar otra) antes de dar la respuesta final — no hay un límite fijo de pasos, el LLM decide cuándo ya tiene lo que necesita (por eso conviene un [Circuit Breaker](../system-design/atributos-de-calidad.md#tolerancia-a-fallos) si algo se cuelga reintentando, ver [Costos de LLMs](costos-llms.md#evitar-gasto-por-loops-que-no-cortan-solos)). Algunos modelos también pueden pedir **varias tool calls en la misma respuesta** (ej. "necesito el clima de 3 ciudades") para ejecutarlas en paralelo en vez de una por una.
+Una tarea puede necesitar varias vueltas de este loop (llamar una tool, ver el resultado, decidir llamar otra) antes de dar la respuesta final — no hay un límite fijo de pasos, el LLM decide cuándo ya tiene lo que necesita (por eso conviene un [Circuit Breaker](../system-design/quality-attributes.es.md#tolerancia-a-fallos) si algo se cuelga reintentando, ver [Costos de LLMs](costos-llms.md#evitar-gasto-por-loops-que-no-cortan-solos)). Algunos modelos también pueden pedir **varias tool calls en la misma respuesta** (ej. "necesito el clima de 3 ciudades") para ejecutarlas en paralelo en vez de una por una.
 
 ## Function calling vs MCP
 

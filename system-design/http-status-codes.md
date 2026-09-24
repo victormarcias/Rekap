@@ -1,20 +1,20 @@
 # HTTP Status Codes
 
-El primer dígito define la categoría; ese dígito solo ya le dice al cliente cómo interpretar la respuesta sin necesidad de leer el body.
+The first digit defines the category; that digit alone already tells the client how to interpret the response without reading the body.
 
 ## 1xx — Informational
 
-Respuestas provisorias, antes de la respuesta final — el cliente casi nunca las maneja directo, las resuelve la capa HTTP por debajo.
+Provisional responses, before the final one — the client almost never handles these directly, the HTTP layer underneath resolves them.
 
-- **100 Continue**: el servidor confirma que puede recibir el resto de un request grande antes de que el cliente lo mande completo (evita subir un body enorme para que recién ahí el servidor lo rechace).
-- **101 Switching Protocols**: confirma el upgrade de protocolo — es el mecanismo por el que arranca una conexión WebSocket (ver [WebSocket / SSE / Streaming](../frontend-react/websocket-sse-streaming.md)).
+- **100 Continue**: the server confirms it can receive the rest of a large request before the client sends it in full (avoids uploading a huge body only for the server to reject it afterward).
+- **101 Switching Protocols**: confirms the protocol upgrade — it's the mechanism a WebSocket connection starts with (see [WebSocket / SSE / Streaming](../frontend-react/websocket-sse-streaming.md)).
 
 ## 2xx — Success
 
-- **200 OK**: éxito genérico, con body en la respuesta. El default para casi cualquier `GET`/`PUT`/`PATCH` exitoso.
-- **201 Created**: el request creó un recurso nuevo (`POST` típicamente). La respuesta debería incluir dónde vive ese recurso (header `Location`, o el id en el body).
-- **202 Accepted**: el request se aceptó pero el procesamiento es asíncrono — todavía no terminó. Típico en colas de trabajo (ver [Idempotencia](atributos-de-calidad.md#idempotencia) para el caso de reintentos sobre este tipo de request).
-- **204 No Content**: éxito, pero no hay nada que devolver en el body — común en `DELETE` o en un `PUT` donde el cliente ya tiene el dato actualizado.
+- **200 OK**: generic success, with a body in the response. The default for almost any successful `GET`/`PUT`/`PATCH`.
+- **201 Created**: the request created a new resource (typically `POST`). The response should include where that resource lives (a `Location` header, or the id in the body).
+- **202 Accepted**: the request was accepted but processing is asynchronous — it hasn't finished yet. Typical in work queues (see [Idempotency](quality-attributes.md#idempotency) for the retry case on this kind of request).
+- **204 No Content**: success, but there's nothing to return in the body — common on `DELETE` or on a `PUT` where the client already has the updated data.
 
 ```
 POST /orders          → 201 Created   (Location: /orders/42)
@@ -24,33 +24,33 @@ GET /orders/42          → 200 OK
 
 ## 3xx — Redirection
 
-- **301 Moved Permanently**: el recurso se mudó para siempre — los browsers y crawlers cachean este redirect agresivamente, actualizan sus links.
-- **302 Found**: redirect temporal — el recurso sigue ahí, esta vez apunta para otro lado, pero no hay que actualizar nada permanentemente.
-- **304 Not Modified**: respuesta a un request condicional (`If-None-Match`/`If-Modified-Since`) — le dice al cliente "tu copia cacheada sigue siendo válida, no te mando el body de nuevo". La base de la cache HTTP (ver [CDN](../devops/cdn.es.md)).
+- **301 Moved Permanently**: the resource moved for good — browsers and crawlers cache this redirect aggressively, update their links.
+- **302 Found**: temporary redirect — the resource is still there, it just points elsewhere this time, but nothing needs to be permanently updated.
+- **304 Not Modified**: response to a conditional request (`If-None-Match`/`If-Modified-Since`) — tells the client "your cached copy is still valid, I'm not sending you the body again." The basis of HTTP caching (see [CDN](../devops/cdn.md)).
 
 ## 4xx — Client Error
 
-El error es del lado del cliente — el request está mal formado, no autenticado, no autorizado, o pide algo que no existe.
+The error is on the client's side — the request is malformed, unauthenticated, unauthorized, or asking for something that doesn't exist.
 
-- **400 Bad Request**: el request está malformado o no pasa la validación (falta un campo requerido, un tipo inválido).
-- **401 Unauthorized**: no está autenticado — falta el token, o es inválido/expiró.
-- **403 Forbidden**: está autenticado, pero no tiene permiso para esta acción. Ver la distinción completa en [Autenticación vs Autorización](../backend/authentication.es.md#7-autenticación-vs-autorización) — es el error más confundido de toda la lista.
-- **404 Not Found**: el recurso no existe. También se usa a veces **a propósito** en vez de `403`, para no filtrarle a un atacante que un recurso existe pero no tiene permiso — depende de cuánta información querés exponer.
-- **405 Method Not Allowed**: el recurso existe, pero no soporta ese verbo HTTP (ej. `DELETE /orders` cuando esa ruta solo acepta `GET`/`POST`).
-- **409 Conflict**: el request es válido, pero choca con el estado actual del recurso — el caso típico es un update basado en una versión vieja (ver [Optimistic locking](../database/locks.es.md#pessimistic-vs-optimistic-locking)).
-- **422 Unprocessable Entity**: el request tiene el formato correcto (JSON válido) pero los datos no pasan las reglas de negocio/validación — la línea con `400` es fina y varía según el equipo; muchos frameworks (FastAPI incluido) usan `422` específicamente para errores de validación de schema.
-- **429 Too Many Requests**: rate limit excedido — normalmente viene con un header `Retry-After` indicando cuánto esperar antes de reintentar.
+- **400 Bad Request**: the request is malformed or fails validation (missing a required field, an invalid type).
+- **401 Unauthorized**: not authenticated — the token is missing, or invalid/expired.
+- **403 Forbidden**: authenticated, but no permission for this action. See the full distinction in [Authentication vs Authorization](../backend/authentication.md#7-authentication-vs-authorization) — the most confused error on the whole list.
+- **404 Not Found**: the resource doesn't exist. Also sometimes used **on purpose** instead of `403`, to avoid leaking to an attacker that a resource exists but they lack permission — depends on how much information you want to expose.
+- **405 Method Not Allowed**: the resource exists, but doesn't support that HTTP verb (e.g. `DELETE /orders` when that route only accepts `GET`/`POST`).
+- **409 Conflict**: the request is valid, but clashes with the resource's current state — the typical case is an update based on a stale version (see [Optimistic locking](../database/locks.md#pessimistic-vs-optimistic-locking)).
+- **422 Unprocessable Entity**: the request has the correct format (valid JSON) but the data fails business rules/validation — the line with `400` is thin and varies by team; many frameworks (FastAPI included) use `422` specifically for schema validation errors.
+- **429 Too Many Requests**: rate limit exceeded — usually comes with a `Retry-After` header indicating how long to wait before retrying.
 
 ## 5xx — Server Error
 
-El error es del lado del servidor — el cliente hizo todo bien, algo se rompió del otro lado.
+The error is on the server's side — the client did everything right, something broke on the other end.
 
-- **500 Internal Server Error**: error genérico no manejado — una excepción que se escapó sin un handler específico (ver [Manejo de excepciones](../stacks/fastapi/endpoints-microservicios.md#5-manejo-de-excepciones-con-appexception_handler)).
-- **502 Bad Gateway**: un proxy/load balancer recibió una respuesta inválida del servidor de origen (el servidor de atrás está caído o devolvió basura).
-- **503 Service Unavailable**: el servidor está temporalmente no disponible (sobrecargado, en mantenimiento) — normalmente con `Retry-After`.
-- **504 Gateway Timeout**: un proxy/load balancer esperó demasiado la respuesta del servidor de origen y se rindió.
+- **500 Internal Server Error**: generic unhandled error — an exception that escaped without a specific handler (see [Exception handling](../stacks/fastapi/endpoints-microservicios.md#5-manejo-de-excepciones-con-appexception_handler)).
+- **502 Bad Gateway**: a proxy/load balancer got an invalid response from the origin server (the server behind it is down or returned garbage).
+- **503 Service Unavailable**: the server is temporarily unavailable (overloaded, under maintenance) — usually with `Retry-After`.
+- **504 Gateway Timeout**: a proxy/load balancer waited too long for the origin server's response and gave up.
 
-**502 vs 503 vs 504**: los tres los suele devolver el load balancer, no la app — `502` es "el backend contestó algo que no entiendo o no contestó nada válido", `503` es "el backend no está aceptando conexiones ahora mismo", `504` es "el backend nunca contestó a tiempo". Distinguirlos ayuda a saber dónde mirar: `504` apunta a lentitud (ver [Diagnóstico Backend](../diagnostics/backend.es.md)), `502`/`503` apuntan a que el proceso está caído o no arrancó.
+**502 vs 503 vs 504**: all three are usually returned by the load balancer, not the app — `502` is "the backend answered something I don't understand or didn't answer anything valid," `503` is "the backend isn't accepting connections right now," `504` is "the backend never answered in time." Distinguishing them helps you know where to look: `504` points to slowness (see [Backend Diagnostics](../diagnostics/backend.md)), `502`/`503` point to the process being down or never having started.
 
 ---
-Relacionado: [Autenticación vs Autorización](../backend/authentication.es.md#7-autenticación-vs-autorización), [Idempotencia](atributos-de-calidad.md#idempotencia), [Endpoints para microservicios](../stacks/fastapi/endpoints-microservicios.md).
+Related: [Authentication vs Authorization](../backend/authentication.md#7-authentication-vs-authorization), [Idempotency](quality-attributes.md#idempotency), [Endpoints for microservices](../stacks/fastapi/endpoints-microservicios.md).

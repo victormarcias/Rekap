@@ -1,10 +1,10 @@
 # Testing en React
 
-Para la teoría general (test pyramid, mocks/stubs, fixtures, tests frágiles vs robustos) ver [Testing — Conceptos Generales](../system-design/testing.md). Acá el foco es qué cambia específicamente al testear una UI de React.
+Para la teoría general (test pyramid, mocks/stubs, fixtures, tests frágiles vs robustos) ver [Testing — Conceptos Generales](../system-design/testing.es.md). Acá el foco es qué cambia específicamente al testear una UI de React.
 
 ## Qué testeamos
 
-En frontend, lo que vale la pena testear es **comportamiento visible para el usuario** — qué se renderiza, qué pasa cuando el usuario interactúa — no detalles internos de implementación (nombres de funciones internas, estado interno de un hook). Un test que rompe porque se refactorizó un componente por dentro sin cambiar su comportamiento externo es un test frágil (ver [Tests frágiles vs robustos](../system-design/testing.md#7-tests-frágiles-vs-tests-robustos)).
+En frontend, lo que vale la pena testear es **comportamiento visible para el usuario** — qué se renderiza, qué pasa cuando el usuario interactúa — no detalles internos de implementación (nombres de funciones internas, estado interno de un hook). Un test que rompe porque se refactorizó un componente por dentro sin cambiar su comportamiento externo es un test frágil (ver [Tests frágiles vs robustos](../system-design/testing.es.md#7-tests-frágiles-vs-tests-robustos)).
 
 ## Jest — lo básico
 
@@ -24,7 +24,7 @@ describe('sumar', () => {
 
 Matchers comunes de `expect`: `toBe` (igualdad estricta, `===`), `toEqual` (igualdad estructural — compara el contenido de un objeto/array, no la referencia), `toContain` (un array/string contiene algo), `toBeNull`/`toBeUndefined`, `toThrow` (la función lanza un error).
 
-**Mocks con `jest.fn()` / `jest.mock()`**: reemplazar una función o un módulo entero por una versión falsa controlada por el test — el mismo concepto de [Mock](../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) explicado en la teoría general, acá con la sintaxis concreta de Jest.
+**Mocks con `jest.fn()` / `jest.mock()`**: reemplazar una función o un módulo entero por una versión falsa controlada por el test — el mismo concepto de [Mock](../system-design/testing.es.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) explicado en la teoría general, acá con la sintaxis concreta de Jest.
 
 ```js
 const fetchUsuario = jest.fn(() => Promise.resolve({ id: 1, name: 'Vic' }));
@@ -82,7 +82,7 @@ describe('Login', () => {
 });
 ```
 
-El costo de E2E es que es más lento y más frágil ante cambios de infraestructura (si el backend está caído, el test falla aunque el frontend esté perfecto) — por eso va en la punta angosta de la [test pyramid](../system-design/testing.md#1-test-pyramid): pocos tests E2E cubriendo los flujos críticos (login, checkout), muchos más unit tests con RTL cubriendo el resto.
+El costo de E2E es que es más lento y más frágil ante cambios de infraestructura (si el backend está caído, el test falla aunque el frontend esté perfecto) — por eso va en la punta angosta de la [test pyramid](../system-design/testing.es.md#1-test-pyramid): pocos tests E2E cubriendo los flujos críticos (login, checkout), muchos más unit tests con RTL cubriendo el resto.
 
 ## Herramientas E2E: Selenium vs Cypress vs Playwright
 

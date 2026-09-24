@@ -1,10 +1,10 @@
-# Patrones de Diseño — Comportamiento
+# Design Patterns — Behavioral
 
-Patrones que definen cómo se comunican y reparten responsabilidades los objetos entre sí.
+Patterns that define how objects communicate and split responsibilities among themselves.
 
 ## Strategy
 
-Familia de algoritmos intercambiables, cada uno encapsulado en su propia clase, seleccionable en runtime. Evita los `if/elif` gigantes que crecen con cada caso nuevo y violan Open/Closed.
+A family of interchangeable algorithms, each encapsulated in its own class, selectable at runtime. Avoids giant `if/elif` chains that grow with every new case and violate Open/Closed.
 
 ```python
 class VipDiscount:
@@ -16,14 +16,14 @@ class RegularDiscount:
 def checkout(total: float, strategy):
     return total - strategy.apply(total)
 
-checkout(100, VipDiscount())  # el algoritmo de descuento se elige desde afuera, sin tocar checkout()
+checkout(100, VipDiscount())  # the discount algorithm is chosen from outside, without touching checkout()
 ```
 
-Ver el ejemplo completo (con TypeScript) en [Open/Closed Principle](solid.md) — Strategy es la implementación concreta de ese principio.
+See the full example (in TypeScript) in [Open/Closed Principle](solid.md) — Strategy is the concrete implementation of that principle.
 
 ## Observer
 
-Un objeto (subject) mantiene una lista de dependientes (observers) y les notifica automáticamente cualquier cambio de estado. Es la base de los event emitters, pub/sub, y de cómo React decide re-renderizar cuando cambia el estado.
+An object (subject) keeps a list of dependents (observers) and automatically notifies them of any state change. It's the basis of event emitters, pub/sub, and how React decides to re-render when state changes.
 
 ```python
 class EventEmitter:
@@ -40,7 +40,7 @@ class EventEmitter:
 emitter = EventEmitter()
 emitter.on("order_created", lambda order: send_confirmation_email(order))
 emitter.on("order_created", lambda order: update_inventory(order))
-emitter.emit("order_created", order)  # ambos listeners se disparan, desacoplados entre sí
+emitter.emit("order_created", order)  # both listeners fire, decoupled from each other
 ```
 
 ```ts
@@ -63,7 +63,7 @@ emitter.emit('order_created', order);
 
 ## Command
 
-Encapsula una acción (y sus parámetros) como un objeto, en vez de ejecutarla directo. Permite encolar, loguear, reintentar o deshacer esa acción sin acoplar quién la dispara con quién la ejecuta.
+Encapsulates an action (and its parameters) as an object, instead of executing it directly. Allows queuing, logging, retrying, or undoing that action without coupling whoever triggers it to whoever executes it.
 
 ```ts
 interface Command { execute(): Promise<void>; }
@@ -73,7 +73,7 @@ class SendEmailCommand implements Command {
   async execute() { await emailService.send(this.to, this.body); }
 }
 
-// ✅ la cola solo necesita saber ejecutar Commands, no conocer cada tipo de tarea
+// ✅ the queue only needs to know how to execute Commands, not know about each task type
 class JobQueue {
   private queue: Command[] = [];
   push(cmd: Command) { this.queue.push(cmd); }
@@ -81,12 +81,12 @@ class JobQueue {
 }
 
 const queue = new JobQueue();
-queue.push(new SendEmailCommand('ana@mail.com', 'Bienvenida'));
+queue.push(new SendEmailCommand('ana@mail.com', 'Welcome'));
 ```
 
 ## Chain of Responsibility
 
-Pasa un request a través de una cadena de handlers, donde cada uno decide si lo procesa, lo modifica, o lo pasa al siguiente. Los middlewares (Express, Django, cualquier framework HTTP) son el ejemplo más común de este patrón en el día a día.
+Passes a request through a chain of handlers, where each one decides whether to process it, modify it, or pass it to the next one. Middlewares (Express, Django, any HTTP framework) are the most common everyday example of this pattern.
 
 ```python
 class Handler:
@@ -100,18 +100,18 @@ class Handler:
 class AuthHandler(Handler):
     def handle(self, request):
         if not request.get("token"):
-            raise PermissionError("No autenticado")
+            raise PermissionError("Not authenticated")
         return super().handle(request)
 
 class RateLimitHandler(Handler):
     def handle(self, request):
         if is_rate_limited(request["user_id"]):
-            raise Exception("Rate limit excedido")
+            raise Exception("Rate limit exceeded")
         return super().handle(request)
 
 chain = AuthHandler(RateLimitHandler())
-chain.handle(request)  # pasa por auth, luego rate limit, luego el resto de la lógica
+chain.handle(request)  # goes through auth, then rate limit, then the rest of the logic
 ```
 
 ---
-Relacionado: [SOLID principles](solid.md) · catálogo completo en [refactoring.guru](https://refactoring.guru/design-patterns/behavioral-patterns).
+Related: [SOLID principles](solid.md) · full catalog at [refactoring.guru](https://refactoring.guru/design-patterns/behavioral-patterns).

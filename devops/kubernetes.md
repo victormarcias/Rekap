@@ -37,4 +37,4 @@ spec:
 The three pieces work together: HPA decides how many pods are needed, resource limits define how much each one can consume, and the readiness probe keeps a pod the HPA just created from receiving traffic before it's ready.
 
 ---
-Related: [Availability](../system-design/atributos-de-calidad.md#disponibilidad), [Elasticity](../system-design/atributos-de-calidad.md#elasticidad), [DevOps Diagnostics](../diagnostics/devops.md).
+Related: [Availability](../system-design/quality-attributes.md#availability), [Elasticity](../system-design/quality-attributes.md#elasticity), [DevOps Diagnostics](../diagnostics/devops.md).

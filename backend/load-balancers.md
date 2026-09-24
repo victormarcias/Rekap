@@ -1,6 +1,6 @@
 # Load Balancers
 
-Distribute incoming traffic across several instances of a service — the piece that makes [horizontal scalability](../system-design/atributos-de-calidad.md#escalabilidad) possible.
+Distribute incoming traffic across several instances of a service — the piece that makes [horizontal scalability](../system-design/quality-attributes.md#scalability) possible.
 
 ## L4 vs L7
 
@@ -20,7 +20,7 @@ Distribute incoming traffic across several instances of a service — the piece 
 
 - **Round robin**: distributes in circular order, one by one. Simple, works well if all instances have similar capacity.
 - **Least connections**: sends the next request to the instance with the fewest active connections right now — better when requests have highly variable duration (an instance with slow requests doesn't keep getting more traffic just because "it was its turn").
-- **Sticky sessions (IP hash)**: the same client IP always goes to the same instance — useful if there's server-side in-memory state that can't be shared (ideally, see [Scalability](../system-design/atributos-de-calidad.md#escalabilidad), you don't need this at all).
+- **Sticky sessions (IP hash)**: the same client IP always goes to the same instance — useful if there's server-side in-memory state that can't be shared (ideally, see [Scalability](../system-design/quality-attributes.md#scalability), you don't need this at all).
 
 ## Who's who
 
@@ -35,4 +35,4 @@ Distribute incoming traffic across several instances of a service — the piece 
 | **K8s Ingress** | L7 | The standard way to expose an K8s cluster's HTTP services externally |
 
 ---
-Related: [Kubernetes](../devops/kubernetes.md), [Scalability](../system-design/atributos-de-calidad.md#escalabilidad), [Deploy to a VPS](../devops/deploy-vps.md) (Nginx as reverse proxy).
+Related: [Kubernetes](../devops/kubernetes.md), [Scalability](../system-design/quality-attributes.md#scalability), [Deploy to a VPS](../devops/deploy-vps.md) (Nginx as reverse proxy).

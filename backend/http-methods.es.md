@@ -24,7 +24,7 @@ PATCH /users/1  {"email": "nueva@mail.com"}
 
 ## Idempotencia por verbo
 
-Ya cubierto en detalle en [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia) — repaso rápido aplicado a los verbos:
+Ya cubierto en detalle en [Idempotencia](../system-design/quality-attributes.es.md#idempotencia) — repaso rápido aplicado a los verbos:
 
 | Verbo | Idempotente | Por qué |
 |---|---|---|
@@ -37,4 +37,4 @@ Ya cubierto en detalle en [Idempotencia](../system-design/atributos-de-calidad.m
 Esto es exactamente por qué un reintento automático de red es seguro en un `PUT`/`DELETE` pero riesgoso en un `POST` sin una idempotency key.
 
 ---
-Relacionado: [REST](rest.es.md) (los métodos son una pieza de su interfaz uniforme, no lo mismo que REST), [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia), [HTTP Status Codes](../system-design/http-status-codes.md) (`405 Method Not Allowed` cuando un recurso no soporta el verbo pedido).
+Relacionado: [REST](rest.es.md) (los métodos son una pieza de su interfaz uniforme, no lo mismo que REST), [Idempotencia](../system-design/quality-attributes.es.md#idempotencia), [HTTP Status Codes](../system-design/http-status-codes.es.md) (`405 Method Not Allowed` cuando un recurso no soporta el verbo pedido).

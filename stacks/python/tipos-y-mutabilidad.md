@@ -26,7 +26,7 @@ persona.get("email", "N/A")     # acceso seguro: devuelve "N/A" en vez de lanzar
 unicos = {1, 2, 2, 3}            # {1, 2, 3} — un set descarta duplicados automáticamente, porque es mutable pero sin orden
 ```
 
-Por qué importa: un objeto mutable pasado como argumento a una función puede ser modificado por esa función y el cambio "se ve" afuera; uno inmutable, no — ver [Shallow copy vs Deep copy](../../system-design/atributos-de-calidad.md#shallow-copy-vs-deep-copy) para el caso más sutil (mutar algo anidado dentro de una copia "nueva").
+Por qué importa: un objeto mutable pasado como argumento a una función puede ser modificado por esa función y el cambio "se ve" afuera; uno inmutable, no — ver [Shallow copy vs Deep copy](../../system-design/quality-attributes.es.md#shallow-copy-vs-deep-copy) para el caso más sutil (mutar algo anidado dentro de una copia "nueva").
 
 ## `is` vs `==`
 
@@ -68,4 +68,4 @@ def add_item(item, cart=None):
 Uno de los gotchas más conocidos de Python — la razón de fondo es que los valores default de una función se evalúan **una sola vez**, al definir la función, no en cada llamada.
 
 ---
-Relacionado: [Shallow copy vs Deep copy](../../system-design/atributos-de-calidad.md#shallow-copy-vs-deep-copy), [Sintaxis general](sintaxis.md).
+Relacionado: [Shallow copy vs Deep copy](../../system-design/quality-attributes.es.md#shallow-copy-vs-deep-copy), [Sintaxis general](sintaxis.md).

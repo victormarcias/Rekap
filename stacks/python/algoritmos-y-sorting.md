@@ -1,6 +1,6 @@
 # Python — Algoritmos, Sorting y Estructuras de Datos
 
-Aplicación práctica de [Big-O](../../system-design/big-o.md) a las estructuras y funciones built-in de Python — qué estructura/función elegir para que el código no se vuelva el cuello de botella con datasets grandes.
+Aplicación práctica de [Big-O](../../system-design/big-o.es.md) a las estructuras y funciones built-in de Python — qué estructura/función elegir para que el código no se vuelva el cuello de botella con datasets grandes.
 
 ## Big-O de las estructuras built-in — lo que hay que saber de memoria
 
@@ -116,4 +116,4 @@ nums                              # [1, 3, 4, 4, 5, 6, 8]
 O(log n) para encontrar el punto de inserción — mucho más rápido que agregar un elemento y volver a ordenar todo (O(n log n)) cada vez que se necesita insertar manteniendo el orden. Requiere que la lista ya esté ordenada de antemano — `bisect` no ordena, solo busca dónde insertar.
 
 ---
-Relacionado: [Big-O](../../system-design/big-o.md), [Módulo `collections`](collections-module.md) (`deque` para ventanas de eventos), [Índices](../../database/indexes.es.md) (mismo espíritu de Big-O, a nivel de DB).
+Relacionado: [Big-O](../../system-design/big-o.es.md), [Módulo `collections`](collections-module.md) (`deque` para ventanas de eventos), [Índices](../../database/indexes.es.md) (mismo espíritu de Big-O, a nivel de DB).

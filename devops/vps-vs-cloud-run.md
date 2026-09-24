@@ -41,4 +41,4 @@ VPS and Cloud Run are two points on a wider spectrum — as you move along it, y
 | **Cons** | You're responsible for security, updates, and capacity planning; you pay the same whether there's traffic or not; scaling means provisioning more machines by hand (or building your own autoscaling) | Cold start on sporadic traffic; less control (no access to the underlying OS); at high, sustained traffic it can end up costing more than your own machine; locked into the platform's conventions (request time limits, image size, etc.) |
 
 ---
-Related: [Deploy to a VPS](deploy-vps.md), [Deploy to Cloud Run](deploy-cloud-run.md), [Cold start](../diagnostics/devops.md), [Elasticity](../system-design/atributos-de-calidad.md#elasticidad).
+Related: [Deploy to a VPS](deploy-vps.md), [Deploy to Cloud Run](deploy-cloud-run.md), [Cold start](../diagnostics/devops.md), [Elasticity](../system-design/quality-attributes.md#elasticity).

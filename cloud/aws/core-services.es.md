@@ -30,7 +30,7 @@ Conceptos que se piden con menos frecuencia que la tabla de arriba, pero vale la
 | **Nginx** | Reverse proxy / web server | Termina TLS, sirve estáticos, hace de reverse proxy delante de la app. Ya desarrollado en [Nginx como reverse proxy](../../devops/deploy-vps.es.md#4-nginx-como-reverse-proxy). |
 | **CDN (CloudFront)** | Networking / distribución de contenido | Cachea contenido cerca del usuario final — CloudFront es el CDN de AWS, ver [Comparación de Proveedores](../provider-comparison.es.md) para el equivalente en Azure/GCP y [CDN](../../devops/cdn.es.md) para el concepto genérico. |
 | **VPC** | Networking | Red virtual aislada donde corren los recursos de una cuenta cloud — ver [Comparación de Proveedores](../provider-comparison.es.md). |
-| **DNS** | Networking | Traduce nombres de dominio a IPs — ya desarrollado en [Resolución DNS](../../system-design/que-pasa-cuando-escribis-una-url.md#2-resolución-dns--de-dominio-a-ip). |
+| **DNS** | Networking | Traduce nombres de dominio a IPs — ya desarrollado en [Resolución DNS](../../system-design/what-happens-when-you-type-a-url.es.md#2-resolución-dns--de-dominio-a-ip). |
 
 ---
 Relacionado: [Comparación de Proveedores](../provider-comparison.es.md), [Backend](../../backend/README.es.md), [Database](../../database/README.es.md), [DevOps](../../devops/).

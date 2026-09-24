@@ -193,7 +193,7 @@ def can_checkout(cart_total):
     return cart_total >= FREE_SHIPPING_THRESHOLD
 ```
 
-[SOLID](solid.md) es, en esencia, un conjunto de principios pensados para maximizar esto — el Open/Closed Principle en particular ("abierto a extensión, cerrado a modificación") es la versión más directa de "agregar una feature nueva sin tener que tocar código que ya funciona y ya está probado".
+[SOLID](solid.es.md) es, en esencia, un conjunto de principios pensados para maximizar esto — el Open/Closed Principle en particular ("abierto a extensión, cerrado a modificación") es la versión más directa de "agregar una feature nueva sin tener que tocar código que ya funciona y ya está probado".
 
 ## Performance (Velocidad)
 

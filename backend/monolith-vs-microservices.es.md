@@ -14,9 +14,9 @@ Toda la aplicación es **un solo codebase, un solo proceso, un solo deploy**. La
 
 Cada parte del sistema es un **servicio independiente**, con su propio proceso, su propio deploy, y (idealmente) su propia base de datos. Se comunican por red — HTTP, o de forma asíncrona vía colas/eventos (ver [Arquitectura Kafka](kafka.es.md), [Colas de mensajes](message-queues.es.md)).
 
-**A favor**: cada servicio escala de forma independiente (ver [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad)); un equipo puede deployar su servicio sin coordinar con los demás; un bug en un servicio no necesariamente tira abajo los otros.
+**A favor**: cada servicio escala de forma independiente (ver [Escalabilidad](../system-design/quality-attributes.es.md#escalabilidad)); un equipo puede deployar su servicio sin coordinar con los demás; un bug en un servicio no necesariamente tira abajo los otros.
 
-**En contra**: lo que antes era una llamada de función ahora es una llamada de red — más lenta, y puede fallar (ver [Tolerancia a fallos](../system-design/atributos-de-calidad.md#tolerancia-a-fallos)); una transacción que cruza dos servicios ya no es una transacción de DB simple — hay que resolverlo con patrones más complejos (sagas, eventual consistency); mucha más complejidad operacional (monitoreo, deploys, versionado de contratos entre servicios).
+**En contra**: lo que antes era una llamada de función ahora es una llamada de red — más lenta, y puede fallar (ver [Tolerancia a fallos](../system-design/quality-attributes.es.md#tolerancia-a-fallos)); una transacción que cruza dos servicios ya no es una transacción de DB simple — hay que resolverlo con patrones más complejos (sagas, eventual consistency); mucha más complejidad operacional (monitoreo, deploys, versionado de contratos entre servicios).
 
 ## El anti-patrón: distributed monolith
 
@@ -27,4 +27,4 @@ El peor de los dos mundos: servicios separados en el deploy, pero tan acoplados 
 "Monolito first" es un consejo común: arrancar con un monolito bien organizado por capas (ver [Controller / Service / Repository](controller-service-repository.es.md)) y **extraer** servicios recién cuando una parte específica realmente necesita escalar o deployarse de forma independiente — no partir en microservicios desde el día uno sin tener todavía claro dónde están los límites naturales del dominio.
 
 ---
-Relacionado: [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), [Controller / Service / Repository](controller-service-repository.es.md), [API Gateway](api-gateway.es.md).
+Relacionado: [Escalabilidad](../system-design/quality-attributes.es.md#escalabilidad), [Controller / Service / Repository](controller-service-repository.es.md), [API Gateway](api-gateway.es.md).

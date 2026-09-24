@@ -76,4 +76,4 @@ Cada fase, por separado, es compatible con el código viejo y con el nuevo — n
 Un `ALTER TABLE` no es gratis en tablas grandes: agregar una columna con un valor default en versiones viejas de Postgres (<11) reescribía la tabla entera bajo un lock exclusivo, bloqueando lecturas y escrituras durante toda la operación. Ver [Locks](locks.es.md) — vale la pena confirmar qué tipo de lock toma cada operación de tu motor específico antes de correr una migración sobre una tabla con tráfico real en producción.
 
 ---
-Relacionado: [Locks](locks.es.md), [ACID / transacciones / isolation levels](acid.es.md), [Atributos de calidad de sistemas](../system-design/atributos-de-calidad.md) (Disponibilidad).
+Relacionado: [Locks](locks.es.md), [ACID / transacciones / isolation levels](acid.es.md), [Atributos de calidad de sistemas](../system-design/quality-attributes.es.md) (Disponibilidad).

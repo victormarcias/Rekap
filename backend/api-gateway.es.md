@@ -7,7 +7,7 @@ Un único punto de entrada que recibe todo el tráfico externo y lo rutea hacia 
 Un [Load Balancer](load-balancers.es.md) reparte tráfico entre **réplicas del mismo servicio** (round robin, least connections). Un API Gateway rutea entre **servicios distintos** (`/orders` va al servicio de órdenes, `/users` va al servicio de usuarios) y además suele resolver responsabilidades transversales que ningún servicio individual debería tener que implementar por su cuenta:
 
 - **Autenticación centralizada**: valida el token una sola vez, en el borde, antes de que el request llegue a ningún servicio interno.
-- **Rate limiting**: aplica límites de uso por cliente/API key en un solo lugar (ver [429 Too Many Requests](../system-design/http-status-codes.md#4xx--client-error)).
+- **Rate limiting**: aplica límites de uso por cliente/API key en un solo lugar (ver [429 Too Many Requests](../system-design/http-status-codes.es.md#4xx--client-error)).
 - **Transformación de request/response**: adapta formatos entre lo que expone el cliente externo y lo que espera cada servicio interno.
 - **Agregación**: un solo request del cliente puede traducirse en varias llamadas a distintos servicios internos, combinando las respuestas en una sola — el patrón **BFF (Backend for Frontend)** es una variante de esto, un gateway a medida para cada tipo de cliente (web, mobile).
 

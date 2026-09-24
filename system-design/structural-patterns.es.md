@@ -152,4 +152,4 @@ const repo: UserRepository = new CachedUserRepository(new RealUserRepository());
 Adapter y Proxy son el mismo rol que cumple un `protocol` de Swift envolviendo un SDK de terceros, o el viejo bridging Objective-C ↔ Swift: tu código habla contra el protocolo que vos definiste, y el wrapper traduce hacia/desde la librería externa.
 
 ---
-Relacionado: [SOLID principles](solid.md) (Adapter y Proxy son aplicaciones directas de Dependency Inversion) · catálogo completo en [refactoring.guru](https://refactoring.guru/design-patterns/structural-patterns).
+Relacionado: [SOLID principles](solid.es.md) (Adapter y Proxy son aplicaciones directas de Dependency Inversion) · catálogo completo en [refactoring.guru](https://refactoring.guru/design-patterns/structural-patterns).

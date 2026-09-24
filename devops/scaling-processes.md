@@ -12,7 +12,7 @@ Once a single machine can't keep up anymore (all its cores are already in use, a
 
 ## The requirement: processes with no state of their own
 
-Whether it's multi-process on one machine or multi-instance across machines, each process has to be able to handle any request without depending on state that only it holds in memory — the same stateless condition from [Scalability](../system-design/atributos-de-calidad.md#escalabilidad) that enables horizontal scaling without breaking anything. A process that stores sessions in its own memory breaks as soon as there's more than one of it handling the same traffic.
+Whether it's multi-process on one machine or multi-instance across machines, each process has to be able to handle any request without depending on state that only it holds in memory — the same stateless condition from [Scalability](../system-design/quality-attributes.md#scalability) that enables horizontal scaling without breaking anything. A process that stores sessions in its own memory breaks as soon as there's more than one of it handling the same traffic.
 
 ---
 Related: [Clustering](../diagnostics/backend.md#clustering), [Vertical vs Horizontal Scalability](scaling-vertical-vs-horizontal.md), [Load balancers](../backend/load-balancers.md).

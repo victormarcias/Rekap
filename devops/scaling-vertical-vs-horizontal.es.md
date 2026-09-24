@@ -4,7 +4,7 @@ Las dos formas de darle más capacidad a un sistema.
 
 **Vertical**: agregarle más CPU/RAM a la misma máquina. Simple — no cambia nada de la arquitectura — pero tiene techo físico (no existe una instancia infinitamente grande) y casi siempre implica downtime al redimensionar (hay que rebootear).
 
-**Horizontal**: agregar más instancias corriendo en paralelo. Sin techo teórico, pero exige que la app sea *stateless* (sesión en un store compartido, no en memoria del proceso — ver el ejemplo de [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad)) y necesita un load balancer repartiendo el tráfico entre instancias.
+**Horizontal**: agregar más instancias corriendo en paralelo. Sin techo teórico, pero exige que la app sea *stateless* (sesión en un store compartido, no en memoria del proceso — ver el ejemplo de [Escalabilidad](../system-design/quality-attributes.es.md#escalabilidad)) y necesita un load balancer repartiendo el tráfico entre instancias.
 
 | | Vertical | Horizontal |
 |---|---|---|
@@ -16,4 +16,4 @@ Las dos formas de darle más capacidad a un sistema.
 En la práctica se combinan: cada instancia de un cluster horizontal también tiene un tamaño (vertical) elegido a su vez.
 
 ---
-Relacionado: [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), [Diagnóstico DevOps](../diagnostics/devops.es.md).
+Relacionado: [Escalabilidad](../system-design/quality-attributes.es.md#escalabilidad), [Diagnóstico DevOps](../diagnostics/devops.es.md).

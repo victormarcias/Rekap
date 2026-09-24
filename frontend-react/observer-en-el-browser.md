@@ -1,6 +1,6 @@
 # Patrón Observer en el browser
 
-El patrón Observer en general (un objeto notifica a una lista de dependientes cuando cambia) ya está cubierto en [Patrones de comportamiento](../system-design/patrones-comportamiento.md#observer). Acá el ángulo específico de frontend: el browser trae el patrón ya resuelto como APIs nativas, reemplazando código que antes se resolvía con polling manual (y su costo de performance).
+El patrón Observer en general (un objeto notifica a una lista de dependientes cuando cambia) ya está cubierto en [Patrones de comportamiento](../system-design/behavioral-patterns.es.md#observer). Acá el ángulo específico de frontend: el browser trae el patrón ya resuelto como APIs nativas, reemplazando código que antes se resolvía con polling manual (y su costo de performance).
 
 ## `MutationObserver`
 

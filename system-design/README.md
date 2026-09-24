@@ -1,15 +1,15 @@
 # System Design
 
-Teoría de diseño de software que aplica más allá del backend — patrones, principios y protocolos universales.
+Software design theory that applies beyond the backend — universal patterns, principles, and protocols.
 
-- [x] [Atributos de calidad de sistemas / "-ilities"](atributos-de-calidad.md)
+- [x] [System Quality Attributes / "-ilities"](quality-attributes.md)
 - [x] [Big-O](big-o.md)
 - [x] [Clean Architecture](clean-architecture.md)
 - [x] [HTTP Status Codes](http-status-codes.md)
-- [x] [Patrones de diseño — Comportamiento](patrones-comportamiento.md)
-- [x] [Patrones de diseño — Creacionales](patrones-creacionales.md)
-- [x] [Patrones de diseño — Estructurales](patrones-estructurales.md)
-- [x] [Qué pasa cuando escribís una URL](que-pasa-cuando-escribis-una-url.md)
+- [x] [Design Patterns — Behavioral](behavioral-patterns.md)
+- [x] [Design Patterns — Creational](creational-patterns.md)
+- [x] [Design Patterns — Structural](structural-patterns.md)
+- [x] [What happens when you type a URL](what-happens-when-you-type-a-url.md)
 - [x] [SOLID principles](solid.md)
-- [x] [Testing — conceptos generales](testing.md)
-- [x] [White-Label: Consideraciones](white-label.md)
+- [x] [Testing — general concepts](testing.md)
+- [x] [White-Label: Considerations](white-label.md)
