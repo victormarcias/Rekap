@@ -19,4 +19,4 @@ Repaso técnico condensado, organizado para repasar rápido.
 
 ## Glosario
 
-- [📖 Glosario](GLOSARIO.md) — todos los términos técnicos, ordenados alfabéticamente
+- [📖 Glosario](GLOSSARY.es.md) — todos los términos técnicos, ordenados alfabéticamente

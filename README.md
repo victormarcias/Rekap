@@ -19,4 +19,4 @@ Condensed technical review, organized for quick refreshers.
 
 ## Glossary
 
-- [📖 Glossary](GLOSARIO.md) — all technical terms, alphabetically ordered
+- [📖 Glossary](GLOSSARY.md) — all technical terms, alphabetically ordered
