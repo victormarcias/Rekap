@@ -2,7 +2,7 @@
 
 ## Core components
 
-Any agent, regardless of its type (see [Types of Agents](types-of-agents.md)), is built from these pieces:
+Any agent, regardless of its type (see [Types of Agents](agent-types.md)), is built from these pieces:
 
 - **Perception**: processing input data (text, images, events) — multimodal if needed.
 - **Reasoning**: the decision engine — can be an LLM, a classical ML model, or fixed rules.
@@ -76,4 +76,4 @@ def execute_with_hitl(proposed_action):
 Critical in high-risk domains (healthcare, finance) — increases reliability at the cost of losing some of the full autonomy a pure agent promises.
 
 ---
-Related: [Types of Agents](types-of-agents.md), [Agents vs Workflows](agents-vs-workflows.md), [Prompt Engineering](prompt-engineering.md#structure-of-a-system-prompt), [Risks and Mitigations](risks-and-mitigations.md).
+Related: [Types of Agents](agent-types.md), [Agents vs Workflows](agents-vs-workflows.md), [Prompt Engineering](prompt-engineering.md#structure-of-a-system-prompt), [Risks and Mitigations](risks-and-mitigations.md).

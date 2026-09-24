@@ -18,6 +18,6 @@ Fase 2 del repo: agentic programming en profundidad (agentes, tool use, RAG), ML
 - [x] [RAG (Retrieval-Augmented Generation)](rag.es.md)
 - [x] [Riesgos y Mitigaciones en Agentes de IA](risks-and-mitigations.es.md)
 - [x] [Tamaño y Cuantización de Modelos](model-size-and-quantization.es.md)
-- [x] [Tipos de Agentes de IA](types-of-agents.es.md)
+- [x] [Tipos de Agentes de IA](agent-types.es.md)
 
 Ver también: [n8n](../stacks/n8n/) (herramienta concreta, vive en `stacks/` junto a los demás lenguajes/tools).

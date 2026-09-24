@@ -246,7 +246,7 @@
 ### M
 
 - **Mantenibilidad** — [Atributos de calidad de sistemas](system-design/quality-attributes.es.md#mantenibilidad)
-- **MAS (Sistemas Multiagente)** — [Tipos de Agentes de IA](agentic-ai/types-of-agents.es.md#sistemas-multiagente-mas)
+- **MAS (Sistemas Multiagente)** — [Tipos de Agentes de IA](agentic-ai/agent-types.es.md#sistemas-multiagente-mas)
 - **MCP (Model Context Protocol)** — [MCP](agentic-ai/mcp.es.md)
 - **memo / useMemo / useCallback (React)** — [Diagnóstico Frontend](diagnostics/frontend.es.md#componentes-que-no-usan-memousememousecallback)
 - **Memoria conversacional** — [Memoria Conversacional](agentic-ai/conversational-memory.es.md)
@@ -356,7 +356,7 @@
 - **Redis** — [Motores de SQL](database/sql-engines.es.md)
 - **Redux** — [Estado global](frontend-react/global-state.es.md#redux-u-otras-librerías-externas)
 - **Refresh token** — [Autenticación y Seguridad](backend/authentication.es.md#6-access-token-vs-refresh-token)
-- **Reinforcement Learning (RL)** — [Tipos de Agentes de IA](agentic-ai/types-of-agents.es.md#agentes-de-aprendizaje-rl)
+- **Reinforcement Learning (RL)** — [Tipos de Agentes de IA](agentic-ai/agent-types.es.md#agentes-de-aprendizaje-rl)
 - **Render tree** — [Qué pasa cuando escribís una URL](system-design/what-happens-when-you-type-a-url.es.md#8-el-navegador-renderiza)
 - **Replication lag** — [Escalabilidad de Base de Datos](database/scaling-database.es.md#read-replicas)
 - **Reranking (RAG)** — [RAG](agentic-ai/rag.es.md#4-reranking-opcional)

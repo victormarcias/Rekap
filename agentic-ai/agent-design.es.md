@@ -2,7 +2,7 @@
 
 ## Componentes centrales
 
-Cualquier agente, sin importar su tipo (ver [Tipos de Agentes](types-of-agents.es.md)), se arma con estas piezas:
+Cualquier agente, sin importar su tipo (ver [Tipos de Agentes](agent-types.es.md)), se arma con estas piezas:
 
 - **Percepción**: procesamiento de los datos de entrada (texto, imágenes, eventos) — multimodal si hace falta.
 - **Razonamiento**: el motor de decisiones — puede ser un LLM, un modelo de ML clásico, o reglas fijas.
@@ -76,4 +76,4 @@ def ejecutar_con_hitl(accion_propuesta):
 Crítico en dominios de alto riesgo (salud, finanzas) — aumenta la confiabilidad a costa de perder algo de la autonomía completa que promete un agent puro.
 
 ---
-Relacionado: [Tipos de Agentes](types-of-agents.es.md), [Agentes vs Workflows](agents-vs-workflows.es.md), [Prompt Engineering](prompt-engineering.es.md#estructura-de-un-system-prompt), [Riesgos y Mitigaciones](risks-and-mitigations.es.md).
+Relacionado: [Tipos de Agentes](agent-types.es.md), [Agentes vs Workflows](agents-vs-workflows.es.md), [Prompt Engineering](prompt-engineering.es.md#estructura-de-un-system-prompt), [Riesgos y Mitigaciones](risks-and-mitigations.es.md).
