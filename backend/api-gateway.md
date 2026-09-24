@@ -1,31 +1,31 @@
 # API Gateway
 
-Un único punto de entrada que recibe todo el tráfico externo y lo rutea hacia el servicio interno correcto — se confunde seguido con un Load Balancer, pero resuelven problemas distintos.
+A single entry point that receives all external traffic and routes it to the right internal service — often confused with a Load Balancer, but they solve different problems.
 
 ## Gateway vs Load Balancer
 
-Un [Load Balancer](load-balancers.md) reparte tráfico entre **réplicas del mismo servicio** (round robin, least connections). Un API Gateway rutea entre **servicios distintos** (`/orders` va al servicio de órdenes, `/users` va al servicio de usuarios) y además suele resolver responsabilidades transversales que ningún servicio individual debería tener que implementar por su cuenta:
+A [Load Balancer](load-balancers.md) distributes traffic across **replicas of the same service** (round robin, least connections). An API Gateway routes between **different services** (`/orders` goes to the orders service, `/users` goes to the users service) and usually also handles cross-cutting concerns that no individual service should have to implement on its own:
 
-- **Autenticación centralizada**: valida el token una sola vez, en el borde, antes de que el request llegue a ningún servicio interno.
-- **Rate limiting**: aplica límites de uso por cliente/API key en un solo lugar (ver [429 Too Many Requests](../system-design/http-status-codes.md#4xx--client-error)).
-- **Transformación de request/response**: adapta formatos entre lo que expone el cliente externo y lo que espera cada servicio interno.
-- **Agregación**: un solo request del cliente puede traducirse en varias llamadas a distintos servicios internos, combinando las respuestas en una sola — el patrón **BFF (Backend for Frontend)** es una variante de esto, un gateway a medida para cada tipo de cliente (web, mobile).
+- **Centralized authentication**: validates the token once, at the edge, before the request reaches any internal service.
+- **Rate limiting**: applies usage limits per client/API key in one place (see [429 Too Many Requests](../system-design/http-status-codes.md#4xx--client-error)).
+- **Request/response transformation**: adapts formats between what the external client sees and what each internal service expects.
+- **Aggregation**: a single client request can translate into several calls to different internal services, combining the responses into one — the **BFF (Backend for Frontend)** pattern is a variant of this, a custom gateway for each type of client (web, mobile).
 
 ```
-Cliente → API Gateway → /orders/*  → Order Service
-                       → /users/*   → User Service
-                       → /payments/* → Payment Service
+Client → API Gateway → /orders/*  → Order Service
+                      → /users/*   → User Service
+                      → /payments/* → Payment Service
 ```
 
-## Por qué importa en microservicios
+## Why it matters in microservices
 
-Sin gateway, cada [microservicio](monolito-vs-microservicios.md) tendría que implementar su propia autenticación, su propio rate limiting, su propio manejo de CORS — repetido N veces, con N oportunidades de hacerlo distinto o de tener un bug de seguridad en uno solo. El gateway centraliza eso una sola vez, en el borde del sistema.
+Without a gateway, every [microservice](monolith-vs-microservices.md) would have to implement its own authentication, its own rate limiting, its own CORS handling — repeated N times, with N chances to do it differently or to have a security bug in just one of them. The gateway centralizes that once, at the edge of the system.
 
-**El costo**: es un punto único de falla si no está bien redundado, y agrega un salto de red extra (latencia) a cada request.
+**The cost**: it's a single point of failure if it's not properly redundant, and it adds an extra network hop (latency) to every request.
 
-## Herramientas comunes
+## Common tools
 
-Kong, AWS API Gateway, Traefik (que ya mencionamos como L7 en [Load balancers](load-balancers.md) — muchas herramientas hacen tanto de load balancer como de gateway liviano, la línea entre ambos roles no siempre es nítida en la práctica).
+Kong, AWS API Gateway, Traefik (already mentioned as L7 in [Load balancers](load-balancers.md) — many tools act as both a load balancer and a lightweight gateway, the line between the two roles isn't always sharp in practice).
 
 ---
-Relacionado: [Load balancers](load-balancers.md), [Monolito vs Microservicios](monolito-vs-microservicios.md), [Autenticación y Seguridad](autenticacion.md).
+Related: [Load balancers](load-balancers.md), [Monolith vs Microservices](monolith-vs-microservices.md), [Authentication and Security](authentication.md).

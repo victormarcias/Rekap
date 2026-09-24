@@ -1,43 +1,43 @@
-# Arquitectura Kafka
+# Kafka Architecture
 
-Apache Kafka es una plataforma de streaming distribuido — la pieza central para desacoplar servicios que necesitan comunicarse por eventos en vez de llamadas directas.
+Apache Kafka is a distributed streaming platform — the central piece for decoupling services that need to communicate through events instead of direct calls.
 
-## Qué es Kafka
+## What Kafka is
 
-A diferencia de una cola de mensajes tradicional (RabbitMQ, SQS), Kafka es un **log distribuido append-only**: los mensajes se escriben secuencialmente y se conservan durante un tiempo/tamaño configurable — **no se borran al ser consumidos**. Cualquier consumer puede leer desde cualquier punto del log, incluso mensajes que otro consumer ya leyó hace rato.
+Unlike a traditional message queue (RabbitMQ, SQS), Kafka is an **append-only distributed log**: messages are written sequentially and kept for a configurable time/size — **they aren't deleted when consumed**. Any consumer can read from any point in the log, even messages another consumer already read a while ago.
 
-## Topics y particiones
+## Topics and partitions
 
-Un **topic** es un canal con nombre al que se publican mensajes (ej. `order_events`). Por dentro, cada topic se divide en **particiones** — el log real es por partición, no por topic. Kafka garantiza orden **dentro** de una partición, pero **no entre particiones distintas** del mismo topic: si el orden entre dos mensajes importa, tienen que ir a la misma partición (típicamente eligiendo la partición según una key, para que todos los eventos relacionados queden juntos y ordenados).
+A **topic** is a named channel that messages get published to (e.g. `order_events`). Internally, each topic is split into **partitions** — the actual log is per partition, not per topic. Kafka guarantees order **within** a partition, but **not across different partitions** of the same topic: if the order between two messages matters, they have to go to the same partition (typically by choosing the partition based on a key, so all related events stay together and ordered).
 
 ```python
-# el mismo order_id siempre va a la misma partición → sus eventos quedan ordenados entre sí
+# the same order_id always goes to the same partition → its events stay ordered relative to each other
 producer.send('order_events', key=str(order_id), value=event_data)
 ```
 
-## Producers / Consumers y Consumer Groups
+## Producers / Consumers and Consumer Groups
 
-Los **producers** publican mensajes a un topic; los **consumers** los leen. Varios consumers pueden agruparse en un **consumer group**: Kafka reparte las particiones del topic entre los consumers de ese grupo, así que cada mensaje lo procesa **un solo consumer del grupo** — es la forma de escalar el consumo horizontalmente, agregando consumers al grupo hasta un máximo de un consumer por partición.
+**Producers** publish messages to a topic; **consumers** read them. Several consumers can be grouped into a **consumer group**: Kafka splits the topic's partitions among the consumers in that group, so each message is processed by **only one consumer in the group** — this is how consumption scales horizontally, adding consumers to the group up to a maximum of one consumer per partition.
 
 ```python
 consumer = KafkaConsumer('order_events', group_id='inventory-service')
-# si hay 4 particiones y 2 consumers en el grupo, cada consumer procesa 2 particiones
+# with 4 partitions and 2 consumers in the group, each consumer handles 2 partitions
 ```
 
-Si dos consumer groups distintos leen el mismo topic (ej. `inventory-service` y `analytics-service`), **cada grupo** recibe una copia completa de todos los mensajes — son independientes entre sí.
+If two different consumer groups read the same topic (e.g. `inventory-service` and `analytics-service`), **each group** gets a full copy of every message — they're independent of each other.
 
 ## Offset
 
-Cada consumer trackea su posición en cada partición con un **offset** (un número que avanza secuencialmente). Como los mensajes no se borran al leerse, un consumer puede reiniciar desde el último offset guardado si se cae (no pierde mensajes), o rebobinar el offset a mano para reprocesar mensajes viejos (ej. reconstruir un estado tras un bug). Esto es lo que habilita **replay** — algo que una cola tradicional no ofrece, porque ahí un mensaje desaparece apenas se hace `ack`.
+Each consumer tracks its position in each partition with an **offset** (a number that advances sequentially). Since messages aren't deleted when read, a consumer can resume from the last saved offset if it goes down (no messages lost), or rewind the offset by hand to reprocess old messages (e.g. rebuild state after a bug). This is what enables **replay** — something a traditional queue doesn't offer, because there a message disappears as soon as it's `ack`ed.
 
-## Kafka vs cola tradicional
+## Kafka vs traditional queue
 
-| | Cola tradicional (RabbitMQ, SQS) | Kafka |
+| | Traditional queue (RabbitMQ, SQS) | Kafka |
 |---|---|---|
-| Mensaje tras ser consumido | Se borra | Se conserva (según retención configurada) |
-| Múltiples consumers del mismo mensaje | Requiere fan-out explícito | Cada consumer group lee todo, independiente |
-| Replay | ❌ | Sí (rebobinar el offset) |
-| Orden garantizado | Por cola | Por partición |
+| Message after being consumed | Deleted | Kept (per configured retention) |
+| Multiple consumers of the same message | Requires explicit fan-out | Each consumer group reads everything, independently |
+| Replay | ❌ | Yes (rewind the offset) |
+| Guaranteed order | Per queue | Per partition |
 
 ---
-Relacionado: [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia) (un consumer puede reprocesar el mismo mensaje más de una vez tras un crash — el handler necesita ser idempotente), [Observabilidad](../system-design/atributos-de-calidad.md#observabilidad).
+Related: [Idempotency](../system-design/quality-attributes.md#idempotency) (a consumer can reprocess the same message more than once after a crash — the handler needs to be idempotent), [Observability](../system-design/quality-attributes.md#observability).

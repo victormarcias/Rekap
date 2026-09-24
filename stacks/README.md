@@ -1,14 +1,14 @@
 # Stacks
 
-Repaso por lenguaje/stack — setup, sintaxis y fundamentos — más la implementación concreta de arquitectura backend en un framework puntual (`stacks/<framework>/`, ej. FastAPI, NestJS). Máximo 2 niveles: nunca `stacks/<lenguaje>/<framework>/`, el framework va suelto aunque sea propio de un lenguaje en particular.
+A review by language/stack — setup, syntax, and fundamentals — plus the concrete backend architecture implementation in a specific framework (`stacks/<framework>/`, e.g. FastAPI, NestJS). Max 2 levels: never `stacks/<language>/<framework>/`, the framework stands on its own even if it belongs to one particular language.
 
-- [💛 JavaScript](javascript/sintaxis.md) — variables, arrays, objects, functions, arrow functions, destructuring
-- [💚 Node.js](node/runtime.md) — Event Loop, single-threaded no bloqueante, CommonJS vs ESM, streams, buffers
-- [🐍 Python](python/) — setup, sintaxis, Python 2 vs 3, GIL, mutabilidad, OOP, decorators, generators
-- [🔷 TypeScript](typescript/) — tipado de funciones, unions, utility types, generics, configuración de `tsconfig.json`
-- [⚡ FastAPI](fastapi/) — implementación concreta de arquitectura backend en Python (endpoints, sync/async, auth, testing)
-- [🐈 NestJS](nestjs/) — implementación concreta de arquitectura backend en TypeScript/Node (módulos, DI, Pipes/Guards/Interceptors/Exception Filters)
-- [📱 React Native](react-native/fundamentos.md) — componentes core, styling, Expo vs bare, navegación, el bridge
-- [🔗 n8n](n8n/) — automatización node-based, self-hosteable, nodo AI Agent
+- [💛 JavaScript](javascript/syntax.md) — variables, arrays, objects, functions, arrow functions, destructuring
+- [💚 Node.js](node/runtime.md) — Event Loop, single-threaded non-blocking, CommonJS vs ESM, streams, buffers
+- [🐍 Python](python/) — setup, syntax, Python 2 vs 3, GIL, mutability, OOP, decorators, generators
+- [🔷 TypeScript](typescript/) — function typing, unions, utility types, generics, `tsconfig.json` configuration
+- [⚡ FastAPI](fastapi/) — concrete backend architecture implementation in Python (endpoints, sync/async, auth, testing)
+- [🐈 NestJS](nestjs/) — concrete backend architecture implementation in TypeScript/Node (modules, DI, Pipes/Guards/Interceptors/Exception Filters)
+- [📱 React Native](react-native/fundamentals.md) — core components, styling, Expo vs bare, navigation, the bridge
+- [🔗 n8n](n8n/) — node-based automation, self-hostable, AI Agent node
 
-Ver también: [Sistema de tipos comparado](tipos-comparativa.md) (TypeScript/Python/Swift/Kotlin/Java lado a lado), [Panorama: capas de un stack](mapa-de-stacks.md) (runtime vs framework vs ORM vs frontend — por qué "Node vs FastAPI vs Next.js" no es una comparación pareja).
+See also: [Compared type system](type-system-comparison.md) (TypeScript/Python/Swift/Kotlin/Java side by side), [Overview: layers of a stack](stack-layers.md) (runtime vs framework vs ORM vs frontend — why "Node vs FastAPI vs Next.js" isn't an even comparison).

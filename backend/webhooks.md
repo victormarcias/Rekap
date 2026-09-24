@@ -1,17 +1,17 @@
 # Webhooks
 
-El inverso de una API normal: en vez de que vos le preguntes ("¿pasó algo nuevo?"), el otro sistema te **avisa** apenas pasa, mandando un `POST` a una URL que vos exponés.
+The inverse of a normal API: instead of you asking it ("did anything happen?"), the other system **notifies** you as soon as it does, sending a `POST` to a URL you expose.
 
 ## Push vs polling
 
-Sin webhooks, para enterarte de un evento en un sistema externo (un pago que se acreditó, un archivo que terminó de procesarse) tenés que hacer **polling**: preguntar repetidamente "¿ya está?" hasta que la respuesta sea sí — desperdicia requests la mayor parte del tiempo, y hay latencia entre que el evento ocurrió y que lo detectaste (depende de cada cuánto preguntás).
+Without webhooks, to find out about an event in an external system (a payment that got confirmed, a file that finished processing) you have to **poll**: repeatedly asking "is it done yet?" until the answer is yes — wastes requests most of the time, and there's latency between when the event happened and when you detected it (depends on how often you ask).
 
 ```python
-# ❌ polling: la mayoría de estas llamadas devuelven "todavía no"
+# ❌ polling: most of these calls return "not yet"
 while not payment_confirmed(payment_id):
     time.sleep(5)
 
-# ✅ webhook: tu endpoint recibe el POST apenas el evento ocurre, sin preguntar nada
+# ✅ webhook: your endpoint receives the POST as soon as the event happens, without asking anything
 @app.post("/webhooks/stripe")
 async def stripe_webhook(request: Request):
     event = await request.json()
@@ -19,33 +19,33 @@ async def stripe_webhook(request: Request):
         mark_payment_confirmed(event["data"]["id"])
 ```
 
-## Verificar la firma — no confiar en el body a ciegas
+## Verify the signature — don't trust the body blindly
 
-Cualquiera que conozca tu URL de webhook podría mandarle un `POST` falso simulando un evento real (ej. "el pago se confirmó" cuando no fue así). Los proveedores serios firman cada request con **HMAC** usando un secreto compartido — tu endpoint recalcula la firma sobre el body recibido y la compara con el header que mandó el proveedor, antes de confiar en el contenido.
+Anyone who knows your webhook URL could send it a fake `POST` simulating a real event (e.g. "the payment was confirmed" when it wasn't). Serious providers sign every request with **HMAC** using a shared secret — your endpoint recomputes the signature over the received body and compares it to the header the provider sent, before trusting the content.
 
 ```python
 import hmac, hashlib
 
 def verify_webhook_signature(payload: bytes, signature_header: str, secret: str) -> bool:
     expected = hmac.new(secret.encode(), payload, hashlib.sha256).hexdigest()
-    return hmac.compare_digest(expected, signature_header)  # comparación segura contra timing attacks
+    return hmac.compare_digest(expected, signature_header)  # safe comparison against timing attacks
 ```
 
-## Idempotencia — el mismo webhook puede llegar duplicado
+## Idempotency — the same webhook can arrive duplicated
 
-Si tu endpoint no responde a tiempo (o responde con un error), el emisor suele **reintentar** el mismo webhook más tarde — tu handler tiene que poder procesarlo dos veces sin duplicar el efecto (ver [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia)). La mayoría de los proveedores incluyen un ID de evento único en el payload — guardarlo y chequear si ya se procesó antes de aplicar el efecto de nuevo.
+If your endpoint doesn't respond in time (or responds with an error), the sender usually **retries** the same webhook later — your handler has to be able to process it twice without duplicating the effect (see [Idempotency](../system-design/quality-attributes.md#idempotency)). Most providers include a unique event ID in the payload — save it and check whether it was already processed before applying the effect again.
 
 ```python
 def handle_webhook(event):
-    if already_processed(event["id"]):  # ✅ evita duplicar el efecto en un reintento
+    if already_processed(event["id"]):  # ✅ avoids duplicating the effect on a retry
         return
     apply_effect(event)
     mark_as_processed(event["id"])
 ```
 
-## Casos típicos
+## Typical cases
 
-Pagos (Stripe, MercadoPago avisan cuando se confirma un cobro), CI/CD (GitHub avisa a un servicio externo cuando hay un push o un PR), integraciones (Slack, Discord notificando eventos a un bot).
+Payments (Stripe, MercadoPago notify when a charge is confirmed), CI/CD (GitHub notifies an external service on a push or a PR), integrations (Slack, Discord notifying a bot of events).
 
 ---
-Relacionado: [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia), [WebSocket / SSE / Streaming](../frontend-react/websocket-sse-streaming.md) (otra forma de recibir datos sin polling, pero con conexión persistente en vez de un request puntual por evento).
+Related: [Idempotency](../system-design/quality-attributes.md#idempotency), [WebSocket / SSE / Streaming](../frontend-react/websocket-sse-streaming.md) (another way to receive data without polling, but with a persistent connection instead of one request per event).

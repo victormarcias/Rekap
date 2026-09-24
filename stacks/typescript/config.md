@@ -1,36 +1,36 @@
-# TypeScript — Configuración (`tsconfig.json`)
+# TypeScript — Configuration (`tsconfig.json`)
 
-Las opciones que más se usan y más se malentienden — no es exhaustivo, `tsconfig.json` tiene decenas de flags, la mayoría vienen ya armados por el template del proyecto y rara vez hace falta tocarlos a mano.
+The most used and most misunderstood options — not exhaustive, `tsconfig.json` has dozens of flags, most already set up by the project's template and rarely need to be touched by hand.
 
 ## `strict`
 
-El flag más importante de todos — prende un combo de chequeos (`noImplicitAny`, `strictNullChecks`, `strictFunctionTypes`, entre otros) de una sola vez. Sin `strict`, TypeScript deja pasar cosas como una variable sin tipo explícito (`any` implícito) o asignar `null` a algo tipado como `string` — la diferencia entre TS chequeando de verdad y TS de adorno.
+The single most important flag — turns on a bundle of checks (`noImplicitAny`, `strictNullChecks`, `strictFunctionTypes`, among others) at once. Without `strict`, TypeScript lets things slide like a variable with no explicit type (implicit `any`) or assigning `null` to something typed as `string` — the difference between TS actually checking things and TS as decoration.
 
 ```json
 { "compilerOptions": { "strict": true } }
 ```
 
 ```ts
-// sin strict: esto compila sin quejarse
-function saludar(nombre) { return `Hola, ${nombre}`; } // nombre es "any" implícito
+// without strict: this compiles with no complaints
+function greet(name) { return `Hello, ${name}`; } // name is implicit "any"
 
-// con strict: TypeScript exige el tipo
-function saludar(nombre: string) { return `Hola, ${nombre}`; } // ✅
+// with strict: TypeScript requires the type
+function greet(name: string) { return `Hello, ${name}`; } // ✅
 ```
 
 ## `target`
 
-A qué versión de JS se compila el código — define qué sintaxis moderna (optional chaining, `async`/`await`, etc.) se transforma a algo más viejo, y cuál se deja tal cual porque el motor destino ya la soporta.
+What JS version the code compiles to — defines which modern syntax (optional chaining, `async`/`await`, etc.) gets transformed into something older, and which is left as-is because the target engine already supports it.
 
 ```json
 { "compilerOptions": { "target": "ES2020" } }
 ```
 
-Apuntar a un `target` viejo (`ES5`) genera JS más compatible pero más pesado (más código transformado); uno moderno (`ES2020`+) genera menos código de más, pero asume un runtime más reciente (navegadores actuales, Node reciente).
+Targeting an old `target` (`ES5`) generates more compatible but heavier JS (more transformed code); a modern one (`ES2020`+) generates less extra code, but assumes a more recent runtime (current browsers, recent Node).
 
 ## `module`
 
-El sistema de módulos del JS que se genera — `CommonJS` (`require`/`module.exports`) o `ESNext` (`import`/`export`). Conecta directo con [CommonJS vs ESM](../node/runtime.md#commonjs-vs-es-modules): un backend Node clásico suele compilar a CommonJS, un frontend moderno con Vite/webpack usa ESNext porque el bundler necesita ES Modules reales para hacer tree shaking.
+The module system of the generated JS — `CommonJS` (`require`/`module.exports`) or `ESNext` (`import`/`export`). Connects directly with [CommonJS vs ESM](../node/runtime.md#commonjs-vs-es-modules): a classic Node backend usually compiles to CommonJS, a modern frontend with Vite/webpack uses ESNext because the bundler needs real ES Modules to do tree shaking.
 
 ```json
 { "compilerOptions": { "module": "ESNext" } }
@@ -38,7 +38,7 @@ El sistema de módulos del JS que se genera — `CommonJS` (`require`/`module.ex
 
 ## `noEmit`
 
-Le dice a `tsc` "no generes ningún archivo `.js`, solo chequeá tipos y avisame si hay error". Se usa cuando otra herramienta (Vite, esbuild) es la que realmente compila — `tsc` corre aparte (en el editor o en CI) únicamente como auditor.
+Tells `tsc` "don't generate any `.js` files, just check types and tell me if there's an error." Used when another tool (Vite, esbuild) is the one actually compiling — `tsc` runs separately (in the editor or in CI) purely as an auditor.
 
 ```json
 { "compilerOptions": { "noEmit": true } }
@@ -46,23 +46,23 @@ Le dice a `tsc` "no generes ningún archivo `.js`, solo chequeá tipos y avisame
 
 ## `esModuleInterop`
 
-Arregla un choque de compatibilidad entre CommonJS y ES Modules: sin este flag, importar un paquete viejo escrito en CommonJS con sintaxis moderna (`import express from 'express'`) puede fallar o traer algo raro. Se activa casi siempre — vale la pena saber *por qué* existe, no solo prenderlo porque "todos lo hacen".
+Fixes a compatibility clash between CommonJS and ES Modules: without this flag, importing an old CommonJS-written package with modern syntax (`import express from 'express'`) can fail or bring in something odd. It's turned on almost always — worth knowing *why* it exists, not just enabling it because "everyone does."
 
 ```json
 { "compilerOptions": { "esModuleInterop": true } }
 ```
 
 ```ts
-// sin esModuleInterop, esto puede no funcionar como se espera con paquetes CommonJS
+// without esModuleInterop, this might not work as expected with CommonJS packages
 import express from 'express';
 
-// la alternativa sin el flag sería la sintaxis más verbosa de CommonJS
+// the alternative without the flag would be CommonJS's more verbose syntax
 import * as express from 'express';
 ```
 
 ## `paths` / `baseUrl`
 
-Alias de imports — evita cadenas largas de `../../../` al importar algo de otra carpeta.
+Import aliases — avoids long chains of `../../../` when importing something from another folder.
 
 ```json
 {
@@ -74,18 +74,18 @@ Alias de imports — evita cadenas largas de `../../../` al importar algo de otr
 ```
 
 ```ts
-// ❌ sin alias
+// ❌ without an alias
 import { Button } from '../../../components/Button';
 
-// ✅ con el alias configurado
+// ✅ with the alias configured
 import { Button } from '@/components/Button';
 ```
 
-**El gotcha común**: configurar esto en `tsconfig.json` solo le enseña el alias a TypeScript (para el chequeo de tipos y el autocompletado) — el bundler (Vite, webpack) no lo sabe automáticamente, hace falta configurar el mismo alias ahí también, o el build real falla aunque `tsc` no se queje.
+**The common gotcha**: configuring this in `tsconfig.json` only teaches the alias to TypeScript (for type checking and autocomplete) — the bundler (Vite, webpack) doesn't automatically know about it, the same alias needs to be configured there too, or the real build fails even though `tsc` doesn't complain.
 
 ## `outDir` / `rootDir`
 
-Dónde termina el JS compilado y desde dónde arranca el código fuente — relevante en un backend Node que compila a una carpeta `dist/` y corre eso en producción (`node dist/index.js`), en vez de correr `.ts` directo.
+Where the compiled JS ends up and where the source code starts from — relevant in a Node backend that compiles to a `dist/` folder and runs that in production (`node dist/index.js`), instead of running `.ts` directly.
 
 ```json
 {
@@ -98,7 +98,7 @@ Dónde termina el JS compilado y desde dónde arranca el código fuente — rele
 
 ## `include` / `exclude`
 
-Qué archivos entran a la compilación — típicamente se incluye `src/` y se excluye `node_modules` y los archivos de test, para no perder tiempo compilando/chequeando código que no hace falta.
+Which files enter the compilation — typically `src/` is included and `node_modules` and test files are excluded, to avoid wasting time compiling/checking code that isn't needed.
 
 ```json
 {
@@ -108,4 +108,4 @@ Qué archivos entran a la compilación — típicamente se incluye `src/` y se e
 ```
 
 ---
-Relacionado: [Sistema de tipos](tipos.md), [CommonJS vs ESM (Node)](../node/runtime.md#commonjs-vs-es-modules).
+Related: [Type System](types.md), [CommonJS vs ESM (Node)](../node/runtime.md#commonjs-vs-es-modules).

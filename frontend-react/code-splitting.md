@@ -1,49 +1,49 @@
 # Code Splitting / Lazy Loading
 
-Partir el bundle de JS en pedazos que se cargan **cuando hacen falta**, en vez de mandar toda la app en un único archivo desde el primer request. El usuario que entra al login no necesita descargar el código del panel de administración todavía.
+Splitting the JS bundle into pieces that load **when needed**, instead of shipping the entire app in a single file on the first request. A user landing on the login page doesn't need to download the admin panel's code yet.
 
 ## `React.lazy` + `Suspense`
 
 ```jsx
 import { lazy, Suspense } from 'react';
 
-// el import() dinámico le dice al bundler (Webpack/Vite) que este componente
-// va en un chunk separado, no en el bundle principal
+// the dynamic import() tells the bundler (Webpack/Vite) this component
+// goes in a separate chunk, not in the main bundle
 const AdminPanel = lazy(() => import('./AdminPanel'));
 
 function App() {
   return (
     <Suspense fallback={<Spinner />}>
-      {/* el chunk de AdminPanel recién se pide por red la primera vez
-          que este componente intenta renderizarse */}
+      {/* the AdminPanel chunk is only requested over the network the first time
+          this component tries to render */}
       <AdminPanel />
     </Suspense>
   );
 }
 ```
 
-`Suspense` muestra el `fallback` mientras el chunk todavía no llegó — es el mismo mecanismo que usan los frameworks con SSR/streaming para no bloquear el render completo esperando una sola parte lenta.
+`Suspense` shows the `fallback` while the chunk hasn't arrived yet — it's the same mechanism SSR/streaming frameworks use to avoid blocking the full render while waiting on one slow part.
 
-## Dónde suele aplicarse
+## Where it's typically applied
 
-- **Rutas**: cada página de un router carga su propio chunk — la más común y la de mayor impacto (nadie necesita el JS del checkout si está mirando la home).
-- **Componentes pesados condicionales**: un modal complejo, un editor de texto rico, un gráfico con una librería grande — cosas que no se ven en el primer render.
+- **Routes**: each page of a router loads its own chunk — the most common and highest-impact case (nobody needs the checkout's JS while looking at the home page).
+- **Heavy conditional components**: a complex modal, a rich text editor, a chart using a big library — things not visible on the first render.
 
 ```jsx
-// dividido por ruta con React Router
+// split by route with React Router
 const Home = lazy(() => import('./pages/Home'));
 const Checkout = lazy(() => import('./pages/Checkout'));
 
 <Routes>
   <Route path="/" element={<Home />} />
-  <Route path="/checkout" element={<Checkout />} /> {/* su JS ni se pide hasta entrar acá */}
+  <Route path="/checkout" element={<Checkout />} /> {/* its JS isn't even requested until you land here */}
 </Routes>
 ```
 
-## No confundir con Tree Shaking ni Module Federation
+## Not to be confused with Tree Shaking or Module Federation
 
-Los tres reducen cuánto JS termina corriendo en el browser, pero en momentos distintos:
+All three reduce how much JS ends up running in the browser, but at different moments:
 
-- **[Tree shaking](tree-shaking.md)**: en **build time**, elimina código que nunca se usa en ningún lado — no llega ni a existir en ningún bundle.
-- **Code splitting**: el código sí se usa, pero se **difiere** su descarga hasta el momento en que hace falta — sigue siendo parte de la app, solo que en otro archivo.
-- **[Module Federation](module-federation.md)**: parte la app en piezas que ni siquiera comparten el mismo build/deploy — code splitting divide el bundle de una sola app; Module Federation compone bundles de apps independientes en runtime.
+- **[Tree shaking](tree-shaking.md)**: at **build time**, eliminates code that's never used anywhere — it never even ends up in any bundle.
+- **Code splitting**: the code is used, but its download is **deferred** until the moment it's needed — it's still part of the app, just in a different file.
+- **[Module Federation](module-federation.md)**: splits the app into pieces that don't even share the same build/deploy — code splitting splits a single app's bundle; Module Federation composes bundles from independent apps at runtime.

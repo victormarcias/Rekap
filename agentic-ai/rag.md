@@ -1,103 +1,103 @@
 # RAG (Retrieval-Augmented Generation)
 
-Un LLM solo "sabe" lo que vio en su entrenamiento — no conoce datos privados de una empresa, documentación interna, ni nada posterior a su fecha de corte. RAG resuelve esto: **buscar información relevante antes de responder, y agregarla al prompt como contexto**, para que el modelo responda basado en datos reales en vez de inventar (alucinar).
+An LLM only "knows" what it saw during training — it doesn't know a company's private data, internal documentation, or anything after its cutoff date. RAG solves this: **look up relevant information before answering, and add it to the prompt as context**, so the model answers based on real data instead of making things up (hallucinating).
 
-## El pipeline, paso a paso
+## The pipeline, step by step
 
 ```
-Documentos → Chunking → Embeddings → Vector DB
+Documents → Chunking → Embeddings → Vector DB
                                           ↓
-Pregunta del usuario → Embedding → Búsqueda por similitud → Candidatos (top-20) → Reranking → Top-K final
+User question → Embedding → Similarity search → Candidates (top-20) → Reranking → Final Top-K
                                           ↓
-                    Prompt final = pregunta + chunks recuperados → LLM → Respuesta
+                    Final prompt = question + retrieved chunks → LLM → Answer
 ```
 
-### 1. Chunking — partir los documentos
+### 1. Chunking — splitting the documents
 
-Los documentos fuente (PDFs, docs internos, artículos) se parten en pedazos manejables antes de indexarlos — no se busca sobre el documento entero, se busca sobre chunks chicos.
+Source documents (PDFs, internal docs, articles) get split into manageable pieces before indexing — search doesn't happen over the whole document, it happens over small chunks.
 
 ```python
-# chunking simple por tamaño fijo, con overlap para no cortar una idea a la mitad
-def chunk_texto(texto, chunk_size=500, overlap=50):
+# simple fixed-size chunking, with overlap to avoid cutting an idea in half
+def chunk_text(text, chunk_size=500, overlap=50):
     chunks = []
-    for i in range(0, len(texto), chunk_size - overlap):
-        chunks.append(texto[i:i + chunk_size])
+    for i in range(0, len(text), chunk_size - overlap):
+        chunks.append(text[i:i + chunk_size])
     return chunks
 ```
 
-El tamaño del chunk es un trade-off: chunks muy chicos pierden contexto (una oración sola puede no significar nada aislada); chunks muy grandes traen información irrelevante junto con la relevante, y ocupan más [tokens](que-es-un-token.md) en el prompt final.
+Chunk size is a trade-off: chunks too small lose context (a single sentence might mean nothing in isolation); chunks too large bring in irrelevant information along with the relevant, and take up more [tokens](what-is-a-token.md) in the final prompt.
 
-### 2. Embeddings — texto a vector semántico
+### 2. Embeddings — text to semantic vector
 
-Un **embedding** es un vector (una lista de números) que representa el *significado* de un texto — textos con significado parecido quedan cerca en ese espacio de muchas dimensiones, sin importar si comparten las mismas palabras literalmente.
-
-```python
-# ejemplo conceptual — un modelo de embeddings convierte texto en un vector
-embedding_1 = modelo_embeddings.encode("cómo cancelar mi suscripción")
-embedding_2 = modelo_embeddings.encode("quiero dar de baja mi plan")
-# estos dos vectores van a quedar MUY cerca entre sí en el espacio vectorial,
-# aunque no comparten ninguna palabra — el embedding capturó que significan lo mismo
-```
-
-Esto es lo que hace posible la búsqueda semántica: buscar por *significado*, no por coincidencia exacta de palabras (a diferencia de un `LIKE '%texto%'` en SQL, que solo encuentra coincidencias literales).
-
-### 3. Vector DB — guardar y buscar por similitud
-
-Los embeddings de todos los chunks se guardan en una base de datos vectorial (Pinecone, Weaviate, pgvector como extensión de Postgres, entre otras) — optimizada específicamente para responder "¿cuáles de estos millones de vectores están más cerca de este vector de la pregunta?" de forma rápida.
+An **embedding** is a vector (a list of numbers) representing a text's *meaning* — texts with similar meaning end up close together in that many-dimensional space, regardless of whether they literally share the same words.
 
 ```python
-# pseudocódigo del flujo de búsqueda
-embedding_pregunta = modelo_embeddings.encode(pregunta_usuario)
-chunks_relevantes = vector_db.search(embedding_pregunta, top_k=5)  # los 5 más parecidos
+# conceptual example — an embeddings model converts text into a vector
+embedding_1 = embeddings_model.encode("how to cancel my subscription")
+embedding_2 = embeddings_model.encode("I want to drop my plan")
+# these two vectors will end up VERY close to each other in the vector space,
+# even though they share no words — the embedding captured that they mean the same thing
 ```
 
-### 4. Reranking (opcional)
+This is what makes semantic search possible: searching by *meaning*, not by exact word match (unlike a `LIKE '%text%'` in SQL, which only finds literal matches).
 
-La búsqueda en la vector DB es rápida pero menos precisa — un embedding compara la pregunta y cada documento **por separado**, sin verlos juntos. Un **reranker** (modelo *cross-encoder*) evalúa la pregunta y un candidato **a la vez, juntos**, lo que da un score de relevancia mucho más fino — pero es más lento, así que no se usa para buscar entre millones de vectores, solo para reordenar un puñado de candidatos que la vector DB ya filtró.
+### 3. Vector DB — storing and searching by similarity
+
+The embeddings for all the chunks get stored in a vector database (Pinecone, Weaviate, pgvector as a Postgres extension, among others) — specifically optimized to answer "which of these millions of vectors are closest to this question's vector?" quickly.
+
+```python
+# search flow pseudocode
+question_embedding = embeddings_model.encode(user_question)
+relevant_chunks = vector_db.search(question_embedding, top_k=5)  # the 5 most similar
+```
+
+### 4. Reranking (optional)
+
+The vector DB search is fast but less precise — an embedding compares the question and each document **separately**, without seeing them together. A **reranker** (a *cross-encoder* model) evaluates the question and one candidate **together, at once**, giving a much finer relevance score — but it's slower, so it isn't used to search across millions of vectors, only to reorder a handful of candidates the vector DB already filtered.
 
 ```python
 from sentence_transformers import CrossEncoder
 
 reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
-# se recuperan MÁS candidatos de los que hacen falta (top 20, no directo top 5)
-candidatos = vector_db.search(embedding_pregunta, top_k=20)
+# MORE candidates than needed get retrieved (top 20, not directly top 5)
+candidates = vector_db.search(question_embedding, top_k=20)
 
-# el reranker evalúa pregunta + documento juntos, par por par — más preciso que el embedding solo
-pares = [(pregunta_usuario, chunk) for chunk in candidatos]
-scores = reranker.predict(pares)
+# the reranker evaluates question + document together, pair by pair — more precise than the embedding alone
+pairs = [(user_question, chunk) for chunk in candidates]
+scores = reranker.predict(pairs)
 
-# se ordenan por score del reranker y recién ahí se toman los mejores para el prompt final
-chunks_relevantes = [c for _, c in sorted(zip(scores, candidatos), reverse=True)][:5]
+# sorted by the reranker's score, and only then are the best taken for the final prompt
+relevant_chunks = [c for _, c in sorted(zip(scores, candidates), reverse=True)][:5]
 ```
 
-El patrón general (búsqueda rápida y aproximada primero, filtrado más caro y preciso después, solo sobre lo que ya sobrevivió el primer filtro) aparece seguido en sistemas grandes — acá aplicado a hacer viable la precisión de un cross-encoder sin pagar su costo sobre todo el corpus.
+The general pattern (fast, approximate search first, more expensive and precise filtering after, only on what already survived the first filter) shows up often in large systems — here applied to making a cross-encoder's precision viable without paying its cost across the entire corpus.
 
-### 5. Prompt aumentado
+### 5. Augmented prompt
 
-Los chunks recuperados se agregan al prompt como contexto, junto con la pregunta original:
+The retrieved chunks get added to the prompt as context, along with the original question:
 
 ```python
 prompt = f"""
-Contexto relevante:
-{chr(10).join(chunks_relevantes)}
+Relevant context:
+{chr(10).join(relevant_chunks)}
 
-Pregunta: {pregunta_usuario}
+Question: {user_question}
 
-Respondé usando solo la información del contexto de arriba.
+Answer using only the information from the context above.
 """
-respuesta = llm.call(prompt)
+response = llm.call(prompt)
 ```
 
-## Por qué no alcanza con meter todo en el prompt
+## Why just stuffing everything into the prompt isn't enough
 
-Si los documentos fuente entran enteros en el [context window](que-es-un-token.md#por-qué-importa) del modelo, RAG no haría falta — pero en la práctica, la documentación de una empresa real son miles de páginas, muy por encima de cualquier context window, y aunque entrara, cada request pagaría por procesar todo eso de nuevo (ver [Costos de LLMs](costos-llms.md)) en vez de solo los chunks realmente relevantes a esa pregunta puntual.
+If the source documents fit whole into the model's [context window](what-is-a-token.md#why-it-matters), RAG wouldn't be needed — but in practice, a real company's documentation is thousands of pages, well beyond any context window, and even if it fit, every request would pay to process all of that again (see [LLM Costs](llm-costs.md)) instead of just the chunks actually relevant to that specific question.
 
-## Dónde suele fallar
+## Where it tends to fail
 
-- **Chunking mal hecho**: si un chunk corta una idea a la mitad, la búsqueda puede no encontrarlo o traerlo sin sentido.
-- **Top-K mal calibrado**: muy pocos chunks pierden información relevante; demasiados diluyen el contexto con ruido y suben el costo.
-- **La pregunta no se parece semánticamente a la respuesta**: embeddings buscan por similitud de significado, no siempre alineado con qué información responde la pregunta — un problema conocido, mitigado con [Reranking](#4-reranking-opcional) o *hypothetical document embeddings*.
+- **Bad chunking**: if a chunk cuts an idea in half, the search might not find it or might bring it back meaningless.
+- **Poorly calibrated Top-K**: too few chunks lose relevant information; too many dilute the context with noise and raise the cost.
+- **The question doesn't semantically resemble the answer**: embeddings search by similarity of meaning, not always aligned with what information actually answers the question — a known problem, mitigated with [Reranking](#4-reranking-optional) or *hypothetical document embeddings*.
 
 ---
-Relacionado: [Qué es un token](que-es-un-token.md), [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md#6-rag--darle-al-llm-información-que-no-tiene-2023), [Costos de LLMs](costos-llms.md), [Context Engineering](context-engineering.md).
+Related: [What is a token](what-is-a-token.md), [From Classical ML to Agentic AI](from-ml-to-agentic-ai.md#6-rag--giving-the-llm-information-it-doesnt-have-2023), [LLM Costs](llm-costs.md), [Context Engineering](context-engineering.md).

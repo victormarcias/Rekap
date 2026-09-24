@@ -1,18 +1,18 @@
 # Sharding vs Partitioning
 
-Ambas son estrategias para dividir datos y escalar más allá de lo que soporta un solo nodo/tabla, pero operan en niveles distintos.
+Both are strategies for splitting data and scaling beyond what a single node/table can handle, but they operate at different levels.
 
 ## Partitioning
 
-Dividir una tabla **grande en un mismo servidor/instancia** en sub-tablas más chicas (particiones), transparente para las queries. Esto es partitioning **horizontal** — divide **filas**; ver [Vertical Partitioning](escalabilidad-db.md#vertical-partitioning) para la otra dimensión, dividir **columnas**.
+Splitting a **large table on the same server/instance** into smaller sub-tables (partitions), transparent to queries. This is **horizontal** partitioning — it splits **rows**; see [Vertical Partitioning](scaling-database.md#vertical-partitioning) for the other dimension, splitting **columns**.
 
-### Tipos
+### Types
 
-| Tipo | Criterio | Ejemplo |
+| Type | Criterion | Example |
 |---|---|---|
-| **Range** | Rango de valores | Particionar `orders` por mes (`created_at`) |
-| **List** | Valores discretos | Particionar `users` por país (`AR`, `BR`, `MX`) |
-| **Hash** | Hash de una columna, distribución uniforme | Particionar por `hash(user_id) % 4` |
+| **Range** | Range of values | Partitioning `orders` by month (`created_at`) |
+| **List** | Discrete values | Partitioning `users` by country (`AR`, `BR`, `MX`) |
+| **Hash** | Hash of a column, uniform distribution | Partitioning by `hash(user_id) % 4` |
 
 ```sql
 -- Postgres: partition by range
@@ -24,39 +24,39 @@ CREATE TABLE orders_2024 PARTITION OF orders
   FOR VALUES FROM ('2024-01-01') TO ('2025-01-01');
 ```
 
-**Beneficios**: queries que filtran por la columna de partición solo tocan la partición relevante (*partition pruning*), maintenance más rápido (`VACUUM`, borrar una partición vieja entera en vez de `DELETE` fila por fila).
+**Benefits**: queries that filter by the partition column only touch the relevant partition (*partition pruning*), faster maintenance (`VACUUM`, dropping an entire old partition instead of a row-by-row `DELETE`).
 
-**Sigue siendo un solo servidor**: no resuelve límites de CPU/disco/memoria de una sola instancia.
+**Still a single server**: it doesn't solve CPU/disk/memory limits of a single instance.
 
 ## Sharding
 
-Dividir los datos **entre múltiples servidores/instancias** independientes (cada shard es una base de datos separada, potencialmente en distinta máquina).
+Splitting data **across multiple independent servers/instances** (each shard is a separate database, potentially on a different machine).
 
-### Estrategias
+### Strategies
 
-- **Key-based (hash) sharding**: `shard = hash(user_id) % N`. Distribución uniforme, pero resharding (agregar un nodo) es costoso porque cambia el mapeo de casi todas las keys.
-- **Range-based sharding**: shard según rango de la key (ej. usuarios A-M en shard 1, N-Z en shard 2). Fácil de razonar, pero puede generar *hotspots* si el tráfico no está uniformemente distribuido.
-- **Directory-based sharding**: una tabla de lookup mapea cada key a su shard. Flexible (permite mover keys individuales) pero agrega un punto de indirección/fallo.
+- **Key-based (hash) sharding**: `shard = hash(user_id) % N`. Uniform distribution, but resharding (adding a node) is expensive because it changes the mapping for almost every key.
+- **Range-based sharding**: shard based on the key's range (e.g. users A-M on shard 1, N-Z on shard 2). Easy to reason about, but can create *hotspots* if traffic isn't evenly distributed.
+- **Directory-based sharding**: a lookup table maps each key to its shard. Flexible (allows moving individual keys) but adds a point of indirection/failure.
 
-### Desafíos de sharding
+### Sharding challenges
 
-- **Cross-shard queries**: un `JOIN` entre datos de distintos shards no es nativo — hay que resolverlo en la capa de aplicación o con un query router.
-- **Transacciones distribuidas**: mantener ACID entre shards requiere protocolos como *two-phase commit* o aceptar consistencia eventual.
-- **Resharding**: agregar/quitar nodos implica redistribuir datos, operación delicada en producción (mitigado con *consistent hashing*).
-- **Claves foráneas** entre shards no se pueden garantizar a nivel motor.
+- **Cross-shard queries**: a `JOIN` between data on different shards isn't native — it has to be resolved in the application layer or with a query router.
+- **Distributed transactions**: keeping ACID across shards requires protocols like *two-phase commit* or accepting eventual consistency.
+- **Resharding**: adding/removing nodes means redistributing data, a delicate operation in production (mitigated with *consistent hashing*).
+- **Foreign keys** across shards can't be guaranteed at the engine level.
 
-## Tabla comparativa
+## Comparison table
 
 | | Partitioning | Sharding |
 |---|---|---|
-| Nivel | Una tabla, un servidor | Múltiples servidores |
-| Objetivo | Manejabilidad, maintenance, partition pruning | Escalar horizontalmente más allá de un solo servidor |
-| Transparencia para queries | Alta (el motor lo resuelve) | Baja (requiere lógica de routing en la app o un proxy) |
-| Resuelve límite de hardware de un nodo | ❌ | ✅ |
+| Level | One table, one server | Multiple servers |
+| Goal | Manageability, maintenance, partition pruning | Scaling horizontally beyond a single server |
+| Query transparency | High (the engine handles it) | Low (requires routing logic in the app or a proxy) |
+| Solves a single node's hardware limit | ❌ | ✅ |
 
-## En la práctica
+## In practice
 
-Se combinan: cada shard puede a su vez estar particionado internamente. Ejemplo: 8 shards de Postgres, cada uno con la tabla `orders` particionada por mes.
+They're combined: each shard can in turn be partitioned internally. Example: 8 Postgres shards, each with the `orders` table partitioned by month.
 
 ---
-Relacionado: [Normalización](normalizacion.md) (denormalización suele acompañar sharding para evitar cross-shard joins), [NoSQL](nosql.md) (muchas bases NoSQL shardean nativamente, ej. Cassandra, MongoDB), [Escalabilidad de Base de Datos](escalabilidad-db.md) (vertical partitioning, tabla activa vs histórica, snapshot tables).
+Related: [Normalization](normalization.md) (denormalization often goes hand in hand with sharding to avoid cross-shard joins), [NoSQL](nosql.md) (many NoSQL databases shard natively, e.g. Cassandra, MongoDB), [Database Scalability](scaling-database.md) (vertical partitioning, active vs historical table, snapshot tables).

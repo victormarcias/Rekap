@@ -1,97 +1,97 @@
 # Big-O
 
-Big-O mide **cómo crece** el tiempo (o la memoria) que necesita un algoritmo a medida que crece el tamaño del input — no cuántos milisegundos tarda exactamente. Dos algoritmos O(n) pueden tener tiempos reales muy distintos (uno con más overhead por operación que el otro), pero ambos van a duplicar su tiempo si el input se duplica; eso es lo que la notación captura, no el número absoluto.
+Big-O measures **how** the time (or memory) an algorithm needs **grows** as the input size grows — not how many milliseconds it takes exactly. Two O(n) algorithms can have very different real times (one with more overhead per operation than the other), but both will double their time if the input doubles; that's what the notation captures, not the absolute number.
 
-## Cómo se deriva de código
+## How it's derived from code
 
-Se cuenta la operación que domina a medida que `n` crece, y se descartan constantes y términos de menor orden — `O(2n + 100)` se escribe `O(n)`, porque para `n` grande el `100` y el `2` dejan de importar frente al crecimiento de `n`.
+You count the operation that dominates as `n` grows, and drop constants and lower-order terms — `O(2n + 100)` is written `O(n)`, because for large `n` the `100` and the `2` stop mattering next to the growth of `n`.
 
 ```python
-def buscar(lista, objetivo):      # O(n) — en el peor caso recorre toda la lista
-    for x in lista:
-        if x == objetivo:
+def search(items, target):        # O(n) — worst case scans the whole list
+    for x in items:
+        if x == target:
             return True
     return False
 
-def buscar_anidado(lista):        # O(n²) — un loop adentro de otro, cada uno recorre n
-    for i in lista:
-        for j in lista:
+def nested_search(items):        # O(n²) — a loop inside another, each scanning n
+    for i in items:
+        for j in items:
             if i == j:
                 ...
 ```
 
-## Las clases de complejidad, de mejor a peor
+## Complexity classes, best to worst
 
-| Notación | Nombre | Ejemplo típico |
+| Notation | Name | Typical example |
 |---|---|---|
-| O(1) | Constante | Acceso a un índice de array, lookup en hash table |
-| O(log n) | Logarítmica | Búsqueda binaria — cada paso descarta la mitad de lo que queda |
-| O(n) | Lineal | Recorrer una lista una vez |
-| O(n log n) | Linearítmica | Los algoritmos de sorting eficientes (Timsort, mergesort, quicksort) |
-| O(n²) | Cuadrática | Loops anidados sobre la misma colección |
-| O(2ⁿ) | Exponencial | Fuerza bruta probando todas las combinaciones posibles (ej. subsets) |
+| O(1) | Constant | Array index access, hash table lookup |
+| O(log n) | Logarithmic | Binary search — each step discards half of what's left |
+| O(n) | Linear | Scanning a list once |
+| O(n log n) | Linearithmic | Efficient sorting algorithms (Timsort, mergesort, quicksort) |
+| O(n²) | Quadratic | Nested loops over the same collection |
+| O(2ⁿ) | Exponential | Brute force trying every possible combination (e.g. subsets) |
 
 ```python
-def busqueda_binaria(lista_ordenada, objetivo):  # O(log n)
-    inicio, fin = 0, len(lista_ordenada) - 1
-    while inicio <= fin:
-        medio = (inicio + fin) // 2
-        if lista_ordenada[medio] == objetivo:
-            return medio
-        elif lista_ordenada[medio] < objetivo:
-            inicio = medio + 1      # descarta la mitad izquierda
+def binary_search(sorted_list, target):  # O(log n)
+    start, end = 0, len(sorted_list) - 1
+    while start <= end:
+        mid = (start + end) // 2
+        if sorted_list[mid] == target:
+            return mid
+        elif sorted_list[mid] < target:
+            start = mid + 1      # discards the left half
         else:
-            fin = medio - 1         # descarta la mitad derecha
+            end = mid - 1         # discards the right half
     return -1
 ```
 
 ```python
-def merge_sort(lista):    # O(n log n)
-    if len(lista) <= 1:
-        return lista
-    medio = len(lista) // 2
-    izquierda = merge_sort(lista[:medio])   # log n niveles de división a la mitad
-    derecha = merge_sort(lista[medio:])
-    return merge(izquierda, derecha)        # cada nivel hace O(n) trabajo mezclando
+def merge_sort(items):    # O(n log n)
+    if len(items) <= 1:
+        return items
+    mid = len(items) // 2
+    left = merge_sort(items[:mid])   # log n levels of splitting in half
+    right = merge_sort(items[mid:])
+    return merge(left, right)        # each level does O(n) work merging
 
-def merge(izquierda, derecha):
-    resultado = []
+def merge(left, right):
+    result = []
     i = j = 0
-    while i < len(izquierda) and j < len(derecha):   # recorre ambas mitades una sola vez: O(n)
-        if izquierda[i] <= derecha[j]:
-            resultado.append(izquierda[i]); i += 1
+    while i < len(left) and j < len(right):   # scans both halves once: O(n)
+        if left[i] <= right[j]:
+            result.append(left[i]); i += 1
         else:
-            resultado.append(derecha[j]); j += 1
-    return resultado + izquierda[i:] + derecha[j:]
+            result.append(right[j]); j += 1
+    return result + left[i:] + right[j:]
 ```
 
-`merge_sort` divide la lista a la mitad recursivamente (`log n` niveles, como la búsqueda binaria) y en cada nivel mezcla todos los elementos (`O(n)` trabajo) — `log n` niveles × `O(n)` por nivel = `O(n log n)` en total. Es la misma razón por la que Timsort, mergesort y quicksort comparten esa complejidad: dividir y combinar.
+`merge_sort` recursively splits the list in half (`log n` levels, like binary search) and at each level merges all the elements (`O(n)` work) — `log n` levels × `O(n)` per level = `O(n log n)` total. It's the same reason Timsort, mergesort, and quicksort share that complexity: divide and combine.
 
-Cada clase, en orden, crece **mucho** más rápido que la anterior — con `n = 1.000.000`, O(log n) son ~20 pasos, O(n) es un millón de pasos, y O(n²) es un billón. La diferencia entre elegir bien o mal la estructura/algoritmo no es un detalle menor a esa escala.
+Each class, in order, grows **much** faster than the previous one — with `n = 1,000,000`, O(log n) is ~20 steps, O(n) is a million steps, and O(n²) is a trillion. The difference between choosing the right or wrong structure/algorithm isn't a minor detail at that scale.
 
-## Peor caso, caso promedio, mejor caso
+## Worst case, average case, best case
 
-Big-O casi siempre se habla en **peor caso** (worst case) por default, salvo que se aclare lo contrario — es la garantía más útil para diseñar un sistema, porque no depende de tener suerte con el input. Un algoritmo puede tener mejor caso O(1) (el elemento buscado es el primero) y peor caso O(n) (está al final, o no está) — reportar solo el mejor caso sería engañoso.
+Big-O is almost always discussed as **worst case** by default, unless stated otherwise — it's the most useful guarantee for designing a system, because it doesn't depend on getting lucky with the input. An algorithm can have a best case of O(1) (the item you're looking for is first) and a worst case of O(n) (it's at the end, or not there at all) — reporting only the best case would be misleading.
 
-## Tiempo vs espacio
+## Time vs space
 
-Big-O también mide **memoria**, no solo tiempo — un algoritmo puede ser más rápido a costa de usar más memoria (ej. guardar resultados ya calculados para no recalcularlos, *memoization*) o más lento pero con memoria constante. Es un trade-off explícito, no siempre se optimiza para lo mismo.
+Big-O also measures **memory**, not just time — an algorithm can be faster at the cost of using more memory (e.g. storing already-computed results to avoid recalculating them, *memoization*) or slower but with constant memory. It's an explicit trade-off, not always optimized for the same thing.
 
 <table width="100%"><tr><td align="center" bgcolor="#ffffff">
 <img src="big-o-chart.png" width="600">
 </td></tr></table>
 
-## Tabla de referencia — estructuras de datos
+## Reference table — data structures
 
 <table width="100%"><tr><td align="center" bgcolor="#ffffff">
 <img src="big-o-data-structures.png" width="700">
 </td></tr></table>
 
-## Tabla de referencia — algoritmos de sorting (arrays)
+## Reference table — sorting algorithms (arrays)
 
 <table width="100%"><tr><td align="center" bgcolor="#ffffff">
 <img src="big-o-array-sorting.png" width="700">
 </td></tr></table>
 
 ---
-Relacionado: [Algoritmos, Sorting y Estructuras de Datos en Python](../stacks/python/algoritmos-y-sorting.md) (aplicación concreta a `list`/`dict`/`set`/`heapq`/`bisect`), [Índices](../database/indices.md) (mismo espíritu de Big-O, a nivel de DB).
+Related: [Algorithms, Sorting, and Data Structures in Python](../stacks/python/algorithms-and-sorting.md) (concrete application to `list`/`dict`/`set`/`heapq`/`bisect`), [Indexes](../database/indexes.md) (the same Big-O spirit, at the DB level).

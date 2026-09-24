@@ -1,23 +1,23 @@
 # Agentic AI
 
-Fase 2 del repo: agentic programming en profundidad (agentes, tool use, RAG), ML tradicional solo de pasada.
+Phase 2 of the repo: agentic programming in depth (agents, tool use, RAG), traditional ML only in passing.
 
-- [x] [Agentes vs Workflows](agentes-vs-workflows.md)
-- [x] [AGENTS.md y Skills](agents-md-y-skills.md)
-- [x] [Comparación de Modelos](comparacion-modelos.md)
+- [x] [Agents vs Workflows](agents-vs-workflows.md)
+- [x] [AGENTS.md and Skills](agents-md-and-skills.md)
+- [x] [Model Comparison](model-comparison.md)
 - [x] [Context Engineering](context-engineering.md)
-- [x] [Costos de LLMs: Anthropic vs OpenAI vs Google](costos-llms.md)
-- [x] [De ML clásico a Agentic AI (historia)](historia-de-ml-a-agentic.md)
-- [x] [Diseño de Agentes de IA](diseno-de-agentes.md)
+- [x] [LLM Costs: Anthropic vs OpenAI vs Google](llm-costs.md)
+- [x] [From Classical ML to Agentic AI (history)](from-ml-to-agentic-ai.md)
+- [x] [AI Agent Design](agent-design.md)
 - [x] [Function Calling (Tool Use)](function-calling.md)
 - [x] [MCP (Model Context Protocol)](mcp.md)
-- [x] [Memoria Conversacional](memoria-conversacional.md)
-- [x] [PRD y Spec-Driven Development](prd-y-spec-driven-development.md)
+- [x] [Conversational Memory](conversational-memory.md)
+- [x] [PRD and Spec-Driven Development](prd-and-spec-driven-development.md)
 - [x] [Prompt Engineering](prompt-engineering.md)
-- [x] [Qué es un token](que-es-un-token.md)
+- [x] [What is a token](what-is-a-token.md)
 - [x] [RAG (Retrieval-Augmented Generation)](rag.md)
-- [x] [Riesgos y Mitigaciones en Agentes de IA](riesgos-y-mitigaciones.md)
-- [x] [Tamaño y Cuantización de Modelos](tamano-y-cuantizacion.md)
-- [x] [Tipos de Agentes de IA](tipos-de-agentes.md)
+- [x] [Risks and Mitigations in AI Agents](risks-and-mitigations.md)
+- [x] [Model Size and Quantization](model-size-and-quantization.md)
+- [x] [Types of AI Agents](agent-types.md)
 
-Ver también: [n8n](../stacks/n8n/) (herramienta concreta, vive en `stacks/` junto a los demás lenguajes/tools).
+See also: [n8n](../stacks/n8n/) (a concrete tool, lives in `stacks/` alongside the other languages/tools).

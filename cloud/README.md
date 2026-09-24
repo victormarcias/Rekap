@@ -1,7 +1,7 @@
 # Cloud
 
-Servicios concretos de cada proveedor cloud — distinto de [DevOps](../devops/) (infraestructura y prácticas genéricas, sin atarse a un proveedor) y de [Database](../database/) (donde ya viven los servicios de datos gestionados como DynamoDB): acá el foco es "qué ofrece este proveedor puntual y para qué sirve cada pieza".
+Concrete services from each cloud provider — different from [DevOps](../devops/) (generic infrastructure and practices, not tied to a provider) and [Database](../database/) (where managed data services like DynamoDB already live): here the focus is "what does this specific provider offer, and what's each piece for."
 
 - [🟧 AWS](aws/)
 
-Ver también: [Comparación de Proveedores](comparacion-proveedores.md) (AWS/Azure/GCP, servicio equivalente lado a lado).
+See also: [Provider Comparison](provider-comparison.md) (AWS/Azure/GCP, equivalent service side by side).

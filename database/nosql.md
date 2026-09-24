@@ -1,76 +1,76 @@
 # NoSQL
 
-Bases de datos que se apartan del modelo relacional clásico (tablas + SQL + ACID estricto) para priorizar escalabilidad horizontal, esquemas flexibles o modelos de datos específicos.
+Databases that step away from the classic relational model (tables + SQL + strict ACID) to prioritize horizontal scalability, flexible schemas, or specific data models.
 
-## Categorías principales
+## Main categories
 
-| Tipo | Modelo | Ejemplos | Caso de uso típico |
+| Type | Model | Examples | Typical use case |
 |---|---|---|---|
-| **Key-Value** | Clave → valor opaco | Redis, DynamoDB | Cache, sesiones, contadores, feature flags |
-| **Documento** | Documentos JSON/BSON anidados | MongoDB, Couchbase | Datos semi-estructurados, schemas que cambian seguido |
-| **Column-family** | Filas con columnas dinámicas agrupadas por familia | Cassandra, HBase | Escritura masiva, series temporales, alta disponibilidad multi-región |
-| **Grafo** | Nodos + relaciones (edges) | Neo4j, Amazon Neptune | Datos altamente relacionales (redes sociales, recomendaciones, fraude) |
-| **Vector** | Embedding (vector numérico) → búsqueda por similitud | Pinecone, Weaviate, pgvector | RAG, búsqueda semántica, recomendaciones por similitud |
+| **Key-Value** | Key → opaque value | Redis, DynamoDB | Cache, sessions, counters, feature flags |
+| **Document** | Nested JSON/BSON documents | MongoDB, Couchbase | Semi-structured data, schemas that change often |
+| **Column-family** | Rows with dynamic columns grouped by family | Cassandra, HBase | Mass writes, time series, multi-region high availability |
+| **Graph** | Nodes + relationships (edges) | Neo4j, Amazon Neptune | Highly relational data (social networks, recommendations, fraud) |
+| **Vector** | Embedding (numeric vector) → similarity search | Pinecone, Weaviate, pgvector | RAG, semantic search, similarity-based recommendations |
 
-## Por qué NoSQL: el trade-off central
+## Why NoSQL: the central trade-off
 
-Relacional prioriza **consistencia e integridad** (constraints, foreign keys, transacciones ACID multi-tabla). NoSQL generalmente prioriza **disponibilidad y escalabilidad horizontal**, sacrificando algo de consistencia o de expresividad de queries.
+Relational prioritizes **consistency and integrity** (constraints, foreign keys, multi-table ACID transactions). NoSQL generally prioritizes **availability and horizontal scalability**, sacrificing some consistency or query expressiveness.
 
 ## CAP Theorem
 
-En un sistema distribuido, ante una partición de red (**P**, inevitable en la práctica), hay que elegir entre:
+In a distributed system, facing a network partition (**P**, inevitable in practice), you have to choose between:
 
-- **C**onsistency: todos los nodos ven el mismo dato al mismo tiempo.
-- **A**vailability: el sistema sigue respondiendo aunque algunos nodos no puedan comunicarse entre sí.
+- **C**onsistency: every node sees the same data at the same time.
+- **A**vailability: the system keeps responding even if some nodes can't communicate with each other.
 
-### Las tres combinaciones
+### The three combinations
 
-- **CP** (Consistency + Partition tolerance): ante una partición, el sistema prioriza que el dato sea correcto — los nodos que no pueden confirmar consistencia con el resto **dejan de responder** (o rechazan la operación) en vez de arriesgarse a devolver algo desactualizado. Ejemplo: MongoDB en su configuración default — si un nodo no puede alcanzar la mayoría del replica set, rechaza la escritura en vez de aplicarla a ciegas.
-- **AP** (Availability + Partition tolerance): ante una partición, el sistema **sigue respondiendo siempre**, aunque eso signifique devolver un dato que todavía no se sincronizó con el resto de los nodos — consistencia eventual (ver abajo). Ejemplo: Cassandra, DynamoDB.
-- **CA** (Consistency + Availability): solo es posible si **nunca hay una partición** — en la práctica, eso significa un solo nodo, porque no hay "otros nodos" con los que desincronizarse. Un Postgres/MySQL de un único servidor cae acá; apenas se agrega replicación multi-nodo, la P vuelve a estar en juego y hay que elegir entre C y A como cualquier sistema distribuido.
+- **CP** (Consistency + Partition tolerance): facing a partition, the system prioritizes correctness — nodes that can't confirm consistency with the rest **stop responding** (or reject the operation) instead of risking returning something stale. Example: MongoDB in its default configuration — if a node can't reach a majority of the replica set, it rejects the write instead of blindly applying it.
+- **AP** (Availability + Partition tolerance): facing a partition, the system **always keeps responding**, even if that means returning data that hasn't synced with the rest of the nodes yet — eventual consistency (see below). Example: Cassandra, DynamoDB.
+- **CA** (Consistency + Availability): only possible if **there's never a partition** — in practice, that means a single node, because there are no "other nodes" to desync from. A single-server Postgres/MySQL falls here; as soon as multi-node replication is added, P is back in play and you have to choose between C and A like any distributed system.
 
-| Sistema | Prioriza |
+| System | Prioritizes |
 |---|---|
-| Postgres/MySQL (single-node) | CA (no aplica P en un solo nodo) |
-| MongoDB (config default) | CP |
-| Cassandra, DynamoDB | AP (consistencia eventual) |
+| Postgres/MySQL (single-node) | CA (P doesn't apply on a single node) |
+| MongoDB (default config) | CP |
+| Cassandra, DynamoDB | AP (eventual consistency) |
 
-El teorema dice que, ante una partición de red, un sistema distribuido solo puede garantizar **una** de las dos — Consistency o Availability, nunca ambas al mismo tiempo — de ahí el nombre **CAP** (Consistency, Availability, Partition tolerance). La P no es una opción que se "elige": en un sistema realmente distribuido, las particiones de red van a pasar tarde o temprano — la elección real es entre C y A, y CA solo existe como caso especial de "no soy realmente distribuido".
+The theorem says that, facing a network partition, a distributed system can only guarantee **one** of the two — Consistency or Availability, never both at the same time — hence the name **CAP** (Consistency, Availability, Partition tolerance). P isn't something you "choose": in a truly distributed system, network partitions will happen sooner or later — the real choice is between C and A, and CA only exists as the special case of "not actually distributed."
 
-## Consistencia eventual
+## Eventual consistency
 
-En sistemas AP (ej. Cassandra), un write puede no verse inmediatamente en todos los nodos — eventualmente converge, pero una lectura inmediata después de un write puede devolver el dato viejo. Aceptable para casos como contadores de likes; no aceptable para saldo de una cuenta bancaria.
+In AP systems (e.g. Cassandra), a write may not be visible on every node immediately — it eventually converges, but a read right after a write can return stale data. Acceptable for things like like counters; not acceptable for a bank account balance.
 
-## Documento — ejemplo (MongoDB)
+## Document — example (MongoDB)
 
 ```js
 db.users.insertOne({
   name: "Ana",
-  emails: ["ana@mail.com", "ana@work.com"], // array, sin necesidad de tabla aparte
-  address: { city: "Buenos Aires", zip: "1000" } // anidado, sin JOIN
+  emails: ["ana@mail.com", "ana@work.com"], // array, no need for a separate table
+  address: { city: "Buenos Aires", zip: "1000" } // nested, no JOIN
 });
 ```
 
-Ventaja: no hace falta definir el schema por adelantado, y datos anidados/relacionados van en un solo documento (menos joins). Desventaja: duplicación de datos, más difícil garantizar integridad referencial.
+Advantage: no need to define the schema ahead of time, and nested/related data goes in a single document (fewer joins). Disadvantage: data duplication, harder to guarantee referential integrity.
 
-## Vector — características fundamentales
+## Vector — fundamental characteristics
 
-A diferencia de las demás categorías, acá no se busca por clave exacta ni por filtro estructurado, sino por **similitud**: cada dato se representa como un embedding (un vector numérico que captura su significado), y la consulta es "¿cuáles de estos vectores están más cerca del vector de mi pregunta?". Resolverlo por fuerza bruta contra millones de vectores no escala — estas bases usan índices **ANN** (Approximate Nearest Neighbor, ej. HNSW) que sacrifican algo de precisión exacta a cambio de responder en milisegundos. La mayoría también soporta **metadata filtering**: combinar la búsqueda por similitud con filtros exactos (ej. "solo documentos de este usuario").
+Unlike the other categories, here you don't search by exact key or structured filter, but by **similarity**: each piece of data is represented as an embedding (a numeric vector capturing its meaning), and the query is "which of these vectors are closest to my query's vector?". Solving this by brute force against millions of vectors doesn't scale — these databases use **ANN** (Approximate Nearest Neighbor, e.g. HNSW) indexes that trade some exact precision for millisecond responses. Most also support **metadata filtering**: combining the similarity search with exact filters (e.g. "only documents from this user").
 
-Es la pieza de infraestructura detrás de RAG — ver [RAG (Retrieval-Augmented Generation)](../agentic-ai/rag.md#3-vector-db--guardar-y-buscar-por-similitud) para el pipeline completo (chunking → embeddings → vector DB → retrieval).
+It's the infrastructure piece behind RAG — see [RAG (Retrieval-Augmented Generation)](../agentic-ai/rag.md#3-vector-db--storing-and-searching-by-similarity) for the full pipeline (chunking → embeddings → vector DB → retrieval).
 
-## Cuándo elegir NoSQL vs SQL
+## When to choose NoSQL vs SQL
 
-**NoSQL cuando:**
-- El schema cambia frecuentemente o es muy heterogéneo entre registros.
-- Necesitás escalar escritura horizontalmente a través de muchos nodos/regiones.
-- El acceso a datos es simple (por key) y no necesitás joins complejos ni transacciones multi-entidad.
+**NoSQL when:**
+- The schema changes frequently or is very heterogeneous across records.
+- You need to scale writes horizontally across many nodes/regions.
+- Data access is simple (by key) and you don't need complex joins or multi-entity transactions.
 
-**SQL cuando:**
-- Necesitás integridad referencial fuerte y transacciones ACID entre múltiples entidades (ej. sistemas financieros).
-- Las relaciones entre entidades son el corazón del dominio y se consultan con queries complejas (joins, agregaciones).
-- El equipo ya tiene expertise y tooling maduro en el ecosistema SQL.
+**SQL when:**
+- You need strong referential integrity and ACID transactions across multiple entities (e.g. financial systems).
+- Relationships between entities are the heart of the domain and are queried with complex queries (joins, aggregations).
+- The team already has expertise and mature tooling in the SQL ecosystem.
 
-En la práctica, muchos sistemas usan **ambos** (polyglot persistence): Postgres para el dominio transaccional, Redis para cache/sesiones, Elasticsearch para búsqueda full-text.
+In practice, many systems use **both** (polyglot persistence): Postgres for the transactional domain, Redis for cache/sessions, Elasticsearch for full-text search.
 
-Relacionado: [Sharding vs partitioning](sharding-vs-partitioning.md), [ACID / transacciones / isolation levels](acid-transacciones-isolation.md).
+Related: [Sharding vs partitioning](sharding-vs-partitioning.md), [ACID / transactions / isolation levels](acid.md).

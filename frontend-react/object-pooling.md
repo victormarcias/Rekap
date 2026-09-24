@@ -1,24 +1,24 @@
 # Object Pooling
 
-Reutilizar un conjunto fijo de objetos en vez de crearlos y destruirlos constantemente. Concepto genérico (viene de game dev), pero aplica directo a cualquier loop de alta frecuencia en frontend: animaciones, canvas, sistemas de partículas.
+Reusing a fixed set of objects instead of constantly creating and destroying them. A generic concept (comes from game dev), but applies directly to any high-frequency loop in frontend: animations, canvas, particle systems.
 
-## Por qué importa
+## Why it matters
 
-Crear un objeto nuevo en cada frame de una animación (60 veces por segundo) genera basura que el garbage collector tiene que limpiar — y esa limpieza puede pausar el hilo principal justo en medio de una animación, generando el *jank* (tirones visibles) que se nota como frames perdidos.
+Creating a new object on every frame of an animation (60 times a second) generates garbage the garbage collector has to clean up — and that cleanup can pause the main thread right in the middle of an animation, causing the *jank* (visible stutter) that shows up as dropped frames.
 
 ```js
-// ❌ una partícula nueva por frame, miles de objetos descartados por segundo
+// ❌ a new particle every frame, thousands of discarded objects per second
 function spawnParticle() {
   return { x: 0, y: 0, vx: Math.random(), vy: Math.random() };
 }
 function tick() {
-  particles.push(spawnParticle()); // el GC tiene que limpiar las viejas descartadas
+  particles.push(spawnParticle()); // the GC has to clean up the discarded old ones
 }
 ```
 
-## El patrón
+## The pattern
 
-Se pre-crea un conjunto fijo de objetos al arrancar, y en vez de `new`/descartar, se "pide prestado" uno inactivo del pool y se "devuelve" cuando ya no hace falta.
+A fixed set of objects is pre-created at startup, and instead of `new`/discard, one inactive object is "borrowed" from the pool and "returned" when no longer needed.
 
 ```js
 class ParticlePool {
@@ -29,22 +29,22 @@ class ParticlePool {
   acquire() {
     const p = this.pool.find(p => !p.active);
     if (p) p.active = true;
-    return p; // reutiliza un objeto existente, no crea uno nuevo
+    return p; // reuses an existing object, doesn't create a new one
   }
 
   release(p) {
-    p.active = false; // vuelve al pool, listo para la próxima partícula
+    p.active = false; // goes back to the pool, ready for the next particle
   }
 }
 
 const pool = new ParticlePool(500);
 const particle = pool.acquire();
-// ... usar la partícula ...
-pool.release(particle); // no se descarta, se recicla
+// ... use the particle ...
+pool.release(particle); // not discarded, recycled
 ```
 
-Cero allocations nuevas en el loop caliente — el pool ya tiene todo lo que va a necesitar reservado de entrada.
+Zero new allocations in the hot loop — the pool already has everything it's going to need reserved upfront.
 
-## El mismo principio en las listas virtualizadas
+## The same principle in virtualized lists
 
-[Virtualización / Windowing](../diagnostico/frontend.md#falta-de-paginación--virtualización) aplica la misma idea a nivel de nodos DOM: en vez de montar y desmontar un `<div>` por cada fila que entra/sale del viewport al scrollear, las librerías de virtualización reciclan un puñado fijo de nodos DOM y solo les cambian el contenido — el DOM también es "caro" de crear/destruir, igual que los objetos en memoria de un game loop.
+[Virtualization / Windowing](../diagnostics/frontend.md#missing-pagination--virtualization) applies the same idea at the DOM node level: instead of mounting and unmounting a `<div>` for every row entering/leaving the viewport while scrolling, virtualization libraries recycle a fixed handful of DOM nodes and just change their content — the DOM is also "expensive" to create/destroy, just like objects in a game loop's memory.

@@ -1,22 +1,22 @@
 # Controller / Service / Repository
 
-Patrón de capas para separar responsabilidades en el backend: cada capa sabe hacer una sola cosa, y no le importa cómo funcionan las otras.
+A layered pattern for separating responsibilities in the backend: each layer knows how to do one thing, and doesn't care how the others work.
 
-## Las tres capas
+## The three layers
 
-- **Controller**: recibe el request HTTP, valida/parsea el input, llama al Service, arma la response. No tiene lógica de negocio — es la traducción entre "HTTP" y "la lógica de la app".
-- **Service**: la lógica de negocio en sí (calcular un descuento, validar una regla, orquestar varios repositorios). No sabe nada de HTTP ni de SQL.
-- **Repository**: acceso a datos — abstrae de qué motor de DB es, qué ORM se usa, cómo está armada la query. El Service le pide datos, no le importa cómo los consigue.
+- **Controller**: receives the HTTP request, validates/parses the input, calls the Service, builds the response. Has no business logic — it's the translation between "HTTP" and "the app's logic."
+- **Service**: the business logic itself (calculating a discount, validating a rule, orchestrating several repositories). Knows nothing about HTTP or SQL.
+- **Repository**: data access — abstracts away which DB engine it is, which ORM is used, how the query is built. The Service asks it for data, doesn't care how it gets it.
 
 ```python
-# Repository: solo sabe hablar con la DB
+# Repository: only knows how to talk to the DB
 class OrderRepository:
     def find_by_id(self, order_id):
         return db.query(Order).filter(Order.id == order_id).first()
     def save(self, order):
         db.add(order); db.commit()
 
-# Service: lógica de negocio — no sabe nada de HTTP ni de SQL
+# Service: business logic — knows nothing about HTTP or SQL
 class OrderService:
     def __init__(self, repo: OrderRepository):
         self.repo = repo
@@ -24,12 +24,12 @@ class OrderService:
     def apply_discount(self, order_id, percentage):
         order = self.repo.find_by_id(order_id)
         if order.status != "pending":
-            raise ValueError("Solo se puede descontar una orden pendiente")
+            raise ValueError("Only a pending order can be discounted")
         order.total *= (1 - percentage / 100)
         self.repo.save(order)
         return order
 
-# Controller: solo HTTP — parsea el request, llama al service, arma la response
+# Controller: HTTP only — parses the request, calls the service, builds the response
 @app.post("/orders/{order_id}/discount")
 async def apply_discount(order_id: int, body: DiscountBody):
     order = order_service.apply_discount(order_id, body.percentage)
@@ -38,61 +38,61 @@ async def apply_discount(order_id: int, body: DiscountBody):
 
 ## ORM (Object-Relational Mapping)
 
-Mapea filas de una tabla a objetos del lenguaje — en vez de escribir SQL a mano y parsear el resultado, el código trabaja con instancias de clases, y el ORM traduce eso a SQL por detrás. Es exactamente lo que el `Repository` de arriba está usando (`db.query(Order)...`).
+Maps rows from a table to objects in the language — instead of writing raw SQL and parsing the result, the code works with class instances, and the ORM translates that to SQL behind the scenes. It's exactly what the `Repository` above is using (`db.query(Order)...`).
 
 ```python
-# ❌ sin ORM: SQL crudo + mapeo manual del resultado a objetos
+# ❌ without an ORM: raw SQL + manual mapping of the result to objects
 cursor.execute("SELECT * FROM orders WHERE status = %s", ("pending",))
 rows = cursor.fetchall()
 orders = [Order(id=r[0], status=r[1], total=r[2]) for r in rows]
 
-# ✅ con ORM: el mapeo lo hace la librería, el resultado ya son objetos
+# ✅ with an ORM: the library does the mapping, the result is already objects
 orders = session.query(Order).filter_by(status="pending").all()
 ```
 
-**ODBC (Open Database Connectivity) — la capa de más abajo, y legacy**: un ORM se conecta a la DB a través de algún driver — en Python, típicamente uno nativo (`psycopg2`, `asyncpg`), no ODBC. ODBC es un protocolo más viejo y de más bajo nivel, pensado para que **cualquier** aplicación (no solo de un lenguaje específico) se conecte a **cualquier** DB con un driver ODBC instalado. Hoy se ve sobre todo en herramientas de BI/reporting (Excel o Tableau conectándose a un data warehouse — ver [Cubos OLAP](../diagnostico/base-de-datos.md#cubos-olap)), no en el stack típico de un backend moderno.
+**ODBC (Open Database Connectivity) — the lower-level layer, and legacy**: an ORM connects to the DB through some driver — in Python, typically a native one (`psycopg2`, `asyncpg`), not ODBC. ODBC is an older, lower-level protocol, meant for **any** application (not just one written in a specific language) to connect to **any** DB with an ODBC driver installed. Today it shows up mostly in BI/reporting tools (Excel or Tableau connecting to a data warehouse — see [OLAP cubes](../diagnostics/database.md#olap-cubes)), not in a modern backend's typical stack.
 
 ## DTO (Data Transfer Object)
 
-Un objeto simple, sin lógica de negocio, que solo transporta datos entre capas o entre sistemas — nada de métodos con comportamiento, solo campos. En el Controller de arriba, `DiscountBody` (lo que entra) y el `dict` de la response (lo que sale) son DTOs: **desacoplan el contrato externo de la API del modelo de dominio interno** que usa el Service.
+A simple object with no business logic, that only carries data between layers or between systems — no methods with behavior, just fields. In the Controller above, `DiscountBody` (what comes in) and the response `dict` (what goes out) are DTOs: **they decouple the API's external contract from the internal domain model** the Service uses.
 
-Por qué importa:
-- Cambiar el schema de la DB (agregar una columna interna, renombrar un campo) no debería romper el contrato de la API si hay un DTO en el medio traduciendo.
-- El DTO de salida controla exactamente qué se expone — nunca se filtra un campo interno (`password_hash`, `internal_risk_score`) solo porque el modelo de dominio lo tiene.
-- El mismo dominio puede tener DTOs distintos para casos de uso distintos (un resumen liviano para un listado, uno completo para el detalle) sin duplicar el modelo de dominio en sí.
+Why it matters:
+- Changing the DB schema (adding an internal column, renaming a field) shouldn't break the API contract if there's a DTO in the middle translating.
+- The output DTO controls exactly what gets exposed — an internal field (`password_hash`, `internal_risk_score`) never leaks just because the domain model has it.
+- The same domain can have different DTOs for different use cases (a lightweight summary for a list, a full one for the detail view) without duplicating the domain model itself.
 
 ```python
-# Modelo de dominio: tiene todo lo que el negocio necesita, incluso campos internos
+# Domain model: has everything the business needs, including internal fields
 class Order:
     def __init__(self, id, total, status, internal_risk_score, user_id):
         ...
 
-# DTO de salida: solo lo que el cliente de la API necesita ver
+# Output DTO: only what the API client needs to see
 class OrderDTO(BaseModel):
     id: int
     total: float
     status: str
-    # internal_risk_score NUNCA aparece acá — el DTO decide qué se expone
+    # internal_risk_score NEVER shows up here — the DTO decides what's exposed
 
 def order_to_dto(order: Order) -> OrderDTO:
     return OrderDTO(id=order.id, total=order.total, status=order.status)
 ```
 
-Ya lo venías usando sin el nombre: el `response_model` y el modelo del body en [Endpoints para microservicios](../stacks/fastapi/endpoints-microservicios.md#1-anatomía-de-un-endpoint-en-fastapi) son DTOs de salida y de entrada respectivamente — un modelo de Pydantic que separa el shape de la API del modelo de dominio interno.
+You were already using this without the name: the `response_model` and the body model in [Endpoints for microservices](../stacks/fastapi/microservice-endpoints.md#1-anatomy-of-a-fastapi-endpoint) are output and input DTOs respectively — a Pydantic model that separates the API's shape from the internal domain model.
 
-## Por qué separar
+## Why separate them
 
-Cada capa tiene una sola razón para cambiar — es [Single Responsibility](../system-design/solid.md#s--single-responsibility-principle) aplicado a la arquitectura de un request completo: un cambio en el formato de la API toca solo el Controller, un cambio en la regla de negocio toca solo el Service, un cambio de Postgres a Mongo toca solo el Repository.
+Each layer has a single reason to change — it's [Single Responsibility](../system-design/solid.md#s--single-responsibility-principle) applied to a full request's architecture: a change in the API format only touches the Controller, a change in the business rule only touches the Service, a change from Postgres to Mongo only touches the Repository.
 
-## El beneficio real: testear sin HTTP ni DB
+## The real benefit: testing without HTTP or a DB
 
-El Service recibe el Repository como dependencia en vez de crearlo él mismo — [Dependency Inversion](../system-design/solid.md#d--dependency-inversion-principle) — así que en un test se le puede pasar un Repository falso en memoria en vez del real, y testear la lógica de negocio sin levantar un servidor HTTP ni una base de datos.
+The Service receives the Repository as a dependency instead of creating it itself — [Dependency Inversion](../system-design/solid.md#d--dependency-inversion-principle) — so in a test you can pass it a fake in-memory Repository instead of the real one, and test the business logic without spinning up an HTTP server or a database.
 
 ```python
 class FakeOrderRepository:
     def __init__(self, orders): self.orders = orders
     def find_by_id(self, order_id): return self.orders[order_id]
-    def save(self, order): pass  # no hace falta persistir nada para el test
+    def save(self, order): pass  # nothing needs to persist for the test
 
 def test_apply_discount_rejects_non_pending_order():
     fake_repo = FakeOrderRepository({1: Order(id=1, status="shipped", total=100)})
@@ -102,4 +102,4 @@ def test_apply_discount_rejects_non_pending_order():
 ```
 
 ---
-Relacionado: [Clean Architecture](../system-design/clean-architecture.md) (la teoría completa detrás de esta separación en capas), [SOLID principles](../system-design/solid.md), [Testing — conceptos generales](../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) (el `FakeOrderRepository` de arriba es un Fake, no un Mock), [Endpoints para microservicios](../stacks/fastapi/endpoints-microservicios.md) (`response_model` y Pydantic como DTOs en la práctica).
+Related: [Clean Architecture](../system-design/clean-architecture.md) (the full theory behind this layered separation), [SOLID principles](../system-design/solid.md), [Testing — general concepts](../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) (the `FakeOrderRepository` above is a Fake, not a Mock), [Endpoints for microservices](../stacks/fastapi/microservice-endpoints.md) (`response_model` and Pydantic as DTOs in practice).

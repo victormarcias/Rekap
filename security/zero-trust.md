@@ -1,44 +1,44 @@
 # Zero Trust
 
-Modelo de seguridad: **nunca confiar, siempre verificar**. Cada request se autentica y autoriza, sin importar de dónde venga — no existe una zona "de adentro" automáticamente confiable.
+A security model: **never trust, always verify**. Every request is authenticated and authorized, no matter where it comes from — there's no automatically trusted "inside" zone.
 
-## El modelo que reemplaza: perímetro (castillo y foso)
+## The model it replaces: perimeter (castle and moat)
 
-El modelo clásico concentra la seguridad en el borde de la red — firewall, VPN — y una vez que algo pasó ese borde, se mueve con confianza amplia y poca re-verificación. Funciona mientras el borde no se rompa, pero falla exactamente cuando más importa: una credencial de VPN robada, un empleado comprometido, o un servicio interno vulnerado le dan a un atacante movimiento libre puertas adentro, porque el diseño nunca esperó tener que desconfiar de "adentro".
+The classic model concentrates security at the network edge — firewall, VPN — and once something gets past that edge, it moves with broad trust and little re-verification. It works as long as the edge doesn't break, but it fails exactly when it matters most: a stolen VPN credential, a compromised employee, or a breached internal service give an attacker free movement once inside, because the design never expected to have to distrust "the inside."
 
-## Principios centrales
+## Core principles
 
-- **Verificar explícitamente**: cada request se autentica y autoriza — sin importar si viene de internet o de la red interna. "Interno" deja de ser sinónimo de "confiable".
-- **Mínimo privilegio**: acceso acotado a lo estrictamente necesario para esa identidad puntual, nunca de más "por las dudas" — mismo criterio que ya vimos en [SQL Injection](sql-injection.md#cómo-se-previene) a nivel de DB, o en los permisos de un [agente de IA](../agentic-ai/riesgos-y-mitigaciones.md#mitigaciones-técnicas).
-- **Asumir la brecha**: diseñar como si el atacante ya estuviera adentro — segmentar la red, cifrar tráfico interno además del externo, monitorear activamente en vez de confiar en que el perímetro aguantó.
+- **Verify explicitly**: every request is authenticated and authorized — regardless of whether it comes from the internet or the internal network. "Internal" stops being a synonym for "trustworthy."
+- **Least privilege**: access limited to strictly what that specific identity needs, never more "just in case" — the same principle we already saw in [SQL Injection](sql-injection.md#how-its-prevented) at the DB level, or in an [AI agent's](../agentic-ai/risks-and-mitigations.md#technical-mitigations) permissions.
+- **Assume breach**: design as if the attacker is already inside — segment the network, encrypt internal traffic as well as external, actively monitor instead of trusting that the perimeter held.
 
-## Ejemplo: autenticar también el tráfico "interno"
+## Example: authenticating "internal" traffic too
 
 ```python
-# ❌ modelo de perímetro: confía en cualquier request que venga de la red interna
+# ❌ perimeter model: trusts any request coming from the internal network
 @app.get("/orders/{order_id}")
 def get_order(order_id: str, request: Request):
-    if es_ip_interna(request.client.host):   # "ya pasó el firewall, no hace falta más"
-        return buscar_orden(order_id)
+    if is_internal_ip(request.client.host):   # "already past the firewall, nothing more needed"
+        return find_order(order_id)
     raise HTTPException(403)
 
-# ✅ Zero Trust: valida identidad en cada request, sin importar el origen
+# ✅ Zero Trust: validates identity on every request, regardless of origin
 @app.get("/orders/{order_id}")
-def get_order(order_id: str, token: str = Depends(verificar_token)):
-    if not tiene_permiso(token, "orders:read"):
+def get_order(order_id: str, token: str = Depends(verify_token)):
+    if not has_permission(token, "orders:read"):
         raise HTTPException(403)
-    return buscar_orden(order_id)
+    return find_order(order_id)
 ```
 
-La diferencia no es cosmética: en el primer caso, cualquiera que logre pararse dentro de la red (VPN robada, un contenedor comprometido en la misma VPC) accede sin más preguntas. En el segundo, necesita además un token válido con el permiso específico — la red por sí sola no alcanza.
+The difference isn't cosmetic: in the first case, anyone who manages to get inside the network (a stolen VPN, a compromised container in the same VPC) gets in with no further questions. In the second, they also need a valid token with the specific permission — the network alone isn't enough.
 
-## mTLS entre microservicios
+## mTLS between microservices
 
-La misma idea aplicada a comunicación servicio-a-servicio: con **mTLS** (mutual TLS) cada servicio presenta su propio certificado, y el que recibe la conexión verifica la identidad del que llama — no solo al revés (cliente verificando servidor, como en HTTPS normal). Dos servicios en la misma red privada igual se autentican entre sí en cada llamado, en vez de asumir que "están en la misma VPC" ya es suficiente garantía.
+The same idea applied to service-to-service communication: with **mTLS** (mutual TLS) each service presents its own certificate, and the one receiving the connection verifies the caller's identity — not just the other way around (client verifying server, like in normal HTTPS). Two services on the same private network still authenticate each other on every call, instead of assuming "being in the same VPC" is already enough of a guarantee.
 
-## Cuándo importa
+## When it matters
 
-Arquitecturas de microservicios, entornos multi-tenant, equipos remotos donde ya no existe un único perímetro de oficina que proteger. Es la base conceptual detrás de productos como BeyondCorp (Google) o de que un service mesh haga mTLS por default entre servicios — la idea de que la ubicación en la red dejó de ser una señal de confianza válida.
+Microservices architectures, multi-tenant environments, remote teams where a single office perimeter to protect no longer exists. It's the conceptual foundation behind products like BeyondCorp (Google) or a service mesh doing mTLS by default between services — the idea that network location stopped being a valid trust signal.
 
 ---
-Relacionado: [Autenticación y Seguridad](../backend/autenticacion.md), [SQL Injection](sql-injection.md#cómo-se-previene), [Riesgos y Mitigaciones en Agentes de IA](../agentic-ai/riesgos-y-mitigaciones.md#mitigaciones-técnicas).
+Related: [Authentication and Security](../backend/authentication.md), [SQL Injection](sql-injection.md#how-its-prevented), [Risks and Mitigations in AI Agents](../agentic-ai/risks-and-mitigations.md#technical-mitigations).

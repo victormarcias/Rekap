@@ -1,69 +1,69 @@
 # Hooks
 
-Los hooks son una API específica de React (y de los frameworks que copiaron el modelo, como Preact).
+Hooks are a React-specific API (and frameworks that copied the model, like Preact).
 
-## Reglas de hooks
+## Rules of hooks
 
-1. **Solo llamar hooks en el nivel superior** de un componente — nunca dentro de un `if`, un loop, o una función anidada.
-2. **Solo llamar hooks desde componentes de React o desde otros hooks** — nunca desde una función JS común.
+1. **Only call hooks at the top level** of a component — never inside an `if`, a loop, or a nested function.
+2. **Only call hooks from React components or from other hooks** — never from a plain JS function.
 
 ```jsx
-// ❌ rompe la regla 1: si la condición cambia entre renders, el orden de los hooks cambia
+// ❌ breaks rule 1: if the condition changes between renders, the hook order changes
 function Component({ show }) {
   if (show) {
-    const [value, setValue] = useState(0); // a veces se llama, a veces no
+    const [value, setValue] = useState(0); // sometimes called, sometimes not
   }
 }
 
-// ✅ el hook siempre se llama, la condición va adentro
+// ✅ the hook is always called, the condition goes inside
 function Component({ show }) {
   const [value, setValue] = useState(0);
-  if (show) { /* usar value acá */ }
+  if (show) { /* use value here */ }
 }
 ```
 
-**Por qué existe esta regla**: React no identifica cada hook por nombre, sino por el **orden** en que se llaman durante el render — internamente los guarda en una lista y los asocia por posición. Si un hook a veces se llama y a veces no, el orden se desalinea entre renders y React le asigna a un hook el estado que le correspondía a otro.
+**Why this rule exists**: React doesn't identify each hook by name, but by the **order** in which they're called during render — internally it stores them in a list and associates them by position. If a hook is sometimes called and sometimes not, the order gets misaligned between renders and React assigns one hook the state that belonged to another.
 
 ## `useEffect`
 
-Corre después del render, para sincronizar el componente con algo externo (fetch, subscripción, timer, manipular el DOM directamente) — no para lógica que puede resolverse durante el render mismo.
+Runs after the render, to sync the component with something external (fetch, subscription, timer, directly manipulating the DOM) — not for logic that can be resolved during the render itself.
 
 ```jsx
 useEffect(() => {
   fetchData();
-});             // sin array: corre después de CADA render
+});             // no array: runs after EVERY render
 
 useEffect(() => {
   fetchData();
-}, []);         // array vacío: corre una sola vez, al montar
+}, []);         // empty array: runs once, on mount
 
 useEffect(() => {
   fetchData();
-}, [userId]);   // corre al montar, y de nuevo cada vez que userId cambia
+}, [userId]);   // runs on mount, and again every time userId changes
 ```
 
-**El array de dependencias no es opcional en la práctica**: sin él (o con dependencias mal declaradas), el efecto se dispara de más — y si adentro setea estado, cada disparo puede forzar otro render. Ver [`useEffect` mal usado](../diagnostico/frontend.md#useeffect-mal-usado--re-renders-en-cadena) para el caso concreto de performance.
+**The dependency array isn't optional in practice**: without it (or with poorly declared dependencies), the effect fires more than it should — and if it sets state inside, each firing can force another render. See [Misused `useEffect`](../diagnostics/frontend.md#misused-useeffect--cascading-re-renders) for the concrete performance case.
 
-## `memo`, `useMemo`, `useCallback` — memoización
+## `memo`, `useMemo`, `useCallback` — memoization
 
 ```jsx
-const total = useMemo(() => calcularTotalPesado(items), [items]);   // memoiza un VALOR calculado
-const handleClick = useCallback(() => doSomething(id), [id]);        // memoiza una FUNCIÓN
-const Row = memo(function Row({ item }) { ... });                     // memoiza un COMPONENTE completo
+const total = useMemo(() => calculateHeavyTotal(items), [items]);   // memoizes a computed VALUE
+const handleClick = useCallback(() => doSomething(id), [id]);        // memoizes a FUNCTION
+const Row = memo(function Row({ item }) { ... });                     // memoizes an entire COMPONENT
 ```
 
-- **`useMemo`**: evita recalcular algo costoso en cada render, si sus dependencias no cambiaron.
-- **`useCallback`**: evita crear una función nueva en cada render — importa cuando esa función es prop de un componente envuelto en `memo`, porque una función nueva rompe la comparación de referencia y anula el memo.
-- **`memo`**: envuelve un componente para que no se re-renderice si sus props no cambiaron (comparación superficial).
+- **`useMemo`**: avoids recomputing something expensive on every render, if its dependencies haven't changed.
+- **`useCallback`**: avoids creating a new function on every render — matters when that function is a prop of a component wrapped in `memo`, because a new function breaks the reference comparison and defeats the memo.
+- **`memo`**: wraps a component so it doesn't re-render if its props haven't changed (shallow comparison).
 
-No memoizar todo por default — agrega overhead de comparación; usarlo donde el costo evitado (render caro, o romper el memo de un hijo) lo justifica. Ver [Componentes que no usan `memo`/`useMemo`/`useCallback`](../diagnostico/frontend.md#componentes-que-no-usan-memousememousecallback) para el síntoma de performance que resuelve.
+Don't memoize everything by default — it adds comparison overhead; use it where the avoided cost (an expensive render, or breaking a child's memo) justifies it. See [Components not using `memo`/`useMemo`/`useCallback`](../diagnostics/frontend.md#components-not-using-memousememousecallback) for the performance symptom it fixes.
 
 ## Custom hooks
 
-Una función que empieza con `use` y llama a otros hooks adentro — la forma de extraer lógica con estado reutilizable entre componentes, sin duplicar código ni recurrir a patrones más pesados (HOCs, render props).
+A function that starts with `use` and calls other hooks inside — the way to extract reusable stateful logic between components, without duplicating code or resorting to heavier patterns (HOCs, render props).
 
 ```jsx
-// ✅ custom hook: encapsula fetch + loading + error, reutilizable en cualquier componente
+// ✅ custom hook: encapsulates fetch + loading + error, reusable in any component
 function useFetch(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -75,7 +75,7 @@ function useFetch(url) {
   return { data, loading };
 }
 
-// uso: cualquier componente pide solo lo que necesita, sin repetir la lógica de fetch
+// usage: any component asks for only what it needs, without repeating the fetch logic
 function UserProfile({ userId }) {
   const { data, loading } = useFetch(`/api/users/${userId}`);
   if (loading) return <Spinner />;
@@ -83,23 +83,23 @@ function UserProfile({ userId }) {
 }
 ```
 
-Un custom hook no comparte estado entre los componentes que lo usan — cada llamada tiene su propia instancia de `useState`/`useEffect`, como si el código estuviera copiado y pegado (pero sin estarlo).
+A custom hook doesn't share state between the components using it — each call has its own instance of `useState`/`useEffect`, as if the code were copy-pasted (without actually being copied).
 
-Este `useFetch` de ejemplo solo cubre `data`/`loading` — le faltan `error` y `retry` para estar completo, ver [Estados de un Request](estados-de-un-request.md).
+This example `useFetch` only covers `data`/`loading` — it's missing `error` and `retry` to be complete, see [Request States](request-states.md).
 
 ## `useRef`
 
-Guarda un valor mutable que **persiste entre renders sin causar un re-render** cuando cambia — a diferencia de `useState`, escribir en `ref.current` no le avisa a React que algo cambió. Dos usos típicos:
+Holds a mutable value that **persists between renders without causing a re-render** when it changes — unlike `useState`, writing to `ref.current` doesn't tell React anything changed. Two typical uses:
 
 ```jsx
-// 1. Referencia a un nodo del DOM real (ej. para hacer foco manualmente)
+// 1. Reference to a real DOM node (e.g. to focus it manually)
 function SearchInput() {
   const inputRef = useRef(null);
   useEffect(() => { inputRef.current.focus(); }, []);
   return <input ref={inputRef} />;
 }
 
-// 2. Guardar un valor que necesita sobrevivir renders pero no debe disparar un re-render
+// 2. Storing a value that needs to survive renders but shouldn't trigger a re-render
 function Timer() {
   const intervalId = useRef(null);
   const start = () => { intervalId.current = setInterval(() => {}, 1000); };
@@ -108,11 +108,11 @@ function Timer() {
 }
 ```
 
-Si el valor debe reflejarse en la UI, es `useState`; si es "bookkeeping" interno que la UI no necesita mostrar, es `useRef`.
+If the value needs to be reflected in the UI, it's `useState`; if it's internal "bookkeeping" the UI doesn't need to show, it's `useRef`.
 
 ## `useContext`
 
-Lee un valor provisto más arriba en el árbol por un `Context.Provider`, sin tener que pasarlo manualmente prop por prop a través de cada componente intermedio (ver [prop drilling](estado-global.md#prop-drilling--el-problema)) — es la versión de React de **Dependency Injection**: el `Provider` es el contenedor que define qué valor está disponible, y `useContext` es pedir esa dependencia inyectada, sin que el componente sepa de dónde vino.
+Reads a value provided higher up in the tree by a `Context.Provider`, without having to manually pass it prop by prop through every intermediate component (see [prop drilling](global-state.md#prop-drilling--the-problem)) — it's React's version of **Dependency Injection**: the `Provider` is the container defining what value is available, and `useContext` is asking for that injected dependency, without the component knowing where it came from.
 
 ```jsx
 const ThemeContext = createContext('light');
@@ -126,20 +126,20 @@ function App() {
 }
 
 function Toolbar() {
-  // Toolbar no usa el theme, pero antes tenía que recibirlo igual
-  // para poder pasárselo a ThemedButton — con Context ya no
+  // Toolbar doesn't use the theme, but before it had to receive it anyway
+  // to be able to pass it down to ThemedButton — with Context it no longer does
   return <ThemedButton />;
 }
 
 function ThemedButton() {
-  const theme = useContext(ThemeContext); // 'dark' — lee directo, sin pasar por Toolbar
+  const theme = useContext(ThemeContext); // 'dark' — reads directly, without going through Toolbar
   return <button className={theme}>Click</button>;
 }
 ```
 
-Cualquier componente que use `useContext` se re-renderiza cuando el `value` del Provider cambia, sin importar cuán abajo esté en el árbol — ver [Estado global: Context API vs Redux](estado-global.md) para cuándo esto se vuelve un problema de performance y qué alternativas hay.
+Any component using `useContext` re-renders when the Provider's `value` changes, no matter how deep it is in the tree — see [Global State: Context API vs Redux](global-state.md) for when this becomes a performance problem and what the alternatives are.
 
-🐣 **Fun fact — de dónde viene el nombre**: "engancharse" (hook) a las features internas de React (estado, ciclo de vida, contexto) desde una función común. Antes de los hooks, eso solo lo tenía una class component (`this.state`, `componentDidMount`) — `useState` engancha al sistema de estado, `useEffect` al ciclo de vida, `useContext` al árbol de Context. Mismo concepto que un git hook: un punto de enganche para meter código propio en el comportamiento de un sistema que ya existe.
+🐣 **Fun fact — where the name comes from**: "hooking into" React's internal features (state, lifecycle, context) from a plain function. Before hooks, only a class component had that (`this.state`, `componentDidMount`) — `useState` hooks into the state system, `useEffect` into the lifecycle, `useContext` into the Context tree. Same concept as a git hook: a hook point for inserting your own code into the behavior of a system that already exists.
 
 ---
-Relacionado: [Diagnóstico Frontend](../diagnostico/frontend.md) (`useEffect`, `memo`/`useMemo`/`useCallback`), [Estado global](estado-global.md), [React Fundamentos](react-fundamentos.md).
+Related: [Frontend Diagnostics](../diagnostics/frontend.md) (`useEffect`, `memo`/`useMemo`/`useCallback`), [Global State](global-state.md), [React Fundamentals](react-fundamentals.md).

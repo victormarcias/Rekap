@@ -1,90 +1,90 @@
 # Locks (shared/exclusive/MVCC)
 
-Mecanismos de control de concurrencia: cómo la base evita que transacciones simultáneas se pisen los datos.
+Concurrency control mechanisms: how the database keeps simultaneous transactions from stepping on each other's data.
 
-## Race condition — el problema de fondo
+## Race condition — the underlying problem
 
-Ocurre cuando dos o más operaciones acceden al mismo dato compartido al mismo tiempo, y el resultado final depende del **orden/timing** exacto en que se intercalan — sin ninguna garantía de cuál va a ganar. El caso clásico es el *lost update*: dos requests leen el mismo valor, cada uno calcula su cambio sobre esa lectura, y el que escribe segundo **pisa** el cambio del primero sin enterarse de que existió.
+Happens when two or more operations access the same shared data at the same time, and the final result depends on the exact **order/timing** they interleave in — with no guarantee of which one wins. The classic case is the *lost update*: two requests read the same value, each computes its change based on that read, and whichever writes second **overwrites** the first one's change without ever knowing it existed.
 
 ```sql
--- T1 y T2 corren "al mismo tiempo", ambos arrancan leyendo el mismo stock
--- T1: SELECT stock FROM products WHERE id = 1;  → lee 5
--- T2: SELECT stock FROM products WHERE id = 1;  → lee 5 (todavía no vio el cambio de T1)
+-- T1 and T2 run "at the same time," both start by reading the same stock
+-- T1: SELECT stock FROM products WHERE id = 1;  → reads 5
+-- T2: SELECT stock FROM products WHERE id = 1;  → reads 5 (hasn't seen T1's change yet)
 
--- T1: UPDATE products SET stock = 4 WHERE id = 1;  -- 5 - 1, basado en lo que leyó
--- T2: UPDATE products SET stock = 4 WHERE id = 1;  -- 5 - 1, basado en lo que leyó
+-- T1: UPDATE products SET stock = 4 WHERE id = 1;  -- 5 - 1, based on what it read
+-- T2: UPDATE products SET stock = 4 WHERE id = 1;  -- 5 - 1, based on what it read
 
--- resultado: stock = 4, pero deberían haberse vendido 2 unidades → stock real = 3
--- el UPDATE de T2 pisó el de T1 sin que ninguno de los dos se enterara del otro
+-- result: stock = 4, but 2 units should have sold → real stock = 3
+-- T2's UPDATE overwrote T1's without either one knowing about the other
 ```
 
-## Sección crítica — el concepto general detrás de la solución
+## Critical section — the general concept behind the solution
 
-El fragmento de código que toca el dato compartido (el `SELECT` + `UPDATE` de arriba) es una **sección crítica**: cualquier tramo que no puede ejecutarse por más de un hilo/proceso a la vez sin arriesgar una race condition. Las primitivas clásicas para protegerla son el **mutex** (exclusión mutua — un solo acceso a la vez) y el **semáforo** (permite hasta N accesos simultáneos; un mutex es, en el fondo, un semáforo con N=1).
+The chunk of code that touches the shared data (the `SELECT` + `UPDATE` above) is a **critical section**: any stretch that can't run in more than one thread/process at a time without risking a race condition. The classic primitives for protecting it are the **mutex** (mutual exclusion — one access at a time) and the **semaphore** (allows up to N simultaneous accesses; a mutex is, at bottom, a semaphore with N=1).
 
 ```python
 import threading
 
-lock = threading.Lock()  # mutex: exclusión mutua, un solo hilo a la vez
+lock = threading.Lock()  # mutex: mutual exclusion, one thread at a time
 
 def decrement_stock():
-    with lock:  # sección crítica: nadie más entra hasta que este bloque termine
+    with lock:  # critical section: no one else gets in until this block finishes
         stock[product_id] -= 1
 ```
 
-Los locks de este archivo (pessimistic/optimistic, shared/exclusive, más abajo) son **un caso particular** de este concepto — la implementación de "proteger una sección crítica" a nivel de base de datos. No es la única: un *distributed lock* (ej. con Redis) protege la misma idea, pero coordinando entre procesos/instancias en vez de entre transacciones de una DB; y el `threading.Lock()` de arriba la protege dentro de un único proceso, sin ninguna base de datos de por medio. Todo lo que sigue en este archivo son formas de resolver esto específicamente para datos en una DB: o se bloquea el acceso concurrente (pessimistic locking, shared/exclusive locks), o se detecta el conflicto al momento de escribir y se rechaza la escritura pisada (optimistic locking).
+The locks in this file (pessimistic/optimistic, shared/exclusive, below) are **one particular case** of this concept — implementing "protect a critical section" at the database level. It's not the only one: a *distributed lock* (e.g. with Redis) protects the same idea, but coordinating across processes/instances instead of across a DB's transactions; and the `threading.Lock()` above protects it within a single process, with no database involved at all. Everything that follows in this file is a way of solving this specifically for data in a DB: either concurrent access is blocked (pessimistic locking, shared/exclusive locks), or the conflict is detected at write time and the overwriting write is rejected (optimistic locking).
 
 ## Pessimistic vs Optimistic locking
 
-- **Pessimistic**: asumo que va a haber conflicto, así que bloqueo el recurso antes de tocarlo (`SELECT ... FOR UPDATE`). Otros procesos esperan.
-- **Optimistic**: asumo que no va a haber conflicto, dejo que todos lean/escriban libremente, y verifico al momento de escribir (ej. columna `version`) si alguien más modificó el dato mientras tanto — si es así, rechazo el update.
+- **Pessimistic**: assume there's going to be a conflict, so lock the resource before touching it (`SELECT ... FOR UPDATE`). Other processes wait.
+- **Optimistic**: assume there won't be a conflict, let everyone read/write freely, and check at write time (e.g. a `version` column) whether someone else modified the data in the meantime — if so, reject the update.
 
 ```sql
--- Optimistic locking con columna version
+-- Optimistic locking with a version column
 UPDATE products SET stock = stock - 1, version = version + 1
 WHERE id = 1 AND version = 5;
--- Si affected rows = 0 → alguien más lo modificó, hay que reintentar
+-- If affected rows = 0 → someone else modified it, needs a retry
 ```
 
 ## Shared lock (S) vs Exclusive lock (X)
 
-| Lock | Permite a otros leer | Permite a otros escribir | Uso |
+| Lock | Lets others read | Lets others write | Used for |
 |---|---|---|---|
-| **Shared (S)** | Sí (otro S) | ❌ | `SELECT ... FOR SHARE` |
+| **Shared (S)** | Yes (another S) | ❌ | `SELECT ... FOR SHARE` |
 | **Exclusive (X)** | ❌ | ❌ | `UPDATE`, `DELETE`, `SELECT ... FOR UPDATE` |
 
 ```sql
 BEGIN;
-SELECT * FROM accounts WHERE id = 1 FOR UPDATE; -- lock exclusivo de la fila
+SELECT * FROM accounts WHERE id = 1 FOR UPDATE; -- exclusive lock on the row
 UPDATE accounts SET balance = balance - 100 WHERE id = 1;
-COMMIT; -- libera el lock
+COMMIT; -- releases the lock
 ```
 
 ## Row-level vs table-level
 
-- La mayoría de los motores modernos (Postgres, MySQL InnoDB) lockean a **nivel fila** por defecto — mucho mejor para concurrencia que lockear la tabla entera.
-- `LOCK TABLE` existe para casos puntuales (ej. migraciones, operaciones batch) pero bloquea a todos los demás.
+- Most modern engines (Postgres, MySQL InnoDB) lock at the **row level** by default — much better for concurrency than locking the whole table.
+- `LOCK TABLE` exists for specific cases (e.g. migrations, batch operations) but blocks everyone else.
 
 ## Deadlocks
 
-Dos transacciones se bloquean mutuamente esperando el lock que tiene la otra.
+Two transactions mutually block each other, each waiting for a lock the other holds.
 
 ```
-T1: lock fila A, espera fila B
-T2: lock fila B, espera fila A
+T1: locks row A, waits on row B
+T2: locks row B, waits on row A
 → deadlock
 ```
 
-El motor detecta el ciclo y aborta una de las dos transacciones (la víctima recibe un error y debe reintentar). **Mitigación**: siempre lockear recursos en el mismo orden en toda la aplicación (ej. siempre por `id` ascendente).
+The engine detects the cycle and aborts one of the two transactions (the victim gets an error and has to retry). **Mitigation**: always lock resources in the same order throughout the application (e.g. always by ascending `id`).
 
 ## MVCC (Multi-Version Concurrency Control)
 
-En vez de bloquear lecturas, Postgres y MySQL InnoDB mantienen **múltiples versiones** de cada fila:
+Instead of blocking reads, Postgres and MySQL InnoDB keep **multiple versions** of each row:
 
-- Cada transacción ve un *snapshot* consistente de los datos según su isolation level, sin bloquear a los que escriben.
-- Un `UPDATE` no sobreescribe la fila en el lugar: crea una nueva versión y marca la vieja como obsoleta (Postgres) o la mueve al *undo log* (MySQL InnoDB).
-- Un proceso de limpieza (`VACUUM` en Postgres) elimina versiones viejas que ya nadie necesita.
+- Each transaction sees a consistent *snapshot* of the data according to its isolation level, without blocking writers.
+- An `UPDATE` doesn't overwrite the row in place: it creates a new version and marks the old one as obsolete (Postgres), or moves it to the *undo log* (MySQL InnoDB).
+- A cleanup process (`VACUUM` in Postgres) removes old versions nobody needs anymore.
 
-**Consecuencia práctica**: con MVCC, lectores nunca bloquean escritores ni viceversa (`SELECT` no espera a un `UPDATE` en curso) — solo escritor vs escritor genera contención real.
+**Practical consequence**: with MVCC, readers never block writers or vice versa (`SELECT` doesn't wait on an in-progress `UPDATE`) — only writer-vs-writer generates real contention.
 
-Ver también [ACID / transacciones / isolation levels](acid-transacciones-isolation.md), que depende directamente de estos mecanismos.
+See also [ACID / transactions / isolation levels](acid.md), which depends directly on these mechanisms.

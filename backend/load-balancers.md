@@ -1,38 +1,38 @@
 # Load Balancers
 
-Reparten el tráfico entrante entre varias instancias de un servicio — la pieza que hace posible la [escalabilidad horizontal](../system-design/atributos-de-calidad.md#escalabilidad).
+Distribute incoming traffic across several instances of a service — the piece that makes [horizontal scalability](../system-design/quality-attributes.md#scalability) possible.
 
 ## L4 vs L7
 
-- **L4 (transport layer)**: decide a dónde mandar el tráfico mirando solo IP y puerto — no abre el contenido del paquete. Más rápido (menos trabajo por request), pero no puede rutear según el contenido del request.
-- **L7 (application layer)**: entiende el protocolo de aplicación (HTTP) — puede rutear según path (`/api` a un servicio, `/admin` a otro), header, o cookie. Más lento que L4 (tiene que parsear el request), pero mucho más flexible.
+- **L4 (transport layer)**: decides where to send traffic by looking only at IP and port — doesn't open the packet's contents. Faster (less work per request), but can't route based on the request's content.
+- **L7 (application layer)**: understands the application protocol (HTTP) — can route by path (`/api` to one service, `/admin` to another), header, or cookie. Slower than L4 (has to parse the request), but much more flexible.
 
 ```
-# L4: decide solo por IP:puerto — no sabe qué path está pidiendo el cliente
-443 → instancia A o B (round robin, sin mirar el request)
+# L4: decides only by IP:port — doesn't know what path the client is requesting
+443 → instance A or B (round robin, without looking at the request)
 
-# L7: puede rutear por contenido
-/api/*    → cluster de backend
-/static/* → cluster de assets estáticos
+# L7: can route by content
+/api/*    → backend cluster
+/static/* → static assets cluster
 ```
 
-## Algoritmos de balanceo
+## Load balancing algorithms
 
-- **Round robin**: reparte en orden circular, uno por uno. Simple, funciona bien si todas las instancias tienen capacidad similar.
-- **Least connections**: manda la siguiente request a la instancia con menos conexiones activas en este momento — mejor cuando las requests tienen duración muy variable (una instancia con requests lentas no sigue recibiendo más tráfico solo porque "le tocaba" por turno).
-- **Sticky sessions (IP hash)**: la misma IP de cliente siempre va a la misma instancia — útil si hay estado en memoria del lado del servidor que no se puede compartir (lo ideal, ver [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), es no necesitar esto).
+- **Round robin**: distributes in circular order, one by one. Simple, works well if all instances have similar capacity.
+- **Least connections**: sends the next request to the instance with the fewest active connections right now — better when requests have highly variable duration (an instance with slow requests doesn't keep getting more traffic just because "it was its turn").
+- **Sticky sessions (IP hash)**: the same client IP always goes to the same instance — useful if there's server-side in-memory state that can't be shared (ideally, see [Scalability](../system-design/quality-attributes.md#scalability), you don't need this at all).
 
-## Quién es quién
+## Who's who
 
-| Nombre | Capa | Notas |
+| Name | Layer | Notes |
 |---|---|---|
-| **NLB** (AWS Network Load Balancer) | L4 | Máximo throughput, mínima latencia |
-| **ALB** (AWS Application Load Balancer) | L7 | Ruteo por path/header, integra con auth |
-| **Nginx** | L7 (también sirve como L4) | El más usado como reverse proxy propio — ver [Deploy a un VPS](../devops/deploy-vps.md) |
-| **HAProxy** | L4 y L7 | Especializado en balanceo, muy usado delante de bases de datos también |
-| **Traefik** | L7 | Se integra nativo con Docker/K8s, detecta servicios nuevos automáticamente |
-| **Envoy** | L7 | Proxy de datos usado como base de service meshes (Istio) |
-| **K8s Ingress** | L7 | La forma estándar de exponer servicios HTTP de un cluster K8s hacia afuera |
+| **NLB** (AWS Network Load Balancer) | L4 | Maximum throughput, minimum latency |
+| **ALB** (AWS Application Load Balancer) | L7 | Path/header routing, integrates with auth |
+| **Nginx** | L7 (also works as L4) | The most used as its own reverse proxy — see [Deploy to a VPS](../devops/deploy-vps.md) |
+| **HAProxy** | L4 and L7 | Specialized in load balancing, widely used in front of databases too |
+| **Traefik** | L7 | Integrates natively with Docker/K8s, auto-detects new services |
+| **Envoy** | L7 | Data proxy used as the foundation of service meshes (Istio) |
+| **K8s Ingress** | L7 | The standard way to expose an K8s cluster's HTTP services externally |
 
 ---
-Relacionado: [Kubernetes](../devops/kubernetes.md), [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), [Deploy a un VPS](../devops/deploy-vps.md) (Nginx como reverse proxy).
+Related: [Kubernetes](../devops/kubernetes.md), [Scalability](../system-design/quality-attributes.md#scalability), [Deploy to a VPS](../devops/deploy-vps.md) (Nginx as reverse proxy).

@@ -1,37 +1,37 @@
 # MCP (Model Context Protocol)
 
-Protocolo abierto (creado por Anthropic, adoptado por el resto de la industria) para conectar un LLM con herramientas y fuentes de datos externas de forma estandarizada — es literalmente lo que uso yo mismo en esta conversación para tocar el navegador, leer archivos, o correr comandos.
+An open protocol (created by Anthropic, adopted by the rest of the industry) for connecting an LLM to external tools and data sources in a standardized way — it's literally what I myself use in this conversation to touch the browser, read files, or run commands.
 
-## El problema que resuelve: integraciones N×M
+## The problem it solves: N×M integrations
 
-Antes de MCP, cada combinación de agente + herramienta externa (GitHub, Slack, una base de datos) necesitaba su propia integración custom — si tenías 3 agentes y 3 herramientas, terminabas escribiendo 9 integraciones distintas, cada una frágil y de mantenimiento propio.
+Before MCP, every combination of agent + external tool (GitHub, Slack, a database) needed its own custom integration — if you had 3 agents and 3 tools, you'd end up writing 9 different integrations, each fragile and its own to maintain.
 
 ```
-Sin protocolo estándar:          Con MCP:
-Agent A ─┬─ GitHub               Agent A ─┐
-Agent B ─┼─ Slack                Agent B ─┼─ MCP ─┬─ GitHub
-Agent C ─┴─ Database             Agent C ─┘        ├─ Slack
+Without a standard protocol:      With MCP:
+Agent A ─┬─ GitHub                Agent A ─┐
+Agent B ─┼─ Slack                 Agent B ─┼─ MCP ─┬─ GitHub
+Agent C ─┴─ Database              Agent C ─┘        ├─ Slack
                                                       └─ Database
-N x M integraciones custom       N + M integraciones (una por agente, una por tool)
+N x M custom integrations         N + M integrations (one per agent, one per tool)
 ```
 
-## Arquitectura: Host, Client, Server
+## Architecture: Host, Client, Server
 
-- **Host**: la aplicación que usa el LLM (Claude Code, Claude Desktop, Cursor, etc.) — es quien decide qué servidores MCP conectar.
-- **Client**: vive dentro del host, mantiene una conexión **1:1** con un servidor y habla el protocolo (JSON-RPC) con él.
-- **Server**: expone las capacidades reales — no es el LLM, es el programa que sabe hablar con GitHub, con una base de datos, con el sistema de archivos, etc.
+- **Host**: the application using the LLM (Claude Code, Claude Desktop, Cursor, etc.) — decides which MCP servers to connect.
+- **Client**: lives inside the host, keeps a **1:1** connection with a server and speaks the protocol (JSON-RPC) with it.
+- **Server**: exposes the actual capabilities — it's not the LLM, it's the program that knows how to talk to GitHub, to a database, to the filesystem, etc.
 
-Un servidor MCP puede exponer tres tipos de capacidades:
+An MCP server can expose three types of capabilities:
 
-- **Tools**: funciones que el LLM puede invocar (ej. `create_issue`, `read_file`) — el equivalente a [tool use / function calling](function-calling.md).
-- **Resources**: datos que el host puede leer y darle de contexto al LLM (ej. el contenido de un archivo).
-- **Prompts**: plantillas de prompt reutilizables que el servidor expone para tareas comunes.
+- **Tools**: functions the LLM can invoke (e.g. `create_issue`, `read_file`) — the equivalent of [tool use / function calling](function-calling.md).
+- **Resources**: data the host can read and give to the LLM as context (e.g. a file's contents).
+- **Prompts**: reusable prompt templates the server exposes for common tasks.
 
-El transporte entre client y server es **JSON-RPC** sobre `stdio` (proceso local) o HTTP/SSE (servidor remoto).
+The transport between client and server is **JSON-RPC** over `stdio` (local process) or HTTP/SSE (remote server).
 
-## Por qué importa: un servidor, todos los agentes
+## Why it matters: one server, every agent
 
-La ventaja central es que **un mismo servidor MCP sirve para cualquier host compatible** — quien construye la integración con GitHub la escribe una sola vez, y la puede usar tanto Claude Code como Cursor como cualquier otro agente que hable el protocolo. Es la razón por la que el ecosistema de servidores MCP creció tan rápido: no es "una integración por producto", es "una integración, N productos".
+The central advantage is that **the same MCP server works for any compatible host** — whoever builds the GitHub integration writes it once, and it can be used by Claude Code, Cursor, or any other agent that speaks the protocol. That's why the MCP server ecosystem grew so fast: it's not "one integration per product," it's "one integration, N products."
 
 ---
-Relacionado: [Function Calling](function-calling.md), [Agentes vs Workflows](agentes-vs-workflows.md#patrón-de-agent-el-llm-controla-el-camino), [Diseño de Agentes](diseno-de-agentes.md), [AGENTS.md y Skills](agents-md-y-skills.md).
+Related: [Function Calling](function-calling.md), [Agents vs Workflows](agents-vs-workflows.md#agent-pattern-the-llm-controls-the-path), [Agent Design](agent-design.md), [AGENTS.md and Skills](agents-md-and-skills.md).

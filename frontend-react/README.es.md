@@ -1,0 +1,25 @@
+# Frontend React
+
+Guías sobre React y frontend moderno.
+
+- [x] [Accesibilidad](accessibility.es.md)
+- [x] [Almacenamiento en el cliente](client-side-storage.es.md)
+- [x] [Code splitting / lazy loading](code-splitting.es.md)
+- [x] [CSS](css.es.md)
+- [x] [Error Boundaries](error-boundaries.es.md)
+- [x] [Estado global: Context API vs Redux](global-state.es.md)
+- [x] [Estados de un Request](request-states.es.md)
+- [x] [Eventos DOM](dom-events.es.md)
+- [x] [Hooks](hooks.es.md)
+- [x] [HTML](html.es.md)
+- [x] [Module federation](module-federation.es.md)
+- [x] [Object Pooling](object-pooling.es.md)
+- [x] [Patrón Observer](observer-in-the-browser.es.md)
+- [x] [Performance diagnostics](performance-diagnostics.es.md)
+- [x] [Privacidad y GDPR](privacy-and-gdpr.es.md)
+- [x] [React Fundamentos](react-fundamentals.es.md)
+- [x] [Renderizado: SSR vs CSR vs SSG vs SPA](rendering.es.md)
+- [x] [Testing en React](testing.es.md)
+- [x] [Tree shaking](tree-shaking.es.md)
+- [x] [Web Vitals](web-vitals.es.md)
+- [x] [WebSocket / SSE / streaming](websocket-sse-streaming.es.md)

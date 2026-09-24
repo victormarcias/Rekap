@@ -1,69 +1,69 @@
-# White-Label: Consideraciones para Construir una App White-Label
+# White-Label: Considerations for Building a White-Label App
 
-**Qué es**: un mismo producto que se vende/licencia a múltiples clientes, y cada uno lo presenta como si fuera su propia marca (logo, colores, dominio) — el usuario final del cliente no sabe, ni le importa, que por debajo corre la misma plataforma que usan otros clientes del mismo proveedor. La diferencia con "una app configurable" es de fondo: acá **una sola base de código e infraestructura** tiene que servir a N clientes distintos, sin que se mezclen entre sí.
+**What it is**: a single product sold/licensed to multiple clients, and each one presents it as if it were their own brand (logo, colors, domain) — the client's end user doesn't know, and doesn't care, that underneath it runs the same platform other clients of the same provider use. The difference from "a configurable app" is fundamental: here **a single codebase and infrastructure** has to serve N different clients, without them mixing with each other.
 
-## Multi-tenancy: el problema arquitectónico central
+## Multi-tenancy: the central architectural problem
 
-Cada cliente es un **tenant**. La pregunta de diseño de fondo: cómo separar los datos y la configuración de cada tenant, corriendo todos sobre la misma infraestructura.
+Each client is a **tenant**. The underlying design question: how to separate each tenant's data and config, all running on the same infrastructure.
 
-### Estrategias de aislamiento de datos
+### Data isolation strategies
 
-| Estrategia | Aislamiento | Costo operativo | Complejidad de queries |
+| Strategy | Isolation | Operational cost | Query complexity |
 |---|---|---|---|
-| **DB separada por tenant** | Alto — un tenant no puede tocar datos de otro ni por accidente | Alto — N bases de datos que mantener, migrar, backupear | Baja — cada query ya está scoped por naturaleza |
-| **Schema separado, DB compartida** | Medio | Medio | Baja-media |
-| **Fila compartida (`tenant_id` en cada tabla)** | Bajo — depende 100% de que el código filtre bien | Bajo — una sola DB para todos | Alta — cada query necesita el filtro correcto |
+| **Separate DB per tenant** | High — one tenant can't touch another's data even by accident | High — N databases to maintain, migrate, back up | Low — every query is scoped by nature |
+| **Separate schema, shared DB** | Medium | Medium | Low-medium |
+| **Shared row (`tenant_id` on every table)** | Low — depends 100% on the code filtering correctly | Low — a single DB for everyone | High — every query needs the right filter |
 
 ```sql
--- patrón más común (shared DB, shared schema): tenant_id en cada tabla
-SELECT * FROM pedidos WHERE tenant_id = 'cliente-123' AND id = 42;
+-- most common pattern (shared DB, shared schema): tenant_id on every table
+SELECT * FROM orders WHERE tenant_id = 'client-123' AND id = 42;
 
--- olvidar el WHERE tenant_id es el bug más caro que existe en un sistema white-label:
--- un cliente termina viendo (o peor, editando) los datos de otro
+-- forgetting the WHERE tenant_id is the most expensive bug that exists in a white-label system:
+-- a client ends up seeing (or worse, editing) another client's data
 ```
 
-Es el mismo problema de fondo que [Sharding vs Partitioning](../database/sharding-vs-partitioning.md) (separar datos por alguna clave), aplicado a nivel de cliente en vez de a nivel de volumen de datos.
+It's the same underlying problem as [Sharding vs Partitioning](../database/sharding-vs-partitioning.md) (splitting data by some key), applied at the client level instead of the data-volume level.
 
-## Branding dinámico: theming sin tocar código
+## Dynamic branding: theming without touching code
 
-Cada tenant necesita su logo, paleta de colores, tipografía — sin que eso implique un deploy o una rama de código por cliente. El patrón estándar: **CSS Variables** (ver [CSS](../frontend-react/css.md#css-variables-custom-properties)) cargadas en runtime según el tenant activo, más un objeto de config con las URLs de sus assets.
+Every tenant needs its logo, color palette, typography — without that meaning a deploy or a code branch per client. The standard pattern: **CSS Variables** (see [CSS](../frontend-react/css.md#css-variables-custom-properties)) loaded at runtime based on the active tenant, plus a config object with its asset URLs.
 
 ```json
-// config de tenant, resuelta según el dominio/subdominio del request
+// tenant config, resolved based on the request's domain/subdomain
 {
-  "tenantId": "cliente-123",
+  "tenantId": "client-123",
   "branding": {
     "primaryColor": "#1a73e8",
-    "logoUrl": "https://cdn.miapp.com/tenants/cliente-123/logo.svg",
+    "logoUrl": "https://cdn.myapp.com/tenants/client-123/logo.svg",
     "appName": "Acme Dashboard"
   }
 }
 ```
 
-## Dominios: subdominio vs dominio propio
+## Domains: subdomain vs custom domain
 
-- **Subdominio** (`cliente1.miapp.com`): simple — un solo certificado TLS wildcard sirve a todos, el código lee el subdominio del request para saber qué tenant es.
-- **Dominio propio del cliente** (`app.clienteweb.com`, con un CNAME apuntando a tu infra): más profesional (el cliente no ve tu marca en la URL), pero cada dominio necesita su propio certificado ([TLS handshake](que-pasa-cuando-escribis-una-url.md#4-tls-handshake-si-es-https)) — Let's Encrypt automatiza la emisión/renovación, pero es infraestructura extra a mantener y a monitorear.
+- **Subdomain** (`client1.myapp.com`): simple — a single wildcard TLS certificate serves everyone, the code reads the request's subdomain to know which tenant it is.
+- **Client's own domain** (`app.clientweb.com`, with a CNAME pointing to your infra): more professional (the client doesn't see your brand in the URL), but every domain needs its own certificate ([TLS handshake](what-happens-when-you-type-a-url.md#4-tls-handshake-if-https)) — Let's Encrypt automates issuance/renewal, but it's extra infrastructure to maintain and monitor.
 
-## Seguridad: el aislamiento entre tenants no es opcional
+## Security: tenant isolation isn't optional
 
-En un producto white-label, un bug que filtra datos de un tenant a otro no es un bug cualquiera — es el peor escenario posible (un cliente viendo datos de otro cliente, a veces su competencia directa). Esto empuja hacia:
+In a white-label product, a bug that leaks one tenant's data to another isn't just any bug — it's the worst possible scenario (one client seeing another client's data, sometimes their direct competitor). This pushes toward:
 
-- **Middleware que inyecta el `tenant_id` automáticamente** en cada query, en vez de confiar en que cada desarrollador se acuerde de agregarlo a mano.
-- **Tests automatizados específicos de aislamiento**: crear 2 tenants de prueba y verificar que ningún query de uno devuelve datos del otro.
-- El tenant como parte del claim del [JWT](../backend/autenticacion.md#5-jwt--estructura-y-stateless) — algo que se valida en cada request, no algo que se infiere después de autenticar.
+- **Middleware that automatically injects `tenant_id`** into every query, instead of trusting every developer to remember to add it by hand.
+- **Automated isolation-specific tests**: create 2 test tenants and verify that no query from one returns the other's data.
+- The tenant as part of the [JWT](../backend/authentication.md#5-jwt--structure-and-stateless) claim — something validated on every request, not something inferred after authenticating.
 
-## Feature flags y planes por tenant
+## Feature flags and per-tenant plans
 
-No todos los tenants necesitan las mismas funcionalidades — un producto white-label típicamente vende distintos planes (básico/pro/enterprise), cada uno con un set de features habilitadas. Se maneja con feature flags evaluados contra la config del tenant activo — **nunca con ramas de código distintas por cliente**, mantener N forks del mismo producto no escala.
+Not every tenant needs the same features — a white-label product typically sells different plans (basic/pro/enterprise), each with a set of enabled features. Handled with feature flags evaluated against the active tenant's config — **never with different code branches per client**, maintaining N forks of the same product doesn't scale.
 
-## Onboarding: crear un tenant nuevo es un proceso, no un deploy
+## Onboarding: creating a new tenant is a process, not a deploy
 
-Si agregar un cliente nuevo implica que alguien del equipo entre a tocar código o infraestructura a mano, el modelo no escala. La meta es que "crear un tenant" sea una operación automatizada y repetible: correr una migración que crea su registro, generar su config de branding, aprovisionar su subdominio — sin intervención manual en cada alta.
+If adding a new client means someone on the team has to touch code or infrastructure by hand, the model doesn't scale. The goal is for "creating a tenant" to be an automated, repeatable operation: running a migration that creates its record, generating its branding config, provisioning its subdomain — with no manual intervention on each signup.
 
-## Por qué importa
+## Why it matters
 
-Es el mismo problema que resuelve cualquier sistema multi-cliente a escala (SaaS B2B, plataformas para agencias) — la arquitectura correcta desde el día uno evita una migración dolorosa después: pasar de "todo compartido sin `tenant_id`" a un modelo con aislamiento real, con datos ya mezclados en producción, sale mucho más caro que diseñarlo bien desde el principio.
+It's the same problem any multi-client system solves at scale (B2B SaaS, agency platforms) — getting the architecture right from day one avoids a painful migration later: going from "everything shared with no `tenant_id`" to a model with real isolation, with data already mixed together in production, costs far more than designing it well from the start.
 
 ---
-Relacionado: [Sharding vs Partitioning](../database/sharding-vs-partitioning.md), [CSS Variables](../frontend-react/css.md#css-variables-custom-properties), [Autenticación y Seguridad](../backend/autenticacion.md), [Atributos de calidad de sistemas](atributos-de-calidad.md), [Qué pasa cuando escribís una URL](que-pasa-cuando-escribis-una-url.md).
+Related: [Sharding vs Partitioning](../database/sharding-vs-partitioning.md), [CSS Variables](../frontend-react/css.md#css-variables-custom-properties), [Authentication and Security](../backend/authentication.md), [System quality attributes](quality-attributes.md), [What happens when you type a URL](what-happens-when-you-type-a-url.md).

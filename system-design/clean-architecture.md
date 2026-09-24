@@ -1,22 +1,22 @@
 # Clean Architecture
 
-Propuesta por Robert C. Martin ("Uncle Bob"). Resuelve un problema concreto: la lógica de negocio de una app normalmente vive mezclada con detalles de infraestructura (el framework web, la base de datos, la UI) — y esos detalles cambian mucho más seguido que las reglas del negocio en sí. Clean Architecture separa ambas cosas para que un cambio de infraestructura (migrar de Postgres a Mongo, de Flask a FastAPI) no obligue a tocar ni entender la lógica de negocio.
+Proposed by Robert C. Martin ("Uncle Bob"). Solves a concrete problem: an app's business logic normally lives mixed together with infrastructure details (the web framework, the database, the UI) — and those details change far more often than the business rules themselves. Clean Architecture separates the two so an infrastructure change (migrating from Postgres to Mongo, from Flask to FastAPI) doesn't force you to touch or even understand the business logic.
 
-## La Regla de Dependencia
+## The Dependency Rule
 
-El código fuente solo puede depender **hacia adentro** — las capas externas (framework, DB, UI) conocen y dependen de las internas (reglas de negocio); las internas **no saben que las externas existen**. La lógica de negocio no importa nada de FastAPI, de SQLAlchemy, ni de React — no tiene forma de saber con qué está corriendo por afuera.
+Source code can only depend **inward** — outer layers (framework, DB, UI) know about and depend on the inner ones (business rules); the inner ones **have no idea the outer ones exist**. The business logic imports nothing from FastAPI, SQLAlchemy, or React — it has no way of knowing what it's running on top of.
 
-## Las capas, de adentro hacia afuera
+## The layers, from inside out
 
-1. **Entities**: las reglas de negocio más generales, independientes de esta aplicación puntual — conceptos que existirían aunque cambiara todo el resto (ej. "un pedido enviado no se puede cancelar", una regla del dominio, no de esta app en particular).
-2. **Use Cases**: reglas de negocio específicas de esta aplicación — orquestan las entities para lograr algo concreto (ej. "cancelar un pedido": buscarlo, validar que se pueda, guardarlo).
-3. **Interface Adapters**: traducen datos entre el formato que usan los use cases y el formato que necesitan las capas externas — controllers (reciben el request HTTP y llaman al use case), presenters, gateways.
-4. **Frameworks & Drivers**: la capa más externa y más reemplazable — el framework web, el driver de la base de datos, la UI. Acá sí "se sabe" que existe Postgres o FastAPI.
+1. **Entities**: the most general business rules, independent of this particular application — concepts that would exist even if everything else changed (e.g. "a shipped order can't be cancelled," a domain rule, not one specific to this app).
+2. **Use Cases**: business rules specific to this application — orchestrate the entities to accomplish something concrete (e.g. "cancel an order": find it, validate it can be cancelled, save it).
+3. **Interface Adapters**: translate data between the format the use cases work with and the format the outer layers need — controllers (receive the HTTP request and call the use case), presenters, gateways.
+4. **Frameworks & Drivers**: the outermost, most replaceable layer — the web framework, the database driver, the UI. This is where it's "known" that Postgres or FastAPI exists.
 
-## Ejemplo — Dependency Inversion en la práctica
+## Example — Dependency Inversion in practice
 
 ```python
-# --- Entities: no importa nada de fuera, ni siquiera sabe que existe una DB ---
+# --- Entities: imports nothing from outside, doesn't even know a DB exists ---
 class Order:
     def __init__(self, id, total, status):
         self.id = id
@@ -25,10 +25,10 @@ class Order:
 
     def cancel(self):
         if self.status == "shipped":
-            raise ValueError("No se puede cancelar un pedido ya enviado")
+            raise ValueError("Can't cancel an order that's already shipped")
         self.status = "cancelled"
 
-# --- Use Case: define QUÉ necesita (una interfaz), no CÓMO se implementa ---
+# --- Use Case: defines WHAT it needs (an interface), not HOW it's implemented ---
 from typing import Protocol
 
 class OrderRepository(Protocol):
@@ -37,40 +37,40 @@ class OrderRepository(Protocol):
 
 class CancelOrderUseCase:
     def __init__(self, repo: OrderRepository):
-        self.repo = repo  # depende de la ABSTRACCIÓN, no de Postgres/Mongo/lo que sea
+        self.repo = repo  # depends on the ABSTRACTION, not Postgres/Mongo/whatever
 
     def execute(self, order_id: str):
         order = self.repo.get(order_id)
         order.cancel()
         self.repo.save(order)
 
-# --- Frameworks & Drivers: acá SÍ se sabe que existe Postgres ---
-class PostgresOrderRepository:  # implementa el "contrato" OrderRepository
+# --- Frameworks & Drivers: this is where it's KNOWN that Postgres exists ---
+class PostgresOrderRepository:  # implements the OrderRepository "contract"
     def get(self, order_id):
-        ...  # query real a Postgres
+        ...  # real query to Postgres
     def save(self, order):
-        ...  # UPDATE real a Postgres
+        ...  # real UPDATE to Postgres
 ```
 
-`CancelOrderUseCase` nunca importa `psycopg2` ni `sqlalchemy` — solo conoce el contrato `OrderRepository`. Dos consecuencias directas: se puede testear con un `FakeOrderRepository` en memoria sin levantar una base real, y se puede migrar de Postgres a Mongo escribiendo un nuevo adapter, sin tocar una sola línea de la regla de negocio.
+`CancelOrderUseCase` never imports `psycopg2` or `sqlalchemy` — it only knows the `OrderRepository` contract. Two direct consequences: it can be tested with an in-memory `FakeOrderRepository` without spinning up a real database, and you can migrate from Postgres to Mongo by writing a new adapter, without touching a single line of the business rule.
 
-## Por qué importa
+## Why it matters
 
-- **Testeable sin infraestructura real**: los tests del use case corren en milisegundos, sin DB ni red — el equivalente al [Fake de los test doubles](../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy).
-- **Independiente de framework y de DB**: cambiar de herramienta externa no debería obligar a reescribir la lógica de negocio.
-- **El dominio se lee solo**: alguien nuevo en el equipo puede entender las reglas de negocio leyendo `Order`/`CancelOrderUseCase`, sin tener que entender FastAPI ni el ORM primero.
+- **Testable without real infrastructure**: use case tests run in milliseconds, with no DB or network — the equivalent of the [Fake from test doubles](../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy).
+- **Independent of framework and DB**: switching an external tool shouldn't force you to rewrite the business logic.
+- **The domain reads on its own**: someone new to the team can understand the business rules by reading `Order`/`CancelOrderUseCase`, without having to understand FastAPI or the ORM first.
 
-## Relación con Hexagonal Architecture (Ports & Adapters)
+## Relationship with Hexagonal Architecture (Ports & Adapters)
 
-Mismo espíritu, distinta terminología — en la práctica se usan casi como sinónimos. Hexagonal habla de **ports** (las interfaces, como `OrderRepository` arriba) y **adapters** (las implementaciones concretas, como `PostgresOrderRepository`); Clean Architecture habla de capas concéntricas. El mecanismo de fondo es el mismo: el dominio define el contrato, la infraestructura lo implementa, nunca al revés.
+Same spirit, different terminology — in practice they're used almost as synonyms. Hexagonal talks about **ports** (the interfaces, like `OrderRepository` above) and **adapters** (the concrete implementations, like `PostgresOrderRepository`); Clean Architecture talks about concentric layers. The underlying mechanism is the same: the domain defines the contract, the infrastructure implements it, never the other way around.
 
-**Plugin Architecture (Microkernel Architecture)** es un patrón hermano — mismo mecanismo (un core que define un contrato, y módulos externos que lo implementan para "enchufarse"), pero con otro énfasis: Hexagonal aísla el dominio de la **infraestructura técnica** ("puedo cambiar de Postgres a Mongo sin tocar el negocio"); Plugin/Microkernel extiende un core mínimo con **features opcionales** ("puedo agregar o sacar un módulo sin tocar el core") — el ejemplo típico son las extensiones de un IDE o los plugins de un CMS.
+**Plugin Architecture (Microkernel Architecture)** is a sibling pattern — same mechanism (a core that defines a contract, and external modules that implement it to "plug in"), but with a different emphasis: Hexagonal isolates the domain from **technical infrastructure** ("I can switch from Postgres to Mongo without touching the business"); Plugin/Microkernel extends a minimal core with **optional features** ("I can add or remove a module without touching the core") — the typical example is an IDE's extensions or a CMS's plugins.
 
-El **Dependency Inversion Principle** (la D de SOLID) es literalmente el mecanismo que hace posible la Regla de Dependencia — Clean Architecture es, en buena medida, DIP aplicado sistemáticamente a toda la app. [Controller / Service / Repository](../backend/controller-service-repository.md) es una versión más simple y pragmática del mismo espíritu — muchos equipos la usan sin llegar a implementar las 4 capas completas. Sirve como punto intermedio: menos ceremonia, buena parte del beneficio.
+The **Dependency Inversion Principle** (the D in SOLID) is literally the mechanism that makes the Dependency Rule possible — Clean Architecture is, to a large extent, DIP applied systematically to the whole app. [Controller / Service / Repository](../backend/controller-service-repository.md) is a simpler, more pragmatic version of the same spirit — many teams use it without fully implementing all 4 layers. It works as a middle ground: less ceremony, most of the benefit.
 
 ## Trade-off
 
-No es gratis: agrega indirección (interfaces, mapeo de datos entre capas) que para un CRUD simple puede ser sobre-ingeniería — más archivos, más saltos para seguir el flujo de una operación. Vale la pena cuando la lógica de negocio es compleja y va a vivir mucho tiempo, o cuando realmente se espera cambiar de infraestructura en el futuro. Para un prototipo, un script, o un servicio muy simple, el costo de la indirección suele superar el beneficio.
+It's not free: it adds indirection (interfaces, data mapping between layers) that can be over-engineering for a simple CRUD — more files, more jumps to follow the flow of a single operation. It's worth it when the business logic is complex and will live for a long time, or when you genuinely expect to change infrastructure in the future. For a prototype, a script, or a very simple service, the cost of the indirection usually outweighs the benefit.
 
 ---
-Relacionado: [SOLID principles](solid.md), [Controller / Service / Repository](../backend/controller-service-repository.md), [Patrones estructurales](patrones-estructurales.md#adapter).
+Related: [SOLID principles](solid.md), [Controller / Service / Repository](../backend/controller-service-repository.md), [Structural patterns](structural-patterns.md#adapter).

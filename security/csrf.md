@@ -1,37 +1,37 @@
 # CSRF (Cross-Site Request Forgery)
 
-Engañar al navegador de una víctima **ya autenticada** para que mande una request no deseada a un sitio donde tiene sesión activa. El navegador adjunta las cookies de ese dominio automáticamente en cualquier request, venga de donde venga — así que el servidor, si no hace nada más, no puede distinguir a simple vista una request legítima de una forjada.
+Tricking an **already-authenticated** victim's browser into sending an unwanted request to a site where it has an active session. The browser attaches that domain's cookies automatically to any request, no matter where it comes from — so the server, if it does nothing else, can't tell a legitimate request from a forged one at a glance.
 
 ```html
-<!-- Página maliciosa que la víctima visita mientras tiene sesión activa en banco.com -->
-<form action="https://banco.com/transferir" method="POST" id="ataque">
-  <input type="hidden" name="monto" value="10000">
-  <input type="hidden" name="destino" value="cuenta-del-atacante">
+<!-- Malicious page the victim visits while they have an active session on bank.com -->
+<form action="https://bank.com/transfer" method="POST" id="attack">
+  <input type="hidden" name="amount" value="10000">
+  <input type="hidden" name="destination" value="attackers-account">
 </form>
-<script>document.getElementById("ataque").submit()</script>
-<!-- El navegador manda la cookie de sesión de banco.com automáticamente con este POST -->
+<script>document.getElementById("attack").submit()</script>
+<!-- The browser sends bank.com's session cookie automatically with this POST -->
 ```
 
-## Por qué un GET no debería tener efectos secundarios
+## Why a GET shouldn't have side effects
 
-Si `GET /transferir?monto=10000&destino=...` cambiara estado, el ataque ni siquiera necesitaría un formulario — alcanzaría con un `<img src="https://banco.com/transferir?...">` en cualquier página. Es una de las razones de fondo detrás de los [Safe Methods de HTTP](../backend/http-methods.md#safe-methods--sin-efectos-secundarios).
+If `GET /transfer?amount=10000&destination=...` changed state, the attack wouldn't even need a form — a single `<img src="https://bank.com/transfer?...">` on any page would do it. It's one of the underlying reasons behind [HTTP Safe Methods](../backend/http-methods.md#safe-methods--no-side-effects).
 
-## Cómo se previene
+## How it's prevented
 
-- **`SameSite` en la cookie de sesión**: `Strict`/`Lax` le dicen al navegador que no mande esa cookie en requests que vienen de otro sitio — corta el ataque en el origen, sin tocar el backend (ver [Cookies](../frontend-react/almacenamiento-cliente.md#cookies)).
-- **CSRF token**: un valor único por sesión (o por formulario) que el servidor exige en cada request que modifica estado, y que un atacante externo no tiene forma de conocer ni replicar.
+- **`SameSite` on the session cookie**: `Strict`/`Lax` tell the browser not to send that cookie on requests coming from another site — cuts the attack off at the source, without touching the backend (see [Cookies](../frontend-react/client-side-storage.md#cookies)).
+- **CSRF token**: a unique value per session (or per form) that the server requires on every state-changing request, and that an external attacker has no way to know or replicate.
 
 ```python
-# El servidor genera un token único al crear la sesión y lo exige
-# en cualquier request que modifique estado
-@app.post("/transferir")
-def transferir(monto: float, csrf_token: str = Form(...)):
+# The server generates a unique token when creating the session and requires it
+# on any request that modifies state
+@app.post("/transfer")
+def transfer(amount: float, csrf_token: str = Form(...)):
     if csrf_token != session["csrf_token"]:
-        raise HTTPException(403, "CSRF token inválido")
+        raise HTTPException(403, "Invalid CSRF token")
     ...
 ```
 
-`SameSite` y CSRF token no son excluyentes — `SameSite=Lax` (el default en los navegadores modernos) ya cubre la mayoría de los casos, pero un CSRF token sigue siendo la defensa explícita para APIs que necesitan aceptar cookies cross-site a propósito.
+`SameSite` and a CSRF token aren't mutually exclusive — `SameSite=Lax` (the default in modern browsers) already covers most cases, but a CSRF token is still the explicit defense for APIs that need to accept cross-site cookies on purpose.
 
 ---
-Relacionado: [XSS](xss.md), [Autenticación y Seguridad](../backend/autenticacion.md#8-dónde-guardar-el-token-en-el-cliente), [HTTP Methods](../backend/http-methods.md#safe-methods--sin-efectos-secundarios), [Almacenamiento en el cliente](../frontend-react/almacenamiento-cliente.md#cookies).
+Related: [XSS](xss.md), [Authentication and Security](../backend/authentication.md#8-where-to-store-the-token-on-the-client), [HTTP Methods](../backend/http-methods.md#safe-methods--no-side-effects), [Client-side storage](../frontend-react/client-side-storage.md#cookies).

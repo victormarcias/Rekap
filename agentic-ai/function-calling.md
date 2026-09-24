@@ -1,22 +1,22 @@
 # Function Calling (Tool Use)
 
-La capacidad de un LLM de, en vez de solo devolver texto, decidir "para esto necesito ejecutar algo" y devolver una instrucción estructurada (nombre de función + argumentos) para que la aplicación la ejecute — es el mecanismo concreto detrás de [tool use y agentic](historia-de-ml-a-agentic.md#7-tool-use--function-calling--el-llm-puede-hacer-no-solo-hablar-2023) y de lo que expone un [servidor MCP](mcp.md) como **tools**.
+An LLM's ability to, instead of just returning text, decide "for this I need to execute something" and return a structured instruction (function name + arguments) for the application to execute — it's the concrete mechanism behind [tool use and agentic behavior](from-ml-to-agentic-ai.md#7-tool-use--function-calling--the-llm-can-act-not-just-talk-2023) and what an [MCP server](mcp.md) exposes as **tools**.
 
-**"Tool use" vs "function calling"**: en la práctica se usan como sinónimos, pero *function calling* es técnicamente un subconjunto — el caso donde la tool es una función custom con JSON schema (término que acuñó OpenAI en 2023). *Tool use* (término de Anthropic) es más amplio: incluye también tools built-in de la plataforma que no son una función tuya (computer use, bash, web search).
+**"Tool use" vs "function calling"**: used as synonyms in practice, but *function calling* is technically a subset — the case where the tool is a custom function with a JSON schema (a term OpenAI coined in 2023). *Tool use* (Anthropic's term) is broader: it also includes platform built-in tools that aren't a function of yours (computer use, bash, web search).
 
-## Cómo se define una tool
+## How a tool is defined
 
-Para que el LLM sepa qué herramientas tiene disponibles, la aplicación le manda un schema (JSON Schema) describiendo cada función: nombre, descripción, y los parámetros que espera.
+For the LLM to know what tools it has available, the application sends it a schema (JSON Schema) describing each function: name, description, and the parameters it expects.
 
 ```python
 tools = [
     {
         "name": "get_weather",
-        "description": "Obtiene el clima actual de una ciudad",
+        "description": "Gets the current weather for a city",
         "input_schema": {
             "type": "object",
             "properties": {
-                "city": {"type": "string", "description": "Nombre de la ciudad"},
+                "city": {"type": "string", "description": "City name"},
             },
             "required": ["city"],
         },
@@ -24,51 +24,51 @@ tools = [
 ]
 ```
 
-La **description** importa tanto como el nombre — es lo único que el LLM tiene para decidir si esta tool es relevante para la tarea actual y cómo llenar sus parámetros. Una descripción vaga produce que el modelo la use mal, o no la use cuando debería.
+The **description** matters as much as the name — it's the only thing the LLM has to decide whether this tool is relevant to the current task and how to fill in its parameters. A vague description leads the model to use it wrong, or not use it when it should.
 
-## El flujo: ida y vuelta, no una sola llamada
+## The flow: back and forth, not a single call
 
-Function calling no es "el LLM ejecuta código" — **el LLM nunca ejecuta nada**. Devuelve una instrucción estructurada, la aplicación la ejecuta de verdad, y le manda el resultado de vuelta al LLM en el siguiente mensaje para que continúe.
+Function calling isn't "the LLM executes code" — **the LLM never executes anything**. It returns a structured instruction, the application actually executes it, and sends the result back to the LLM in the next message so it can continue.
 
 ```
-1. App → LLM: mensaje del usuario + lista de tools disponibles
-2. LLM → App: "quiero llamar a get_weather con city='Buenos Aires'"
-                (el LLM NO ejecutó nada, solo decidió qué llamar)
-3. App: ejecuta get_weather("Buenos Aires") de verdad, contra una API real
-4. App → LLM: acá está el resultado de esa tool call
-5. LLM → App/Usuario: respuesta final, ya con el dato real incorporado
+1. App → LLM: user message + list of available tools
+2. LLM → App: "I want to call get_weather with city='Buenos Aires'"
+                (the LLM did NOT execute anything, it just decided what to call)
+3. App: actually executes get_weather("Buenos Aires"), against a real API
+4. App → LLM: here's that tool's result
+5. LLM → App/User: final response, now with the real data incorporated
 ```
 
 ```python
-# loop simplificado, formato de la API de Anthropic
+# simplified loop, Anthropic API format
 response = client.messages.create(model=MODEL, tools=tools, messages=messages)
 
 if response.stop_reason == "tool_use":
-    tool_call = response.content[-1]  # el bloque que pidió ejecutar la tool
-    resultado = ejecutar_tool_real(tool_call.name, tool_call.input)  # la app la corre, no el LLM
+    tool_call = response.content[-1]  # the block that requested executing the tool
+    result = execute_real_tool(tool_call.name, tool_call.input)  # the app runs it, not the LLM
 
     messages.append({"role": "assistant", "content": response.content})
     messages.append({
         "role": "user",
-        "content": [{"type": "tool_result", "tool_use_id": tool_call.id, "content": resultado}],
+        "content": [{"type": "tool_result", "tool_use_id": tool_call.id, "content": result}],
     })
 
-    response = client.messages.create(model=MODEL, tools=tools, messages=messages)  # el LLM sigue, ya con el dato real
+    response = client.messages.create(model=MODEL, tools=tools, messages=messages)  # the LLM continues, now with the real data
 ```
 
-Es exactamente el mecanismo de bajo nivel detrás del [loop de ReAct](agentes-vs-workflows.md#patrón-de-agent-el-llm-controla-el-camino) que ya vimos en pseudocódigo — acá está con el formato real de mensajes yendo y viniendo.
+This is exactly the low-level mechanism behind the [ReAct loop](agents-vs-workflows.md#agent-pattern-the-llm-controls-the-path) we already saw in pseudocode — here it's the real message format going back and forth.
 
-## Multi-turn y tool calls en paralelo
+## Multi-turn and parallel tool calls
 
-Una tarea puede necesitar varias vueltas de este loop (llamar una tool, ver el resultado, decidir llamar otra) antes de dar la respuesta final — no hay un límite fijo de pasos, el LLM decide cuándo ya tiene lo que necesita (por eso conviene un [Circuit Breaker](../system-design/atributos-de-calidad.md#tolerancia-a-fallos) si algo se cuelga reintentando, ver [Costos de LLMs](costos-llms.md#evitar-gasto-por-loops-que-no-cortan-solos)). Algunos modelos también pueden pedir **varias tool calls en la misma respuesta** (ej. "necesito el clima de 3 ciudades") para ejecutarlas en paralelo en vez de una por una.
+A task can need several rounds of this loop (call a tool, see the result, decide to call another) before giving the final answer — there's no fixed step limit, the LLM decides when it already has what it needs (which is why a [Circuit Breaker](../system-design/quality-attributes.md#fault-tolerance) is worth having if something gets stuck retrying, see [LLM Costs](llm-costs.md#avoiding-spend-from-loops-that-dont-cut-themselves-off)). Some models can also request **several tool calls in the same response** (e.g. "I need the weather for 3 cities") to execute them in parallel instead of one by one.
 
 ## Function calling vs MCP
 
-Function calling es el **mecanismo**: cómo el LLM pide ejecutar algo y recibe el resultado, parte del contrato de la API del modelo. [MCP](mcp.md) es un **protocolo de más alto nivel** que estandariza cómo se exponen esas tools entre aplicaciones distintas, para no reinventar la integración con cada servicio externo — un servidor MCP, por debajo, termina generando exactamente el tipo de schema de tools que function calling necesita.
+Function calling is the **mechanism**: how the LLM asks to execute something and receives the result, part of the model API's contract. [MCP](mcp.md) is a **higher-level protocol** that standardizes how those tools get exposed between different applications, so you don't reinvent the integration with every external service — an MCP server, underneath, ends up generating exactly the kind of tool schema function calling needs.
 
-## Por qué importa
+## Why it matters
 
-Function calling es lo que separa a un LLM que "solo conversa" de uno que puede **actuar** sobre el mundo real (consultar una DB, mandar un email, ejecutar código) — sin este mecanismo, el resto de agentic (ReAct, MCP, orchestrator-workers) no tendría forma de tocar nada fuera de la conversación.
+Function calling is what separates an LLM that "only chats" from one that can **act** on the real world (query a DB, send an email, run code) — without this mechanism, the rest of agentic behavior (ReAct, MCP, orchestrator-workers) would have no way to touch anything outside the conversation.
 
 ---
-Relacionado: [De ML clásico a Agentic AI](historia-de-ml-a-agentic.md#7-tool-use--function-calling--el-llm-puede-hacer-no-solo-hablar-2023), [Agentes vs Workflows](agentes-vs-workflows.md), [MCP](mcp.md), [Diseño de Agentes](diseno-de-agentes.md), [Costos de LLMs](costos-llms.md).
+Related: [From Classical ML to Agentic AI](from-ml-to-agentic-ai.md#7-tool-use--function-calling--the-llm-can-act-not-just-talk-2023), [Agents vs Workflows](agents-vs-workflows.md), [MCP](mcp.md), [Agent Design](agent-design.md), [LLM Costs](llm-costs.md).

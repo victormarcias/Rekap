@@ -1,12 +1,12 @@
-# Dockerización (conceptos genéricos)
+# Dockerization (generic concepts)
 
-Cómo empaquetar una app en una imagen reproducible, sin importar de qué stack se trate (Python, Node, Go...) ni a dónde se despliegue después (VPS, Cloud Run, K8s). Los conceptos son de Docker, no del lenguaje — la sintaxis exacta del Dockerfile es lo único que cambia de un stack a otro.
+How to package an app into a reproducible image, no matter the stack (Python, Node, Go...) or where it gets deployed afterward (VPS, Cloud Run, K8s). The concepts belong to Docker, not the language — the exact Dockerfile syntax is the only thing that changes from one stack to another.
 
-## Virtualización — el origen de los contenedores
+## Virtualization — the origin of containers
 
-Antes de los contenedores, virtualizar significaba correr una **máquina virtual (VM)** completa: un *hypervisor* emula hardware, y cada VM corre arriba su propio sistema operativo entero (kernel incluido). Aísla por completo entre VMs, pero es pesado — minutos para arrancar, GBs de RAM/disco por instancia, solo para tener el SO de cada una corriendo.
+Before containers, virtualizing meant running a full **virtual machine (VM)**: a *hypervisor* emulates hardware, and each VM runs its own entire operating system on top (kernel included). It isolates completely between VMs, but it's heavy — minutes to boot, GBs of RAM/disk per instance, just to have each one's OS running.
 
-Un contenedor es mucho más liviano porque **no** virtualiza hardware ni corre un kernel propio: comparte el kernel del sistema operativo host, y usa mecanismos nativos de ese kernel (en Linux, *namespaces* para aislar qué ve cada proceso — su propio filesystem, red, lista de procesos — y *cgroups* para limitar cuánto CPU/RAM puede usar) para que cada contenedor se sienta aislado sin necesitar su propio SO completo. Por eso arranca en segundos/milisegundos en vez de minutos, y pesa MBs en vez de GBs.
+A container is much lighter because it does **not** virtualize hardware or run its own kernel: it shares the host operating system's kernel, and uses that kernel's native mechanisms (on Linux, *namespaces* to isolate what each process sees — its own filesystem, network, process list — and *cgroups* to limit how much CPU/RAM it can use) so each container feels isolated without needing its own full OS. That's why it starts in seconds/milliseconds instead of minutes, and weighs MBs instead of GBs.
 
 ```
 VM                                Container
@@ -15,23 +15,23 @@ VM                                Container
 ├───────┼───────┤                 ├───────┴───────┤
 │Guest OS│Guest OS│                │ Docker Engine  │
 ├───────┴───────┤                 ├───────────────┤
-│  Hypervisor    │                 │ Kernel del host│  ← compartido
+│  Hypervisor    │                 │ Host kernel    │  ← shared
 ├───────────────┤                 ├───────────────┤
 │    Host OS     │                 │    Host OS     │
 └───────────────┘                 └───────────────┘
 ```
 
-**La diferencia real** no es solo "los containers son más livianos" — eso es la consecuencia. La causa es el **kernel compartido**: una VM aísla con hardware emulado y un SO completo por instancia; un container aísla con namespaces/cgroups sobre el mismo kernel, sin duplicar el sistema operativo.
+**The real difference** isn't just "containers are lighter" — that's the consequence. The cause is the **shared kernel**: a VM isolates with emulated hardware and a full OS per instance; a container isolates with namespaces/cgroups on top of the same kernel, without duplicating the operating system.
 
-## 1. Por qué dockerizar
+## 1. Why containerize
 
-Sin Docker, "funciona en mi máquina" depende de qué versión del runtime tenés instalada, qué paquetes del sistema operativo están presentes, y qué variables de entorno seteaste a mano hace 3 meses y ya no te acordás. Un contenedor empaqueta el runtime, las dependencias y el código en una sola imagen inmutable — lo que corre en tu laptop es *exactamente* lo que corre en producción, byte por byte.
+Without Docker, "works on my machine" depends on which runtime version you have installed, which OS packages are present, and which environment variables you set by hand 3 months ago and don't remember anymore. A container packages the runtime, the dependencies, and the code into a single immutable image — what runs on your laptop is *exactly* what runs in production, byte for byte.
 
 ## 2. Multi-stage build
 
-Un build normal instala compiladores y herramientas de build (headers de desarrollo, gestores de paquetes) que la app necesita para *instalarse* pero no para *correr* — y esas herramientas terminan viajando a la imagen final, infladas y con más superficie de ataque. Un multi-stage build usa una imagen para compilar/instalar, y copia solo el resultado final a una imagen limpia — las herramientas de build nunca llegan a producción.
+A normal build installs compilers and build tools (dev headers, package managers) that the app needs to *install* but not to *run* — and those tools end up shipping in the final image, bloating it and adding attack surface. A multi-stage build uses one image to compile/install, and copies only the final result into a clean image — the build tools never reach production.
 
-*Ej. con Python (`uv`):*
+*E.g. with Python (`uv`):*
 
 ```dockerfile
 # ---- Stage 1: build ----
@@ -43,20 +43,20 @@ RUN pip install uv && uv sync --frozen --no-dev
 # ---- Stage 2: runtime ----
 FROM python:3.12-slim
 WORKDIR /app
-COPY --from=builder /app/.venv /app/.venv   # ✅ solo el resultado, no las herramientas que lo generaron
+COPY --from=builder /app/.venv /app/.venv   # ✅ only the result, not the tools that generated it
 COPY . .
 ENV PATH="/app/.venv/bin:$PATH"
 CMD ["fastapi", "run", "main.py", "--port", "8000"]
 ```
 
-La imagen final no tiene `uv` ni ningún cache de instalación — solo el venv ya armado y el código. El mismo patrón aplica en cualquier stack: en Node, el stage de build corre `npm ci` y `npm run build`, y el stage final solo copia `node_modules` (o el bundle) sin el compilador de TypeScript ni el cache de npm; en Go, el stage de build compila a un binario estático, y el stage final ni siquiera necesita el runtime del lenguaje — solo copia ese binario.
+The final image has no `uv` and no install cache — just the finished venv and the code. The same pattern applies to any stack: in Node, the build stage runs `npm ci` and `npm run build`, and the final stage only copies `node_modules` (or the bundle) without the TypeScript compiler or the npm cache; in Go, the build stage compiles to a static binary, and the final stage doesn't even need the language runtime — it just copies that binary.
 
 ## 3. `.dockerignore`
 
-Sin esto, `COPY . .` copia **todo** el directorio a la imagen — incluyendo `.git/`, el entorno virtual/dependencias instaladas localmente, cachés de build, y cualquier `.env` con secretos. Además de inflar la imagen, es una forma fácil de filtrar credenciales sin querer.
+Without this, `COPY . .` copies the **entire** directory into the image — including `.git/`, the locally installed virtual environment/dependencies, build caches, and any `.env` with secrets. Besides bloating the image, it's an easy way to leak credentials by accident.
 
 ```
-# .dockerignore — adaptar la lista de "dependencias/cache local" al stack (.venv en Python, node_modules en Node, target/ en Rust)
+# .dockerignore — adapt the "local deps/cache" list to the stack (.venv in Python, node_modules in Node, target/ in Rust)
 .git
 .venv
 __pycache__
@@ -65,25 +65,25 @@ __pycache__
 .pytest_cache
 ```
 
-## 4. Imagen base: `slim`/`alpine` vs completa
+## 4. Base image: `slim`/`alpine` vs full
 
-Las imágenes base "completas" (ej. `python:3.12`, `node:20`) traen compiladores y librerías de desarrollo que casi nunca hacen falta en runtime. Las variantes reducidas (`python:3.12-slim`, `node:20-alpine`) son una fracción del tamaño, con solo lo esencial para correr el runtime — el trade-off es que si una dependencia necesita compilar algo nativo (ej. una librería con extensión en C), puede fallar por faltarle un header del sistema, y ahí hay que instalarlo explícitamente en el stage de build.
+"Full" base images (e.g. `python:3.12`, `node:20`) ship compilers and dev libraries that are almost never needed at runtime. The trimmed-down variants (`python:3.12-slim`, `node:20-alpine`) are a fraction of the size, with just the essentials to run the runtime — the trade-off is that if a dependency needs to compile something native (e.g. a library with a C extension), it can fail from a missing system header, and then you have to install it explicitly in the build stage.
 
-*Ej. con Python:*
+*E.g. with Python:*
 
 ```dockerfile
-# si una dependencia necesita compilar algo nativo, agregar lo mínimo necesario en el builder stage:
+# if a dependency needs to compile something native, add the minimum required in the builder stage:
 RUN apt-get update && apt-get install -y --no-install-recommends gcc libpq-dev && rm -rf /var/lib/apt/lists/*
 ```
 
-## 5. Build y run local
+## 5. Local build and run
 
 ```bash
-docker build -t miapp .
-docker run -p 8000:8000 --env-file .env miapp
+docker build -t myapp .
+docker run -p 8000:8000 --env-file .env myapp
 ```
 
-`--env-file .env` inyecta variables de entorno sin hardcodearlas en la imagen — cómo las lee la app depende del stack (`pydantic-settings` en Python, `dotenv` en Node, variables de entorno del sistema en Go) pero el mecanismo de Docker es el mismo: la imagen en sí no tiene ningún secreto embebido, así que se puede compartir/pushear a un registry sin filtrar nada.
+`--env-file .env` injects environment variables without hardcoding them into the image — how the app reads them depends on the stack (`pydantic-settings` in Python, `dotenv` in Node, system environment variables in Go), but Docker's mechanism is the same: the image itself has no embedded secrets, so it can be shared/pushed to a registry without leaking anything.
 
 ---
-Relacionado: [Deploy a Cloud Run](deploy-cloud-run.md), [Deploy a un VPS](deploy-vps.md), [Autenticación en FastAPI](../stacks/fastapi/autenticacion.md) (`pydantic-settings`, ejemplo del punto 5 en Python).
+Related: [Deploy to Cloud Run](deploy-cloud-run.md), [Deploy to a VPS](deploy-vps.md), [FastAPI Authentication](../stacks/fastapi/authentication.md) (`pydantic-settings`, the example from point 5 in Python).

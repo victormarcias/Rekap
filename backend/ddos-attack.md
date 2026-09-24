@@ -1,23 +1,23 @@
 # DDoS Attack
 
-**Distributed Denial of Service**: múltiples fuentes (a menudo una botnet — miles de máquinas comprometidas) inundan un servicio con tráfico, buscando agotar sus recursos (CPU, red, conexiones) hasta dejarlo inaccesible para usuarios legítimos. "Distribuido" es la palabra clave — a diferencia de un DoS de una sola fuente, no alcanza con bloquear una IP.
+**Distributed Denial of Service**: multiple sources (often a botnet — thousands of compromised machines) flood a service with traffic, trying to exhaust its resources (CPU, network, connections) until it becomes unreachable for legitimate users. "Distributed" is the key word — unlike a single-source DoS, blocking one IP isn't enough.
 
-## Tipos, de más simple a más difícil de mitigar
+## Types, from easiest to hardest to mitigate
 
-- **Volumétrico**: satura directamente el ancho de banda disponible con un volumen masivo de tráfico — no importa si las requests son válidas, el enlace de red se llena antes de que lleguen a procesarse.
-- **De protocolo**: explota el comportamiento de un protocolo en vez del ancho de banda. El clásico es el **SYN flood**: mandar miles de `SYN` (el primer paso del [three-way handshake](../system-design/que-pasa-cuando-escribis-una-url.md#3-conexión-tcp--three-way-handshake)) sin nunca completar el `ACK` final — el servidor reserva recursos para cada conexión "medio abierta" hasta agotarlos.
-- **De aplicación**: requests HTTP completamente legítimas en apariencia, pero en un volumen que satura la capacidad de procesamiento del backend — el más difícil de distinguir de un pico de tráfico real, porque cada request individual parece normal.
+- **Volumetric**: directly saturates the available bandwidth with a massive volume of traffic — it doesn't matter if the requests are valid, the network link fills up before they get processed.
+- **Protocol**: exploits a protocol's behavior instead of bandwidth. The classic is the **SYN flood**: sending thousands of `SYN`s (the first step of the [three-way handshake](../system-design/what-happens-when-you-type-a-url.md#3-tcp-connection--three-way-handshake)) without ever completing the final `ACK` — the server reserves resources for each "half-open" connection until it exhausts them.
+- **Application**: completely legitimate-looking HTTP requests, but at a volume that saturates the backend's processing capacity — the hardest to distinguish from a real traffic spike, because each individual request looks normal.
 
-## Mitigaciones por capa
+## Mitigations by layer
 
-- **CDN/edge**: absorbe el tráfico volumétrico antes de que llegue al origin — ver [CDN](../devops/cdn.md). La mayoría del tráfico de un ataque grande ni siquiera llega a tocar tu infraestructura real.
-- **Rate limiting**: acota cuántos requests acepta por IP/cliente en una ventana de tiempo, devolviendo [429 Too Many Requests](../system-design/http-status-codes.md#4xx--client-error) al resto — normalmente centralizado en el [API Gateway](api-gateway.md), no en cada servicio.
-- **WAF (Web Application Firewall)**: filtra patrones de tráfico maliciosos conocidos antes de que lleguen a la aplicación.
-- **Autoscaling — con cuidado**: escalar automáticamente ante un pico de tráfico ayuda a absorber el ataque, pero sin un techo puede convertirse en un **"ataque de denegación de servicio económico"**: el atacante no tira el servicio, pero factura una cuenta de cloud enorme escalando infraestructura que nunca sirvió tráfico real. Ver [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad) — siempre con un `maxReplicas` (o equivalente) como límite duro.
+- **CDN/edge**: absorbs volumetric traffic before it reaches the origin — see [CDN](../devops/cdn.md). Most of the traffic from a large attack doesn't even reach your real infrastructure.
+- **Rate limiting**: caps how many requests it accepts per IP/client in a time window, returning [429 Too Many Requests](../system-design/http-status-codes.md#4xx--client-error) to the rest — usually centralized at the [API Gateway](api-gateway.md), not in each service.
+- **WAF (Web Application Firewall)**: filters known malicious traffic patterns before they reach the application.
+- **Autoscaling — with care**: scaling automatically in response to a traffic spike helps absorb the attack, but without a ceiling it can turn into an **"economic denial of service attack"**: the attacker doesn't take the service down, but racks up a huge cloud bill by forcing infrastructure to scale that never served real traffic. See [Elasticity](../system-design/quality-attributes.md#elasticity) — always with a `maxReplicas` (or equivalent) as a hard ceiling.
 
-## La parte difícil: distinguir ataque de tráfico legítimo
+## The hard part: telling an attack from legitimate traffic
 
-Un contenido que se vuelve viral genera un patrón de tráfico parecido a un ataque de aplicación — mucho volumen, de muchas fuentes distintas, todo pidiendo lo mismo. La diferencia suele estar en el detalle: un ataque tiende a tener patrones más uniformes/artificiales (mismo user-agent, mismos intervalos, geografías inusuales para el negocio) que un pico orgánico real — pero la línea no siempre es nítida, y por eso el rate limiting y el WAF trabajan con heurísticas, no con certezas.
+Content that goes viral generates a traffic pattern similar to an application attack — lots of volume, from many different sources, all requesting the same thing. The difference is usually in the details: an attack tends to have more uniform/artificial patterns (same user-agent, same intervals, geographies unusual for the business) than a real organic spike — but the line isn't always sharp, which is why rate limiting and WAFs work with heuristics, not certainties.
 
 ---
-Relacionado: [CDN](../devops/cdn.md), [API Gateway](api-gateway.md), [Qué pasa cuando escribís una URL](../system-design/que-pasa-cuando-escribis-una-url.md) (TCP handshake), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad), [Security](../security/) (vulnerabilidades de aplicación, distinto de un ataque de tráfico).
+Related: [CDN](../devops/cdn.md), [API Gateway](api-gateway.md), [What happens when you type a URL](../system-design/what-happens-when-you-type-a-url.md) (TCP handshake), [Elasticity](../system-design/quality-attributes.md#elasticity), [Security](../security/) (application vulnerabilities, different from a traffic attack).

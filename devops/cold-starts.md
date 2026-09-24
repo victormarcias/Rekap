@@ -1,11 +1,11 @@
 # Cold starts
 
-Latencia extra que paga el primer request cuando una función serverless o un contenedor que [escala a cero](vps-vs-cloud-run.md) tiene que arrancar desde cero: inicializar el runtime, cargar dependencias, y a veces abrir conexiones (DB, etc.) antes de poder responder. Se nota como picos de latencia intermitentes en tráfico esporádico — las requests siguientes, mientras la instancia sigue "caliente", no pagan ese costo.
+Extra latency paid by the first request when a serverless function or a container that [scales to zero](vps-vs-cloud-run.md) has to start from scratch: initialize the runtime, load dependencies, and sometimes open connections (DB, etc.) before it can respond. Shows up as intermittent latency spikes on sporadic traffic — subsequent requests, while the instance stays "warm," don't pay that cost.
 
-**Mitigaciones típicas**:
-- *Provisioned concurrency* — pagar por mantener N instancias siempre calientes, sacrificando parte del ahorro de escalar a cero.
-- Reducir el tamaño del paquete/imagen y las dependencias que se cargan al arrancar.
-- Abrir conexiones (DB, clientes HTTP) fuera del handler, para que se reutilicen entre invocaciones calientes en vez de recrearse en cada cold start — ver el ejemplo en [Diagnóstico DevOps](../diagnostico/devops.md).
+**Typical mitigations**:
+- *Provisioned concurrency* — pay to keep N instances always warm, sacrificing part of the savings from scaling to zero.
+- Shrink the package/image size and the dependencies loaded at startup.
+- Open connections (DB, HTTP clients) outside the handler, so they're reused across warm invocations instead of being recreated on every cold start — see the example in [DevOps Diagnostics](../diagnostics/devops.md).
 
 ---
-Relacionado: [Diagnóstico DevOps](../diagnostico/devops.md), [Deploy a Cloud Run](deploy-cloud-run.md) (escala a cero), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad).
+Related: [DevOps Diagnostics](../diagnostics/devops.md), [Deploy to Cloud Run](deploy-cloud-run.md) (scale to zero), [Elasticity](../system-design/quality-attributes.md#elasticity).
