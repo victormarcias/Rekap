@@ -14,4 +14,4 @@
 **Patrón que se repite**: Swift, Kotlin y TypeScript son los más parecidos entre sí — los tres tienen `?` nativo para nullable y `typealias`/`type` de primera clase. Java es el más distinto: no tiene unions ni intersections nativas (se resuelven con herencia/interfaces), y el nullable requiere el wrapper `Optional<T>` en vez de sintaxis del lenguaje. Python, pese a ser dinámico, adoptó el mismo símbolo `|` para unions y nullable a partir de la 3.10 — pero, a diferencia de los otros cuatro, ese tipado sigue siendo opcional y no se enforcea en runtime (ver [Sintaxis general](python/sintaxis.md)).
 
 ---
-Relacionado: [Sistema de tipos (TypeScript)](typescript/tipos.md), [React Fundamentos](../frontend-react/react-fundamentos.md#el-mismo-patrón-en-mobile) (mismo tipo de comparación, para Virtual DOM en vez de tipos).
+Relacionado: [Sistema de tipos (TypeScript)](typescript/tipos.md), [React Fundamentos](../frontend-react/react-fundamentals.es.md#el-mismo-patrón-en-mobile) (mismo tipo de comparación, para Virtual DOM en vez de tipos).

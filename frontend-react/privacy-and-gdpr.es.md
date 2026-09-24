@@ -56,4 +56,4 @@ function cargarAnalytics() {
 El consentimiento también tiene que ser tan fácil de **retirar** como de dar — un botón de "rechazar" al mismo nivel visual que "aceptar", no escondido en un submenú de configuración.
 
 ---
-Relacionado: [Almacenamiento en el cliente](almacenamiento-cliente.md#cookies), [Accesibilidad](accesibilidad.md).
+Relacionado: [Almacenamiento en el cliente](client-side-storage.es.md#cookies), [Accesibilidad](accessibility.es.md).

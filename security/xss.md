@@ -37,4 +37,4 @@ React automatically escapes any value you render as text — but `dangerouslySet
 - **`HttpOnly` on sensitive cookies**: doesn't prevent the XSS itself, but limits the damage — the injected script can't read a cookie the browser doesn't expose to JavaScript (see [Authentication](../backend/authentication.md#8-where-to-store-the-token-on-the-client)).
 
 ---
-Related: [CSRF](csrf.md), [Security Headers](security-headers.md), [Authentication and Security](../backend/authentication.md), [Client-side storage](../frontend-react/almacenamiento-cliente.md).
+Related: [CSRF](csrf.md), [Security Headers](security-headers.md), [Authentication and Security](../backend/authentication.md), [Client-side storage](../frontend-react/client-side-storage.md).

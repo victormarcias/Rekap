@@ -1,89 +1,89 @@
 # HTML
 
-## Semántica general y containers
+## General semantics and containers
 
-Usar la etiqueta que describe el **rol** del contenido, no una que solo lo hace ver bien. Un `<div>` no dice nada sobre qué es ese bloque; `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<footer>` sí — y ese significado lo aprovechan los screen readers, los crawlers de buscadores y hasta el propio navegador (ej. navegación por landmarks).
+Use the tag that describes the content's **role**, not one that just makes it look right. A `<div>` says nothing about what that block is; `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<footer>` do — and that meaning gets used by screen readers, search crawlers, and even the browser itself (e.g. landmark navigation).
 
 ```html
-<!-- ❌ todo es un div, no hay información sobre la estructura -->
+<!-- ❌ everything is a div, no information about the structure -->
 <div class="header">...</div>
 <div class="main-content">...</div>
 
-<!-- ✅ la estructura se lee sin necesitar las clases -->
+<!-- ✅ the structure reads without needing the classes -->
 <header>...</header>
 <main>
   <article>
-    <h1>Título del post</h1>
+    <h1>Post title</h1>
     <section>...</section>
   </article>
-  <aside>Contenido relacionado</aside>
+  <aside>Related content</aside>
 </main>
 <footer>...</footer>
 ```
 
-`<article>` vs `<section>`: `<article>` es contenido que tiene sentido por sí solo fuera de la página (un post, un producto); `<section>` es una agrupación temática dentro de algo más grande, sin sentido propio aislada.
+`<article>` vs `<section>`: `<article>` is content that makes sense on its own outside the page (a post, a product); `<section>` is a thematic grouping within something bigger, with no meaning isolated on its own.
 
 ## Forms
 
-Los elementos de formulario (`<input>`, `<select>`, `<textarea>`, `<label>`) traen gratis validación básica del browser, accesibilidad (un `<label>` bien asociado hace que el screen reader anuncie el campo, y que tocar el texto también enfoque el input) y semántica que el navegador usa para autocompletar.
+Form elements (`<input>`, `<select>`, `<textarea>`, `<label>`) come with basic browser validation for free, accessibility (a properly associated `<label>` makes the screen reader announce the field, and touching the text also focuses the input), and semantics the browser uses for autocomplete.
 
 ```html
-<!-- el for=id conecta el label con el input — necesario para accesibilidad -->
+<!-- the for=id connects the label to the input — needed for accessibility -->
 <label for="email">Email</label>
 <input id="email" type="email" required autocomplete="email" />
 
-<!-- type correcto = teclado correcto en mobile + validación nativa -->
-<input type="email" />   <!-- valida formato de email -->
-<input type="tel" />     <!-- teclado numérico en mobile -->
+<!-- correct type = correct mobile keyboard + native validation -->
+<input type="email" />   <!-- validates email format -->
+<input type="tel" />     <!-- numeric keyboard on mobile -->
 <input type="number" min="0" max="100" />
 ```
 
-Un `<div onClick>` simulando un botón pierde todo esto — no es focuseable con Tab, no responde a Enter/Espacio, y un screen reader no sabe que es interactivo. Usar `<button>` (o `<input type="submit">`) siempre que algo dispare una acción.
+A `<div onClick>` simulating a button loses all of this — it's not focusable with Tab, doesn't respond to Enter/Space, and a screen reader doesn't know it's interactive. Use `<button>` (or `<input type="submit">`) whenever something triggers an action.
 
 ## SEO
 
-Lo que un crawler de buscador puede indexar depende de que el HTML tenga la información en el lugar que espera, no solo de que "se vea bien":
+What a search crawler can index depends on the HTML having the information where it expects it, not just on it "looking good":
 
 ```html
 <head>
-  <title>Título único de la página (aparece en el resultado de búsqueda)</title>
-  <meta name="description" content="Resumen de 1-2 líneas, aparece debajo del título en el buscador" />
-  <link rel="canonical" href="https://miapp.com/producto/123" />
+  <title>Unique page title (shows up in the search result)</title>
+  <meta name="description" content="1-2 line summary, appears below the title in search" />
+  <link rel="canonical" href="https://myapp.com/product/123" />
 </head>
 ```
 
-- **Un solo `<h1>` por página**, jerarquía de headings sin saltos (`h1` → `h2` → `h3`, no `h1` directo a `h3`) — el crawler arma un índice del contenido a partir de esa jerarquía.
-- Contenido que solo aparece después de ejecutar JS puede no ser indexado por todos los crawlers — ver [CSR vs SSR](renderizado.md#csr-vs-ssr), porque CSR manda un HTML casi vacío.
+- **A single `<h1>` per page**, heading hierarchy with no gaps (`h1` → `h2` → `h3`, not `h1` straight to `h3`) — the crawler builds a content outline from that hierarchy.
+- Content that only appears after running JS might not be indexed by every crawler — see [CSR vs SSR](rendering.md#csr-vs-ssr), because CSR sends an almost-empty HTML.
 
 ## Tab navigation
 
-El orden en que Tab recorre la página sigue el **orden del DOM**, no el orden visual — si CSS reposiciona un elemento (`order` en flex, `position: absolute`), el foco puede "saltar" en un orden que no coincide con lo que se ve, confundiendo a cualquiera que navegue solo con teclado.
+The order Tab traverses the page follows the **DOM order**, not the visual order — if CSS repositions an element (`order` in flex, `position: absolute`), focus can "jump" in an order that doesn't match what's seen, confusing anyone navigating with keyboard only.
 
 ```html
-<!-- tabindex="0": suma el elemento al orden natural de tab (útil en elementos no interactivos por defecto, como un div que actúa de botón) -->
-<div role="button" tabindex="0">Acción custom</div>
+<!-- tabindex="0": adds the element to the natural tab order (useful for elements not interactive by default, like a div acting as a button) -->
+<div role="button" tabindex="0">Custom action</div>
 
-<!-- tabindex="-1": sacable del tab, pero foco-able por JS (ej. mover el foco a un modal recién abierto) -->
+<!-- tabindex="-1": removable from tab order, but focusable via JS (e.g. moving focus to a newly opened modal) -->
 <div tabindex="-1" id="modal">...</div>
 
-<!-- tabindex positivo (2, 3...): ❌ evitar — fuerza un orden manual que rompe
-     apenas se agrega/mueve un elemento en el medio, y pisa el orden natural del DOM -->
+<!-- positive tabindex (2, 3...): ❌ avoid — forces a manual order that breaks
+     as soon as an element is added/moved in between, and overrides the DOM's natural order -->
 ```
 
 ## Anchors
 
-`<a href>` navega (cambia de URL, funciona con "abrir en pestaña nueva", el browser lo indexa como link real) — un `onClick` en un `<span>` o `<div>` no hace nada de eso. Regla simple: si navega, es un `<a>`; si dispara una acción sin cambiar de página, es un `<button>`.
+`<a href>` navigates (changes the URL, works with "open in new tab," the browser indexes it as a real link) — an `onClick` on a `<span>` or `<div>` does none of that. Simple rule: if it navigates, it's an `<a>`; if it triggers an action without changing pages, it's a `<button>`.
 
 ```html
-<!-- ✅ navega a otra URL -->
-<a href="/producto/123">Ver producto</a>
+<!-- ✅ navigates to another URL -->
+<a href="/product/123">View product</a>
 
-<!-- ❌ común pero incorrecto: usar <a> sin href real para disparar JS -->
-<a href="#" onClick={...}>Guardar</a>  <!-- confunde navegación con acción -->
+<!-- ❌ common but wrong: using <a> with no real href to trigger JS -->
+<a href="#" onClick={...}>Save</a>  <!-- confuses navigation with action -->
 
-<!-- ✅ si es una acción, es un botón -->
-<button onClick={...}>Guardar</button>
+<!-- ✅ if it's an action, it's a button -->
+<button onClick={...}>Save</button>
 ```
 
 ---
-Relacionado: [Accesibilidad](accesibilidad.md), [Renderizado: SSR vs CSR vs SSG vs SPA](renderizado.md).
+Related: [Accessibility](accessibility.md), [Rendering: SSR vs CSR vs SSG vs SPA](rendering.md).

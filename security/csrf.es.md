@@ -18,7 +18,7 @@ Si `GET /transferir?monto=10000&destino=...` cambiara estado, el ataque ni siqui
 
 ## Cómo se previene
 
-- **`SameSite` en la cookie de sesión**: `Strict`/`Lax` le dicen al navegador que no mande esa cookie en requests que vienen de otro sitio — corta el ataque en el origen, sin tocar el backend (ver [Cookies](../frontend-react/almacenamiento-cliente.md#cookies)).
+- **`SameSite` en la cookie de sesión**: `Strict`/`Lax` le dicen al navegador que no mande esa cookie en requests que vienen de otro sitio — corta el ataque en el origen, sin tocar el backend (ver [Cookies](../frontend-react/client-side-storage.es.md#cookies)).
 - **CSRF token**: un valor único por sesión (o por formulario) que el servidor exige en cada request que modifica estado, y que un atacante externo no tiene forma de conocer ni replicar.
 
 ```python
@@ -34,4 +34,4 @@ def transferir(monto: float, csrf_token: str = Form(...)):
 `SameSite` y CSRF token no son excluyentes — `SameSite=Lax` (el default en los navegadores modernos) ya cubre la mayoría de los casos, pero un CSRF token sigue siendo la defensa explícita para APIs que necesitan aceptar cookies cross-site a propósito.
 
 ---
-Relacionado: [XSS](xss.es.md), [Autenticación y Seguridad](../backend/authentication.es.md#8-dónde-guardar-el-token-en-el-cliente), [HTTP Methods](../backend/http-methods.es.md#safe-methods--sin-efectos-secundarios), [Almacenamiento en el cliente](../frontend-react/almacenamiento-cliente.md#cookies).
+Relacionado: [XSS](xss.es.md), [Autenticación y Seguridad](../backend/authentication.es.md#8-dónde-guardar-el-token-en-el-cliente), [HTTP Methods](../backend/http-methods.es.md#safe-methods--sin-efectos-secundarios), [Almacenamiento en el cliente](../frontend-react/client-side-storage.es.md#cookies).

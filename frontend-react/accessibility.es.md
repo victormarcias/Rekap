@@ -2,7 +2,7 @@
 
 ## Qué es accesibilidad
 
-Que una persona pueda usar la app sin importar cómo interactúa con ella — con mouse, solo con teclado, con un screen reader, con zoom alto, con daltonismo, con movilidad reducida. No es una feature aparte que se agrega al final; es una propiedad de cómo se construyó el HTML/CSS/JS desde el principio (ver [HTML](html.md) — la semántica correcta ya es la mitad del trabajo).
+Que una persona pueda usar la app sin importar cómo interactúa con ella — con mouse, solo con teclado, con un screen reader, con zoom alto, con daltonismo, con movilidad reducida. No es una feature aparte que se agrega al final; es una propiedad de cómo se construyó el HTML/CSS/JS desde el principio (ver [HTML](html.es.md) — la semántica correcta ya es la mitad del trabajo).
 
 ## Universal Design vs Accessible Design
 
@@ -45,4 +45,4 @@ El atributo `alt` de una imagen es lo que anuncia un screen reader en lugar de l
 ```
 
 ---
-Relacionado: [HTML](html.md).
+Relacionado: [HTML](html.es.md).

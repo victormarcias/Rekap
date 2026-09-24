@@ -1,24 +1,24 @@
 # Web Vitals
 
-Métricas concretas que Google define para medir "qué tan bien se siente" cargar y usar una página — reemplazan intuiciones vagas ("se siente lento") por números medibles, y son señal de ranking en el buscador. Las mide [Lighthouse](performance-diagnostics.md#lighthouse-genérico), entre otras herramientas.
+Concrete metrics Google defines to measure "how good it feels" to load and use a page — replacing vague intuitions ("feels slow") with measurable numbers, and they're a search ranking signal. Measured by [Lighthouse](performance-diagnostics.md#lighthouse-generic), among other tools.
 
 ## Core Web Vitals
 
-- **LCP (Largest Contentful Paint)**: cuánto tarda en pintarse el elemento más grande visible en la pantalla inicial (una imagen hero, un bloque de texto grande). Es la métrica de "¿ya se siente cargado?" — un buen LCP es menor a 2.5s. Causas típicas de un LCP malo: imágenes sin optimizar, fuentes que bloquean el render, JS que retrasa cuándo aparece el contenido (ver [CSR vs SSR](renderizado.md#csr-vs-ssr)).
-- **INP (Interaction to Next Paint)**: cuánto tarda la UI en responder visualmente después de que el usuario interactúa (click, tap, tecla) — reemplazó a FID (First Input Delay) porque mide la interacción **completa**, no solo el primer input. Un INP alto suele venir de JS bloqueando el hilo principal en el momento de la interacción (ver [Bloqueo del hilo principal](../diagnostics/frontend.es.md#bloqueo-del-hilo-principal)).
-- **CLS (Cumulative Layout Shift)**: cuánto "salta" el layout mientras carga la página — imágenes o ads sin `width`/`height` reservado que empujan el contenido de abajo cuando terminan de cargar, un banner que aparece tarde y corre todo hacia abajo. Se mide sumando cuánto se movió cada elemento visible, ponderado por qué tan grande fue el salto.
+- **LCP (Largest Contentful Paint)**: how long it takes for the largest visible element on the initial screen to paint (a hero image, a large text block). It's the "does it feel loaded yet?" metric — a good LCP is under 2.5s. Typical causes of a bad LCP: unoptimized images, render-blocking fonts, JS that delays when content appears (see [CSR vs SSR](rendering.md#csr-vs-ssr)).
+- **INP (Interaction to Next Paint)**: how long the UI takes to respond visually after the user interacts (click, tap, keystroke) — replaced FID (First Input Delay) because it measures the **complete** interaction, not just the first input. A high INP usually comes from JS blocking the main thread at the moment of interaction (see [Main thread blocking](../diagnostics/frontend.md#main-thread-blocking)).
+- **CLS (Cumulative Layout Shift)**: how much the layout "jumps" while the page loads — images or ads with no reserved `width`/`height` that push content below when they finish loading, a banner that appears late and shoves everything down. Measured by summing how much each visible element moved, weighted by how big the jump was.
 
 ```html
-<!-- ❌ sin dimensiones reservadas: cuando la imagen carga, empuja el texto de abajo (CLS alto) -->
+<!-- ❌ no reserved dimensions: when the image loads, it pushes the text below (high CLS) -->
 <img src="banner.jpg" />
 
-<!-- ✅ el browser reserva el espacio desde el primer render, aunque la imagen tarde en llegar -->
+<!-- ✅ the browser reserves the space from the first render, even if the image takes a while to arrive -->
 <img src="banner.jpg" width="800" height="400" />
 ```
 
-## Por qué importan más que "página carga rápido" en general
+## Why they matter more than "the page loads fast" in general
 
-Un tiempo de carga total bajo no garantiza una buena experiencia si el contenido principal tarda en aparecer (LCP malo), si la página se siente trabada al tocarla (INP malo), o si el usuario termina haciendo click en el lugar equivocado porque algo se movió (CLS malo). Las tres miden momentos distintos de la experiencia — carga inicial, capacidad de respuesta, y estabilidad visual — por eso ninguna sola alcanza para decir "esta página anda bien".
+A low total load time doesn't guarantee a good experience if the main content takes a while to appear (bad LCP), if the page feels stuck when touched (bad INP), or if the user ends up clicking the wrong spot because something moved (bad CLS). The three measure different moments of the experience — initial load, responsiveness, and visual stability — which is why no single one is enough to say "this page performs well."
 
 ---
-Relacionado: [Performance Diagnostics](performance-diagnostics.md), [Diagnóstico Frontend](../diagnostics/frontend.es.md).
+Related: [Performance Diagnostics](performance-diagnostics.md), [Frontend Diagnostics](../diagnostics/frontend.md).

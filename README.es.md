@@ -12,7 +12,7 @@ Repaso técnico condensado, organizado para repasar rápido.
 - [🩺 Diagnóstico](diagnostics/README.es.md) — por qué una app anda lenta, por capa (frontend/backend/DB/devops)
 - [⚙️ DevOps](devops/README.es.md) — escalabilidad, Kubernetes, CDN, cold starts
 - [🎯 Stacks](stacks/) — setup, sintaxis y fundamentos por lenguaje/stack
-- [⚛️ Frontend React](frontend-react/) — hooks, eventos DOM, performance, SSR
+- [⚛️ Frontend React](frontend-react/README.es.md) — hooks, eventos DOM, performance, SSR
 - [🗄️ Database](database/README.es.md) — bases de datos relacionales, transacciones, índices, NoSQL
 - [🔒 Security](security/README.es.md) — XSS, CSRF, SQL Injection, SSRF, security headers
 - [🏛️ System Design](system-design/README.es.md) — patrones, atributos de calidad, protocolos

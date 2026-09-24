@@ -34,7 +34,7 @@
 
 - **Marcos éticos**: justicia, privacidad, derechos humanos como criterios explícitos de diseño, no un afterthought.
 - **Auditorías**: revisiones periódicas de sesgos, no solo al lanzar el sistema.
-- **Regulación**: adherencia a marcos como GDPR — ver [Privacidad y GDPR](../frontend-react/privacidad-y-gdpr.md) para el detalle de consentimiento/data minimization, que aplica igual a sistemas de IA que procesan datos de usuarios.
+- **Regulación**: adherencia a marcos como GDPR — ver [Privacidad y GDPR](../frontend-react/privacy-and-gdpr.es.md) para el detalle de consentimiento/data minimization, que aplica igual a sistemas de IA que procesan datos de usuarios.
 - **Educación**: capacitar al equipo sobre riesgos y límites del sistema que están construyendo, no asumir que "la IA ya lo resuelve".
 
 ## Protección de datos y PII
@@ -45,4 +45,4 @@
 - **Mitigación de Prompt Injection en la práctica**: sandboxing (la tool que ejecuta el agente corre con permisos acotados, ver mínimos privilegios arriba), validación estricta de qué puede hacer cada tool, y nunca tratar contenido de un documento externo (recuperado vía RAG, por ejemplo) con el mismo nivel de confianza que las instrucciones del desarrollador.
 
 ---
-Relacionado: [Agentes vs Workflows](agentes-vs-workflows.md), [Costos de LLMs](costos-llms.md), [RAG](rag.md), [Diseño de Agentes](diseno-de-agentes.md), [Privacidad y GDPR](../frontend-react/privacidad-y-gdpr.md).
+Relacionado: [Agentes vs Workflows](agentes-vs-workflows.md), [Costos de LLMs](costos-llms.md), [RAG](rag.md), [Diseño de Agentes](diseno-de-agentes.md), [Privacidad y GDPR](../frontend-react/privacy-and-gdpr.es.md).

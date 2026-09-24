@@ -209,7 +209,7 @@ sufre 1.8 segundos de latencia, el promedio solo no lo muestra —
 mirar percentiles altos es la única forma de ver esa cola larga.
 ```
 
-Medirlo bien importa más que cualquier técnica puntual — ver [Performance Diagnostics](../frontend-react/performance-diagnostics.md) y [Web Vitals](../frontend-react/web-vitals.md) del lado frontend, [Query Optimization](../database/query-optimization.es.md) del lado de base de datos, y [Diagnóstico Backend](../diagnostics/backend.es.md) / [Diagnóstico Frontend](../diagnostics/frontend.es.md) para las causas más comunes de un sistema lento.
+Medirlo bien importa más que cualquier técnica puntual — ver [Performance Diagnostics](../frontend-react/performance-diagnostics.es.md) y [Web Vitals](../frontend-react/web-vitals.es.md) del lado frontend, [Query Optimization](../database/query-optimization.es.md) del lado de base de datos, y [Diagnóstico Backend](../diagnostics/backend.es.md) / [Diagnóstico Frontend](../diagnostics/frontend.es.md) para las causas más comunes de un sistema lento.
 
 ## Resumen
 

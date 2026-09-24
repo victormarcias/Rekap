@@ -51,4 +51,4 @@ function UserProfile({ userId }) {
 Este es, en el fondo, el problema que resuelven librerías como React Query o SWR — modelan estos 4 estados (más cache, revalidación, reintentos con backoff) para no tener que reimplementarlos a mano en cada `useFetch` propio.
 
 ---
-Relacionado: [Hooks](hooks.md) (`useEffect`, el `useFetch` de ejemplo), [HTTP Status Codes](../system-design/http-status-codes.es.md), [Circuit Breaker](../system-design/quality-attributes.es.md#tolerancia-a-fallos), [Error Boundaries](error-boundaries.md) (errores de render, no de red — concepto distinto).
+Relacionado: [Hooks](hooks.es.md) (`useEffect`, el `useFetch` de ejemplo), [HTTP Status Codes](../system-design/http-status-codes.es.md), [Circuit Breaker](../system-design/quality-attributes.es.md#tolerancia-a-fallos), [Error Boundaries](error-boundaries.es.md) (errores de render, no de red — concepto distinto).

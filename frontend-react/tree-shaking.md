@@ -1,40 +1,40 @@
 # Tree Shaking
 
-El bundler elimina del bundle final el código exportado que nadie importa. Concepto genérico de cualquier bundler moderno (Webpack, Rollup, esbuild, Vite) — no es específico de React.
+The bundler removes exported code that nobody imports from the final bundle. A generic concept of any modern bundler (Webpack, Rollup, esbuild, Vite) — not specific to React.
 
-## Por qué funciona con ES Modules y no con CommonJS
+## Why it works with ES Modules and not CommonJS
 
-Los `import`/`export` de ES Modules son **estáticos**: el bundler puede analizar el código sin ejecutarlo y saber exactamente qué exports de cada módulo se usan en algún lado. `require()` de CommonJS es **dinámico** (puede llamarse condicionalmente, con un string armado en runtime) — el bundler no puede garantizar de antemano qué se va a necesitar, así que no puede descartar nada con seguridad.
+ES Modules' `import`/`export` are **static**: the bundler can analyze the code without running it and know exactly which exports of each module are used anywhere. CommonJS's `require()` is **dynamic** (can be called conditionally, with a string built at runtime) — the bundler can't guarantee ahead of time what will be needed, so it can't safely discard anything.
 
 ```js
-// ✅ ES Modules: el bundler ve estáticamente que solo se usa `formatDate`
+// ✅ ES Modules: the bundler statically sees only `formatDate` is used
 import { formatDate } from './utils';
 
-// ❌ CommonJS: en teoría el path podría variar en runtime, el bundler no puede analizarlo igual
+// ❌ CommonJS: in theory the path could vary at runtime, the bundler can't analyze it the same way
 const utils = require('./utils');
 ```
 
-Ver el ejemplo completo con `lodash` (import de la librería completa vs. `lodash/debounce`) en [Diagnóstico Frontend](../diagnostics/frontend.es.md#uso-de-componentes-no-optimizados-de-terceros).
+See the full example with `lodash` (importing the whole library vs. `lodash/debounce`) in [Frontend Diagnostics](../diagnostics/frontend.md#unoptimized-third-party-components).
 
-## `sideEffects` en `package.json`
+## `sideEffects` in `package.json`
 
-El bundler no puede eliminar un módulo si ejecutarlo tiene efectos secundarios (ej. modifica un objeto global, registra algo) aunque nada importe sus exports — por las dudas, lo deja. Una librería puede declarar explícitamente que sus archivos **no** tienen side effects, para que el bundler los pueda descartar con confianza si no se usan.
+The bundler can't remove a module if running it has side effects (e.g. it modifies a global object, registers something) even if nothing imports its exports — just in case, it keeps it. A library can explicitly declare that its files have **no** side effects, so the bundler can confidently discard them if unused.
 
 ```json
 {
-  "name": "mi-libreria",
+  "name": "my-library",
   "sideEffects": false
 }
 ```
 
 ```json
-// o una lista puntual de los archivos que sí los tienen (ej. un polyfill que se auto-ejecuta)
+// or a specific list of files that do have them (e.g. a self-executing polyfill)
 {
   "sideEffects": ["./src/polyfills.js"]
 }
 ```
 
-Sin esta declaración, el bundler asume que **todo** puede tener side effects y es más conservador — descarta menos código del que en realidad podría.
+Without this declaration, the bundler assumes **everything** might have side effects and is more conservative — it discards less code than it actually could.
 
 ---
-Relacionado: [Diagnóstico Frontend](../diagnostics/frontend.es.md), [Performance Diagnostics](performance-diagnostics.md) (bundle analyzer, para ver qué quedó adentro).
+Related: [Frontend Diagnostics](../diagnostics/frontend.md), [Performance Diagnostics](performance-diagnostics.md) (bundle analyzer, to see what's left inside).

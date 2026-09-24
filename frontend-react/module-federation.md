@@ -1,17 +1,17 @@
 # Module Federation
 
-Arquitectura de **micro-frontends**: dividir una app frontend grande en piezas independientes, cada una con su propio build y deploy, que se componen recién en **runtime** en vez de todas juntas en un único bundle.
+**Micro-frontends** architecture: splitting a large frontend app into independent pieces, each with its own build and deploy, that only get composed at **runtime** instead of all together in a single bundle.
 
-## El problema que resuelve
+## The problem it solves
 
-Una SPA tradicional es un monolito de frontend: todo el código vive en un solo repo, un solo build, un solo deploy — si diez equipos trabajan sobre la misma app, todos comparten el mismo pipeline y cualquier release espera a que todo esté listo. Micro-frontends le aplican a la UI la misma idea que microservicios le aplica al backend: cada equipo dueño de una parte de la pantalla, con su propio ciclo de desarrollo y deploy.
+A traditional SPA is a frontend monolith: all the code lives in one repo, one build, one deploy — if ten teams work on the same app, they all share the same pipeline and any release waits for everything to be ready. Micro-frontends apply to the UI the same idea microservices apply to the backend: each team owns a part of the screen, with its own development and deploy cycle.
 
-## Cómo funciona (Ej. con Webpack Module Federation)
+## How it works (e.g. with Webpack Module Federation)
 
-Una app (`host`) puede cargar en runtime un módulo servido por otra app (`remote`), como si fuera un import normal — pero ese código ni siquiera existía en el bundle del host al momento de buildearlo.
+An app (`host`) can load a module served by another app (`remote`) at runtime, as if it were a normal import — but that code didn't even exist in the host's bundle when it was built.
 
 ```js
-// webpack.config.js del remote (expone un componente)
+// remote's webpack.config.js (exposes a component)
 module.exports = {
   plugins: [
     new ModuleFederationPlugin({
@@ -22,22 +22,22 @@ module.exports = {
   ],
 };
 
-// webpack.config.js del host (consume el remote)
+// host's webpack.config.js (consumes the remote)
 module.exports = {
   plugins: [
     new ModuleFederationPlugin({
-      remotes: { checkout: 'checkout@https://checkout.miapp.com/remoteEntry.js' },
+      remotes: { checkout: 'checkout@https://checkout.myapp.com/remoteEntry.js' },
     }),
   ],
 };
 ```
 
 ```jsx
-// en el código del host, se importa como si fuera local —
-// pero en runtime lo trae desde el servidor del equipo de checkout
+// in the host's code, it's imported as if it were local —
+// but at runtime it's fetched from the checkout team's server
 const CheckoutButton = React.lazy(() => import('checkout/CheckoutButton'));
 ```
 
 ## Trade-offs
 
-No es gratis: agrega **acoplamiento en runtime** (si el remote está caído o cambió su contrato, el host se rompe en producción, no en build time), *version skew* entre equipos (el host puede estar corriendo contra una versión del remote distinta a la que testeó), y complejidad extra de testing (probar el sistema completo requiere levantar varios remotes a la vez). Para equipos chicos, o cuando el problema es solo "compartir componentes" y no "deploys independientes", una librería compartida en un monorepo suele alcanzar sin pagar ese costo.
+It's not free: it adds **runtime coupling** (if the remote is down or changed its contract, the host breaks in production, not at build time), *version skew* between teams (the host might be running against a different remote version than the one it tested), and extra testing complexity (testing the full system requires spinning up several remotes at once). For small teams, or when the problem is just "sharing components" and not "independent deploys," a shared library in a monorepo is usually enough without paying that cost.

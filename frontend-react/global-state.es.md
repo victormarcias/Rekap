@@ -19,7 +19,7 @@ function Sidebar({ user }) {
 
 ## Context API — la solución nativa
 
-Provee un valor en un punto del árbol y lo hace disponible directo a cualquier descendiente vía `useContext`, sin pasar por los componentes intermedios (ver [`useContext`](hooks.md#usecontext)).
+Provee un valor en un punto del árbol y lo hace disponible directo a cualquier descendiente vía `useContext`, sin pasar por los componentes intermedios (ver [`useContext`](hooks.es.md#usecontext)).
 
 ```jsx
 const UserContext = createContext(null);
@@ -65,7 +65,7 @@ function CartBadge() {
 
 - **Prop drilling liso**: si son 1-2 niveles, a veces es más simple que agregar Context — no toda cadena de props merece una abstracción.
 - **Context**: estado que cambia poco (tema, idioma, usuario logueado) y no tiene actualizaciones de alta frecuencia.
-- **Redux/Zustand**: estado que cambia seguido, con múltiples fuentes de actualización, o donde la performance de re-renders ya es un problema medido (no una suposición — ver [Performance Diagnostics](performance-diagnostics.md)).
+- **Redux/Zustand**: estado que cambia seguido, con múltiples fuentes de actualización, o donde la performance de re-renders ya es un problema medido (no una suposición — ver [Performance Diagnostics](performance-diagnostics.es.md)).
 
 ---
-Relacionado: [Hooks](hooks.md), [Diagnóstico Frontend](../diagnostics/frontend.es.md).
+Relacionado: [Hooks](hooks.es.md), [Diagnóstico Frontend](../diagnostics/frontend.es.md).

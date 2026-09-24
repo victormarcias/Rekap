@@ -37,4 +37,4 @@ React escapa automáticamente cualquier valor que renderices como texto — pero
 - **`HttpOnly` en cookies sensibles**: no evita el XSS en sí, pero limita el daño — el script inyectado no puede leer una cookie que el navegador no expone a JavaScript (ver [Autenticación](../backend/authentication.es.md#8-dónde-guardar-el-token-en-el-cliente)).
 
 ---
-Relacionado: [CSRF](csrf.es.md), [Security Headers](security-headers.es.md), [Autenticación y Seguridad](../backend/authentication.es.md), [Almacenamiento en el cliente](../frontend-react/almacenamiento-cliente.md).
+Relacionado: [CSRF](csrf.es.md), [Security Headers](security-headers.es.md), [Autenticación y Seguridad](../backend/authentication.es.md), [Almacenamiento en el cliente](../frontend-react/client-side-storage.es.md).

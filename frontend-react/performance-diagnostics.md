@@ -1,32 +1,32 @@
 # Performance Diagnostics
 
-Herramientas para medir en vez de adivinar dónde está el problema de performance de una app frontend.
+Tools for measuring instead of guessing where a frontend app's performance problem is.
 
-## Lighthouse (genérico)
+## Lighthouse (generic)
 
-Auditoría automatizada que corre en cualquier página (Chrome DevTools, CLI, o CI) y devuelve un score de Performance, Accessibility, Best Practices y SEO, con recomendaciones puntuales. Mide los [Core Web Vitals](web-vitals.md) (LCP, INP, CLS).
+An automated audit that runs on any page (Chrome DevTools, CLI, or CI) and returns a Performance, Accessibility, Best Practices, and SEO score, with specific recommendations. Measures the [Core Web Vitals](web-vitals.md) (LCP, INP, CLS).
 
 ```bash
-npx lighthouse https://miapp.com --view
+npx lighthouse https://myapp.com --view
 ```
 
-## Bundle analyzer (genérico)
+## Bundle analyzer (generic)
 
-Visualiza qué hay realmente adentro del bundle final de JS — un treemap donde cada caja es un módulo, su tamaño proporcional al espacio que ocupa. Sirve para encontrar la dependencia de 200kb que se importó por una sola función (ver el ejemplo de `lodash` completo vs `lodash/debounce` en [Diagnóstico Frontend](../diagnostics/frontend.es.md)).
+Visualizes what's actually inside the final JS bundle — a treemap where each box is a module, its size proportional to the space it takes up. Useful for finding the 200kb dependency imported for a single function (see the full `lodash` vs `lodash/debounce` example in [Frontend Diagnostics](../diagnostics/frontend.md)).
 
 ```bash
-# Ej. con Webpack
+# E.g. with Webpack
 npx webpack-bundle-analyzer stats.json
 
-# Ej. con Vite/Rollup
+# E.g. with Vite/Rollup
 npx vite-bundle-visualizer
 ```
 
-## React Profiler (específico de React)
+## React Profiler (React-specific)
 
-Tab del React DevTools que graba una sesión de renders y muestra, por componente, cuánto tardó cada uno y **por qué** se re-renderizó (qué prop o qué state cambió). Es la herramienta puntual para responder "¿por qué este componente se está re-renderizando tanto?" en vez de adivinar mirando el código.
+A React DevTools tab that records a render session and shows, per component, how long each one took and **why** it re-rendered (which prop or state changed). It's the specific tool for answering "why is this component re-rendering so much?" instead of guessing by reading the code.
 
-Los otros dos (Lighthouse, bundle analyzer) dicen **qué tan grande/lenta es la carga inicial**; el Profiler dice **qué está pasando durante la interacción**, ya con la app corriendo.
+The other two (Lighthouse, bundle analyzer) tell you **how big/slow the initial load is**; the Profiler tells you **what's happening during interaction**, with the app already running.
 
 ---
-Relacionado: [Web Vitals](web-vitals.md), [Diagnóstico Frontend](../diagnostics/frontend.es.md), [Tree shaking](tree-shaking.md).
+Related: [Web Vitals](web-vitals.md), [Frontend Diagnostics](../diagnostics/frontend.md), [Tree shaking](tree-shaking.md).

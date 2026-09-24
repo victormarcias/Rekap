@@ -221,4 +221,4 @@ const respuesta: ApiResponse<Usuario> = { data: usuario, error: null };
 **Conditional types** (`T extends U ? X : Y`) y **mapped types** (`{ [K in keyof T]: ... }`, la base de cómo están implementados los Utility Types de arriba) son la forma de escribir lógica a nivel de tipos — se usan mucho al construir librerías, menos seguido en código de aplicación día a día.
 
 ---
-Relacionado: [Configuración (tsconfig.json)](config.md), [Sistema de tipos comparado (Python/Swift/Kotlin/Java)](../tipos-comparativa.md), [Frontend React](../../frontend-react/) para dónde se aplica esto en componentes.
+Relacionado: [Configuración (tsconfig.json)](config.md), [Sistema de tipos comparado (Python/Swift/Kotlin/Java)](../tipos-comparativa.md), [Frontend React](../../frontend-react/README.es.md) para dónde se aplica esto en componentes.

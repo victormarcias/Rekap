@@ -48,4 +48,4 @@ def handle_webhook(event):
 Pagos (Stripe, MercadoPago avisan cuando se confirma un cobro), CI/CD (GitHub avisa a un servicio externo cuando hay un push o un PR), integraciones (Slack, Discord notificando eventos a un bot).
 
 ---
-Relacionado: [Idempotencia](../system-design/quality-attributes.es.md#idempotencia), [WebSocket / SSE / Streaming](../frontend-react/websocket-sse-streaming.md) (otra forma de recibir datos sin polling, pero con conexión persistente en vez de un request puntual por evento).
+Relacionado: [Idempotencia](../system-design/quality-attributes.es.md#idempotencia), [WebSocket / SSE / Streaming](../frontend-react/websocket-sse-streaming.es.md) (otra forma de recibir datos sin polling, pero con conexión persistente en vez de un request puntual por evento).

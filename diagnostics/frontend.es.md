@@ -119,7 +119,7 @@ setTimeout(() => setState(s => ({ count: s.count + 1, flag: true })), 1000);
 
 ## Uso de componentes no optimizados (de terceros)
 
-Librerías de UI pesadas importadas completas en vez de tree-shakeable, o componentes que no soportan `memo` internamente. Ver [tree shaking](../frontend-react/README.md) y auditar bundle con bundle-analyzer.
+Librerías de UI pesadas importadas completas en vez de tree-shakeable, o componentes que no soportan `memo` internamente. Ver [tree shaking](../frontend-react/README.es.md) y auditar bundle con bundle-analyzer.
 
 ```ts
 // ❌ importa toda la librería (~70kb) para usar una función
@@ -132,4 +132,4 @@ debounce(fn, 300);
 ```
 
 ---
-Para medir en vez de adivinar: React DevTools **Profiler**, **Lighthouse**, y **bundle-analyzer** — ver [frontend-react](../frontend-react/README.md).
+Para medir en vez de adivinar: React DevTools **Profiler**, **Lighthouse**, y **bundle-analyzer** — ver [frontend-react](../frontend-react/README.es.md).

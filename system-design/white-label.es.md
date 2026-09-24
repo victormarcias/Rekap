@@ -26,7 +26,7 @@ Es el mismo problema de fondo que [Sharding vs Partitioning](../database/shardin
 
 ## Branding dinámico: theming sin tocar código
 
-Cada tenant necesita su logo, paleta de colores, tipografía — sin que eso implique un deploy o una rama de código por cliente. El patrón estándar: **CSS Variables** (ver [CSS](../frontend-react/css.md#css-variables-custom-properties)) cargadas en runtime según el tenant activo, más un objeto de config con las URLs de sus assets.
+Cada tenant necesita su logo, paleta de colores, tipografía — sin que eso implique un deploy o una rama de código por cliente. El patrón estándar: **CSS Variables** (ver [CSS](../frontend-react/css.es.md#css-variables-custom-properties)) cargadas en runtime según el tenant activo, más un objeto de config con las URLs de sus assets.
 
 ```json
 // config de tenant, resuelta según el dominio/subdominio del request
@@ -66,4 +66,4 @@ Si agregar un cliente nuevo implica que alguien del equipo entre a tocar código
 Es el mismo problema que resuelve cualquier sistema multi-cliente a escala (SaaS B2B, plataformas para agencias) — la arquitectura correcta desde el día uno evita una migración dolorosa después: pasar de "todo compartido sin `tenant_id`" a un modelo con aislamiento real, con datos ya mezclados en producción, sale mucho más caro que diseñarlo bien desde el principio.
 
 ---
-Relacionado: [Sharding vs Partitioning](../database/sharding-vs-partitioning.es.md), [CSS Variables](../frontend-react/css.md#css-variables-custom-properties), [Autenticación y Seguridad](../backend/authentication.es.md), [Atributos de calidad de sistemas](quality-attributes.es.md), [Qué pasa cuando escribís una URL](what-happens-when-you-type-a-url.es.md).
+Relacionado: [Sharding vs Partitioning](../database/sharding-vs-partitioning.es.md), [CSS Variables](../frontend-react/css.es.md#css-variables-custom-properties), [Autenticación y Seguridad](../backend/authentication.es.md), [Atributos de calidad de sistemas](quality-attributes.es.md), [Qué pasa cuando escribís una URL](what-happens-when-you-type-a-url.es.md).

@@ -1,6 +1,6 @@
 # React — Fundamentos
 
-Cómo funciona React por dentro, antes de entrar en hooks (ver [Hooks](hooks.md)) o performance (ver [Diagnóstico Frontend](../diagnostics/frontend.es.md)).
+Cómo funciona React por dentro, antes de entrar en hooks (ver [Hooks](hooks.es.md)) o performance (ver [Diagnóstico Frontend](../diagnostics/frontend.es.md)).
 
 ## Virtual DOM
 
@@ -71,4 +71,4 @@ fun CounterView() {
 Literalmente el mismo React/Virtual DOM que la versión web, pero con un renderer distinto al final — en vez de aplicar los cambios a nodos del DOM del browser, los aplica a vistas nativas reales (`UIView` en iOS, `View` de Android). Es **React DOM** (el renderer web) el que es específico de web, no React ni el Virtual DOM en sí — React Native reusa exactamente el mismo core y el mismo JSX de arriba. Para la práctica (componentes, styling, navegación, el bridge con código nativo) ver [React Native — Fundamentos](../stacks/react-native/fundamentos.md).
 
 ---
-Relacionado: [Hooks](hooks.md), [Diagnóstico Frontend](../diagnostics/frontend.es.md).
+Relacionado: [Hooks](hooks.es.md), [Diagnóstico Frontend](../diagnostics/frontend.es.md).

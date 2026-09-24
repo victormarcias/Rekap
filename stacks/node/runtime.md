@@ -58,7 +58,7 @@ import fs from 'fs';
 export function greet() { }
 ```
 
-Diferencia de fondo: `require()` es **síncrono** (carga y ejecuta el módulo ahí mismo, bloqueando); `import` es parte de la spec de ES Modules y permite *tree shaking* real (ver [Tree Shaking](../../frontend-react/tree-shaking.md)) porque el grafo de dependencias se puede analizar estáticamente, sin ejecutar código.
+Diferencia de fondo: `require()` es **síncrono** (carga y ejecuta el módulo ahí mismo, bloqueando); `import` es parte de la spec de ES Modules y permite *tree shaking* real (ver [Tree Shaking](../../frontend-react/tree-shaking.es.md)) porque el grafo de dependencias se puede analizar estáticamente, sin ejecutar código.
 
 ## npm y `package.json`
 
@@ -106,4 +106,4 @@ buf.length;             // 4 — bytes, no caracteres (importa con Unicode multi
 ```
 
 ---
-Relacionado: [Tree Shaking](../../frontend-react/tree-shaking.md), [Sintaxis general (Python)](../python/sintaxis.md) para el equivalente de módulos/contextos en otro lenguaje.
+Relacionado: [Tree Shaking](../../frontend-react/tree-shaking.es.md), [Sintaxis general (Python)](../python/sintaxis.md) para el equivalente de módulos/contextos en otro lenguaje.

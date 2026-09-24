@@ -1,21 +1,21 @@
 # Error Boundaries
 
-Un error boundary es un componente que **atrapa errores de JS lanzados durante el render** de sus componentes hijos, y muestra una UI de fallback en vez de que toda la app se rompa en blanco. Sin uno, un error en cualquier componente tira abajo el árbol entero de React que lo contiene.
+An error boundary is a component that **catches JS errors thrown during the render** of its child components, and shows a fallback UI instead of the whole app breaking to a blank screen. Without one, an error in any component takes down the entire React tree containing it.
 
 ```jsx
 class ErrorBoundary extends React.Component {
   state = { hasError: false };
 
   static getDerivedStateFromError(error) {
-    return { hasError: true }; // dispara el render de fallback en el próximo render
+    return { hasError: true }; // triggers the fallback render on the next render
   }
 
   componentDidCatch(error, info) {
-    logErrorToService(error, info); // efecto secundario: loguear, reportar a Sentry, etc.
+    logErrorToService(error, info); // side effect: log, report to Sentry, etc.
   }
 
   render() {
-    if (this.state.hasError) return <h2>Algo salió mal.</h2>;
+    if (this.state.hasError) return <h2>Something went wrong.</h2>;
     return this.props.children;
   }
 }
@@ -23,31 +23,31 @@ class ErrorBoundary extends React.Component {
 function App() {
   return (
     <ErrorBoundary>
-      <Dashboard /> {/* si Dashboard tira un error de render, solo esta parte se reemplaza */}
+      <Dashboard /> {/* if Dashboard throws a render error, only this part gets replaced */}
     </ErrorBoundary>
   );
 }
 ```
 
-## Por qué es una clase (no hay hook equivalente)
+## Why it's a class (there's no hook equivalent)
 
-`getDerivedStateFromError` y `componentDidCatch` no tienen todavía un equivalente en hooks — es una de las pocas razones legítimas para seguir escribiendo un class component en código moderno de React. En la práctica casi nadie lo escribe a mano: se usa la librería `react-error-boundary`, que expone la misma funcionalidad con una API de componente reutilizable.
+`getDerivedStateFromError` and `componentDidCatch` still don't have a hooks equivalent — it's one of the few legitimate reasons to still write a class component in modern React code. In practice almost nobody writes it by hand: the `react-error-boundary` library is used instead, exposing the same functionality with a reusable component API.
 
 ```jsx
 import { ErrorBoundary } from 'react-error-boundary';
 
-<ErrorBoundary fallback={<h2>Algo salió mal.</h2>} onError={logErrorToService}>
+<ErrorBoundary fallback={<h2>Something went wrong.</h2>} onError={logErrorToService}>
   <Dashboard />
 </ErrorBoundary>
 ```
 
-## Qué NO atrapa
+## What it does NOT catch
 
-Un error boundary solo atrapa errores durante el **render**, en lifecycle methods, y en constructores de componentes hijos. No atrapa errores en: event handlers (`onClick`), código async (`setTimeout`, promesas), server-side rendering, ni errores lanzados en el error boundary mismo. Los errores de un `onClick` se manejan con un `try/catch` normal dentro del handler.
+An error boundary only catches errors during **render**, in lifecycle methods, and in child components' constructors. It doesn't catch errors in: event handlers (`onClick`), async code (`setTimeout`, promises), server-side rendering, or errors thrown in the error boundary itself. Errors from an `onClick` are handled with a normal `try/catch` inside the handler.
 
-## Dónde ubicarlos
+## Where to place them
 
-No hace falta un único error boundary global — es común poner uno alrededor de secciones independientes de la UI (ej. un widget que consume una API externa poco confiable), así un error ahí no tira abajo el resto de la página que sí está funcionando.
+You don't need a single global error boundary — it's common to put one around independent UI sections (e.g. a widget that consumes an unreliable external API), so an error there doesn't take down the rest of the page that's still working fine.
 
 ---
-Relacionado: [Hooks](hooks.md), [Diagnóstico Frontend](../diagnostics/frontend.es.md).
+Related: [Hooks](hooks.md), [Frontend Diagnostics](../diagnostics/frontend.md).

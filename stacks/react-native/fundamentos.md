@@ -1,6 +1,6 @@
 # React Native — Fundamentos
 
-Ya se vio en [React (fundamentos)](../../frontend-react/react-fundamentos.md#react-native) por qué React Native comparte el mismo core y el mismo JSX que React web, solo con un renderer distinto (vistas nativas en vez de DOM). Acá el detalle práctico de cómo se arma una app con eso.
+Ya se vio en [React (fundamentos)](../../frontend-react/react-fundamentals.es.md#react-native) por qué React Native comparte el mismo core y el mismo JSX que React web, solo con un renderer distinto (vistas nativas en vez de DOM). Acá el detalle práctico de cómo se arma una app con eso.
 
 ## Componentes core (vs HTML)
 
@@ -109,4 +109,4 @@ Boton.android.tsx
 ```
 
 ---
-Relacionado: [React (fundamentos)](../../frontend-react/react-fundamentos.md#react-native), [Hooks](../../frontend-react/hooks.md).
+Relacionado: [React (fundamentos)](../../frontend-react/react-fundamentals.es.md#react-native), [Hooks](../../frontend-react/hooks.es.md).

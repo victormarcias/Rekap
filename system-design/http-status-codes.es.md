@@ -7,7 +7,7 @@ El primer dígito define la categoría; ese dígito solo ya le dice al cliente c
 Respuestas provisorias, antes de la respuesta final — el cliente casi nunca las maneja directo, las resuelve la capa HTTP por debajo.
 
 - **100 Continue**: el servidor confirma que puede recibir el resto de un request grande antes de que el cliente lo mande completo (evita subir un body enorme para que recién ahí el servidor lo rechace).
-- **101 Switching Protocols**: confirma el upgrade de protocolo — es el mecanismo por el que arranca una conexión WebSocket (ver [WebSocket / SSE / Streaming](../frontend-react/websocket-sse-streaming.md)).
+- **101 Switching Protocols**: confirma el upgrade de protocolo — es el mecanismo por el que arranca una conexión WebSocket (ver [WebSocket / SSE / Streaming](../frontend-react/websocket-sse-streaming.es.md)).
 
 ## 2xx — Success
 
