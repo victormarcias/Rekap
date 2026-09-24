@@ -1,6 +1,6 @@
 # Escalabilidad de Memoria
 
-Capacidad de RAM a nivel infraestructura — distinto del memory leak a nivel código, que ya está cubierto en [Diagnóstico Backend](../diagnostico/backend.md#memoria). Acá el problema no es que el proceso pierda memoria con el tiempo, es que la carga de trabajo **legítima** ya necesita más RAM de la que tiene disponible.
+Capacidad de RAM a nivel infraestructura — distinto del memory leak a nivel código, que ya está cubierto en [Diagnóstico Backend](../diagnostics/backend.es.md#memoria). Acá el problema no es que el proceso pierda memoria con el tiempo, es que la carga de trabajo **legítima** ya necesita más RAM de la que tiene disponible.
 
 ## OOMKilled
 
@@ -18,4 +18,4 @@ resources:
 - **Swap**: cuando la RAM física se agota, el sistema operativo puede usar disco como memoria virtual — funciona, pero el acceso a disco es órdenes de magnitud más lento que RAM; un proceso "swappeando" activamente tiene toda la pinta de estar colgado aunque técnicamente siga vivo.
 
 ---
-Relacionado: [Diagnóstico Backend](../diagnostico/backend.md#memoria) (memory leaks), [Kubernetes](kubernetes.md#resource-limits).
+Relacionado: [Diagnóstico Backend](../diagnostics/backend.es.md#memoria) (memory leaks), [Kubernetes](kubernetes.md#resource-limits).

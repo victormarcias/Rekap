@@ -6,7 +6,7 @@ Guías sobre infraestructura, escalabilidad y operaciones.
 - [x] [Cold starts](cold-starts.md)
 - [x] [Deploy a Cloud Run](deploy-cloud-run.md)
 - [x] [Deploy de FastAPI a un VPS](deploy-vps.md)
-- [x] [Diagnóstico de performance por capa](../diagnostico/README.md)
+- [x] [Diagnóstico de performance por capa](../diagnostics/README.es.md)
 - [x] [Dockerización](docker.md)
 - [x] [Escalabilidad de Memoria](escalabilidad-memoria.md)
 - [x] [Escalabilidad de Procesos](escalabilidad-procesos.md)

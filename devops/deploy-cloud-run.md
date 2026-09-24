@@ -4,7 +4,7 @@ Cómo llevar la imagen de [Dockerización](docker.md) a producción sin administ
 
 ## 1. Qué es un contenedor serverless y qué significa "escala a cero"
 
-En un VPS, la máquina está prendida y facturando todo el tiempo, tenga tráfico o no. Cloud Run corre tu contenedor **solo cuando llega un request** — si no hay tráfico, apaga la instancia por completo (escala a **cero** réplicas) y no pagás nada por ese tiempo. El primer request después de estar en cero paga el costo de arrancar el contenedor de nuevo — ver [Cold start](../diagnostico/devops.md).
+En un VPS, la máquina está prendida y facturando todo el tiempo, tenga tráfico o no. Cloud Run corre tu contenedor **solo cuando llega un request** — si no hay tráfico, apaga la instancia por completo (escala a **cero** réplicas) y no pagás nada por ese tiempo. El primer request después de estar en cero paga el costo de arrancar el contenedor de nuevo — ver [Cold start](../diagnostics/devops.es.md).
 
 ```bash
 # el mismo comando de build de siempre — Cloud Run no necesita nada especial en el Dockerfile
@@ -63,4 +63,4 @@ app.add_middleware(SecurityHeadersMiddleware)
 ```
 
 ---
-Relacionado: [Dockerización](docker.md), [Deploy a un VPS](deploy-vps.md), [VPS vs Cloud Run](vps-vs-cloud-run.md), [Cold start](../diagnostico/devops.md), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad), [Security Headers](../security/security-headers.md) (qué previene cada uno).
+Relacionado: [Dockerización](docker.md), [Deploy a un VPS](deploy-vps.md), [VPS vs Cloud Run](vps-vs-cloud-run.md), [Cold start](../diagnostics/devops.es.md), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad), [Security Headers](../security/security-headers.md) (qué previene cada uno).

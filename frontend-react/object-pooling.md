@@ -47,4 +47,4 @@ Cero allocations nuevas en el loop caliente — el pool ya tiene todo lo que va 
 
 ## El mismo principio en las listas virtualizadas
 
-[Virtualización / Windowing](../diagnostico/frontend.md#falta-de-paginación--virtualización) aplica la misma idea a nivel de nodos DOM: en vez de montar y desmontar un `<div>` por cada fila que entra/sale del viewport al scrollear, las librerías de virtualización reciclan un puñado fijo de nodos DOM y solo les cambian el contenido — el DOM también es "caro" de crear/destruir, igual que los objetos en memoria de un game loop.
+[Virtualización / Windowing](../diagnostics/frontend.es.md#falta-de-paginación--virtualización) aplica la misma idea a nivel de nodos DOM: en vez de montar y desmontar un `<div>` por cada fila que entra/sale del viewport al scrollear, las librerías de virtualización reciclan un puñado fijo de nodos DOM y solo les cambian el contenido — el DOM también es "caro" de crear/destruir, igual que los objetos en memoria de un game loop.

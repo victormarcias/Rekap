@@ -16,4 +16,4 @@ Las dos formas de darle más capacidad a un sistema.
 En la práctica se combinan: cada instancia de un cluster horizontal también tiene un tamaño (vertical) elegido a su vez.
 
 ---
-Relacionado: [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), [Diagnóstico DevOps](../diagnostico/devops.md).
+Relacionado: [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), [Diagnóstico DevOps](../diagnostics/devops.es.md).

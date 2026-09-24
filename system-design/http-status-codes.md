@@ -50,7 +50,7 @@ El error es del lado del servidor — el cliente hizo todo bien, algo se rompió
 - **503 Service Unavailable**: el servidor está temporalmente no disponible (sobrecargado, en mantenimiento) — normalmente con `Retry-After`.
 - **504 Gateway Timeout**: un proxy/load balancer esperó demasiado la respuesta del servidor de origen y se rindió.
 
-**502 vs 503 vs 504**: los tres los suele devolver el load balancer, no la app — `502` es "el backend contestó algo que no entiendo o no contestó nada válido", `503` es "el backend no está aceptando conexiones ahora mismo", `504` es "el backend nunca contestó a tiempo". Distinguirlos ayuda a saber dónde mirar: `504` apunta a lentitud (ver [Diagnóstico Backend](../diagnostico/backend.md)), `502`/`503` apuntan a que el proceso está caído o no arrancó.
+**502 vs 503 vs 504**: los tres los suele devolver el load balancer, no la app — `502` es "el backend contestó algo que no entiendo o no contestó nada válido", `503` es "el backend no está aceptando conexiones ahora mismo", `504` es "el backend nunca contestó a tiempo". Distinguirlos ayuda a saber dónde mirar: `504` apunta a lentitud (ver [Diagnóstico Backend](../diagnostics/backend.es.md)), `502`/`503` apuntan a que el proceso está caído o no arrancó.
 
 ---
 Relacionado: [Autenticación vs Autorización](../backend/autenticacion.md#7-autenticación-vs-autorización), [Idempotencia](atributos-de-calidad.md#idempotencia), [Endpoints para microservicios](../stacks/fastapi/endpoints-microservicios.md).

@@ -184,7 +184,7 @@ f()   # "todo bien" — el ValueError jamás llegó a nadie
 
 ## Context managers — `with`
 
-Garantiza que un recurso se libere al salir del bloque, incluso si ocurre una excepción en el medio — evita el error clásico de un `close()` que nunca se ejecuta porque algo falló antes. Ver [Diagnóstico Backend](../../diagnostico/backend.md) (sección "No liberar recursos del sistema").
+Garantiza que un recurso se libere al salir del bloque, incluso si ocurre una excepción en el medio — evita el error clásico de un `close()` que nunca se ejecuta porque algo falló antes. Ver [Diagnóstico Backend](../../diagnostics/backend.es.md) (sección "No liberar recursos del sistema").
 
 ```python
 with open("data.csv") as f:

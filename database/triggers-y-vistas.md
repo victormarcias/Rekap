@@ -21,7 +21,7 @@ SELECT * FROM pedidos_pendientes WHERE total > 1000;
 
 ## Vista vs Vista materializada
 
-Ya cubierto en detalle en [Vistas materializadas](../diagnostico/base-de-datos.md#vistas-materializadas) y comparado contra snapshot tables en [Snapshot tables vs vistas materializadas](escalabilidad-db.md#snapshot-tables-vs-vistas-materializadas) — acá el resumen de la diferencia de fondo:
+Ya cubierto en detalle en [Vistas materializadas](../diagnostics/database.es.md#vistas-materializadas) y comparado contra snapshot tables en [Snapshot tables vs vistas materializadas](escalabilidad-db.md#snapshot-tables-vs-vistas-materializadas) — acá el resumen de la diferencia de fondo:
 
 | | Vista | Vista materializada |
 |---|---|---|

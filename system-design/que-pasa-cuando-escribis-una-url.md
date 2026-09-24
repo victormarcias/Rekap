@@ -25,7 +25,7 @@ El host (`www.ejemplo.com`) no sirve para conectarse por red, hace falta una IP.
    - Pregunta al **authoritative nameserver** → devuelve la IP real (registro `A`/`AAAA`).
 5. La IP se cachea en cada nivel según el **TTL** del registro DNS, para no repetir todo este viaje en la próxima visita.
 
-Este paso puede agregar decenas a cientos de ms si nada está cacheado — es una de las primeras cosas a mirar cuando una app "arranca lenta". Ver [Cold start](../diagnostico/devops.md) y [CDN](../diagnostico/devops.md) para latencia relacionada.
+Este paso puede agregar decenas a cientos de ms si nada está cacheado — es una de las primeras cosas a mirar cuando una app "arranca lenta". Ver [Cold start](../diagnostics/devops.es.md) y [CDN](../diagnostics/devops.es.md) para latencia relacionada.
 
 ## 3. Conexión TCP — three-way handshake
 
@@ -71,7 +71,7 @@ Del lado del servidor puede haber varias capas antes de llegar a una respuesta:
 - Posiblemente pega contra **cache** (Redis) antes de ir a la base de datos.
 - Arma la respuesta (HTML renderizado en servidor, JSON, etc.).
 
-Ver [Load balancers](README.md) y [Diagnóstico Backend](../diagnostico/backend.md)/[Diagnóstico Base de Datos](../diagnostico/base-de-datos.md) para qué puede salir mal en este paso.
+Ver [Load balancers](README.md) y [Diagnóstico Backend](../diagnostics/backend.es.md)/[Diagnóstico Base de Datos](../diagnostics/database.es.md) para qué puede salir mal en este paso.
 
 ## 7. Response HTTP
 
@@ -112,4 +112,4 @@ URL → parseo → DNS (cache → resolver → root → TLD → authoritative)
     → HTML parse (DOM) + CSS parse (CSSOM) → Render Tree → Layout → Paint → Composite
 ```
 
-Cada tramo es un punto de diagnóstico distinto — ver [diagnóstico por capa](../diagnostico/README.md) para profundizar en cada uno cuando algo anda lento.
+Cada tramo es un punto de diagnóstico distinto — ver [diagnóstico por capa](../diagnostics/README.es.md) para profundizar en cada uno cuando algo anda lento.

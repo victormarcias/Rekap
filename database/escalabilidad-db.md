@@ -120,4 +120,4 @@ ON CONFLICT (fecha) DO UPDATE SET total = EXCLUDED.total;
 Read replicas y sharding no son excluyentes — un sistema grande típicamente combina los dos: varios shards, cada uno con sus propias réplicas de lectura.
 
 ---
-Relacionado: [Sharding vs partitioning](sharding-vs-partitioning.md), [Consistencia](../system-design/atributos-de-calidad.md#consistencia), [Connection pooling](../diagnostico/backend.md#conexiones-mal-gestionadas), [Escalabilidad de Memoria](../devops/escalabilidad-memoria.md), [NoSQL](nosql.md).
+Relacionado: [Sharding vs partitioning](sharding-vs-partitioning.md), [Consistencia](../system-design/atributos-de-calidad.md#consistencia), [Connection pooling](../diagnostics/backend.es.md#conexiones-mal-gestionadas), [Escalabilidad de Memoria](../devops/escalabilidad-memoria.md), [NoSQL](nosql.md).

@@ -1,6 +1,6 @@
 # React — Fundamentos
 
-Cómo funciona React por dentro, antes de entrar en hooks (ver [Hooks](hooks.md)) o performance (ver [Diagnóstico Frontend](../diagnostico/frontend.md)).
+Cómo funciona React por dentro, antes de entrar en hooks (ver [Hooks](hooks.md)) o performance (ver [Diagnóstico Frontend](../diagnostics/frontend.es.md)).
 
 ## Virtual DOM
 
@@ -17,7 +17,7 @@ function List({ items }) {
 
 **Por qué existe**: manipular el DOM real es caro (cada cambio puede disparar layout/paint del browser). Comparar objetos JS en memoria es barato. El Virtual DOM le permite a React calcular *qué* cambió sin tocar el DOM en cada paso intermedio, y aplicar todos los cambios reales de una sola vez, en el mínimo número de operaciones posible.
 
-**El rol de `key`**: cuando React reconcilia una lista, usa `key` para identificar qué elemento es cuál entre un render y el siguiente — sin una `key` estable, React puede confundir "se reordenó un item" con "se borró uno y se creó otro nuevo", perdiendo estado interno de esos componentes innecesariamente (ver [Falta de `key` en listas](../diagnostico/frontend.md#falta-de-key-en-listas)).
+**El rol de `key`**: cuando React reconcilia una lista, usa `key` para identificar qué elemento es cuál entre un render y el siguiente — sin una `key` estable, React puede confundir "se reordenó un item" con "se borró uno y se creó otro nuevo", perdiendo estado interno de esos componentes innecesariamente (ver [Falta de `key` en listas](../diagnostics/frontend.es.md#falta-de-key-en-listas)).
 
 ## JSX
 
@@ -71,4 +71,4 @@ fun CounterView() {
 Literalmente el mismo React/Virtual DOM que la versión web, pero con un renderer distinto al final — en vez de aplicar los cambios a nodos del DOM del browser, los aplica a vistas nativas reales (`UIView` en iOS, `View` de Android). Es **React DOM** (el renderer web) el que es específico de web, no React ni el Virtual DOM en sí — React Native reusa exactamente el mismo core y el mismo JSX de arriba. Para la práctica (componentes, styling, navegación, el bridge con código nativo) ver [React Native — Fundamentos](../stacks/react-native/fundamentos.md).
 
 ---
-Relacionado: [Hooks](hooks.md), [Diagnóstico Frontend](../diagnostico/frontend.md).
+Relacionado: [Hooks](hooks.md), [Diagnóstico Frontend](../diagnostics/frontend.es.md).

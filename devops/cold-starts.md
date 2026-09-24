@@ -5,7 +5,7 @@ Latencia extra que paga el primer request cuando una función serverless o un co
 **Mitigaciones típicas**:
 - *Provisioned concurrency* — pagar por mantener N instancias siempre calientes, sacrificando parte del ahorro de escalar a cero.
 - Reducir el tamaño del paquete/imagen y las dependencias que se cargan al arrancar.
-- Abrir conexiones (DB, clientes HTTP) fuera del handler, para que se reutilicen entre invocaciones calientes en vez de recrearse en cada cold start — ver el ejemplo en [Diagnóstico DevOps](../diagnostico/devops.md).
+- Abrir conexiones (DB, clientes HTTP) fuera del handler, para que se reutilicen entre invocaciones calientes en vez de recrearse en cada cold start — ver el ejemplo en [Diagnóstico DevOps](../diagnostics/devops.es.md).
 
 ---
-Relacionado: [Diagnóstico DevOps](../diagnostico/devops.md), [Deploy a Cloud Run](deploy-cloud-run.md) (escala a cero), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad).
+Relacionado: [Diagnóstico DevOps](../diagnostics/devops.es.md), [Deploy a Cloud Run](deploy-cloud-run.md) (escala a cero), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad).

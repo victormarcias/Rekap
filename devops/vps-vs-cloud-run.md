@@ -41,4 +41,4 @@ VPS y Cloud Run son dos puntos de un espectro más amplio — a medida que avanz
 | **Contras** | Vos sos responsable de seguridad, updates y capacity planning; pagás lo mismo tenga tráfico o no; escalar significa aprovisionar más máquinas a mano (o armar tu propio autoscaling) | Cold start en tráfico esporádico; menos control (no hay acceso al SO subyacente); a tráfico alto y sostenido puede terminar costando más que una máquina propia; atado a las convenciones de la plataforma (límites de tiempo de request, tamaño de imagen, etc.) |
 
 ---
-Relacionado: [Deploy a un VPS](deploy-vps.md), [Deploy a Cloud Run](deploy-cloud-run.md), [Cold start](../diagnostico/devops.md), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad).
+Relacionado: [Deploy a un VPS](deploy-vps.md), [Deploy a Cloud Run](deploy-cloud-run.md), [Cold start](../diagnostics/devops.es.md), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad).

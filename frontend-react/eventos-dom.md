@@ -49,4 +49,4 @@ form.addEventListener('submit', (e) => {
 React no attachea un listener nativo a cada elemento — attachea **un solo listener** en la raíz del árbol (delegación de eventos a escala de toda la app) y envuelve el evento nativo en un `SyntheticEvent` con una API consistente entre browsers. La lógica de arriba (bubbling, delegación, `preventDefault`) sigue aplicando igual, solo que React ya la implementa por vos a nivel framework.
 
 ---
-Relacionado: [Diagnóstico Frontend](../diagnostico/frontend.md) (manejo incorrecto de eventos, debounce/throttle).
+Relacionado: [Diagnóstico Frontend](../diagnostics/frontend.es.md) (manejo incorrecto de eventos, debounce/throttle).

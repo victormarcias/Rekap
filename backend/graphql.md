@@ -5,7 +5,7 @@ Alternativa a [REST](rest.md) para diseñar APIs: el cliente pide exactamente lo
 ## El problema que resuelve: over-fetching y under-fetching
 
 - **Over-fetching**: un endpoint REST devuelve el objeto completo aunque el cliente solo necesite 2 campos de 20 (una lista que solo muestra nombre y precio, pero el endpoint manda también descripción, stock, categoría...).
-- **Under-fetching**: lo opuesto — el cliente necesita datos de varios recursos relacionados y termina encadenando múltiples requests (ver [HTTP chaining](../diagnostico/backend.md#http-chaining)).
+- **Under-fetching**: lo opuesto — el cliente necesita datos de varios recursos relacionados y termina encadenando múltiples requests (ver [HTTP chaining](../diagnostics/backend.es.md#http-chaining)).
 
 GraphQL resuelve los dos a la vez: un solo request, el cliente especifica el shape exacto que necesita, incluso cruzando relaciones.
 
@@ -41,7 +41,7 @@ type Query {
 
 ## Resolvers y el riesgo de N+1
 
-Cada campo del schema tiene un **resolver** — la función que sabe cómo obtener ese dato. Sin cuidado, resolver `items` dentro de cada `order` de una lista dispara una query separada por order — el mismo [problema N+1](../diagnostico/backend.md#problema-n1) de siempre, ahora escondido detrás de la conveniencia de la query. La solución típica es un **dataloader** que batchea y cachea esas resoluciones dentro del mismo request.
+Cada campo del schema tiene un **resolver** — la función que sabe cómo obtener ese dato. Sin cuidado, resolver `items` dentro de cada `order` de una lista dispara una query separada por order — el mismo [problema N+1](../diagnostics/backend.es.md#problema-n1) de siempre, ahora escondido detrás de la conveniencia de la query. La solución típica es un **dataloader** que batchea y cachea esas resoluciones dentro del mismo request.
 
 ## Trade-offs contra REST
 
@@ -54,4 +54,4 @@ Cada campo del schema tiene un **resolver** — la función que sabe cómo obten
 **REST**: APIs públicas simples, cuando la cacheabilidad HTTP nativa importa, equipos que ya conocen bien HTTP. **GraphQL**: apps con muchas pantallas distintas consumiendo datos relacionados de formas variadas (mobile + web con necesidades distintas del mismo backend), cuando minimizar la cantidad de requests importa más que la simplicidad de cache.
 
 ---
-Relacionado: [REST](rest.md), [Diagnóstico Backend](../diagnostico/backend.md#problema-n1) (N+1), [HTTP chaining](../diagnostico/backend.md#http-chaining).
+Relacionado: [REST](rest.md), [Diagnóstico Backend](../diagnostics/backend.es.md#problema-n1) (N+1), [HTTP chaining](../diagnostics/backend.es.md#http-chaining).

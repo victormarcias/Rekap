@@ -42,7 +42,7 @@ useEffect(() => {
 }, [userId]);   // corre al montar, y de nuevo cada vez que userId cambia
 ```
 
-**El array de dependencias no es opcional en la práctica**: sin él (o con dependencias mal declaradas), el efecto se dispara de más — y si adentro setea estado, cada disparo puede forzar otro render. Ver [`useEffect` mal usado](../diagnostico/frontend.md#useeffect-mal-usado--re-renders-en-cadena) para el caso concreto de performance.
+**El array de dependencias no es opcional en la práctica**: sin él (o con dependencias mal declaradas), el efecto se dispara de más — y si adentro setea estado, cada disparo puede forzar otro render. Ver [`useEffect` mal usado](../diagnostics/frontend.es.md#useeffect-mal-usado--re-renders-en-cadena) para el caso concreto de performance.
 
 ## `memo`, `useMemo`, `useCallback` — memoización
 
@@ -56,7 +56,7 @@ const Row = memo(function Row({ item }) { ... });                     // memoiza
 - **`useCallback`**: evita crear una función nueva en cada render — importa cuando esa función es prop de un componente envuelto en `memo`, porque una función nueva rompe la comparación de referencia y anula el memo.
 - **`memo`**: envuelve un componente para que no se re-renderice si sus props no cambiaron (comparación superficial).
 
-No memoizar todo por default — agrega overhead de comparación; usarlo donde el costo evitado (render caro, o romper el memo de un hijo) lo justifica. Ver [Componentes que no usan `memo`/`useMemo`/`useCallback`](../diagnostico/frontend.md#componentes-que-no-usan-memousememousecallback) para el síntoma de performance que resuelve.
+No memoizar todo por default — agrega overhead de comparación; usarlo donde el costo evitado (render caro, o romper el memo de un hijo) lo justifica. Ver [Componentes que no usan `memo`/`useMemo`/`useCallback`](../diagnostics/frontend.es.md#componentes-que-no-usan-memousememousecallback) para el síntoma de performance que resuelve.
 
 ## Custom hooks
 
@@ -142,4 +142,4 @@ Cualquier componente que use `useContext` se re-renderiza cuando el `value` del 
 🐣 **Fun fact — de dónde viene el nombre**: "engancharse" (hook) a las features internas de React (estado, ciclo de vida, contexto) desde una función común. Antes de los hooks, eso solo lo tenía una class component (`this.state`, `componentDidMount`) — `useState` engancha al sistema de estado, `useEffect` al ciclo de vida, `useContext` al árbol de Context. Mismo concepto que un git hook: un punto de enganche para meter código propio en el comportamiento de un sistema que ya existe.
 
 ---
-Relacionado: [Diagnóstico Frontend](../diagnostico/frontend.md) (`useEffect`, `memo`/`useMemo`/`useCallback`), [Estado global](estado-global.md), [React Fundamentos](react-fundamentos.md).
+Relacionado: [Diagnóstico Frontend](../diagnostics/frontend.es.md) (`useEffect`, `memo`/`useMemo`/`useCallback`), [Estado global](estado-global.md), [React Fundamentos](react-fundamentos.md).

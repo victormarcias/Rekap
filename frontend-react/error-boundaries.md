@@ -50,4 +50,4 @@ Un error boundary solo atrapa errores durante el **render**, en lifecycle method
 No hace falta un único error boundary global — es común poner uno alrededor de secciones independientes de la UI (ej. un widget que consume una API externa poco confiable), así un error ahí no tira abajo el resto de la página que sí está funcionando.
 
 ---
-Relacionado: [Hooks](hooks.md), [Diagnóstico Frontend](../diagnostico/frontend.md).
+Relacionado: [Hooks](hooks.md), [Diagnóstico Frontend](../diagnostics/frontend.es.md).

@@ -1,6 +1,6 @@
 # Escalabilidad de Red
 
-Capacidad de red a nivel infraestructura — distinto del *chattiness* a nivel código (muchas llamadas chicas en vez de pocas grandes), que ya está cubierto en [HTTP chaining](../diagnostico/backend.md#http-chaining). Acá el problema no es cómo llama tu código, es que el **ancho de banda disponible** ya está saturado, sin importar qué tan eficiente sea la llamada.
+Capacidad de red a nivel infraestructura — distinto del *chattiness* a nivel código (muchas llamadas chicas en vez de pocas grandes), que ya está cubierto en [HTTP chaining](../diagnostics/backend.es.md#http-chaining). Acá el problema no es cómo llama tu código, es que el **ancho de banda disponible** ya está saturado, sin importar qué tan eficiente sea la llamada.
 
 ## Cuándo el cuello de botella es la red, no el código
 
@@ -14,4 +14,4 @@ Se nota con CPU y memoria relajadas, pero throughput bajo y latencia alta — el
 - **Acercar los servicios que hablan mucho entre sí**: dos servicios en distintas regiones que se llaman seguido pagan latencia de red alta en cada llamada — colocarlos en la misma región/zona de disponibilidad reduce esa latencia y el tráfico inter-región (que además suele facturarse aparte).
 
 ---
-Relacionado: [CDN](cdn.md), [HTTP chaining](../diagnostico/backend.md#http-chaining), [Escalabilidad vertical vs horizontal](escalabilidad-vertical-horizontal.md).
+Relacionado: [CDN](cdn.md), [HTTP chaining](../diagnostics/backend.es.md#http-chaining), [Escalabilidad vertical vs horizontal](escalabilidad-vertical-horizontal.md).

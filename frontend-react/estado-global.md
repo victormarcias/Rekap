@@ -68,4 +68,4 @@ function CartBadge() {
 - **Redux/Zustand**: estado que cambia seguido, con múltiples fuentes de actualización, o donde la performance de re-renders ya es un problema medido (no una suposición — ver [Performance Diagnostics](performance-diagnostics.md)).
 
 ---
-Relacionado: [Hooks](hooks.md), [Diagnóstico Frontend](../diagnostico/frontend.md).
+Relacionado: [Hooks](hooks.md), [Diagnóstico Frontend](../diagnostics/frontend.es.md).

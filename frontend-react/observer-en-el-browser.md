@@ -29,7 +29,7 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('img[data-src]').forEach(img => observer.observe(img));
 ```
 
-**Caso de uso típico**: lazy loading de imágenes, infinite scroll, animaciones que arrancan al entrar en pantalla — todo sin un solo listener de `scroll`. Ver también [Debounce / Throttle](../diagnostico/frontend.md#manejo-incorrecto-de-eventos), la alternativa cuando sí hace falta escuchar `scroll` directamente.
+**Caso de uso típico**: lazy loading de imágenes, infinite scroll, animaciones que arrancan al entrar en pantalla — todo sin un solo listener de `scroll`. Ver también [Debounce / Throttle](../diagnostics/frontend.es.md#manejo-incorrecto-de-eventos), la alternativa cuando sí hace falta escuchar `scroll` directamente.
 
 ## `ResizeObserver`
 

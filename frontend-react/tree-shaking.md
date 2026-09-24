@@ -14,7 +14,7 @@ import { formatDate } from './utils';
 const utils = require('./utils');
 ```
 
-Ver el ejemplo completo con `lodash` (import de la librería completa vs. `lodash/debounce`) en [Diagnóstico Frontend](../diagnostico/frontend.md#uso-de-componentes-no-optimizados-de-terceros).
+Ver el ejemplo completo con `lodash` (import de la librería completa vs. `lodash/debounce`) en [Diagnóstico Frontend](../diagnostics/frontend.es.md#uso-de-componentes-no-optimizados-de-terceros).
 
 ## `sideEffects` en `package.json`
 
@@ -37,4 +37,4 @@ El bundler no puede eliminar un módulo si ejecutarlo tiene efectos secundarios 
 Sin esta declaración, el bundler asume que **todo** puede tener side effects y es más conservador — descarta menos código del que en realidad podría.
 
 ---
-Relacionado: [Diagnóstico Frontend](../diagnostico/frontend.md), [Performance Diagnostics](performance-diagnostics.md) (bundle analyzer, para ver qué quedó adentro).
+Relacionado: [Diagnóstico Frontend](../diagnostics/frontend.es.md), [Performance Diagnostics](performance-diagnostics.md) (bundle analyzer, para ver qué quedó adentro).

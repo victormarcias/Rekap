@@ -36,7 +36,7 @@ async def get_modern_data():
 
 ## 3. I/O-bound vs CPU-bound — la regla real
 
-Async brilla en trabajo **I/O-bound** (llamada de red a otro servicio, query a la DB, leer un archivo): la corrutina pasa la mayor parte del tiempo esperando, y durante esa espera el event loop atiende otras requests. En trabajo **CPU-bound** (parsear un JSON gigante, resize de imágenes, un loop pesado) no hay "espera" que ceder — una sola hebra haciendo cómputo bloquea igual, tenga `async`/`await` o no. Ver [Diagnóstico Backend](../../diagnostico/backend.md) (CPU bound) para cómo sacar ese trabajo del proceso principal.
+Async brilla en trabajo **I/O-bound** (llamada de red a otro servicio, query a la DB, leer un archivo): la corrutina pasa la mayor parte del tiempo esperando, y durante esa espera el event loop atiende otras requests. En trabajo **CPU-bound** (parsear un JSON gigante, resize de imágenes, un loop pesado) no hay "espera" que ceder — una sola hebra haciendo cómputo bloquea igual, tenga `async`/`await` o no. Ver [Diagnóstico Backend](../../diagnostics/backend.es.md) (CPU bound) para cómo sacar ese trabajo del proceso principal.
 
 ## 4. Cuándo async no sirve (o empeora)
 
@@ -125,4 +125,4 @@ hey -n 1000 -c 50 http://localhost:8000/orders
 Si un endpoint no tiene I/O real que esperar (una query trivial a una DB local, por ejemplo), migrarlo a async solo agrega la complejidad de mantener un driver/engine async, sin ninguna ganancia medible.
 
 ---
-Relacionado: [Endpoints para microservicios](endpoints-microservicios.md), [Diagnóstico Backend](../../diagnostico/backend.md) (CPU bound, paralelismo y concurrencia).
+Relacionado: [Endpoints para microservicios](endpoints-microservicios.md), [Diagnóstico Backend](../../diagnostics/backend.es.md) (CPU bound, paralelismo y concurrencia).

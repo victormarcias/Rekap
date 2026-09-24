@@ -15,7 +15,7 @@ def update_product(id, data):
 
 ## Cache-aside, write-through, write-behind
 
-El patrón **cache-aside** (leer del cache, si no está ir a la DB y cachear el resultado) ya está cubierto con ejemplo de código en [Diagnóstico Backend](../diagnostico/backend.md#falta-de-cache). Las otras dos estrategias escriben distinto:
+El patrón **cache-aside** (leer del cache, si no está ir a la DB y cachear el resultado) ya está cubierto con ejemplo de código en [Diagnóstico Backend](../diagnostics/backend.es.md#falta-de-cache). Las otras dos estrategias escriben distinto:
 
 - **Write-through**: cada escritura va primero al cache, y el cache se encarga de propagarla a la DB de forma sincrónica. El cache nunca queda desactualizado, pero cada write paga la latencia de ambos.
 - **Write-behind (write-back)**: la escritura va al cache y se confirma inmediatamente; la propagación a la DB pasa en background, asincrónica. Writes más rápidos, pero hay una ventana donde el dato solo existe en cache — si el cache se cae antes de propagar, se pierde.
@@ -44,4 +44,4 @@ def get_product(id):
 ```
 
 ---
-Relacionado: [Diagnóstico Backend](../diagnostico/backend.md#falta-de-cache) (cache-aside), [Consistencia](../system-design/atributos-de-calidad.md#consistencia).
+Relacionado: [Diagnóstico Backend](../diagnostics/backend.es.md#falta-de-cache) (cache-aside), [Consistencia](../system-design/atributos-de-calidad.md#consistencia).

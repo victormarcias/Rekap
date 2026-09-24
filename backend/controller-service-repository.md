@@ -50,7 +50,7 @@ orders = [Order(id=r[0], status=r[1], total=r[2]) for r in rows]
 orders = session.query(Order).filter_by(status="pending").all()
 ```
 
-**ODBC (Open Database Connectivity) — la capa de más abajo, y legacy**: un ORM se conecta a la DB a través de algún driver — en Python, típicamente uno nativo (`psycopg2`, `asyncpg`), no ODBC. ODBC es un protocolo más viejo y de más bajo nivel, pensado para que **cualquier** aplicación (no solo de un lenguaje específico) se conecte a **cualquier** DB con un driver ODBC instalado. Hoy se ve sobre todo en herramientas de BI/reporting (Excel o Tableau conectándose a un data warehouse — ver [Cubos OLAP](../diagnostico/base-de-datos.md#cubos-olap)), no en el stack típico de un backend moderno.
+**ODBC (Open Database Connectivity) — la capa de más abajo, y legacy**: un ORM se conecta a la DB a través de algún driver — en Python, típicamente uno nativo (`psycopg2`, `asyncpg`), no ODBC. ODBC es un protocolo más viejo y de más bajo nivel, pensado para que **cualquier** aplicación (no solo de un lenguaje específico) se conecte a **cualquier** DB con un driver ODBC instalado. Hoy se ve sobre todo en herramientas de BI/reporting (Excel o Tableau conectándose a un data warehouse — ver [Cubos OLAP](../diagnostics/database.es.md#cubos-olap)), no en el stack típico de un backend moderno.
 
 ## DTO (Data Transfer Object)
 

@@ -13,4 +13,4 @@ Ese header le dice a la CDN (y al browser) que puede cachear el asset por un añ
 **Invalidación**: si hay que forzar que la CDN descarte una copia vieja antes de que expire el TTL (ej. un deploy urgente), se hace con un *purge*/*invalidation* explícito contra la API del proveedor — es la excepción, no el flujo normal.
 
 ---
-Relacionado: [Diagnóstico DevOps](../diagnostico/devops.md) (síntoma: red lenta por falta de CDN).
+Relacionado: [Diagnóstico DevOps](../diagnostics/devops.es.md) (síntoma: red lenta por falta de CDN).

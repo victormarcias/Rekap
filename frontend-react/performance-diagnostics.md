@@ -12,7 +12,7 @@ npx lighthouse https://miapp.com --view
 
 ## Bundle analyzer (genérico)
 
-Visualiza qué hay realmente adentro del bundle final de JS — un treemap donde cada caja es un módulo, su tamaño proporcional al espacio que ocupa. Sirve para encontrar la dependencia de 200kb que se importó por una sola función (ver el ejemplo de `lodash` completo vs `lodash/debounce` en [Diagnóstico Frontend](../diagnostico/frontend.md)).
+Visualiza qué hay realmente adentro del bundle final de JS — un treemap donde cada caja es un módulo, su tamaño proporcional al espacio que ocupa. Sirve para encontrar la dependencia de 200kb que se importó por una sola función (ver el ejemplo de `lodash` completo vs `lodash/debounce` en [Diagnóstico Frontend](../diagnostics/frontend.es.md)).
 
 ```bash
 # Ej. con Webpack
@@ -29,4 +29,4 @@ Tab del React DevTools que graba una sesión de renders y muestra, por component
 Los otros dos (Lighthouse, bundle analyzer) dicen **qué tan grande/lenta es la carga inicial**; el Profiler dice **qué está pasando durante la interacción**, ya con la app corriendo.
 
 ---
-Relacionado: [Web Vitals](web-vitals.md), [Diagnóstico Frontend](../diagnostico/frontend.md), [Tree shaking](tree-shaking.md).
+Relacionado: [Web Vitals](web-vitals.md), [Diagnóstico Frontend](../diagnostics/frontend.es.md), [Tree shaking](tree-shaking.md).

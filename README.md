@@ -9,7 +9,7 @@ Condensed technical review, organized for quick refreshers.
 - [🤖 Agentic AI](agentic-ai/) — from classical ML to agents, tool use, RAG
 - [🧩 Backend](backend/) — Kafka, auth, caching, service architecture
 - [☁️ Cloud](cloud/) — concrete services by provider (AWS, ...)
-- [🩺 Diagnostics](diagnostico/) — why an app is slow, by layer (frontend/backend/DB/devops)
+- [🩺 Diagnostics](diagnostics/) — why an app is slow, by layer (frontend/backend/DB/devops)
 - [⚙️ DevOps](devops/) — scalability, Kubernetes, CDN, cold starts
 - [🎯 Stacks](stacks/) — setup, syntax and fundamentals by language/stack
 - [⚛️ Frontend React](frontend-react/) — hooks, DOM events, performance, SSR
