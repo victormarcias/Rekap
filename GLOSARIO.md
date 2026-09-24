@@ -39,6 +39,7 @@
 - **BFF (Backend for Frontend)** — [API Gateway](backend/api-gateway.md#gateway-vs-load-balancer)
 - **Big-O (complejidad algorítmica)** — [Big-O](system-design/big-o.md)
 - **Bloqueo del hilo principal** — [Diagnóstico Frontend](diagnostico/frontend.md#bloqueo-del-hilo-principal)
+- **Bridge (React Native)** — [React Native — Fundamentos](stacks/react-native/fundamentos.md#el-bridge--cómo-el-js-habla-con-código-nativo)
 - **Bubbling (evento)** — [Eventos DOM](frontend-react/eventos-dom.md#bubbling-vs-capturing)
 - **Buffer pool** — [RDBMS](database/rdbms.md#cómo-funciona-por-dentro)
 - **Builder (patrón)** — [Patrones creacionales](system-design/patrones-creacionales.md#builder)
@@ -147,6 +148,7 @@
 - **Exclusive lock** — [Locks](database/locks.md#shared-lock-s-vs-exclusive-lock-x)
 - **Execution plan** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#execution-plan)
 - **Expand/contract pattern** — [Migraciones de base de datos](database/migraciones.md#4-expandcontract-pattern-zero-downtime)
+- **Expo** — [React Native — Fundamentos](stacks/react-native/fundamentos.md#expo-vs-react-native-cli-bare)
 - **Express** — [Motores de SQL](database/motores-de-sql.md)
 
 ### F
@@ -345,7 +347,7 @@
 - **RDBMS (Relational Database Management System)** — [RDBMS](database/rdbms.md)
 - **RDS (AWS)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md)
 - **ReAct (Reason + Act)** — [Agentes vs Workflows](agentic-ai/agentes-vs-workflows.md#patrón-de-agent-el-llm-controla-el-camino)
-- **React Native** — [React Fundamentos](frontend-react/react-fundamentos.md#react-native)
+- **React Native** — [React Native — Fundamentos](stacks/react-native/fundamentos.md)
 - **React Testing Library (RTL)** — [Testing en React](frontend-react/testing.md#unit-testing-con-rtl-react-testing-library)
 - **Read replica** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#read-replicas)
 - **Readiness probe (Kubernetes)** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#disponibilidad)

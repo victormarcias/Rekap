@@ -11,5 +11,6 @@ Repaso de fundamentos del lenguaje, setup y sintaxis.
 - [x] [Módulo `collections`](collections-module.md) — `Counter`, `defaultdict`, `namedtuple`, `deque`, `ChainMap`, `OrderedDict`
 - [x] [Algoritmos, Sorting y Estructuras de Datos](algoritmos-y-sorting.md) — Big-O de `list`/`dict`/`set`, operaciones de `set`, `sorted()`/`key=`, Timsort, `heapq`, `bisect`, datos time-based
 - [x] [Concurrencia y Memoria](concurrencia-y-memoria.md) — GIL, garbage collection
+- [x] [Frameworks y librerías — Backend vs IA](frameworks.md) — FastAPI, Django, LangChain, PyTorch, scikit-learn, ...
 
 Ver también: [FastAPI](../fastapi/) (implementación concreta de arquitectura backend en Python).
