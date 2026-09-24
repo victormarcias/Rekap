@@ -7,7 +7,7 @@
 - **Shared hosting**: ahí ni siquiera tenés tu propio SO — compartís el mismo proceso/entorno con otros clientes, sin acceso root.
 - **Servidor dedicado**: hardware físico completo para vos solo, sin virtualización — más caro, sin los límites que impone compartir hardware.
 
-Proveedores típicos: DigitalOcean, Linode/Akamai, Hetzner, [AWS EC2](../cloud/aws/servicios-principales.md).
+Proveedores típicos: DigitalOcean, Linode/Akamai, Hetzner, [AWS EC2](../cloud/aws/core-services.es.md).
 
 Comparación entre [Deploy a un VPS](deploy-vps.md) (servidor propio, siempre prendido) y [Deploy a Cloud Run](deploy-cloud-run.md) (contenedor serverless, escala a cero).
 
@@ -17,10 +17,10 @@ VPS y Cloud Run son dos puntos de un espectro más amplio — a medida que avanz
 
 | Modelo | Qué es | Ejemplos | Caso de uso típico |
 |---|---|---|---|
-| **IaaS** (Infrastructure as a Service) | Máquina virtual vacía — vos instalás el SO, el runtime, todo. Máximo control, máxima responsabilidad. | [AWS EC2](../cloud/aws/servicios-principales.md), un VPS | Necesitás control total, o algo que no encaja en un contenedor/función. |
+| **IaaS** (Infrastructure as a Service) | Máquina virtual vacía — vos instalás el SO, el runtime, todo. Máximo control, máxima responsabilidad. | [AWS EC2](../cloud/aws/core-services.es.md), un VPS | Necesitás control total, o algo que no encaja en un contenedor/función. |
 | **PaaS** (Platform as a Service) | Le das tu código (o un `git push`), la plataforma se encarga del SO, el runtime y el deploy — ya no tocás un servidor directamente. | Heroku, Render, Railway | No querés lidiar con servidores sin pagar el costo de cold starts — corre siempre (como un VPS), pero suele salir más caro que un VPS equivalente a tráfico alto y constante. |
 | **Serverless / CaaS** (Container as a Service) | Le das un contenedor, la plataforma decide cuántas instancias correr y cuándo, incluyendo escalar a cero. | Google Cloud Run | Tráfico variable/intermitente — aceptás cold starts a cambio de pagar $0 cuando no hay tráfico. |
-| **FaaS** (Function as a Service) | Ni siquiera un contenedor — una función individual que la plataforma ejecuta bajo demanda. | [AWS Lambda](../cloud/aws/servicios-principales.md) | Tareas puntuales event-driven (procesar un archivo, responder un webhook), sin mantener nada corriendo. |
+| **FaaS** (Function as a Service) | Ni siquiera un contenedor — una función individual que la plataforma ejecuta bajo demanda. | [AWS Lambda](../cloud/aws/core-services.es.md) | Tareas puntuales event-driven (procesar un archivo, responder un webhook), sin mantener nada corriendo. |
 | **SaaS** (Software as a Service) | Eje distinto a los cuatro de arriba: usar el software ya terminado de otro, sin desplegar nada propio. | Gmail, Salesforce | La necesidad es "usar una herramienta", no "construir/desplegar algo propio". |
 
 ## Comparación técnica

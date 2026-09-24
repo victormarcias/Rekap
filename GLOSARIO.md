@@ -53,7 +53,7 @@
 - **Caja negra (black box testing)** — [Testing — conceptos generales](system-design/testing.md#8-caja-negra-vs-caja-blanca)
 - **CAP Theorem** — [NoSQL](database/nosql.md#cap-theorem)
 - **Capturing (evento)** — [Eventos DOM](frontend-react/eventos-dom.md#bubbling-vs-capturing)
-- **CDK (AWS Cloud Development Kit)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md#complementos-nice-to-have)
+- **CDK (AWS Cloud Development Kit)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have)
 - **CDN (Content Delivery Network)** — [CDN](devops/cdn.md)
 - **Chain of Responsibility (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#chain-of-responsibility)
 - **Chain of Thought (CoT)** — [Prompt Engineering](agentic-ai/prompt-engineering.md#chain-of-thought-cot)
@@ -62,7 +62,7 @@
 - **Circuit breaker** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#tolerancia-a-fallos)
 - **Clean Architecture** — [Clean Architecture](system-design/clean-architecture.md)
 - **Clickjacking** — [Security Headers](security/security-headers.md#x-frame-options--frame-ancestors-csp)
-- **CloudWatch (AWS)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md)
+- **CloudWatch (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
 - **CLS (Cumulative Layout Shift)** — [Web Vitals](frontend-react/web-vitals.md#core-web-vitals)
 - **Clustered index** — [Índices](database/indices.md#clustered-vs-non-clustered)
 - **Clustering (multi-proceso)** — [Diagnóstico Backend](diagnostico/backend.md#clustering)
@@ -131,8 +131,8 @@
 
 ### E
 
-- **EC2 (AWS)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md)
-- **ECS / EKS (AWS)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md)
+- **EC2 (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
+- **ECS / EKS (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
 - **Ejecución de tests en paralelo vs serial** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 - **Elasticidad** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#elasticidad)
 - **Embedding (RAG)** — [RAG](agentic-ai/rag.md#2-embeddings--texto-a-vector-semántico)
@@ -198,7 +198,7 @@
 ### I
 
 - **IaaS (Infrastructure as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
-- **IAM (AWS)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md)
+- **IAM (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
 - **Idempotencia** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#idempotencia)
 - **Índice** — [Índices](database/indices.md)
 - **Índice compuesto** — [Índices](database/indices.md#índices-compuestos)
@@ -224,7 +224,7 @@
 
 - **key (prop de listas, React)** — [Diagnóstico Frontend](diagnostico/frontend.md#falta-de-key-en-listas)
 - **Key-Value store** — [NoSQL](database/nosql.md#categorías-principales)
-- **Kubernetes** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md#complementos-nice-to-have) · [Kubernetes](devops/kubernetes.md)
+- **Kubernetes** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have) · [Kubernetes](devops/kubernetes.md)
 - **KV cache (LLM)** — [Tamaño y Cuantización de Modelos](agentic-ai/tamano-y-cuantizacion.md#ramvram-real-al-correr--solo-el-tamaño-en-disco)
 
 ### L
@@ -277,7 +277,7 @@
 - **N+1 (problema)** — [Diagnóstico Backend](diagnostico/backend.md#problema-n1)
 - **Namespaces / cgroups** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
 - **NestJS** — [NestJS — Arquitectura](stacks/nestjs/arquitectura.md)
-- **Nginx** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md#complementos-nice-to-have) · [Nginx como reverse proxy](devops/deploy-vps.md#4-nginx-como-reverse-proxy)
+- **Nginx** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have) · [Nginx como reverse proxy](devops/deploy-vps.md#4-nginx-como-reverse-proxy)
 - **No Content (204)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)
 - **Non-clustered index** — [Índices](database/indices.md#clustered-vs-non-clustered)
 - **Non-repeatable read** — [ACID / isolation levels](database/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
@@ -345,7 +345,7 @@
 - **Range partitioning** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#range-partitioning)
 - **Rate limiting** — [API Gateway](backend/api-gateway.md)
 - **RDBMS (Relational Database Management System)** — [RDBMS](database/rdbms.md)
-- **RDS (AWS)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md)
+- **RDS (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
 - **ReAct (Reason + Act)** — [Agentes vs Workflows](agentic-ai/agentes-vs-workflows.md#patrón-de-agent-el-llm-controla-el-camino)
 - **React Native** — [React Native — Fundamentos](stacks/react-native/fundamentos.md)
 - **React Testing Library (RTL)** — [Testing en React](frontend-react/testing.md#unit-testing-con-rtl-react-testing-library)
@@ -373,7 +373,7 @@
 
 ### S
 
-- **S3 (AWS)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md)
+- **S3 (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
 - **SaaS (Software as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
 - **Safe methods (HTTP)** — [HTTP Methods](backend/http-methods.md#safe-methods--sin-efectos-secundarios)
 - **Salt** — [Autenticación y Seguridad](backend/autenticacion.md#3-salt)
@@ -387,7 +387,7 @@
 - **Semáforo (concurrencia)** — [Locks](database/locks.md#sección-crítica--el-concepto-general-detrás-de-la-solución)
 - **SEO** — [HTML](frontend-react/html.md#seo)
 - **Server-side cursor** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#procesar-resultados-grandes-en-chunks)
-- **Serverless Framework** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md#complementos-nice-to-have)
+- **Serverless Framework** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have)
 - **Service Unavailable (503)** — [HTTP Status Codes](system-design/http-status-codes.md#5xx--server-error)
 - **sessionStorage** — [Almacenamiento en el cliente](frontend-react/almacenamiento-cliente.md#sessionstorage)
 - **Shallow copy** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#shallow-copy-vs-deep-copy)
@@ -398,7 +398,7 @@
 - **Skill (SKILL.md)** — [AGENTS.md y Skills](agentic-ai/agents-md-y-skills.md#skills--capacidades-modulares)
 - **Sliding window (memoria)** — [Memoria Conversacional](agentic-ai/memoria-conversacional.md#sliding-window)
 - **Snapshot table** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#snapshot-tables-vs-vistas-materializadas)
-- **SNS (AWS)** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md)
+- **SNS (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
 - **Softmax (LLM)** — [Qué es un token](agentic-ai/que-es-un-token.md#cómo-el-modelo-elige-el-próximo-token)
 - **SOLID** — [SOLID principles](system-design/solid.md)
 - **SPA (Single Page Application)** — [Renderizado](frontend-react/renderizado.md#spa-single-page-application)
@@ -431,7 +431,7 @@
 - **Tabla activa vs histórica (archivado)** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#tabla-activa-vs-histórica)
 - **TCP handshake (three-way handshake)** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#3-conexión-tcp--three-way-handshake)
 - **Temperatura (LLM)** — [Qué es un token](agentic-ai/que-es-un-token.md#cómo-el-modelo-elige-el-próximo-token)
-- **Terraform** — [AWS — Servicios Principales](cloud/aws/servicios-principales.md#complementos-nice-to-have)
+- **Terraform** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have)
 - **Test doubles (Mock/Stub/Fake/Spy)** — [Testing — conceptos generales](system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy)
 - **Test flaky** — [Testing — conceptos generales](system-design/testing.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 - **Test pyramid** — [Testing — conceptos generales](system-design/testing.md#1-test-pyramid)
@@ -472,7 +472,7 @@
 - **Virtualización / Windowing** — [Diagnóstico Frontend](diagnostico/frontend.md#falta-de-paginación--virtualización)
 - **Vista (SQL View)** — [Triggers y Vistas](database/triggers-y-vistas.md#vistas-views)
 - **Vistas materializadas** — [Diagnóstico Base de Datos](diagnostico/base-de-datos.md#vistas-materializadas)
-- **VPC (Virtual Private Cloud)** — [Comparación de Proveedores](cloud/comparacion-proveedores.md) · [AWS — Servicios Principales](cloud/aws/servicios-principales.md#complementos-nice-to-have)
+- **VPC (Virtual Private Cloud)** — [Comparación de Proveedores](cloud/provider-comparison.es.md) · [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have)
 - **VPS (Virtual Private Server)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#qué-es-un-vps)
 
 ### W

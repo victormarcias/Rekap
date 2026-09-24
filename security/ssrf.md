@@ -25,4 +25,4 @@ El servidor tiene acceso de red a recursos internos (endpoints de metadata del c
 - **Deshabilitar redirects automáticos** al hacer el fetch — una URL "válida" a simple vista puede redirigir a una interna, y si el cliente HTTP sigue redirects ciegamente, la validación de la URL original no sirve de nada.
 
 ---
-Relacionado: [SQL Injection](sql-injection.md), [AWS — Servicios Principales](../cloud/aws/servicios-principales.md) (metadata endpoint), [Dockerización](../devops/docker.md).
+Relacionado: [SQL Injection](sql-injection.md), [AWS — Servicios Principales](../cloud/aws/core-services.es.md) (metadata endpoint), [Dockerización](../devops/docker.md).

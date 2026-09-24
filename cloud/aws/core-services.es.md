@@ -28,9 +28,9 @@ Conceptos que se piden con menos frecuencia que la tabla de arriba, pero vale la
 | **AWS CDK** | Infrastructure as Code (IaC) | Lo mismo que Terraform, pero en un lenguaje de programación real (Python/TypeScript) en vez de HCL — compila a CloudFormation por detrás. |
 | **Serverless Framework** | Deploy / IaC para serverless | Framework para definir y desplegar funciones Lambda + sus triggers (API Gateway, S3, etc.) con un solo archivo de config. |
 | **Nginx** | Reverse proxy / web server | Termina TLS, sirve estáticos, hace de reverse proxy delante de la app. Ya desarrollado en [Nginx como reverse proxy](../../devops/deploy-vps.md#4-nginx-como-reverse-proxy). |
-| **CDN (CloudFront)** | Networking / distribución de contenido | Cachea contenido cerca del usuario final — CloudFront es el CDN de AWS, ver [Comparación de Proveedores](../comparacion-proveedores.md) para el equivalente en Azure/GCP y [CDN](../../devops/cdn.md) para el concepto genérico. |
-| **VPC** | Networking | Red virtual aislada donde corren los recursos de una cuenta cloud — ver [Comparación de Proveedores](../comparacion-proveedores.md). |
+| **CDN (CloudFront)** | Networking / distribución de contenido | Cachea contenido cerca del usuario final — CloudFront es el CDN de AWS, ver [Comparación de Proveedores](../provider-comparison.es.md) para el equivalente en Azure/GCP y [CDN](../../devops/cdn.md) para el concepto genérico. |
+| **VPC** | Networking | Red virtual aislada donde corren los recursos de una cuenta cloud — ver [Comparación de Proveedores](../provider-comparison.es.md). |
 | **DNS** | Networking | Traduce nombres de dominio a IPs — ya desarrollado en [Resolución DNS](../../system-design/que-pasa-cuando-escribis-una-url.md#2-resolución-dns--de-dominio-a-ip). |
 
 ---
-Relacionado: [Comparación de Proveedores](../comparacion-proveedores.md), [Backend](../../backend/), [Database](../../database/), [DevOps](../../devops/).
+Relacionado: [Comparación de Proveedores](../provider-comparison.es.md), [Backend](../../backend/), [Database](../../database/), [DevOps](../../devops/).

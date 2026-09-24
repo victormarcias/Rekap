@@ -1,22 +1,22 @@
 # Rekap
 
-Repaso técnico condensado, organizado para repasar rápido.
+Condensed technical review, organized for quick refreshers.
 
-🌐 **[Ver en victormarcias.online/rekap](https://victormarcias.online/rekap)** — versión navegable con lindo formato, leyendo este mismo repo en vivo.
+🌐 **[View on victormarcias.online/rekap](https://victormarcias.online/rekap)** — browsable version with nicer formatting, reading this same repo live.
 
-## Índice
+## Index
 
-- [🤖 Agentic AI](agentic-ai/) — de ML clásico a agentes, tool use, RAG
-- [🧩 Backend](backend/) — Kafka, auth, cache, arquitectura de servicios
-- [☁️ Cloud](cloud/) — servicios concretos por proveedor (AWS, ...)
-- [🩺 Diagnóstico](diagnostico/) — por qué una app anda lenta, por capa (frontend/backend/DB/devops)
-- [⚙️ DevOps](devops/) — escalabilidad, Kubernetes, CDN, cold starts
-- [🎯 Stacks](stacks/) — setup, sintaxis y fundamentos por lenguaje/stack
-- [⚛️ Frontend React](frontend-react/) — hooks, eventos DOM, performance, SSR
-- [🗄️ Database](database/) — bases de datos relacionales, transacciones, índices, NoSQL
+- [🤖 Agentic AI](agentic-ai/) — from classical ML to agents, tool use, RAG
+- [🧩 Backend](backend/) — Kafka, auth, caching, service architecture
+- [☁️ Cloud](cloud/) — concrete services by provider (AWS, ...)
+- [🩺 Diagnostics](diagnostico/) — why an app is slow, by layer (frontend/backend/DB/devops)
+- [⚙️ DevOps](devops/) — scalability, Kubernetes, CDN, cold starts
+- [🎯 Stacks](stacks/) — setup, syntax and fundamentals by language/stack
+- [⚛️ Frontend React](frontend-react/) — hooks, DOM events, performance, SSR
+- [🗄️ Database](database/) — relational databases, transactions, indexes, NoSQL
 - [🔒 Security](security/) — XSS, CSRF, SQL Injection, SSRF, security headers
-- [🏛️ System Design](system-design/) — patrones, atributos de calidad, protocolos
+- [🏛️ System Design](system-design/) — patterns, quality attributes, protocols
 
-## Glosario
+## Glossary
 
-- [📖 Glosario](GLOSARIO.md) — todos los términos técnicos, ordenados alfabéticamente
+- [📖 Glossary](GLOSARIO.md) — all technical terms, alphabetically ordered
