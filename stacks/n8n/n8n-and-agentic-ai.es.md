@@ -16,4 +16,4 @@ n8n es mucho más rápido para prototipar y no requiere que todo el equipo sepa 
 - **Código**: lógica de negocio compleja, necesidad de tests automatizados, control de versiones fino, performance crítica, o un equipo de ingeniería que ya tiene su propio stack y prefiere no depender de una herramienta externa para su producto principal.
 
 ---
-Relacionado: [Fundamentos de n8n](basico.md), [Cómo se testea](testing.md), [Agentes vs Workflows](../../agentic-ai/agents-vs-workflows.es.md), [Tipos de Agentes de IA](../../agentic-ai/agent-types.es.md), [De ML clásico a Agentic AI](../../agentic-ai/from-ml-to-agentic-ai.es.md).
+Relacionado: [Fundamentos de n8n](basics.es.md), [Cómo se testea](testing.es.md), [Agentes vs Workflows](../../agentic-ai/agents-vs-workflows.es.md), [Tipos de Agentes de IA](../../agentic-ai/agent-types.es.md), [De ML clásico a Agentic AI](../../agentic-ai/from-ml-to-agentic-ai.es.md).

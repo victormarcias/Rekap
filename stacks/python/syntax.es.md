@@ -48,7 +48,7 @@ persona = {"name": "Ana", "age": 30}   # dict
 unicos = {1, 2, 3}                # set
 ```
 
-Cuál es mutable/ordenada de cada una está en [Tipos y Mutabilidad](tipos-y-mutabilidad.md#mutable-vs-inmutable).
+Cuál es mutable/ordenada de cada una está en [Tipos y Mutabilidad](types-and-mutability.es.md#mutable-vs-inmutable).
 
 ## Slicing
 
@@ -222,4 +222,4 @@ print(f"{age + 1=}")                 # debug shorthand (3.8+): imprime "age + 1=
 A diferencia de JS/TS (`camelCase` para casi todo) o Swift, Python separa `snake_case` para variables/funciones de `PascalCase` para clases — el linter (`ruff`) marca las desviaciones, pero el intérprete no las bloquea.
 
 ---
-Relacionado: [Tipos y Mutabilidad](tipos-y-mutabilidad.md), [Básico](basico.md), [OOP](oop.md).
+Relacionado: [Tipos y Mutabilidad](types-and-mutability.es.md), [Básico](basics.es.md), [OOP](oop.es.md).

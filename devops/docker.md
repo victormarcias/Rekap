@@ -86,4 +86,4 @@ docker run -p 8000:8000 --env-file .env myapp
 `--env-file .env` injects environment variables without hardcoding them into the image — how the app reads them depends on the stack (`pydantic-settings` in Python, `dotenv` in Node, system environment variables in Go), but Docker's mechanism is the same: the image itself has no embedded secrets, so it can be shared/pushed to a registry without leaking anything.
 
 ---
-Related: [Deploy to Cloud Run](deploy-cloud-run.md), [Deploy to a VPS](deploy-vps.md), [FastAPI Authentication](../stacks/fastapi/autenticacion.md) (`pydantic-settings`, the example from point 5 in Python).
+Related: [Deploy to Cloud Run](deploy-cloud-run.md), [Deploy to a VPS](deploy-vps.md), [FastAPI Authentication](../stacks/fastapi/authentication.md) (`pydantic-settings`, the example from point 5 in Python).

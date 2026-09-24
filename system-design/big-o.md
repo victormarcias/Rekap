@@ -94,4 +94,4 @@ Big-O also measures **memory**, not just time — an algorithm can be faster at 
 </td></tr></table>
 
 ---
-Related: [Algorithms, Sorting, and Data Structures in Python](../stacks/python/algoritmos-y-sorting.md) (concrete application to `list`/`dict`/`set`/`heapq`/`bisect`), [Indexes](../database/indexes.md) (the same Big-O spirit, at the DB level).
+Related: [Algorithms, Sorting, and Data Structures in Python](../stacks/python/algorithms-and-sorting.md) (concrete application to `list`/`dict`/`set`/`heapq`/`bisect`), [Indexes](../database/indexes.md) (the same Big-O spirit, at the DB level).

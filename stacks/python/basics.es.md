@@ -67,4 +67,4 @@ from mi_paquete import models   # importa el módulo desde el paquete
 ```
 
 ---
-Relacionado: [Sintaxis general](sintaxis.md).
+Relacionado: [Sintaxis general](syntax.es.md).

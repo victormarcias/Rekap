@@ -1,30 +1,30 @@
 # Node.js
 
-Runtime de JavaScript fuera del browser — corre sobre **V8** (el motor de JS de Chrome) + **libuv** (la librería en C que le da el I/O asíncrono). Permite usar JS del lado del servidor.
+JavaScript runtime outside the browser — runs on **V8** (Chrome's JS engine) + **libuv** (the C library that gives it async I/O). Lets you use JS on the server side.
 
-## Single-threaded, pero no bloqueante (Event Loop)
+## Single-threaded, but non-blocking (Event Loop)
 
-Node ejecuta el código JS en **un solo hilo** — pero las operaciones de I/O (leer un archivo, una query a la DB, un request de red) no las hace ese hilo: se las delega a libuv, que las maneja por afuera (con el sistema operativo o un thread pool interno), y avisa al hilo principal cuando terminan. Por eso un solo proceso de Node puede atender miles de conexiones simultáneas sin abrir un thread por request — mientras una operación de I/O está "en vuelo", el hilo principal sigue libre para atender otra cosa.
+Node runs JS code on **a single thread** — but I/O operations (reading a file, a DB query, a network request) aren't done by that thread: they're delegated to libuv, which handles them externally (with the operating system or an internal thread pool), and notifies the main thread when they finish. That's why a single Node process can handle thousands of simultaneous connections without opening a thread per request — while an I/O operation is "in flight," the main thread stays free to handle something else.
 
 ```js
 const fs = require('fs');
 
-// ❌ bloqueante: el proceso entero se congela hasta que termina de leer el archivo
-const data = fs.readFileSync('archivo.txt');
-console.log('esto espera a que termine la lectura');
+// ❌ blocking: the entire process freezes until it finishes reading the file
+const data = fs.readFileSync('file.txt');
+console.log('this waits for the read to finish');
 
-// ✅ no bloqueante: Node sigue ejecutando código mientras el archivo se lee en background
-fs.readFile('archivo.txt', (err, data) => {
-  console.log('esto corre recién cuando termina la lectura');
+// ✅ non-blocking: Node keeps executing code while the file is read in the background
+fs.readFile('file.txt', (err, data) => {
+  console.log('this only runs once the read finishes');
 });
-console.log('esto se imprime ANTES que el callback de arriba');
+console.log('this prints BEFORE the callback above');
 ```
 
-**La consecuencia práctica**: Node es muy bueno para cargas con mucho I/O (APIs que esperan a una DB, proxies, streaming) y mediocre para trabajo pesado de CPU (cálculos intensivos bloquean el único hilo y congelan todo lo demás mientras tanto — para eso existen los `worker_threads` o separar ese trabajo a otro proceso).
+**The practical consequence**: Node is very good for I/O-heavy loads (APIs waiting on a DB, proxies, streaming) and mediocre for heavy CPU work (intensive calculations block the single thread and freeze everything else in the meantime — that's what `worker_threads` or offloading that work to another process are for).
 
 ## `process.nextTick` vs Promises vs `setTimeout` vs `setImmediate`
 
-El orden en que corren no es intuitivo — se confunde seguido.
+The order they run in isn't intuitive — often confused.
 
 ```js
 setTimeout(() => console.log('setTimeout'), 0);
@@ -32,39 +32,39 @@ setImmediate(() => console.log('setImmediate'));
 Promise.resolve().then(() => console.log('promise'));
 process.nextTick(() => console.log('nextTick'));
 
-console.log('código síncrono');
+console.log('synchronous code');
 
-// Orden real:
-// código síncrono
-// nextTick       <- siempre antes que cualquier otra cosa async
-// promise        <- microtask, después de nextTick, antes de pasar a la siguiente fase del event loop
-// setTimeout      <- depende, pero típicamente antes que setImmediate en el main module
+// Real order:
+// synchronous code
+// nextTick       <- always before anything else async
+// promise        <- microtask, after nextTick, before moving to the next event loop phase
+// setTimeout      <- depends, but typically before setImmediate in the main module
 // setImmediate
 ```
 
-`process.nextTick` y las Promises son **microtasks** — se vacían por completo antes de que el Event Loop avance a la siguiente fase. `setTimeout`/`setImmediate` son **macrotasks** — cada uno vive en una fase distinta del Event Loop (timers vs check), por eso su orden relativo puede variar según el contexto.
+`process.nextTick` and Promises are **microtasks** — they're fully drained before the Event Loop advances to the next phase. `setTimeout`/`setImmediate` are **macrotasks** — each lives in a different Event Loop phase (timers vs check), which is why their relative order can vary depending on context.
 
 ## CommonJS vs ES Modules
 
-Node soporta los dos sistemas de módulos, con reglas distintas de carga.
+Node supports both module systems, with different loading rules.
 
 ```js
-// CommonJS (el histórico, default en archivos .js sin configurar nada)
+// CommonJS (the historical one, default in .js files with no config)
 const fs = require('fs');
 module.exports = { greet };
 
-// ES Modules (el estándar de JS moderno — necesita "type": "module" en package.json, o extensión .mjs)
+// ES Modules (the modern JS standard — needs "type": "module" in package.json, or a .mjs extension)
 import fs from 'fs';
 export function greet() { }
 ```
 
-Diferencia de fondo: `require()` es **síncrono** (carga y ejecuta el módulo ahí mismo, bloqueando); `import` es parte de la spec de ES Modules y permite *tree shaking* real (ver [Tree Shaking](../../frontend-react/tree-shaking.es.md)) porque el grafo de dependencias se puede analizar estáticamente, sin ejecutar código.
+The underlying difference: `require()` is **synchronous** (loads and executes the module right there, blocking); `import` is part of the ES Modules spec and enables real *tree shaking* (see [Tree Shaking](../../frontend-react/tree-shaking.md)) because the dependency graph can be statically analyzed, without executing code.
 
-## npm y `package.json`
+## npm and `package.json`
 
-- **`dependencies`**: lo que la app necesita para correr en producción.
-- **`devDependencies`**: herramientas de desarrollo (test runner, linter, bundler) — no viajan a producción.
-- **`package-lock.json`**: fija las versiones **exactas** instaladas (incluyendo dependencias transitivas) para que `npm install` sea reproducible entre máquinas — sin este archivo, `^1.2.3` en `package.json` podría resolver a una versión distinta cada vez.
+- **`dependencies`**: what the app needs to run in production.
+- **`devDependencies`**: development tools (test runner, linter, bundler) — don't ship to production.
+- **`package-lock.json`**: pins the **exact** installed versions (including transitive dependencies) so `npm install` is reproducible across machines — without this file, `^1.2.3` in `package.json` could resolve to a different version each time.
 
 ```json
 {
@@ -73,37 +73,37 @@ Diferencia de fondo: `require()` es **síncrono** (carga y ejecuta el módulo ah
 }
 ```
 
-`^4.18.0` acepta actualizaciones de minor/patch (`4.x.x`, no `5.0.0`) — semver (`^`/`~`) define cuánto margen de auto-actualización tolera cada dependencia.
+`^4.18.0` accepts minor/patch updates (`4.x.x`, not `5.0.0`) — semver (`^`/`~`) defines how much auto-update margin each dependency tolerates.
 
 ## Streams
 
-Procesar datos de a **pedazos (chunks)**, sin cargar todo en memoria de una — la alternativa a leer un archivo entero con `readFileSync` cuando ese archivo pesa gigabytes.
+Processing data in **chunks**, without loading it all into memory at once — the alternative to reading an entire file with `readFileSync` when that file is gigabytes in size.
 
 ```js
 const fs = require('fs');
 
-// ❌ carga el archivo completo en memoria antes de mandar la respuesta
+// ❌ loads the entire file into memory before sending the response
 app.get('/download', (req, res) => {
-  const data = fs.readFileSync('archivo-grande.csv');
+  const data = fs.readFileSync('big-file.csv');
   res.send(data);
 });
 
-// ✅ streaming: manda el archivo en pedazos a medida que se leen del disco,
-// sin nunca tener el archivo completo en memoria a la vez
+// ✅ streaming: sends the file in chunks as they're read from disk,
+// never holding the entire file in memory at once
 app.get('/download', (req, res) => {
-  fs.createReadStream('archivo-grande.csv').pipe(res);
+  fs.createReadStream('big-file.csv').pipe(res);
 });
 ```
 
 ## Buffers
 
-Representación de datos **binarios** en memoria — lo que hay "debajo" de un string cuando se lee un archivo, una imagen, o datos de una conexión de red antes de decodificarlos. Los streams de arriba mueven Buffers internamente, no strings.
+**Binary** data representation in memory — what's "underneath" a string when reading a file, an image, or data from a network connection before decoding it. The streams above move Buffers internally, not strings.
 
 ```js
-const buf = Buffer.from('hola');
-buf.toString();       // 'hola'
-buf.length;             // 4 — bytes, no caracteres (importa con Unicode multi-byte)
+const buf = Buffer.from('hello');
+buf.toString();       // 'hello'
+buf.length;             // 5 — bytes, not characters (matters with multi-byte Unicode)
 ```
 
 ---
-Relacionado: [Tree Shaking](../../frontend-react/tree-shaking.es.md), [Sintaxis general (Python)](../python/sintaxis.md) para el equivalente de módulos/contextos en otro lenguaje.
+Related: [Tree Shaking](../../frontend-react/tree-shaking.md), [General Syntax (Python)](../python/syntax.md) for the module/context equivalent in another language.

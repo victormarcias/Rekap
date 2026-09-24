@@ -134,7 +134,7 @@ usuario?.nombre;   // ✅ optional chaining — accede solo si no es null/undefi
 usuario!.nombre;   // ⚠️ non-null assertion — "confiá en mí, no es null" — sin chequeo real, riesgo de error en runtime si te equivocás
 ```
 
-Con [`strict`](config.md#strict) prendido, TypeScript obliga a manejar el caso `null`/`undefined` explícitamente antes de usar el valor — sin `strict`, deja pasar el acceso directo y el error solo aparece en runtime.
+Con [`strict`](config.es.md#strict) prendido, TypeScript obliga a manejar el caso `null`/`undefined` explícitamente antes de usar el valor — sin `strict`, deja pasar el acceso directo y el error solo aparece en runtime.
 
 ## `unknown`
 
@@ -221,4 +221,4 @@ const respuesta: ApiResponse<Usuario> = { data: usuario, error: null };
 **Conditional types** (`T extends U ? X : Y`) y **mapped types** (`{ [K in keyof T]: ... }`, la base de cómo están implementados los Utility Types de arriba) son la forma de escribir lógica a nivel de tipos — se usan mucho al construir librerías, menos seguido en código de aplicación día a día.
 
 ---
-Relacionado: [Configuración (tsconfig.json)](config.md), [Sistema de tipos comparado (Python/Swift/Kotlin/Java)](../tipos-comparativa.md), [Frontend React](../../frontend-react/README.es.md) para dónde se aplica esto en componentes.
+Relacionado: [Configuración (tsconfig.json)](config.es.md), [Sistema de tipos comparado (Python/Swift/Kotlin/Java)](../type-system-comparison.es.md), [Frontend React](../../frontend-react/README.es.md) para dónde se aplica esto en componentes.

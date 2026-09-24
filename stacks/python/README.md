@@ -1,16 +1,16 @@
 # Python
 
-Repaso de fundamentos del lenguaje, setup y sintaxis.
+A review of the language's fundamentals, setup, and syntax.
 
-- [x] [Sintaxis general](sintaxis.md)
-- [x] [Básico](basico.md) — Python 2 vs 3, pip, requirements.txt, `__name__ == "__main__"`, módulo vs paquete
-- [x] [Tipos y Mutabilidad](tipos-y-mutabilidad.md) — mutable vs inmutable, `is` vs `==`, mutable default arguments
-- [x] [Funciones Avanzadas](funciones-avanzadas.md) — decorators, closures, LEGB, generators, iterators vs iterables
+- [x] [General Syntax](syntax.md)
+- [x] [Basics](basics.md) — Python 2 vs 3, pip, requirements.txt, `__name__ == "__main__"`, module vs package
+- [x] [Types and Mutability](types-and-mutability.md) — mutable vs immutable, `is` vs `==`, mutable default arguments
+- [x] [Advanced Functions](advanced-functions.md) — decorators, closures, LEGB, generators, iterators vs iterables
 - [x] [OOP](oop.md) — `__init__` vs `__new__`, static/classmethod, dunder methods, duck typing, MRO
-- [x] [Typing Avanzado](typing-avanzado.md) — `Optional`/`Union`, `TypedDict`, `Protocol` (structural typing)
-- [x] [Módulo `collections`](collections-module.md) — `Counter`, `defaultdict`, `namedtuple`, `deque`, `ChainMap`, `OrderedDict`
-- [x] [Algoritmos, Sorting y Estructuras de Datos](algoritmos-y-sorting.md) — Big-O de `list`/`dict`/`set`, operaciones de `set`, `sorted()`/`key=`, Timsort, `heapq`, `bisect`, datos time-based
-- [x] [Concurrencia y Memoria](concurrencia-y-memoria.md) — GIL, garbage collection
-- [x] [Frameworks y librerías — Backend vs IA](frameworks.md) — FastAPI, Django, LangChain, PyTorch, scikit-learn, ...
+- [x] [Advanced Typing](advanced-typing.md) — `Optional`/`Union`, `TypedDict`, `Protocol` (structural typing)
+- [x] [`collections` Module](collections-module.md) — `Counter`, `defaultdict`, `namedtuple`, `deque`, `ChainMap`, `OrderedDict`
+- [x] [Algorithms, Sorting, and Data Structures](algorithms-and-sorting.md) — Big-O of `list`/`dict`/`set`, `set` operations, `sorted()`/`key=`, Timsort, `heapq`, `bisect`, time-based data
+- [x] [Concurrency and Memory](concurrency-and-memory.md) — GIL, garbage collection
+- [x] [Frameworks and libraries — Backend vs AI](frameworks.md) — FastAPI, Django, LangChain, PyTorch, scikit-learn, ...
 
-Ver también: [FastAPI](../fastapi/) (implementación concreta de arquitectura backend en Python).
+See also: [FastAPI](../fastapi/) (concrete backend architecture implementation in Python).

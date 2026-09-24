@@ -1,10 +1,10 @@
 # Testing (pytest)
 
-Implementación concreta con `pytest`, `httpx.AsyncClient` y mocking de servicios externos. Los conceptos de fondo (test pyramid, test doubles, por qué mockear, aislamiento) están en [Testing — conceptos generales](../../system-design/testing.es.md).
+Concrete implementation with `pytest`, `httpx.AsyncClient`, and mocking external services. The underlying concepts (test pyramid, test doubles, why mock, isolation) are in [Testing — General Concepts](../../system-design/testing.md).
 
-## 1. `pytest` fixtures y `conftest.py`
+## 1. `pytest` fixtures and `conftest.py`
 
-Una fixture es una función de setup/teardown reutilizable. `conftest.py` guarda las fixtures compartidas por todo el proyecto — pytest las descubre solas, sin que ningún test tenga que importarlas. Todo lo que sigue al `yield` corre como teardown, siempre, incluso si el test falla.
+A fixture is a reusable setup/teardown function. `conftest.py` holds the fixtures shared across the whole project — pytest discovers them on its own, with no test having to import them. Everything after `yield` runs as teardown, always, even if the test fails.
 
 ```python
 # conftest.py
@@ -17,15 +17,15 @@ def sample_user():
 @pytest.fixture
 def db_session():
     session = SessionLocal()
-    yield session       # el test usa la sesión acá
-    session.close()      # teardown: corre siempre, haya pasado o fallado el test
+    yield session       # the test uses the session here
+    session.close()      # teardown: always runs, whether the test passed or failed
 ```
 
-Cualquier test de cualquier archivo puede pedir `sample_user` o `db_session` como parámetro de la función — pytest los resuelve automáticamente.
+Any test in any file can request `sample_user` or `db_session` as a function parameter — pytest resolves them automatically.
 
-## 2. Transactional rollback en SQLAlchemy async
+## 2. Transactional rollback in async SQLAlchemy
 
-Aplicando el patrón de [Testing — conceptos generales](../../system-design/testing.es.md) con una fixture real: se abre una transacción sobre la conexión, se la usa para crear la sesión que ve el test, y se revierte al final.
+Applying the [Testing — General Concepts](../../system-design/testing.md) pattern with a real fixture: a transaction opens on the connection, gets used to create the session the test sees, and gets rolled back at the end.
 
 ```python
 @pytest.fixture
@@ -33,15 +33,15 @@ async def db_session():
     async with engine.connect() as conn:
         trans = await conn.begin()
         session = AsyncSession(bind=conn)
-        yield session          # el test hace sus inserts/updates acá
-        await trans.rollback()  # se revierte todo — la DB queda exactamente como estaba
+        yield session          # the test does its inserts/updates here
+        await trans.rollback()  # everything gets reverted — the DB ends up exactly as it was
 ```
 
-Cada test arranca de un estado limpio sin truncar tablas ni recrear la base, y corre rápido porque nunca llega a comprometer nada en disco.
+Every test starts from a clean state with no truncating tables or recreating the database, and runs fast because it never actually commits anything to disk.
 
-## 3. `httpx.AsyncClient` para testear rutas async
+## 3. `httpx.AsyncClient` for testing async routes
 
-`TestClient` (visto en [Endpoints para microservicios](endpoints-microservicios.md)) funciona para rutas sync y async porque maneja su propio event loop por dentro, pero cuando toda la app usa fixtures async (como la sesión de DB del punto 2), `AsyncClient` encaja mejor: es awaitable y se integra directo con `pytest-asyncio` sin loops anidados.
+`TestClient` (seen in [Microservice Endpoints](microservice-endpoints.md)) works for both sync and async routes because it manages its own event loop internally, but when the whole app uses async fixtures (like the DB session from point 2), `AsyncClient` fits better: it's awaitable and integrates directly with `pytest-asyncio` with no nested loops.
 
 ```python
 import pytest
@@ -54,38 +54,38 @@ async def test_get_order():
     assert response.status_code == 200
 ```
 
-## 4. Mockear servicios externos
+## 4. Mocking external services
 
-`pytest-mock` para funciones propias (como el envío de email); `moto` para simular servicios de AWS completos (como S3) sin pegarle a la nube real.
+`pytest-mock` for your own functions (like sending email); `moto` for simulating entire AWS services (like S3) without hitting the real cloud.
 
 ```python
-# ✅ mockear el envío de mail: el test no manda ningún email real
+# ✅ mocking sending mail: the test doesn't send any real email
 def test_register_sends_welcome_email(mocker):
     mock_send = mocker.patch("app.services.email.send_welcome_email")
     client.post("/register", json={"email": "ana@mail.com", "password": "secret123"})
     mock_send.assert_called_once_with("ana@mail.com")
 
-# ✅ moto: simula S3 en memoria, sin pegarle a AWS real ni gastar nada
+# ✅ moto: simulates S3 in memory, without hitting real AWS or spending anything
 from moto import mock_aws
 import boto3
 
 @mock_aws
 def test_upload_to_s3():
     s3 = boto3.client("s3", region_name="us-east-1")
-    s3.create_bucket(Bucket="mi-bucket-test")
-    upload_file(s3, "mi-bucket-test", "foto.jpg", b"contenido")
-    objects = s3.list_objects(Bucket="mi-bucket-test")
-    assert objects["Contents"][0]["Key"] == "foto.jpg"
+    s3.create_bucket(Bucket="my-test-bucket")
+    upload_file(s3, "my-test-bucket", "photo.jpg", b"content")
+    objects = s3.list_objects(Bucket="my-test-bucket")
+    assert objects["Contents"][0]["Key"] == "photo.jpg"
 ```
 
-## 5. Testear rutas protegidas por auth
+## 5. Testing auth-protected routes
 
-Reutilizando el mismo helper que usa `/login` en producción (ver [Autenticación en FastAPI](autenticacion.md)) para generar un token válido dentro de una fixture, en vez de loguearse de verdad en cada test.
+Reusing the same helper `/login` uses in production (see [Authentication in FastAPI](authentication.md)) to generate a valid token inside a fixture, instead of actually logging in on every test.
 
 ```python
 @pytest.fixture
 def auth_headers():
-    token = create_access_token(user_id=1)  # mismo helper que /login en producción
+    token = create_access_token(user_id=1)  # same helper as /login in production
     return {"Authorization": f"Bearer {token}"}
 
 def test_get_me(client, auth_headers):
@@ -93,7 +93,7 @@ def test_get_me(client, auth_headers):
     assert response.status_code == 200
 ```
 
-## 6. Testear file uploads
+## 6. Testing file uploads
 
 ```python
 def test_upload_avatar(client, auth_headers):
@@ -106,40 +106,40 @@ def test_upload_avatar(client, auth_headers):
     assert response.status_code == 200
 ```
 
-## 7. Testear background tasks
+## 7. Testing background tasks
 
-En producción, una `BackgroundTask` de FastAPI corre después de mandar la respuesta. En los tests, como `TestClient`/`AsyncClient` ejecutan todo en el mismo proceso, la tarea ya terminó para cuando la aserción se ejecuta — no hace falta esperar ni hacer polling, solo mockear la función y verificar que se llamó.
+In production, a FastAPI `BackgroundTask` runs after the response is sent. In tests, since `TestClient`/`AsyncClient` run everything in the same process, the task has already finished by the time the assertion runs — no need to wait or poll, just mock the function and verify it was called.
 
 ```python
 def test_create_order_triggers_notification(client, auth_headers, mocker):
     mock_notify = mocker.patch("app.services.notifications.notify_warehouse")
     response = client.post("/orders", headers=auth_headers, json={"items": ["sku-1"]})
     assert response.status_code == 201
-    mock_notify.assert_called_once()  # la background task ya corrió para cuando llega acá
+    mock_notify.assert_called_once()  # the background task already ran by the time we get here
 ```
 
-## 8. Testear ownership/authorization checks
+## 8. Testing ownership/authorization checks
 
-El caso clásico: un usuario autenticado intenta tocar un recurso que no le pertenece — la respuesta correcta es `403`, no `401` (ver [Autenticación vs Autorización](../../backend/authentication.es.md)).
+The classic case: an authenticated user tries to touch a resource that isn't theirs — the correct response is `403`, not `401` (see [Authentication vs Authorization](../../backend/authentication.md)).
 
 ```python
 def test_cannot_delete_other_users_order(client, auth_headers_user_a, order_owned_by_user_b):
     response = client.delete(f"/orders/{order_owned_by_user_b.id}", headers=auth_headers_user_a)
-    assert response.status_code == 403  # autenticado, pero no autorizado para este recurso
+    assert response.status_code == 403  # authenticated, but not authorized for this resource
 ```
 
-## 9. Hooks de setup/teardown en pytest (`scope` de las fixtures)
+## 9. Setup/teardown hooks in pytest (fixture `scope`)
 
-pytest no tiene `beforeEach`/`afterAll` como funciones separadas (ver el concepto general en [Testing — conceptos generales](../../system-design/testing.es.md#6-hooks-de-setupteardown--beforeeach-aftereach-beforeall-afterall)) — resuelve lo mismo con el parámetro `scope` de una fixture: `scope="function"` (default) equivale a `beforeEach`/`afterEach`; `scope="session"` (o `"module"`, para compartir solo dentro de un archivo) equivale a `beforeAll`/`afterAll`.
+pytest doesn't have `beforeEach`/`afterAll` as separate functions (see the general concept in [Testing — General Concepts](../../system-design/testing.md#6-setupteardown-hooks--beforeeach-aftereach-beforeall-afterall)) — it solves the same thing with a fixture's `scope` parameter: `scope="function"` (default) is equivalent to `beforeEach`/`afterEach`; `scope="session"` (or `"module"`, to share only within one file) is equivalent to `beforeAll`/`afterAll`.
 
 ```python
-@pytest.fixture(scope="function")  # default — corre antes/después de CADA test, como beforeEach/afterEach
+@pytest.fixture(scope="function")  # default — runs before/after EVERY test, like beforeEach/afterEach
 def db_session():
     session = SessionLocal()
-    yield session       # equivalente a beforeEach
-    session.close()      # equivalente a afterEach
+    yield session       # equivalent to beforeEach
+    session.close()      # equivalent to afterEach
 
-@pytest.fixture(scope="session")  # corre UNA VEZ para toda la corrida, como beforeAll/afterAll
+@pytest.fixture(scope="session")  # runs ONCE for the whole run, like beforeAll/afterAll
 def test_db_connection():
     conn = connect_test_db()
     yield conn
@@ -148,10 +148,10 @@ def test_db_connection():
 
 | JS (Jest/Mocha) | pytest |
 |---|---|
-| `beforeEach` / `afterEach` | fixture con `scope="function"` (default) |
-| `beforeAll` / `afterAll` | fixture con `scope="session"` (o `"module"`) |
+| `beforeEach` / `afterEach` | fixture with `scope="function"` (default) |
+| `beforeAll` / `afterAll` | fixture with `scope="session"` (or `"module"`) |
 
-Mismo cuidado que en JS: una fixture `scope="session"` que en realidad debería resetearse por test rompe el aislamiento — ver [Aislamiento de tests](../../system-design/testing.es.md#4-aislamiento-de-tests).
+Same care as in JS: a `scope="session"` fixture that should actually reset per test breaks isolation — see [Test isolation](../../system-design/testing.md#4-test-isolation).
 
 ---
-Relacionado: [Testing — conceptos generales](../../system-design/testing.es.md), [Endpoints para microservicios](endpoints-microservicios.md), [Autenticación en FastAPI](autenticacion.md), [Sync vs Async en FastAPI](sync-vs-async.md).
+Related: [Testing — General Concepts](../../system-design/testing.md), [Microservice Endpoints](microservice-endpoints.md), [Authentication in FastAPI](authentication.md), [Sync vs Async in FastAPI](sync-vs-async.md).

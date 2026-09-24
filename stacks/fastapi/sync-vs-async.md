@@ -1,74 +1,74 @@
 # Sync vs Async
 
-FastAPI acepta tanto `def` como `async def` en una ruta — la elección no es estética, tiene consecuencias reales de performance si se hace mal. Esto no es teoría de `endpoints-microservicios.md`; es específicamente cuándo async ayuda, cuándo no hace nada, y qué se rompe al migrar una app entera de sync a async.
+FastAPI accepts both `def` and `async def` on a route — the choice isn't cosmetic, it has real performance consequences if done wrong. This isn't `microservice-endpoints.md`'s theory; it's specifically about when async helps, when it does nothing, and what breaks when migrating an entire app from sync to async.
 
-## 1. Qué es el event loop y por qué importa
+## 1. What the event loop is and why it matters
 
-`asyncio` corre en **una sola hebra** con multitasking cooperativo: una corrutina cede el control (con `await`) en cada punto de espera, y el event loop aprovecha esa pausa para atender otras corrutinas. Si una corrutina nunca cede (hace trabajo bloqueante sin `await`), **frena el loop entero** — nada más corre hasta que termina, ni siquiera requests de otros usuarios.
+`asyncio` runs on **a single thread** with cooperative multitasking: a coroutine yields control (with `await`) at every wait point, and the event loop uses that pause to handle other coroutines. If a coroutine never yields (does blocking work with no `await`), it **freezes the entire loop** — nothing else runs until it finishes, not even other users' requests.
 
 ```python
 import asyncio, time
 
 async def bad_task():
-    time.sleep(5)  # ❌ bloquea el event loop entero — nada más corre durante estos 5 segundos
+    time.sleep(5)  # ❌ blocks the entire event loop — nothing else runs during these 5 seconds
 
 async def good_task():
-    await asyncio.sleep(5)  # ✅ cede el control, el loop atiende otras corrutinas mientras tanto
+    await asyncio.sleep(5)  # ✅ yields control, the loop handles other coroutines meanwhile
 ```
 
-## 2. `async def` vs `def` en una ruta — qué hace FastAPI distinto
+## 2. `async def` vs `def` on a route — what FastAPI does differently
 
-Una ruta `async def` corre directo en el event loop, en la misma hebra que todo lo demás. Una ruta `def` normal, FastAPI la manda automáticamente a un **threadpool aparte** — por eso código sync bloqueante adentro no traba el resto de la app, a costa de usar una hebra del pool en vez del loop principal.
+An `async def` route runs directly on the event loop, on the same thread as everything else. FastAPI automatically sends a regular `def` route to a **separate threadpool** — that's why blocking sync code inside it doesn't jam the rest of the app, at the cost of using a pool thread instead of the main loop.
 
 ```python
-# ✅ def normal: FastAPI la corre en threadpool automáticamente,
-# el código bloqueante de acá adentro no frena el event loop principal
+# ✅ regular def: FastAPI runs it in a threadpool automatically,
+# the blocking code inside doesn't freeze the main event loop
 @app.get("/legacy")
 def get_legacy_data():
     return sync_blocking_call()
 
-# ✅ async def: corre en el event loop compartido — solo tiene sentido
-# si TODO lo que hace adentro es realmente async (con await)
+# ✅ async def: runs on the shared event loop — only makes sense
+# if EVERYTHING inside it is genuinely async (with await)
 @app.get("/modern")
 async def get_modern_data():
     return await async_non_blocking_call()
 ```
 
-## 3. I/O-bound vs CPU-bound — la regla real
+## 3. I/O-bound vs CPU-bound — the real rule
 
-Async brilla en trabajo **I/O-bound** (llamada de red a otro servicio, query a la DB, leer un archivo): la corrutina pasa la mayor parte del tiempo esperando, y durante esa espera el event loop atiende otras requests. En trabajo **CPU-bound** (parsear un JSON gigante, resize de imágenes, un loop pesado) no hay "espera" que ceder — una sola hebra haciendo cómputo bloquea igual, tenga `async`/`await` o no. Ver [Diagnóstico Backend](../../diagnostics/backend.es.md) (CPU bound) para cómo sacar ese trabajo del proceso principal.
+Async shines at **I/O-bound** work (a network call to another service, a DB query, reading a file): the coroutine spends most of its time waiting, and during that wait the event loop handles other requests. In **CPU-bound** work (parsing a giant JSON, resizing images, a heavy loop) there's no "wait" to yield — a single thread doing computation blocks regardless of `async`/`await`. See [Backend Diagnostics](../../diagnostics/backend.md) (CPU bound) for how to take that work off the main process.
 
-## 4. Cuándo async no sirve (o empeora)
+## 4. When async doesn't help (or makes things worse)
 
-La trampa más común: declarar `async def` pero llamar adentro a una función sync bloqueante **sin** `await`. Eso no libera nada — bloquea el event loop para **todas** las requests concurrentes, algo peor que si esa misma ruta hubiera sido `def` a secas (que FastAPI habría mandado a un threadpool en vez de trabar el loop principal).
+The most common trap: declaring `async def` but calling a blocking sync function inside **without** `await`. That releases nothing — it blocks the event loop for **all** concurrent requests, worse than if that same route had been a plain `def` (which FastAPI would have sent to a threadpool instead of jamming the main loop).
 
 ```python
-# ❌ el peor caso: async def que llama a código sync bloqueante sin await —
-# frena el event loop para TODAS las requests, no solo para esta
+# ❌ the worst case: async def calling blocking sync code with no await —
+# freezes the event loop for ALL requests, not just this one
 @app.get("/orders")
 async def get_orders():
-    return requests.get("http://otro-servicio/orders")  # librería sync, sin await
+    return requests.get("http://other-service/orders")  # sync library, no await
 
-# ✅ si el trabajo interno es sync, usar def a secas — FastAPI lo manda a threadpool solo
+# ✅ if the internal work is sync, use plain def — FastAPI sends it to a threadpool on its own
 @app.get("/orders")
 def get_orders():
-    return requests.get("http://otro-servicio/orders")
+    return requests.get("http://other-service/orders")
 
-# ✅ o usar la versión async de la librería HTTP
+# ✅ or use the async version of the HTTP library
 @app.get("/orders")
 async def get_orders():
     async with httpx.AsyncClient() as client:
-        return await client.get("http://otro-servicio/orders")
+        return await client.get("http://other-service/orders")
 ```
 
-## 5. SQLAlchemy async: engine, `AsyncSession`, `aiosqlite`
+## 5. Async SQLAlchemy: engine, `AsyncSession`, `aiosqlite`
 
-Para que las queries a la DB sean realmente no-bloqueantes hace falta un **driver async** (`aiosqlite` para SQLite, `asyncpg` para Postgres) y `create_async_engine` + `AsyncSession` — no alcanza con envolver la `Session` sync de siempre en un `async def`, eso seguiría bloqueando el loop en cada query.
+For DB queries to be genuinely non-blocking you need an **async driver** (`aiosqlite` for SQLite, `asyncpg` for Postgres) and `create_async_engine` + `AsyncSession` — it's not enough to wrap the usual sync `Session` in an `async def`, that would still block the loop on every query.
 
 ```python
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 
-engine = create_async_engine("sqlite+aiosqlite:///./app.db")  # driver async, no el sync de siempre
+engine = create_async_engine("sqlite+aiosqlite:///./app.db")  # async driver, not the usual sync one
 AsyncSessionLocal = async_sessionmaker(engine, expire_on_commit=False)
 
 async def get_db():
@@ -81,48 +81,48 @@ async def get_order(order_id: int, db: AsyncSession = Depends(get_db)):
     return result.scalar_one_or_none()
 ```
 
-## 6. Eager loading de relaciones en modo async
+## 6. Eager loading relations in async mode
 
-El lazy loading clásico (acceder a `order.items` recién cuando se lee el atributo, disparando una query nueva en ese momento) directamente **falla** en SQLAlchemy async con un error `MissingGreenlet` — cargar la relación ahí requeriría hacer I/O de forma síncrona fuera de un contexto `await`, y el driver async no lo permite. La solución es cargar la relación por adelantado con `selectinload`/`joinedload` en la query original.
+Classic lazy loading (accessing `order.items` only when the attribute is read, firing a new query at that moment) directly **fails** in async SQLAlchemy with a `MissingGreenlet` error — loading the relation there would require doing I/O synchronously outside an `await` context, and the async driver doesn't allow it. The fix is to load the relation upfront with `selectinload`/`joinedload` in the original query.
 
 ```python
 from sqlalchemy.orm import selectinload
 
-# ❌ lazy loading: acceder a order.items después de la query original —
-# en modo async esto falla con MissingGreenlet, no es solo "más lento"
+# ❌ lazy loading: accessing order.items after the original query —
+# in async mode this fails with MissingGreenlet, it's not just "slower"
 result = await db.execute(select(Order).where(Order.id == order_id))
 order = result.scalar_one()
 print(order.items)  # 💥 error
 
-# ✅ eager loading: se trae todo en la query original, no hace falta ningún acceso posterior
+# ✅ eager loading: everything is fetched in the original query, no access needed afterward
 result = await db.execute(
     select(Order).options(selectinload(Order.items)).where(Order.id == order_id)
 )
 order = result.scalar_one()
-print(order.items)  # ✅ ya está cargado en memoria
+print(order.items)  # ✅ already loaded in memory
 ```
 
-## 7. Exception handlers en rutas async
+## 7. Exception handlers in async routes
 
-Los exception handlers también pueden (y deben, si hacen I/O) ser `async def`. Si un handler loguea a un servicio externo o a la DB, necesita el mismo cuidado del punto 4: si esa llamada es sync y no lleva `await`, bloquea el event loop igual que bloquearía dentro de una ruta.
+Exception handlers can (and should, if they do I/O) also be `async def`. If a handler logs to an external service or the DB, it needs the same care as point 4: if that call is sync with no `await`, it blocks the event loop just as it would inside a route.
 
 ```python
 @app.exception_handler(OrderNotFoundError)
 async def order_not_found_handler(request: Request, exc: OrderNotFoundError):
-    await audit_log.record(f"Order {exc.order_id} not found")  # I/O real → necesita await
+    await audit_log.record(f"Order {exc.order_id} not found")  # real I/O → needs await
     return JSONResponse(status_code=404, content={"error": "order_not_found"})
 ```
 
-## 8. Cómo medir si realmente mejoró algo
+## 8. How to measure whether anything actually improved
 
-No asumir que async = más rápido. La forma real de confirmarlo es comparar throughput y latencia bajo carga concurrente, antes y después de migrar — no en un script local de un solo usuario, donde sync y async se sienten idénticos.
+Don't assume async = faster. The real way to confirm it is comparing throughput and latency under concurrent load, before and after migrating — not in a local single-user script, where sync and async feel identical.
 
 ```bash
-# ✅ comparar requests/seg y latencia p95 bajo carga real, no adivinar
+# ✅ compare requests/sec and p95 latency under real load, don't guess
 hey -n 1000 -c 50 http://localhost:8000/orders
 ```
 
-Si un endpoint no tiene I/O real que esperar (una query trivial a una DB local, por ejemplo), migrarlo a async solo agrega la complejidad de mantener un driver/engine async, sin ninguna ganancia medible.
+If an endpoint has no real I/O to wait on (a trivial query to a local DB, for example), migrating it to async only adds the complexity of maintaining an async driver/engine, with no measurable gain.
 
 ---
-Relacionado: [Endpoints para microservicios](endpoints-microservicios.md), [Diagnóstico Backend](../../diagnostics/backend.es.md) (CPU bound, paralelismo y concurrencia).
+Related: [Microservice Endpoints](microservice-endpoints.md), [Backend Diagnostics](../../diagnostics/backend.md) (CPU bound, parallelism and concurrency).

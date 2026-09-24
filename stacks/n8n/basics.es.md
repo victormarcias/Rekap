@@ -74,4 +74,4 @@ services:
 Un `package.json` solo aparece si se instala n8n vía `npm install n8n` en vez de Docker — ahí es gestión de paquetes estándar de Node, sin nada específico de n8n.
 
 ---
-Relacionado: [n8n y Agentic AI](n8n-y-agentic.md), [Cómo se testea](testing.md), [Deploy a un VPS](../../devops/deploy-vps.es.md), [VPS vs Cloud Run](../../devops/vps-vs-cloud-run.es.md), [REST](../../backend/rest.es.md).
+Relacionado: [n8n y Agentic AI](n8n-and-agentic-ai.es.md), [Cómo se testea](testing.es.md), [Deploy a un VPS](../../devops/deploy-vps.es.md), [VPS vs Cloud Run](../../devops/vps-vs-cloud-run.es.md), [REST](../../backend/rest.es.md).

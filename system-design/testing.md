@@ -93,7 +93,7 @@ def after_each():        # equivalent to afterEach — after every test
 
 **Why "once" vs "every time" matters**: using `beforeAll` for something that should be reset per test breaks [test isolation](#4-test-isolation) from point 4 — if a test mutates state that `beforeAll` only created once, the next test inherits that mutation without declaring it as a dependency. Practical rule: `beforeAll`/`afterAll` for expensive, genuinely shareable work; `beforeEach`/`afterEach` for anything that needs to start clean on every test.
 
-pytest doesn't have these four functions as such — it solves the same thing with a fixture's `scope` parameter (see the full implementation in [Testing in FastAPI](../stacks/fastapi/testing.md#9-hooks-de-setupteardown-en-pytest-scope-de-las-fixtures)).
+pytest doesn't have these four functions as such — it solves the same thing with a fixture's `scope` parameter (see the full implementation in [Testing in FastAPI](../stacks/fastapi/testing.md#9-setupteardown-hooks-in-pytest-fixture-scope)).
 
 ## 7. Brittle tests vs resilient tests
 
@@ -176,7 +176,7 @@ def user_fixture():
 
 Not every framework models it the same way: in pytest it's an **injectable function** (with its own setup/teardown via `yield`); in many JS frameworks it's more common to be **static data** (a JSON file/example object) loaded at the start of the test. The underlying idea — known, reproducible state — is the same in both cases.
 
-See the pytest implementation in [Testing in FastAPI](../stacks/fastapi/testing.md#1-pytest-fixtures-y-conftestpy).
+See the pytest implementation in [Testing in FastAPI](../stacks/fastapi/testing.md#1-pytest-fixtures-and-conftestpy).
 
 ## 10. Running tests in parallel vs serial
 

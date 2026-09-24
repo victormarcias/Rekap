@@ -2,123 +2,123 @@
 
 ## `__init__` vs `__new__`
 
-`__new__` crea la instancia (asigna la memoria); `__init__` la inicializa (setea los atributos) sobre una instancia que ya existe. En la enorme mayoría del código de aplicación normal, solo se sobreescribe `__init__` — `__new__` se toca en casos avanzados (ej. implementar un Singleton, o subclasear un tipo inmutable como `str`/`tuple`).
+`__new__` creates the instance (allocates memory); `__init__` initializes it (sets the attributes) on an instance that already exists. In the vast majority of normal application code, only `__init__` gets overridden — `__new__` gets touched in advanced cases (e.g. implementing a Singleton, or subclassing an immutable type like `str`/`tuple`).
 
 ```python
-class Punto:
+class Point:
     def __new__(cls, *args, **kwargs):
-        print("1. Creando la instancia")
+        print("1. Creating the instance")
         return super().__new__(cls)
 
     def __init__(self, x, y):
-        print("2. Inicializando la instancia")
+        print("2. Initializing the instance")
         self.x, self.y = x, y
 
-Punto(1, 2)
-# 1. Creando la instancia
-# 2. Inicializando la instancia
+Point(1, 2)
+# 1. Creating the instance
+# 2. Initializing the instance
 ```
 
 ```python
-class Contador:
-    totalGlobal = 0               # atributo de clase — una sola vez, compartido
+class Counter:
+    totalGlobal = 0               # class attribute — shared, exists once
 
     def __init__(self):
-        self.total = 0             # atributo de instancia — uno nuevo por cada objeto
-        Contador.totalGlobal += 1  # cada instancia nueva suma al contador compartido
+        self.total = 0             # instance attribute — a new one per object
+        Counter.totalGlobal += 1  # every new instance adds to the shared counter
 
-c1 = Contador()
-c2 = Contador()
-c1.totalGlobal, c2.totalGlobal    # (2, 2) — mismo atributo de clase, las dos ven el mismo valor
+c1 = Counter()
+c2 = Counter()
+c1.totalGlobal, c2.totalGlobal    # (2, 2) — same class attribute, both see the same value
 
 c1.total += 5
-c1.total, c2.total                # (5, 0) — no se pisan: cada instancia tiene el suyo
+c1.total, c2.total                # (5, 0) — no overlap: each instance has its own
 
-Contador.totalGlobal += 10
-c1.totalGlobal, c2.totalGlobal    # (12, 12) — sí se pisan: es el mismo atributo para las dos
+Counter.totalGlobal += 10
+c1.totalGlobal, c2.totalGlobal    # (12, 12) — this does overlap: it's the same attribute for both
 ```
 
-## `staticmethod` vs `classmethod` vs método de instancia
+## `staticmethod` vs `classmethod` vs instance method
 
 ```python
 class Order:
-    def total_con_descuento(self, pct):      # instancia: recibe self, opera sobre ESA instancia
+    def total_with_discount(self, pct):      # instance: receives self, operates on THAT instance
         return self.total * (1 - pct / 100)
 
     @classmethod
-    def from_dict(cls, data):                  # classmethod: recibe cls, típico constructor alternativo
+    def from_dict(cls, data):                  # classmethod: receives cls, typical alternative constructor
         return cls(data["total"])
 
     @staticmethod
-    def es_descuento_valido(pct):               # staticmethod: no recibe ni self ni cls
+    def is_valid_discount(pct):               # staticmethod: receives neither self nor cls
         return 0 <= pct <= 100
 ```
 
-- **Instancia**: necesita `self` — opera sobre los datos de una instancia particular.
-- **`classmethod`**: recibe la clase (`cls`) en vez de una instancia — típico para constructores alternativos (`from_dict`, `from_json`).
-- **`staticmethod`**: no recibe ni `self` ni `cls` — una función de utilidad que conceptualmente pertenece a la clase, pero no necesita nada de ella.
+- **Instance**: needs `self` — operates on a particular instance's data.
+- **`classmethod`**: receives the class (`cls`) instead of an instance — typical for alternative constructors (`from_dict`, `from_json`).
+- **`staticmethod`**: receives neither `self` nor `cls` — a utility function that conceptually belongs to the class, but doesn't need anything from it.
 
 ## Dunder (magic) methods
 
-Métodos con nombre `__algo__` que el intérprete llama automáticamente en ciertas situaciones — el mecanismo por el que tus propias clases se pueden comportar como los tipos built-in.
+Methods named `__something__` that the interpreter calls automatically in certain situations — the mechanism by which your own classes can behave like the built-in types.
 
 ```python
 class Vector:
     def __init__(self, x, y):
         self.x, self.y = x, y
 
-    def __repr__(self):                        # cómo se ve en el debugger/repr()
+    def __repr__(self):                        # how it looks in the debugger/repr()
         return f"Vector({self.x}, {self.y})"
 
-    def __eq__(self, other):                   # qué significa == entre dos Vector
+    def __eq__(self, other):                   # what == means between two Vectors
         return self.x == other.x and self.y == other.y
 
-    def __add__(self, other):                  # qué hace el operador +
+    def __add__(self, other):                  # what the + operator does
         return Vector(self.x + other.x, self.y + other.y)
 
-    def __len__(self):                         # qué devuelve len(vector)
+    def __len__(self):                         # what len(vector) returns
         return 2
 
-Vector(1, 2) + Vector(3, 4)   # Vector(4, 6) — gracias a __add__
+Vector(1, 2) + Vector(3, 4)   # Vector(4, 6) — thanks to __add__
 ```
 
-`__str__` vs `__repr__`: `__str__` es para el usuario final (`print(obj)`); `__repr__` es para debugging/desarrollo. Si solo definís uno, definí `__repr__` — Python lo usa como fallback de `__str__` si este último no existe.
+`__str__` vs `__repr__`: `__str__` is for the end user (`print(obj)`); `__repr__` is for debugging/development. If you only define one, define `__repr__` — Python uses it as `__str__`'s fallback if the latter doesn't exist.
 
 ## Duck typing
 
-"Si camina como un pato y grazna como un pato, es un pato" — Python no chequea el **tipo** de un objeto antes de usarlo, chequea si tiene el **método/atributo** que se le va a pedir. No hace falta heredar de una interfaz formal para que algo "cuente" como compatible.
+"If it walks like a duck and quacks like a duck, it's a duck" — Python doesn't check an object's **type** before using it, it checks whether it has the **method/attribute** that's about to be requested. You don't need to inherit from a formal interface for something to "count" as compatible.
 
 ```python
-class Pato:
-    def hacer_sonido(self): return "Cuac"
+class Duck:
+    def make_sound(self): return "Quack"
 
-class Persona:
-    def hacer_sonido(self): return "Digo cuac"  # no hereda de Pato, no le importa
+class Person:
+    def make_sound(self): return "I say quack"  # doesn't inherit from Duck, doesn't care
 
-def hacer_ruido(cosa):
-    print(cosa.hacer_sonido())  # no le importa el tipo, solo que tenga hacer_sonido()
+def make_noise(thing):
+    print(thing.make_sound())  # doesn't care about the type, only that it has make_sound()
 
-hacer_ruido(Pato())      # funciona
-hacer_ruido(Persona())    # también funciona
+make_noise(Duck())      # works
+make_noise(Person())    # also works
 ```
 
-## Herencia múltiple y MRO (Method Resolution Order)
+## Multiple inheritance and MRO (Method Resolution Order)
 
-Python permite heredar de más de una clase a la vez — a diferencia de TypeScript/Java. Cuando dos clases padre tienen un método con el mismo nombre, el **MRO** define en qué orden Python busca cuál usar (algoritmo C3 linearization — en la práctica: izquierda a derecha, profundidad después).
+Python allows inheriting from more than one class at once — unlike TypeScript/Java. When two parent classes have a method with the same name, the **MRO** defines the order Python searches for which one to use (C3 linearization algorithm — in practice: left to right, depth after).
 
 ```python
 class A:
-    def saludo(self): return "A"
+    def greeting(self): return "A"
 
 class B:
-    def saludo(self): return "B"
+    def greeting(self): return "B"
 
-class C(A, B):    # hereda de A primero, B después
+class C(A, B):    # inherits from A first, B second
     pass
 
-C().saludo()       # "A" — Python busca primero en A por el orden declarado en C(A, B)
-C.__mro__           # muestra el orden exacto de búsqueda
+C().greeting()       # "A" — Python searches A first, per the order declared in C(A, B)
+C.__mro__           # shows the exact search order
 ```
 
 ---
-Relacionado: [Patrones creacionales](../../system-design/creational-patterns.es.md) (Singleton usa `__new__`), [Patrones estructurales](../../system-design/structural-patterns.es.md) (Class Adapter necesita herencia múltiple), [Tipos y Mutabilidad](tipos-y-mutabilidad.md) (mutable default arguments, mismo mecanismo de fondo).
+Related: [Creational patterns](../../system-design/creational-patterns.md) (Singleton uses `__new__`), [Structural patterns](../../system-design/structural-patterns.md) (Class Adapter needs multiple inheritance), [Types and Mutability](types-and-mutability.md) (mutable default arguments, the same underlying mechanism).

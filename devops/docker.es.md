@@ -86,4 +86,4 @@ docker run -p 8000:8000 --env-file .env miapp
 `--env-file .env` inyecta variables de entorno sin hardcodearlas en la imagen — cómo las lee la app depende del stack (`pydantic-settings` en Python, `dotenv` en Node, variables de entorno del sistema en Go) pero el mecanismo de Docker es el mismo: la imagen en sí no tiene ningún secreto embebido, así que se puede compartir/pushear a un registry sin filtrar nada.
 
 ---
-Relacionado: [Deploy a Cloud Run](deploy-cloud-run.es.md), [Deploy a un VPS](deploy-vps.es.md), [Autenticación en FastAPI](../stacks/fastapi/autenticacion.md) (`pydantic-settings`, ejemplo del punto 5 en Python).
+Relacionado: [Deploy a Cloud Run](deploy-cloud-run.es.md), [Deploy a un VPS](deploy-vps.es.md), [Autenticación en FastAPI](../stacks/fastapi/authentication.es.md) (`pydantic-settings`, ejemplo del punto 5 en Python).

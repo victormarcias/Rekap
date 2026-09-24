@@ -1,16 +1,16 @@
-# NestJS — Pipes, Guards, Interceptors y Exception Filters
+# NestJS — Pipes, Guards, Interceptors, and Exception Filters
 
-Las cuatro piezas que se enganchan en el camino de una request antes/después de llegar al controller — cada una resuelve una pregunta distinta, y se confunden seguido entre sí. Orden real en el que actúan sobre una request entrante:
+The four pieces that hook into a request's path before/after reaching the controller — each solves a different question, and they're often confused with each other. The real order in which they act on an incoming request:
 
 ```
-Request → Guards → Interceptors (antes) → Pipes → Controller Handler → Interceptors (después) → Response
-                                                          ↓ (si algo tira una excepción en cualquier punto)
+Request → Guards → Interceptors (before) → Pipes → Controller Handler → Interceptors (after) → Response
+                                                          ↓ (if something throws an exception at any point)
                                                    Exception Filters
 ```
 
-## DTOs y Pipes — validar/transformar los datos de entrada
+## DTOs and Pipes — validating/transforming input data
 
-Un **DTO** (Data Transfer Object) define la forma esperada del body/params de una request. Un **Pipe** es lo que efectivamente valida (o transforma) esos datos contra esa forma antes de que lleguen al handler.
+A **DTO** (Data Transfer Object) defines the expected shape of a request's body/params. A **Pipe** is what actually validates (or transforms) that data against that shape before it reaches the handler.
 
 ```typescript
 // create-user.dto.ts
@@ -27,59 +27,59 @@ export class CreateUserDto {
 
 // users.controller.ts
 @Post()
-create(@Body() dto: CreateUserDto) {   // ValidationPipe corre ANTES de que esto se ejecute
+create(@Body() dto: CreateUserDto) {   // ValidationPipe runs BEFORE this executes
   return this.usersService.create(dto);
 }
 ```
 
 ```typescript
-// habilitado globalmente en main.ts — valida automáticamente todo DTO marcado con decorators de class-validator
+// enabled globally in main.ts — automatically validates every DTO marked with class-validator decorators
 app.useGlobalPipes(new ValidationPipe());
 ```
 
-Si el body no cumple el DTO (falta `email`, `age` no es un número), el `ValidationPipe` corta ahí — el controller ni se entera de que hubo una request inválida.
+If the body doesn't satisfy the DTO (missing `email`, `age` isn't a number), `ValidationPipe` cuts it off right there — the controller doesn't even find out there was an invalid request.
 
-## Guards — autenticación y autorización
+## Guards — authentication and authorization
 
-Deciden **si la request puede continuar** o no, antes de llegar al handler — la respuesta es un booleano.
+Decide **whether the request can continue** or not, before reaching the handler — the answer is a boolean.
 
 ```typescript
 @Injectable()
 export class AuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
-    return Boolean(request.headers.authorization);   // true = sigue, false = 403 automático
+    return Boolean(request.headers.authorization);   // true = continues, false = automatic 403
   }
 }
 
 @UseGuards(AuthGuard)
-@Get('perfil')
-getPerfil() { /* ... */ }
+@Get('profile')
+getProfile() { /* ... */ }
 ```
 
-## Interceptors — comportamiento antes Y después del handler
+## Interceptors — behavior before AND after the handler
 
-A diferencia de Pipes/Guards (que solo actúan antes), un Interceptor envuelve la ejecución completa del handler — puede correr lógica antes de que se ejecute, y transformar lo que devuelve después.
+Unlike Pipes/Guards (which only act before), an Interceptor wraps the handler's entire execution — it can run logic before it runs, and transform what it returns afterward.
 
 ```typescript
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler) {
-    console.log('Antes del handler...');
-    const inicio = Date.now();
+    console.log('Before the handler...');
+    const start = Date.now();
 
     return next.handle().pipe(
-      tap(() => console.log(`Después del handler: ${Date.now() - inicio}ms`))
+      tap(() => console.log(`After the handler: ${Date.now() - start}ms`))
     );
   }
 }
 ```
 
-Usos típicos: logging, agregar metadata a la respuesta, medir tiempos, transformar la forma de la respuesta (ej. envolver todo en `{ data: ... }`).
+Typical uses: logging, adding metadata to the response, measuring times, transforming the response's shape (e.g. wrapping everything in `{ data: ... }`).
 
-## Exception Filters — transformar excepciones en respuestas HTTP
+## Exception Filters — turning exceptions into HTTP responses
 
-Atrapan cualquier excepción lanzada en Guards, Interceptors, Pipes o el Controller mismo, y deciden qué responder — sin esto, una excepción sin manejar termina en un 500 genérico sin control sobre el formato.
+Catch any exception thrown in Guards, Interceptors, Pipes, or the Controller itself, and decide what to respond — without this, an unhandled exception ends up as a generic 500 with no control over the format.
 
 ```typescript
 @Catch(HttpException)
@@ -97,14 +97,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
 }
 ```
 
-## Cómo no confundirlos
+## How not to mix them up
 
-| Pieza | Responde a | Cuándo corre |
+| Piece | Answers | When it runs |
 |---|---|---|
-| **Guard** | ¿Puede esta request continuar? | Antes de todo lo demás |
-| **Interceptor** | ¿Qué hago antes Y después del handler? | Envuelve al handler completo |
-| **Pipe** | ¿Los datos de entrada tienen la forma correcta? | Justo antes del handler, sobre los parámetros |
-| **Exception Filter** | ¿Qué respondo si algo de lo anterior falla? | Solo si se lanzó una excepción |
+| **Guard** | Can this request continue? | Before everything else |
+| **Interceptor** | What do I do before AND after the handler? | Wraps the whole handler |
+| **Pipe** | Does the input data have the right shape? | Right before the handler, on the parameters |
+| **Exception Filter** | What do I respond if any of the above fails? | Only if an exception was thrown |
 
 ---
-Relacionado: [Arquitectura de NestJS](arquitectura.md), [Autenticación y Seguridad](../../backend/authentication.es.md), [Endpoints para microservicios (FastAPI)](../fastapi/endpoints-microservicios.md#3-validación-de-entrada-con-pydantic) (Pydantic cumple el mismo rol que un DTO + Pipe, en Python).
+Related: [NestJS Architecture](architecture.md), [Authentication and Security](../../backend/authentication.md), [Endpoints for microservices (FastAPI)](../fastapi/microservice-endpoints.md#3-input-validation-with-pydantic) (Pydantic plays the same role as a DTO + Pipe, in Python).

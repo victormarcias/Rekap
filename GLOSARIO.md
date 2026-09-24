@@ -20,7 +20,7 @@
 - **Animation vs Transition (CSS)** — [CSS](frontend-react/css.es.md#animations-vs-transitions)
 - **Anomalías (inserción/actualización/borrado)** — [Normalización](database/normalization.es.md#las-tres-anomalías-que-la-normalización-evita)
 - **API Gateway** — [API Gateway](backend/api-gateway.es.md)
-- **Argon2** — [Autenticación en FastAPI](stacks/fastapi/autenticacion.md#1-hashing-de-passwords-con-argon2-passlib)
+- **Argon2** — [Autenticación en FastAPI](stacks/fastapi/authentication.es.md#1-hashing-de-passwords-con-argon2-passlib)
 - **ARIA (aria-label, aria-expanded, role)** — [Accesibilidad](frontend-react/accessibility.es.md#screen-readers)
 - **Autenticación** — [Autenticación y Seguridad](backend/authentication.es.md#7-autenticación-vs-autorización)
 - **Autorización** — [Autenticación y Seguridad](backend/authentication.es.md#7-autenticación-vs-autorización)
@@ -39,7 +39,7 @@
 - **BFF (Backend for Frontend)** — [API Gateway](backend/api-gateway.es.md#gateway-vs-load-balancer)
 - **Big-O (complejidad algorítmica)** — [Big-O](system-design/big-o.es.md)
 - **Bloqueo del hilo principal** — [Diagnóstico Frontend](diagnostics/frontend.es.md#bloqueo-del-hilo-principal)
-- **Bridge (React Native)** — [React Native — Fundamentos](stacks/react-native/fundamentos.md#el-bridge--cómo-el-js-habla-con-código-nativo)
+- **Bridge (React Native)** — [React Native — Fundamentos](stacks/react-native/fundamentals.es.md#el-bridge--cómo-el-js-habla-con-código-nativo)
 - **Bubbling (evento)** — [Eventos DOM](frontend-react/dom-events.es.md#bubbling-vs-capturing)
 - **Buffer pool** — [RDBMS](database/rdbms.es.md#cómo-funciona-por-dentro)
 - **Builder (patrón)** — [Patrones creacionales](system-design/creational-patterns.es.md#builder)
@@ -116,7 +116,7 @@
 - **Denormalización** — [Normalización](database/normalization.es.md#denormalización-el-trade-off)
 - **Dependency Inversion Principle (D de SOLID)** — [SOLID principles](system-design/solid.es.md#d--dependency-inversion-principle)
 - **Dependency Rule (Clean Architecture)** — [Clean Architecture](system-design/clean-architecture.es.md#la-regla-de-dependencia)
-- **Depends (FastAPI)** — [Endpoints para microservicios](stacks/fastapi/endpoints-microservicios.md#4-dependency-injection-con-depends)
+- **Depends (FastAPI)** — [Endpoints para microservicios](stacks/fastapi/microservice-endpoints.es.md#4-dependency-injection-con-depends)
 - **Dirty read** — [ACID / isolation levels](database/acid.es.md#los-tres-phenomena-que-definen-los-isolation-levels)
 - **Disponibilidad** — [Atributos de calidad de sistemas](system-design/quality-attributes.es.md#disponibilidad)
 - **Distributed lock** — [Locks](database/locks.es.md#sección-crítica--el-concepto-general-detrás-de-la-solución)
@@ -144,11 +144,11 @@
 - **Especificidad (CSS)** — [CSS](frontend-react/css.es.md#especificidad-y-selectores)
 - **Estadísticas del planner** — [Diagnóstico Base de Datos](diagnostics/database.es.md#estadísticas-del-planner)
 - **Estados de un Request (loading/success/error/retry)** — [Estados de un Request](frontend-react/request-states.es.md)
-- **Exception Filter (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.md#exception-filters--transformar-excepciones-en-respuestas-http)
+- **Exception Filter (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.es.md#exception-filters--transformar-excepciones-en-respuestas-http)
 - **Exclusive lock** — [Locks](database/locks.es.md#shared-lock-s-vs-exclusive-lock-x)
 - **Execution plan** — [Diagnóstico Base de Datos](diagnostics/database.es.md#execution-plan)
 - **Expand/contract pattern** — [Migraciones de base de datos](database/migrations.es.md#4-expandcontract-pattern-zero-downtime)
-- **Expo** — [React Native — Fundamentos](stacks/react-native/fundamentos.md#expo-vs-react-native-cli-bare)
+- **Expo** — [React Native — Fundamentos](stacks/react-native/fundamentals.es.md#expo-vs-react-native-cli-bare)
 - **Express** — [Motores de SQL](database/sql-engines.es.md)
 
 ### F
@@ -176,7 +176,7 @@
 - **GraphQL** — [GraphQL](backend/graphql.es.md)
 - **Grid (CSS Grid)** — [CSS](frontend-react/css.es.md#flexbox-vs-grid)
 - **Groq / LPU (Language Processing Unit)** — [Tamaño y Cuantización de Modelos](agentic-ai/model-size-and-quantization.es.md#groq-y-las-lpu--hardware-especializado-para-velocidad)
-- **Guard (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.md#guards--autenticación-y-autorización)
+- **Guard (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.es.md#guards--autenticación-y-autorización)
 
 ### H
 
@@ -205,7 +205,7 @@
 - **Índice parcial** — [Índices](database/indexes.es.md#índice-parcial-postgres)
 - **Inmutabilidad** — [Atributos de calidad de sistemas](system-design/quality-attributes.es.md#inmutabilidad)
 - **INP (Interaction to Next Paint)** — [Web Vitals](frontend-react/web-vitals.es.md#core-web-vitals)
-- **Interceptor (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.md#interceptors--comportamiento-antes-y-después-del-handler)
+- **Interceptor (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.es.md#interceptors--comportamiento-antes-y-después-del-handler)
 - **Interface Segregation Principle (I de SOLID)** — [SOLID principles](system-design/solid.es.md#i--interface-segregation-principle)
 - **Internal Server Error (500)** — [HTTP Status Codes](system-design/http-status-codes.es.md#5xx--server-error)
 - **IntersectionObserver (Browser API)** — [Patrón Observer en el browser](frontend-react/observer-in-the-browser.es.md#intersectionobserver)
@@ -261,7 +261,7 @@
 - **MongoDB** — [Motores de SQL](database/sql-engines.es.md)
 - **Mongoose (ODM)** — [Motores de SQL](database/sql-engines.es.md)
 - **Monolito** — [Monolito vs Microservicios](backend/monolith-vs-microservices.es.md#monolito)
-- **moto (Python)** — [Testing en FastAPI](stacks/fastapi/testing.md#4-mockear-servicios-externos)
+- **moto (Python)** — [Testing en FastAPI](stacks/fastapi/testing.es.md#4-mockear-servicios-externos)
 - **Moved Permanently (301)** — [HTTP Status Codes](system-design/http-status-codes.es.md#3xx--redirection)
 - **MPA (Multi-Page Application)** — [Renderizado](frontend-react/rendering.es.md#spa-single-page-application)
 - **mTLS (mutual TLS)** — [Zero Trust](security/zero-trust.es.md#mtls-entre-microservicios)
@@ -276,7 +276,7 @@
 
 - **N+1 (problema)** — [Diagnóstico Backend](diagnostics/backend.es.md#problema-n1)
 - **Namespaces / cgroups** — [Dockerización](devops/docker.es.md#virtualización--el-origen-de-los-contenedores)
-- **NestJS** — [NestJS — Arquitectura](stacks/nestjs/arquitectura.md)
+- **NestJS** — [NestJS — Arquitectura](stacks/nestjs/architecture.es.md)
 - **Nginx** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have) · [Nginx como reverse proxy](devops/deploy-vps.es.md#4-nginx-como-reverse-proxy)
 - **No Content (204)** — [HTTP Status Codes](system-design/http-status-codes.es.md#2xx--success)
 - **Non-clustered index** — [Índices](database/indexes.es.md#clustered-vs-non-clustered)
@@ -288,7 +288,7 @@
 
 ### O
 
-- **OAuth2PasswordBearer (FastAPI)** — [Autenticación en FastAPI](stacks/fastapi/autenticacion.md#5-proteger-rutas-con-oauth2passwordbearer--depends)
+- **OAuth2PasswordBearer (FastAPI)** — [Autenticación en FastAPI](stacks/fastapi/authentication.es.md#5-proteger-rutas-con-oauth2passwordbearer--depends)
 - **Object Pooling** — [Object Pooling](frontend-react/object-pooling.es.md)
 - **Observabilidad** — [Atributos de calidad de sistemas](system-design/quality-attributes.es.md#observabilidad)
 - **Observer (patrón)** — [Patrones de comportamiento](system-design/behavioral-patterns.es.md#observer)
@@ -318,7 +318,7 @@
 - **Pessimistic locking** — [Locks](database/locks.es.md#pessimistic-vs-optimistic-locking)
 - **Phantom read** — [ACID / isolation levels](database/acid.es.md#los-tres-phenomena-que-definen-los-isolation-levels)
 - **Pinecone** — [NoSQL](database/nosql.es.md#vector--características-fundamentales)
-- **Pipe (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.md#dtos-y-pipes--validartransformar-los-datos-de-entrada)
+- **Pipe (NestJS)** — [Pipes, Guards, Interceptors y Exception Filters](stacks/nestjs/pipes-guards-interceptors-filters.es.md#dtos-y-pipes--validartransformar-los-datos-de-entrada)
 - **Plan-and-Execute** — [Diseño de Agentes de IA](agentic-ai/agent-design.es.md#plan-and-execute)
 - **Playwright** — [Testing en React](frontend-react/testing.es.md#herramientas-e2e-selenium-vs-cypress-vs-playwright)
 - **Plugin Architecture (Microkernel Architecture)** — [Clean Architecture](system-design/clean-architecture.es.md#relación-con-hexagonal-architecture-ports--adapters)
@@ -334,8 +334,8 @@
 - **Proveedores de identidad gestionados** — [Proveedores de Identidad Gestionados](backend/managed-identity-providers.es.md)
 - **Proxy (patrón)** — [Patrones estructurales](system-design/structural-patterns.es.md#proxy)
 - **Pub/Sub** — [Patrones de Diseño — Comportamiento](system-design/behavioral-patterns.es.md#observer)
-- **Pydantic (BaseModel, Python)** — [Endpoints para microservicios](stacks/fastapi/endpoints-microservicios.md#3-validación-de-entrada-con-pydantic)
-- **pytest (fixtures / conftest.py, Python)** — [Testing en FastAPI](stacks/fastapi/testing.md#1-pytest-fixtures-y-conftestpy)
+- **Pydantic (BaseModel, Python)** — [Endpoints para microservicios](stacks/fastapi/microservice-endpoints.es.md#3-validación-de-entrada-con-pydantic)
+- **pytest (fixtures / conftest.py, Python)** — [Testing en FastAPI](stacks/fastapi/testing.es.md#1-pytest-fixtures-y-conftestpy)
 
 ### R
 
@@ -347,7 +347,7 @@
 - **RDBMS (Relational Database Management System)** — [RDBMS](database/rdbms.es.md)
 - **RDS (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
 - **ReAct (Reason + Act)** — [Agentes vs Workflows](agentic-ai/agents-vs-workflows.es.md#patrón-de-agent-el-llm-controla-el-camino)
-- **React Native** — [React Native — Fundamentos](stacks/react-native/fundamentos.md)
+- **React Native** — [React Native — Fundamentos](stacks/react-native/fundamentals.es.md)
 - **React Testing Library (RTL)** — [Testing en React](frontend-react/testing.es.md#unit-testing-con-rtl-react-testing-library)
 - **Read replica** — [Escalabilidad de Base de Datos](database/scaling-database.es.md#read-replicas)
 - **Readiness probe (Kubernetes)** — [Atributos de calidad de sistemas](system-design/quality-attributes.es.md#disponibilidad)
@@ -436,7 +436,7 @@
 - **Test flaky** — [Testing — conceptos generales](system-design/testing.es.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 - **Test pyramid** — [Testing — conceptos generales](system-design/testing.es.md#1-test-pyramid)
 - **Test-Time Compute (LLM)** — [Qué es un token](agentic-ai/what-is-a-token.es.md#test-time-compute--pensar-más-al-responder-no-al-entrenar)
-- **TestClient (FastAPI)** — [Endpoints para microservicios](stacks/fastapi/endpoints-microservicios.md#8-testing-de-endpoints-con-testclient)
+- **TestClient (FastAPI)** — [Endpoints para microservicios](stacks/fastapi/microservice-endpoints.es.md#8-testing-de-endpoints-con-testclient)
 - **Tests frágiles (brittle tests)** — [Testing — conceptos generales](system-design/testing.es.md#7-tests-frágiles-vs-tests-robustos)
 - **Tests robustos (resilient tests)** — [Testing — conceptos generales](system-design/testing.es.md#7-tests-frágiles-vs-tests-robustos)
 - **Throughput** — [Atributos de calidad de sistemas](system-design/quality-attributes.es.md#performance-velocidad)

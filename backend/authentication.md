@@ -1,6 +1,6 @@
 # Authentication and Security — General Concepts
 
-Fundamentals you need to have clear before writing a single line of login code — they apply in any language or framework. The concrete implementation in Python/FastAPI is in [Authentication in FastAPI](../stacks/fastapi/autenticacion.md).
+Fundamentals you need to have clear before writing a single line of login code — they apply in any language or framework. The concrete implementation in Python/FastAPI is in [Authentication in FastAPI](../stacks/fastapi/authentication.md).
 
 ## 1. Hashing vs Encryption vs Encoding
 
@@ -81,4 +81,4 @@ The names of the HTTP status codes confuse this often: `401 Unauthorized` actual
 There's no "secure by default" option — it's a trade-off: `localStorage` exposes the token to XSS, the `httpOnly` cookie protects it from XSS but opens the door to CSRF if not configured well (`SameSite=Strict/Lax` reduces that risk a lot in practice).
 
 ---
-Related: [Authentication in FastAPI](../stacks/fastapi/autenticacion.md) (concrete implementation), [System quality attributes](../system-design/quality-attributes.md) (stateless scalability), [Idempotency and fault tolerance](../system-design/quality-attributes.md), [XSS](../security/xss.md), [CSRF](../security/csrf.md), [Zero Trust](../security/zero-trust.md).
+Related: [Authentication in FastAPI](../stacks/fastapi/authentication.md) (concrete implementation), [System quality attributes](../system-design/quality-attributes.md) (stateless scalability), [Idempotency and fault tolerance](../system-design/quality-attributes.md), [XSS](../security/xss.md), [CSRF](../security/csrf.md), [Zero Trust](../security/zero-trust.md).

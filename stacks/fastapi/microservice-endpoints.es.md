@@ -176,4 +176,4 @@ def test_create_order_validates_empty_items():
 ```
 
 ---
-Relacionado: [SOLID principles](../../system-design/solid.es.md), [Atributos de calidad de sistemas](../../system-design/quality-attributes.es.md) (idempotencia, tolerancia a fallos), [Sintaxis general](../python/sintaxis.md), [Sync vs Async en FastAPI](sync-vs-async.md) (cuándo el `async def` de estos ejemplos realmente aporta algo).
+Relacionado: [SOLID principles](../../system-design/solid.es.md), [Atributos de calidad de sistemas](../../system-design/quality-attributes.es.md) (idempotencia, tolerancia a fallos), [Sintaxis general](../python/syntax.es.md), [Sync vs Async en FastAPI](sync-vs-async.es.md) (cuándo el `async def` de estos ejemplos realmente aporta algo).

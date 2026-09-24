@@ -68,7 +68,7 @@ fun CounterView() {
 
 ### React Native
 
-Literally the same React/Virtual DOM as the web version, but with a different renderer at the end — instead of applying changes to browser DOM nodes, it applies them to real native views (`UIView` on iOS, `View` on Android). It's **React DOM** (the web renderer) that's web-specific, not React or the Virtual DOM itself — React Native reuses exactly the same core and the same JSX from above. For the practical side (components, styling, navigation, the bridge to native code) see [React Native — Fundamentals](../stacks/react-native/fundamentos.md).
+Literally the same React/Virtual DOM as the web version, but with a different renderer at the end — instead of applying changes to browser DOM nodes, it applies them to real native views (`UIView` on iOS, `View` on Android). It's **React DOM** (the web renderer) that's web-specific, not React or the Virtual DOM itself — React Native reuses exactly the same core and the same JSX from above. For the practical side (components, styling, navigation, the bridge to native code) see [React Native — Fundamentals](../stacks/react-native/fundamentals.md).
 
 ---
 Related: [Hooks](hooks.md), [Frontend Diagnostics](../diagnostics/frontend.md).

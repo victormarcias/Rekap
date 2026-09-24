@@ -1,100 +1,100 @@
-# Python — Módulo `collections`
+# Python — `collections` Module
 
-Estructuras de datos especializadas de la stdlib — resuelven en una línea patrones que con `list`/`dict` puros terminan en más código y peor performance.
+Specialized data structures from the stdlib — they solve in one line patterns that with plain `list`/`dict` end up as more code and worse performance.
 
-## `Counter` — contar ocurrencias
+## `Counter` — counting occurrences
 
 ```python
 from collections import Counter
 
-palabras = ["a", "b", "a", "c", "a", "b"]
-conteo = Counter(palabras)
-conteo               # Counter({'a': 3, 'b': 2, 'c': 1})
-conteo.most_common(2)  # [('a', 3), ('b', 2)] — los 2 más frecuentes
+words = ["a", "b", "a", "c", "a", "b"]
+count = Counter(words)
+count               # Counter({'a': 3, 'b': 2, 'c': 1})
+count.most_common(2)  # [('a', 3), ('b', 2)] — the 2 most frequent
 
-# ❌ a mano: más código, mismo resultado
-conteo_manual = {}
-for p in palabras:
-    conteo_manual[p] = conteo_manual.get(p, 0) + 1
+# ❌ by hand: more code, same result
+manual_count = {}
+for w in words:
+    manual_count[w] = manual_count.get(w, 0) + 1
 ```
 
-## `defaultdict` — evita el `KeyError` al agrupar
+## `defaultdict` — avoids `KeyError` when grouping
 
 ```python
 from collections import defaultdict
 
-grupos = defaultdict(list)   # cada key nueva arranca con una lista vacía, sin chequear antes
-for nombre, categoria in [("Ana", "A"), ("Beto", "B"), ("Caro", "A")]:
-    grupos[categoria].append(nombre)
+groups = defaultdict(list)   # every new key starts with an empty list, no checking beforehand
+for name, category in [("Ana", "A"), ("Beto", "B"), ("Caro", "A")]:
+    groups[category].append(name)
 
-grupos   # {'A': ['Ana', 'Caro'], 'B': ['Beto']}
+groups   # {'A': ['Ana', 'Caro'], 'B': ['Beto']}
 
-# ❌ con dict normal, hay que chequear/crear la lista a mano cada vez
-grupos_manual = {}
-for nombre, categoria in [("Ana", "A"), ("Beto", "B")]:
-    if categoria not in grupos_manual:
-        grupos_manual[categoria] = []
-    grupos_manual[categoria].append(nombre)
+# ❌ with a normal dict, you have to check/create the list by hand every time
+manual_groups = {}
+for name, category in [("Ana", "A"), ("Beto", "B")]:
+    if category not in manual_groups:
+        manual_groups[category] = []
+    manual_groups[category].append(name)
 ```
 
-## `namedtuple` — tupla con nombres de campo
+## `namedtuple` — a tuple with named fields
 
 ```python
 from collections import namedtuple
 
-Punto = namedtuple("Punto", ["x", "y"])
-p = Punto(1, 2)
-p.x, p.y        # 1, 2 — acceso por nombre, no solo por índice
-p[0], p[1]      # 1, 2 — sigue siendo una tupla, también funciona por índice
+Point = namedtuple("Point", ["x", "y"])
+p = Point(1, 2)
+p.x, p.y        # 1, 2 — access by name, not just by index
+p[0], p[1]      # 1, 2 — still a tuple, index access also works
 ```
 
-Más liviano que una clase completa cuando solo hace falta agrupar datos inmutables con nombre — sin escribir `__init__` a mano. Para casos más ricos (métodos, valores default, comparación por tipo) conviene `@dataclass` en su lugar.
+Lighter than a full class when you just need to group immutable named data — without writing `__init__` by hand. For richer cases (methods, default values, type-based comparison), `@dataclass` is the better choice.
 
-## `deque` — cola de doble punta
+## `deque` — double-ended queue
 
 ```python
 from collections import deque
 
-d = deque(maxlen=3)          # tamaño fijo: al llenarse, descarta automáticamente el más viejo
+d = deque(maxlen=3)          # fixed size: once full, automatically discards the oldest
 d.append(1); d.append(2); d.append(3)
-d.append(4)                    # descarta el 1 solo — útil para "últimos N eventos"
+d.append(4)                    # discards just the 1 — useful for "last N events"
 d                                # deque([2, 3, 4], maxlen=3)
 
-d.appendleft(0)                # O(1) insertar al principio — una list normal es O(n) acá
+d.appendleft(0)                # O(1) insert at the beginning — a normal list is O(n) here
 ```
 
-Preferir `deque` sobre `list` cuando se inserta/saca seguido de **ambos** extremos — `list.insert(0, x)` y `list.pop(0)` son O(n) (mueven todos los elementos), `deque.appendleft()`/`popleft()` son O(1).
+Prefer `deque` over `list` when you insert/remove often from **both** ends — `list.insert(0, x)` and `list.pop(0)` are O(n) (they move every element), `deque.appendleft()`/`popleft()` are O(1).
 
-## `ChainMap` — encadenar varios dicts sin mergearlos
+## `ChainMap` — chaining several dicts without merging them
 
 ```python
 from collections import ChainMap
 
-defaults = {"tema": "claro", "idioma": "es"}
-config_proyecto = {"idioma": "en"}
-config_usuario = {"tema": "oscuro"}
+defaults = {"theme": "light", "language": "en"}
+project_config = {"language": "es"}
+user_config = {"theme": "dark"}
 
-config = ChainMap(config_usuario, config_proyecto, defaults)
-config["tema"]      # "oscuro" — busca en orden: usuario → proyecto → defaults
-config["idioma"]    # "en" — no está en config_usuario, lo encuentra en config_proyecto
+config = ChainMap(user_config, project_config, defaults)
+config["theme"]      # "dark" — searches in order: user → project → defaults
+config["language"]    # "es" — not in user_config, finds it in project_config
 ```
 
-Busca en orden de prioridad sin copiar ni mergear los dicts físicamente — útil para capas de configuración (usuario > proyecto > defaults), donde cada nivel puede sobreescribir al anterior sin duplicar datos.
+Searches in priority order without physically copying or merging the dicts — useful for config layers (user > project > defaults), where each level can override the previous one without duplicating data.
 
-## `OrderedDict` — hoy, ya no exclusivo
+## `OrderedDict` — no longer exclusive today
 
-Desde Python 3.7 los `dict` normales ya mantienen el orden de inserción — `OrderedDict` perdió la mayor parte de su razón de ser. Lo que le queda de exclusivo:
+Since Python 3.7 normal `dict`s already keep insertion order — `OrderedDict` lost most of its reason to exist. What it still has exclusively:
 
 ```python
 from collections import OrderedDict
 
 od = OrderedDict(a=1, b=2, c=3)
-od.move_to_end("a")      # mueve "a" al final — un dict normal no tiene este método
+od.move_to_end("a")      # moves "a" to the end — a normal dict has no such method
 list(od)                   # ['b', 'c', 'a']
 
-OrderedDict(a=1, b=2) == OrderedDict(b=2, a=1)   # False — compara también el orden
-{"a": 1, "b": 2} == {"b": 2, "a": 1}               # True — un dict normal ignora el orden al comparar
+OrderedDict(a=1, b=2) == OrderedDict(b=2, a=1)   # False — also compares order
+{"a": 1, "b": 2} == {"b": 2, "a": 1}               # True — a normal dict ignores order when comparing
 ```
 
 ---
-Relacionado: [Sintaxis general](sintaxis.md), [OOP](oop.md) (`dataclass` vs `namedtuple`).
+Related: [General Syntax](syntax.md), [OOP](oop.md) (`dataclass` vs `namedtuple`).

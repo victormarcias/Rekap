@@ -18,4 +18,4 @@ Decisiones concretas de arquitectura de un sistema backend: qué pieza usar y po
 - [x] [REST](rest.es.md)
 - [x] [Webhooks](webhooks.es.md)
 
-Ver también: implementaciones concretas por framework en `stacks/<lenguaje>/<framework>/` — [FastAPI](../stacks/fastapi/) (Python), [NestJS](../stacks/nestjs/) (TypeScript/Node).
+Ver también: implementaciones concretas por framework en `stacks/<lenguaje>/<framework>/` — [FastAPI](../stacks/fastapi/README.es.md) (Python), [NestJS](../stacks/nestjs/README.es.md) (TypeScript/Node).

@@ -20,4 +20,4 @@ Fase 2 del repo: agentic programming en profundidad (agentes, tool use, RAG), ML
 - [x] [Tamaño y Cuantización de Modelos](model-size-and-quantization.es.md)
 - [x] [Tipos de Agentes de IA](agent-types.es.md)
 
-Ver también: [n8n](../stacks/n8n/) (herramienta concreta, vive en `stacks/` junto a los demás lenguajes/tools).
+Ver también: [n8n](../stacks/n8n/README.es.md) (herramienta concreta, vive en `stacks/` junto a los demás lenguajes/tools).

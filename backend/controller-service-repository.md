@@ -78,7 +78,7 @@ def order_to_dto(order: Order) -> OrderDTO:
     return OrderDTO(id=order.id, total=order.total, status=order.status)
 ```
 
-You were already using this without the name: the `response_model` and the body model in [Endpoints for microservices](../stacks/fastapi/endpoints-microservicios.md#1-anatomía-de-un-endpoint-en-fastapi) are output and input DTOs respectively — a Pydantic model that separates the API's shape from the internal domain model.
+You were already using this without the name: the `response_model` and the body model in [Endpoints for microservices](../stacks/fastapi/microservice-endpoints.md#1-anatomy-of-a-fastapi-endpoint) are output and input DTOs respectively — a Pydantic model that separates the API's shape from the internal domain model.
 
 ## Why separate them
 
@@ -102,4 +102,4 @@ def test_apply_discount_rejects_non_pending_order():
 ```
 
 ---
-Related: [Clean Architecture](../system-design/clean-architecture.md) (the full theory behind this layered separation), [SOLID principles](../system-design/solid.md), [Testing — general concepts](../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) (the `FakeOrderRepository` above is a Fake, not a Mock), [Endpoints for microservices](../stacks/fastapi/endpoints-microservicios.md) (`response_model` and Pydantic as DTOs in practice).
+Related: [Clean Architecture](../system-design/clean-architecture.md) (the full theory behind this layered separation), [SOLID principles](../system-design/solid.md), [Testing — general concepts](../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) (the `FakeOrderRepository` above is a Fake, not a Mock), [Endpoints for microservices](../stacks/fastapi/microservice-endpoints.md) (`response_model` and Pydantic as DTOs in practice).

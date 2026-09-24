@@ -45,7 +45,7 @@ The error is on the client's side — the request is malformed, unauthenticated,
 
 The error is on the server's side — the client did everything right, something broke on the other end.
 
-- **500 Internal Server Error**: generic unhandled error — an exception that escaped without a specific handler (see [Exception handling](../stacks/fastapi/endpoints-microservicios.md#5-manejo-de-excepciones-con-appexception_handler)).
+- **500 Internal Server Error**: generic unhandled error — an exception that escaped without a specific handler (see [Exception handling](../stacks/fastapi/microservice-endpoints.md#5-exception-handling-with-appexception_handler)).
 - **502 Bad Gateway**: a proxy/load balancer got an invalid response from the origin server (the server behind it is down or returned garbage).
 - **503 Service Unavailable**: the server is temporarily unavailable (overloaded, under maintenance) — usually with `Retry-After`.
 - **504 Gateway Timeout**: a proxy/load balancer waited too long for the origin server's response and gave up.
@@ -53,4 +53,4 @@ The error is on the server's side — the client did everything right, something
 **502 vs 503 vs 504**: all three are usually returned by the load balancer, not the app — `502` is "the backend answered something I don't understand or didn't answer anything valid," `503` is "the backend isn't accepting connections right now," `504` is "the backend never answered in time." Distinguishing them helps you know where to look: `504` points to slowness (see [Backend Diagnostics](../diagnostics/backend.md)), `502`/`503` point to the process being down or never having started.
 
 ---
-Related: [Authentication vs Authorization](../backend/authentication.md#7-authentication-vs-authorization), [Idempotency](quality-attributes.md#idempotency), [Endpoints for microservices](../stacks/fastapi/endpoints-microservicios.md).
+Related: [Authentication vs Authorization](../backend/authentication.md#7-authentication-vs-authorization), [Idempotency](quality-attributes.md#idempotency), [Endpoints for microservices](../stacks/fastapi/microservice-endpoints.md).

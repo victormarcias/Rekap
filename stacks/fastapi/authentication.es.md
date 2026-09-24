@@ -78,7 +78,7 @@ settings = Settings()  # lee de variables de entorno / .env — nunca hardcodead
 
 ## 5. Proteger rutas con `OAuth2PasswordBearer` + `Depends`
 
-`OAuth2PasswordBearer` extrae automáticamente el header `Authorization: Bearer <token>`, y hace que el botón "Authorize" aparezca solo en la documentación de `/docs` (ver [Documentación automática](endpoints-microservicios.md)) — cualquier ruta que dependa de `get_current_user` queda protegida sin repetir la lógica de validación en cada endpoint.
+`OAuth2PasswordBearer` extrae automáticamente el header `Authorization: Bearer <token>`, y hace que el botón "Authorize" aparezca solo en la documentación de `/docs` (ver [Documentación automática](microservice-endpoints.es.md)) — cualquier ruta que dependa de `get_current_user` queda protegida sin repetir la lógica de validación en cada endpoint.
 
 ```python
 from fastapi.security import OAuth2PasswordBearer
@@ -115,4 +115,4 @@ logger.info(f"Login attempt for user_id={user.id if user else 'unknown'}")
 ```
 
 ---
-Relacionado: [Autenticación y Seguridad — conceptos generales](../../backend/authentication.es.md), [Endpoints para microservicios](endpoints-microservicios.md) (`Depends`, exception handlers), [Sync vs Async en FastAPI](sync-vs-async.md).
+Relacionado: [Autenticación y Seguridad — conceptos generales](../../backend/authentication.es.md), [Endpoints para microservicios](microservice-endpoints.es.md) (`Depends`, exception handlers), [Sync vs Async en FastAPI](sync-vs-async.es.md).

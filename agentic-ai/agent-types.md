@@ -54,7 +54,7 @@ Improve with experience — combine a performance element (that acts) with a lea
 
 ### LLM-Based Agents
 
-The **LLM is the reasoning engine** — understands complex natural language, generates sophisticated plans, and does advanced contextual reasoning with no hardcoded rules for every situation. It's the type of agent already covered in detail in [Agents vs Workflows](agents-vs-workflows.md) (the ReAct loop) and [n8n](../stacks/n8n/n8n-y-agentic.md) (the AI Agent node).
+The **LLM is the reasoning engine** — understands complex natural language, generates sophisticated plans, and does advanced contextual reasoning with no hardcoded rules for every situation. It's the type of agent already covered in detail in [Agents vs Workflows](agents-vs-workflows.md) (the ReAct loop) and [n8n](../stacks/n8n/n8n-and-agentic-ai.md) (the AI Agent node).
 
 *Example*: an agent that orchestrates a complete workflow by interpreting complex natural-language instructions.
 

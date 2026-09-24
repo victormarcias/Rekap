@@ -61,8 +61,8 @@ while not task_done:
 
 In practice, many real systems combine the two, **in both directions**:
 
-- **A workflow with an agent inside**: the overall structure is a workflow (predictable steps, guardrails, validations), which delegates to an agent at a specific step when that step needs open-ended reasoning. This is literally what n8n's [AI Agent node](../stacks/n8n/n8n-y-agentic.md#el-nodo-ai-agent) enables: the workflow stays the fixed structure of connected nodes, but one of those nodes internally runs an agentic loop.
+- **A workflow with an agent inside**: the overall structure is a workflow (predictable steps, guardrails, validations), which delegates to an agent at a specific step when that step needs open-ended reasoning. This is literally what n8n's [AI Agent node](../stacks/n8n/n8n-and-agentic-ai.md#the-ai-agent-node) enables: the workflow stays the fixed structure of connected nodes, but one of those nodes internally runs an agentic loop.
 - **An agent with a workflow inside**: the agent decides to call a tool, but that tool isn't an atomic action — internally it runs a fixed multi-step pipeline (e.g. "process order" = validate → charge → send email → update stock). The agent doesn't know or care that there's a deterministic workflow in there; from its perspective it's "one tool call, one result." It's the most common pattern in production systems: you don't give the agent fine-grained control over every low-level step (that would be more expensive and less reliable), you give it a high-level tool that already encapsulates a proven workflow, and the agent orchestrates at a higher level.
 
 ---
-Related: [From Classical ML to Agentic AI](from-ml-to-agentic-ai.md), [Function Calling](function-calling.md), [n8n](../stacks/n8n/n8n-y-agentic.md).
+Related: [From Classical ML to Agentic AI](from-ml-to-agentic-ai.md), [Function Calling](function-calling.md), [n8n](../stacks/n8n/n8n-and-agentic-ai.md).

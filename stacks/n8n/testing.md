@@ -1,48 +1,48 @@
-# n8n — Cómo se testea
+# n8n — How it's tested
 
-n8n no tiene un framework de tests tipo [pytest](../../system-design/testing.es.md) ni impone una arquitectura de código sobre la que escribir unit tests. La **unidad testeable es el workflow completo**, no una función aislada — y lo que hay para probarlo es manual/integración, apoyado en herramientas que trae la propia UI, no un test runner separado.
+n8n doesn't have a test framework like [pytest](../../system-design/testing.md) or impose a code architecture to write unit tests against. The **testable unit is the entire workflow**, not an isolated function — and what's available to test it is manual/integration, backed by tools the UI itself provides, not a separate test runner.
 
-## Ejecución manual — paso a paso o completa
+## Manual execution — step by step or full run
 
-Desde el editor se puede correr el workflow entero (**Execute Workflow**) o un solo nodo (**Execute Step**), viendo el JSON de entrada y salida de cada nodo en el momento. Es el equivalente más cercano a "correr el código y mirar qué devuelve" — pero manual, no algo que se automatice y corra solo en cada cambio.
+From the editor you can run the entire workflow (**Execute Workflow**) or a single node (**Execute Step**), seeing each node's input and output JSON right there. It's the closest equivalent to "run the code and see what it returns" — but manual, not something automated that runs on its own with every change.
 
-## Pinned data — fijar el output de un nodo
+## Pinned data — locking a node's output
 
-Se puede "pinnear" el resultado de un nodo (ej. la respuesta de una API externa) para que las próximas ejecuciones usen ese dato guardado en vez de volver a llamar al servicio real.
+You can "pin" a node's result (e.g. an external API's response) so the next runs use that saved data instead of calling the real service again.
 
 ```
-Nodo "HTTP Request" (llama a una API externa)
-  → primera ejecución: llama de verdad, trae la respuesta real
-  → pineás esa respuesta
-  → ejecuciones siguientes: usan el dato pinneado, no vuelven a pegarle a la API
+"HTTP Request" node (calls an external API)
+  → first run: calls for real, brings back the real response
+  → you pin that response
+  → subsequent runs: use the pinned data, don't hit the API again
 
-Sirve para iterar rápido en los nodos SIGUIENTES sin gastar cuota,
-esperar latencia real, ni depender de que el servicio externo esté arriba
+Useful for iterating quickly on the FOLLOWING nodes without spending quota,
+waiting on real latency, or depending on the external service being up
 ```
 
-Es conceptualmente parecido a un [mock](../../system-design/testing.es.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) — reemplazar una dependencia externa por un valor fijo, conocido, para poder probar el resto de la lógica de forma aislada y repetible.
+It's conceptually similar to a [mock](../../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) — replacing an external dependency with a fixed, known value, to be able to test the rest of the logic in isolation and repeatably.
 
-## Execution history — el log de qué pasó
+## Execution history — the log of what happened
 
-Cada ejecución (manual o disparada por un trigger real) queda guardada con el input/output de cada nodo, y si falló, en qué nodo exactamente y con qué error. Es la herramienta principal para debuggear después de que algo salió mal en producción — no previene el error, pero da visibilidad completa de la causa.
+Every run (manual or triggered by a real trigger) gets saved with each node's input/output, and if it failed, exactly which node and with what error. It's the main tool for debugging after something went wrong in production — it doesn't prevent the error, but it gives full visibility into the cause.
 
-## Error workflow — la forma más cercana a manejo automático de fallos
+## Error workflow — the closest thing to automatic failure handling
 
-Se puede configurar un workflow separado que se dispara automáticamente cuando otro workflow falla — típicamente para alertar (Slack, email) o loggear el fallo en algún lado. No es un test, es manejo de errores en producción, pero es lo más parecido a una red de seguridad automatizada que ofrece n8n de fábrica.
+You can configure a separate workflow that fires automatically when another workflow fails — typically to alert (Slack, email) or log the failure somewhere. It's not a test, it's production error handling, but it's the closest thing to an automated safety net n8n offers out of the box.
 
-## Si hace falta algo más cercano a CI real
+## If something closer to real CI is needed
 
-n8n no lo da de fábrica, pero se puede armar: exportar el workflow a JSON, y correrlo desde la **n8n CLI** contra datos de prueba dentro de un pipeline de CI, comparando el output contra lo esperado a mano.
+n8n doesn't provide this out of the box, but it can be built: export the workflow to JSON, and run it from the **n8n CLI** against test data within a CI pipeline, comparing the output against what's expected by hand.
 
 ```bash
-n8n execute --id <workflow_id>   # corre un workflow desde la terminal, sin la UI
+n8n execute --id <workflow_id>   # runs a workflow from the terminal, without the UI
 ```
 
-Es un approach casero (arma el equipo, no viene integrado) — para casos donde el workflow es lo bastante crítico como para justificar ese esfuerzo extra.
+It's a homegrown approach (the team builds it, it doesn't come integrated) — for cases where the workflow is critical enough to justify that extra effort.
 
-## Por qué importa
+## Why it matters
 
-Esto es, en concreto, lo que está detrás del trade-off que ya mencionamos en [n8n y Agentic AI](n8n-y-agentic.md#trade-off-frente-a-escribir-el-agente-en-código): "testing automatizado real" no es algo que n8n ofrezca nativamente — lo que hay es un conjunto de herramientas manuales/de inspección, útiles para desarrollar e iterar, pero lejos del [test pyramid](../../system-design/testing.es.md#1-test-pyramid) (unit → integration → e2e) que se arma con código.
+This is, concretely, what's behind the trade-off already mentioned in [n8n and Agentic AI](n8n-and-agentic-ai.md#trade-off-against-writing-the-agent-in-code): "real automated testing" isn't something n8n offers natively — what exists is a set of manual/inspection tools, useful for developing and iterating, but far from the [test pyramid](../../system-design/testing.md#1-test-pyramid) (unit → integration → e2e) built with code.
 
 ---
-Relacionado: [Fundamentos de n8n](basico.md), [n8n y Agentic AI](n8n-y-agentic.md), [Testing — conceptos generales](../../system-design/testing.es.md).
+Related: [n8n Basics](basics.md), [n8n and Agentic AI](n8n-and-agentic-ai.md), [Testing — General Concepts](../../system-design/testing.md).
