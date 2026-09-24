@@ -34,7 +34,7 @@ El error es del lado del cliente — el request está mal formado, no autenticad
 
 - **400 Bad Request**: el request está malformado o no pasa la validación (falta un campo requerido, un tipo inválido).
 - **401 Unauthorized**: no está autenticado — falta el token, o es inválido/expiró.
-- **403 Forbidden**: está autenticado, pero no tiene permiso para esta acción. Ver la distinción completa en [Autenticación vs Autorización](../backend/autenticacion.md#7-autenticación-vs-autorización) — es el error más confundido de toda la lista.
+- **403 Forbidden**: está autenticado, pero no tiene permiso para esta acción. Ver la distinción completa en [Autenticación vs Autorización](../backend/authentication.es.md#7-autenticación-vs-autorización) — es el error más confundido de toda la lista.
 - **404 Not Found**: el recurso no existe. También se usa a veces **a propósito** en vez de `403`, para no filtrarle a un atacante que un recurso existe pero no tiene permiso — depende de cuánta información querés exponer.
 - **405 Method Not Allowed**: el recurso existe, pero no soporta ese verbo HTTP (ej. `DELETE /orders` cuando esa ruta solo acepta `GET`/`POST`).
 - **409 Conflict**: el request es válido, pero choca con el estado actual del recurso — el caso típico es un update basado en una versión vieja (ver [Optimistic locking](../database/locks.md#pessimistic-vs-optimistic-locking)).
@@ -53,4 +53,4 @@ El error es del lado del servidor — el cliente hizo todo bien, algo se rompió
 **502 vs 503 vs 504**: los tres los suele devolver el load balancer, no la app — `502` es "el backend contestó algo que no entiendo o no contestó nada válido", `503` es "el backend no está aceptando conexiones ahora mismo", `504` es "el backend nunca contestó a tiempo". Distinguirlos ayuda a saber dónde mirar: `504` apunta a lentitud (ver [Diagnóstico Backend](../diagnostics/backend.es.md)), `502`/`503` apuntan a que el proceso está caído o no arrancó.
 
 ---
-Relacionado: [Autenticación vs Autorización](../backend/autenticacion.md#7-autenticación-vs-autorización), [Idempotencia](atributos-de-calidad.md#idempotencia), [Endpoints para microservicios](../stacks/fastapi/endpoints-microservicios.md).
+Relacionado: [Autenticación vs Autorización](../backend/authentication.es.md#7-autenticación-vs-autorización), [Idempotencia](atributos-de-calidad.md#idempotencia), [Endpoints para microservicios](../stacks/fastapi/endpoints-microservicios.md).

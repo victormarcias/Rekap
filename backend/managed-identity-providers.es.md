@@ -1,6 +1,6 @@
 # Proveedores de Identidad Gestionados (Cognito, Auth0, Firebase Auth)
 
-En vez de construir el flujo de auth propio (registro, login, hashing, JWT — ver [Autenticación y Seguridad](autenticacion.md)), delegarlo a un servicio externo especializado que ya lo resolvió, testeó y hardeneó.
+En vez de construir el flujo de auth propio (registro, login, hashing, JWT — ver [Autenticación y Seguridad](authentication.es.md)), delegarlo a un servicio externo especializado que ya lo resolvió, testeó y hardeneó.
 
 ## Qué resuelven
 
@@ -32,7 +32,7 @@ def get_current_user(token: str):
 
 ## Los conceptos siguen aplicando
 
-Usar un proveedor gestionado no vuelve irrelevante lo de [Autenticación y Seguridad](autenticacion.md) — el backend igual necesita entender qué es un JWT, cómo se valida una firma, y la diferencia entre [Autenticación vs Autorización](autenticacion.md#7-autenticación-vs-autorización) (el proveedor resuelve la autenticación — quién sos —, pero los permisos específicos de tu dominio — qué podés hacer — siguen siendo responsabilidad de tu backend).
+Usar un proveedor gestionado no vuelve irrelevante lo de [Autenticación y Seguridad](authentication.es.md) — el backend igual necesita entender qué es un JWT, cómo se valida una firma, y la diferencia entre [Autenticación vs Autorización](authentication.es.md#7-autenticación-vs-autorización) (el proveedor resuelve la autenticación — quién sos —, pero los permisos específicos de tu dominio — qué podés hacer — siguen siendo responsabilidad de tu backend).
 
 ---
-Relacionado: [Autenticación y Seguridad](autenticacion.md), [API Gateway](api-gateway.md) (la autenticación suele validarse ahí, centralizada).
+Relacionado: [Autenticación y Seguridad](authentication.es.md), [API Gateway](api-gateway.es.md) (la autenticación suele validarse ahí, centralizada).

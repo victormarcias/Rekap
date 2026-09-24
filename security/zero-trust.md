@@ -41,4 +41,4 @@ La misma idea aplicada a comunicación servicio-a-servicio: con **mTLS** (mutual
 Arquitecturas de microservicios, entornos multi-tenant, equipos remotos donde ya no existe un único perímetro de oficina que proteger. Es la base conceptual detrás de productos como BeyondCorp (Google) o de que un service mesh haga mTLS por default entre servicios — la idea de que la ubicación en la red dejó de ser una señal de confianza válida.
 
 ---
-Relacionado: [Autenticación y Seguridad](../backend/autenticacion.md), [SQL Injection](sql-injection.md#cómo-se-previene), [Riesgos y Mitigaciones en Agentes de IA](../agentic-ai/riesgos-y-mitigaciones.md#mitigaciones-técnicas).
+Relacionado: [Autenticación y Seguridad](../backend/authentication.es.md), [SQL Injection](sql-injection.md#cómo-se-previene), [Riesgos y Mitigaciones en Agentes de IA](../agentic-ai/riesgos-y-mitigaciones.md#mitigaciones-técnicas).

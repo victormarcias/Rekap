@@ -34,7 +34,7 @@ React escapa automáticamente cualquier valor que renderices como texto — pero
 
 - **Escapar por default**: cualquier dato que venga de un usuario (o de una fuente externa) se trata como texto, nunca como HTML, salvo que se sanitice explícitamente con una librería para eso.
 - **Content-Security-Policy**: restringe de qué orígenes puede cargar/ejecutar scripts la página — mitiga el impacto aunque el escape falle en algún lugar puntual (ver [Security Headers](security-headers.md#content-security-policy-csp)).
-- **`HttpOnly` en cookies sensibles**: no evita el XSS en sí, pero limita el daño — el script inyectado no puede leer una cookie que el navegador no expone a JavaScript (ver [Autenticación](../backend/autenticacion.md#8-dónde-guardar-el-token-en-el-cliente)).
+- **`HttpOnly` en cookies sensibles**: no evita el XSS en sí, pero limita el daño — el script inyectado no puede leer una cookie que el navegador no expone a JavaScript (ver [Autenticación](../backend/authentication.es.md#8-dónde-guardar-el-token-en-el-cliente)).
 
 ---
-Relacionado: [CSRF](csrf.md), [Security Headers](security-headers.md), [Autenticación y Seguridad](../backend/autenticacion.md), [Almacenamiento en el cliente](../frontend-react/almacenamiento-cliente.md).
+Relacionado: [CSRF](csrf.md), [Security Headers](security-headers.md), [Autenticación y Seguridad](../backend/authentication.es.md), [Almacenamiento en el cliente](../frontend-react/almacenamiento-cliente.md).

@@ -18,7 +18,7 @@ Recolectar solo el dato que **realmente se necesita**, no todo lo que "podría s
 
 ### Data Encryption
 
-Dato sensible cifrado tanto **en tránsito** (HTTPS/TLS — ver [TLS handshake](../system-design/que-pasa-cuando-escribis-una-url.md#4-tls-handshake-si-es-https)) como **en reposo** (campos sensibles cifrados en la base de datos, no solo la conexión). Encriptar no es lo mismo que hashear — una contraseña se hashea (no se puede revertir), un dato que sí necesitás recuperar después (ej. un número de tarjeta) se encripta (ver [Hashing vs Encriptado vs Encoding](../backend/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)).
+Dato sensible cifrado tanto **en tránsito** (HTTPS/TLS — ver [TLS handshake](../system-design/que-pasa-cuando-escribis-una-url.md#4-tls-handshake-si-es-https)) como **en reposo** (campos sensibles cifrados en la base de datos, no solo la conexión). Encriptar no es lo mismo que hashear — una contraseña se hashea (no se puede revertir), un dato que sí necesitás recuperar después (ej. un número de tarjeta) se encripta (ver [Hashing vs Encriptado vs Encoding](../backend/authentication.es.md#1-hashing-vs-encriptado-vs-encoding)).
 
 ### Correct Settings (configuración segura por default)
 

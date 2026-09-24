@@ -5,15 +5,15 @@ Mapa rápido de los servicios más nombrados de AWS y para qué sirve cada uno �
 | Servicio | Categoría | Caso de uso típico |
 |---|---|---|
 | **EC2** (Elastic Compute Cloud) | Cómputo | Máquina virtual de propósito general — el servidor "de toda la vida", administrado a mano (SO, parches, escalado). |
-| **API Gateway** | Networking / API | Punto de entrada administrado para exponer APIs (REST/WebSocket) hacia Lambda, EC2 u otros backends — ver [API Gateway](../../backend/api-gateway.md) para el patrón genérico. |
+| **API Gateway** | Networking / API | Punto de entrada administrado para exponer APIs (REST/WebSocket) hacia Lambda, EC2 u otros backends — ver [API Gateway](../../backend/api-gateway.es.md) para el patrón genérico. |
 | **Lambda** | Cómputo serverless | Ejecutar código sin gestionar servidores, factura por invocación — el FaaS de AWS, ver [El espectro IaaS → PaaS → Serverless](../../devops/vps-vs-cloud-run.es.md#el-espectro-completo-iaas--paas--serverless). |
 | **S3** (Simple Storage Service) | Almacenamiento | Objetos (archivos, backups, hosting estático) — durabilidad muy alta, no pensado para queries relacionales. |
 | **DynamoDB** | Base de datos NoSQL | Key-Value/documento gestionado, escala horizontal automática — ver [NoSQL](../../database/nosql.md). |
 | **RDS** (Relational Database Service) | Base de datos SQL | Relacional administrada (Postgres, MySQL, etc.) — AWS se encarga de backups, patching, failover. |
 | **CloudWatch** | Observabilidad | Logs, métricas y alarmas de todo lo que corre en la cuenta — el punto central de monitoreo. |
-| **Cognito** | Identidad | Autenticación/autorización de usuarios gestionada (user pools, login social) — ver [Proveedores de Identidad Gestionados](../../backend/proveedores-de-identidad-gestionados.md). |
+| **Cognito** | Identidad | Autenticación/autorización de usuarios gestionada (user pools, login social) — ver [Proveedores de Identidad Gestionados](../../backend/managed-identity-providers.es.md). |
 | **SNS** (Simple Notification Service) | Mensajería pub/sub | Fan-out: un mensaje, muchos suscriptores (email, SMS, colas, Lambda). |
-| **SQS** (Simple Queue Service) | Mensajería (cola) | Desacoplar productor de consumidor con una cola — ver [Colas de mensajes](../../backend/colas-de-mensajes.md#sqs-amazon-simple-queue-service). |
+| **SQS** (Simple Queue Service) | Mensajería (cola) | Desacoplar productor de consumidor con una cola — ver [Colas de mensajes](../../backend/message-queues.es.md#sqs-amazon-simple-queue-service). |
 | **ECS / EKS** | Orquestación de contenedores | ECS = orquestador propio de AWS; EKS = Kubernetes gestionado — ver [Kubernetes](../../devops/kubernetes.es.md). |
 | **IAM** (Identity and Access Management) | Seguridad / Identidad | Quién (usuario, rol, servicio) puede hacer qué sobre qué recurso — la base de permisos de toda la cuenta. |
 
@@ -33,4 +33,4 @@ Conceptos que se piden con menos frecuencia que la tabla de arriba, pero vale la
 | **DNS** | Networking | Traduce nombres de dominio a IPs — ya desarrollado en [Resolución DNS](../../system-design/que-pasa-cuando-escribis-una-url.md#2-resolución-dns--de-dominio-a-ip). |
 
 ---
-Relacionado: [Comparación de Proveedores](../provider-comparison.es.md), [Backend](../../backend/), [Database](../../database/), [DevOps](../../devops/).
+Relacionado: [Comparación de Proveedores](../provider-comparison.es.md), [Backend](../../backend/README.es.md), [Database](../../database/), [DevOps](../../devops/).

@@ -11,9 +11,9 @@ Quick map of AWS's most commonly referenced services and what each one is for �
 | **DynamoDB** | NoSQL database | Managed Key-Value/document store, automatic horizontal scaling — see [NoSQL](../../database/nosql.md). |
 | **RDS** (Relational Database Service) | SQL database | Managed relational database (Postgres, MySQL, etc.) — AWS handles backups, patching, failover. |
 | **CloudWatch** | Observability | Logs, metrics, and alarms for everything running in the account — the central monitoring point. |
-| **Cognito** | Identity | Managed user authentication/authorization (user pools, social login) — see [Managed Identity Providers](../../backend/proveedores-de-identidad-gestionados.md). |
+| **Cognito** | Identity | Managed user authentication/authorization (user pools, social login) — see [Managed Identity Providers](../../backend/managed-identity-providers.md). |
 | **SNS** (Simple Notification Service) | Pub/sub messaging | Fan-out: one message, many subscribers (email, SMS, queues, Lambda). |
-| **SQS** (Simple Queue Service) | Messaging (queue) | Decouples producer from consumer with a queue — see [Message Queues](../../backend/colas-de-mensajes.md#sqs-amazon-simple-queue-service). |
+| **SQS** (Simple Queue Service) | Messaging (queue) | Decouples producer from consumer with a queue — see [Message Queues](../../backend/message-queues.md#sqs-amazon-simple-queue-service). |
 | **ECS / EKS** | Container orchestration | ECS = AWS's own orchestrator; EKS = managed Kubernetes — see [Kubernetes](../../devops/kubernetes.md). |
 | **IAM** (Identity and Access Management) | Security / Identity | Who (user, role, service) can do what on which resource — the permission base for the whole account. |
 

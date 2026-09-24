@@ -2,7 +2,7 @@
 
 ## GIL (Global Interpreter Lock)
 
-Un lock interno del intérprete de CPython (la implementación estándar de Python) que garantiza que **solo un hilo ejecuta bytecode de Python a la vez**, incluso en una máquina con muchos cores. Es la razón por la que el módulo `threading` de Python no acelera trabajo CPU-bound — ver [Escalabilidad de CPU](../../backend/escalabilidad-cpu.md).
+Un lock interno del intérprete de CPython (la implementación estándar de Python) que garantiza que **solo un hilo ejecuta bytecode de Python a la vez**, incluso en una máquina con muchos cores. Es la razón por la que el módulo `threading` de Python no acelera trabajo CPU-bound — ver [Escalabilidad de CPU](../../backend/scaling-cpu.es.md).
 
 ```python
 # ❌ 4 threads, pero el GIL impide que corran bytecode Python en paralelo real —
@@ -29,4 +29,4 @@ a.append(b)     # referencia circular: a → b → a
 ```
 
 ---
-Relacionado: [Escalabilidad de CPU](../../backend/escalabilidad-cpu.md), [Escalabilidad de Procesos](../../devops/scaling-processes.es.md), [Diagnóstico Backend](../../diagnostics/backend.es.md#memoria) (memory leaks).
+Relacionado: [Escalabilidad de CPU](../../backend/scaling-cpu.es.md), [Escalabilidad de Procesos](../../devops/scaling-processes.es.md), [Diagnóstico Backend](../../diagnostics/backend.es.md#memoria) (memory leaks).

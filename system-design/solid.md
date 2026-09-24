@@ -209,4 +209,4 @@ class OrderService {
 | I | Interface Segregation | Interfaces chicas y específicas, no una gorda |
 | D | Dependency Inversion | Depender de abstracciones, no de implementaciones concretas |
 
-Relacionado: [Clean Architecture](clean-architecture.md) (DIP aplicado sistemáticamente a toda la app), [Controller / Service / Repository](../backend/controller-service-repository.md) (DIP es la base de esa separación), [Patrón Adapter](patrones-estructurales.md#adapter).
+Relacionado: [Clean Architecture](clean-architecture.md) (DIP aplicado sistemáticamente a toda la app), [Controller / Service / Repository](../backend/controller-service-repository.es.md) (DIP es la base de esa separación), [Patrón Adapter](patrones-estructurales.md#adapter).

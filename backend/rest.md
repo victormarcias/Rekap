@@ -1,17 +1,17 @@
 # REST
 
-Estilo arquitectónico para diseñar APIs — no es lo mismo que "usar HTTP methods" (eso es solo una de sus seis restricciones).
+An architectural style for designing APIs — not the same thing as "using HTTP methods" (that's just one of its six constraints).
 
-## Las 6 restricciones
+## The 6 constraints
 
-1. **Cliente-servidor**: separación de responsabilidades — el cliente no sabe cómo está implementado el servidor (lenguaje, DB), el servidor no sabe cómo se renderiza la UI. Cada lado evoluciona independiente.
-2. **Stateless**: cada request trae toda la información necesaria para procesarlo — el servidor no guarda contexto de requests anteriores del mismo cliente entre llamadas. Ver [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad) (sesión compartida vs sesión en memoria — statelessness es lo que lo habilita).
-3. **Cacheable**: las respuestas indican explícitamente si son cacheables (`Cache-Control`), para que el cliente o intermediarios las reusen sin volver a pedirlas. Ver [CDN](../devops/cdn.es.md).
-4. **Interfaz uniforme**: recursos identificados por URLs, manipulados con verbos HTTP estándar (ver [HTTP Methods](http-methods.md)) y representaciones auto-descriptivas (JSON con Content-Type) — más HATEOAS, ver abajo.
-5. **Sistema en capas**: el cliente no puede (ni necesita) saber si habla directo con el servidor de origen o con un proxy/gateway/load balancer en el medio. Ver [API Gateway](api-gateway.md), [Load balancers](load-balancers.md).
-6. **Code-on-demand** (opcional): el servidor puede extender la funcionalidad del cliente mandando código ejecutable — la única restricción no obligatoria de las seis.
+1. **Client-server**: separation of concerns — the client doesn't know how the server is implemented (language, DB), the server doesn't know how the UI is rendered. Each side evolves independently.
+2. **Stateless**: every request carries all the information needed to process it — the server doesn't store context from the same client's previous requests between calls. See [Scalability](../system-design/atributos-de-calidad.md#escalabilidad) (shared session vs in-memory session — statelessness is what enables it).
+3. **Cacheable**: responses explicitly indicate whether they're cacheable (`Cache-Control`), so the client or intermediaries can reuse them without re-requesting. See [CDN](../devops/cdn.md).
+4. **Uniform interface**: resources identified by URLs, manipulated with standard HTTP verbs (see [HTTP Methods](http-methods.md)) and self-descriptive representations (JSON with Content-Type) — plus HATEOAS, see below.
+5. **Layered system**: the client can't (and doesn't need to) know whether it's talking directly to the origin server or to a proxy/gateway/load balancer in between. See [API Gateway](api-gateway.md), [Load balancers](load-balancers.md).
+6. **Code-on-demand** (optional): the server can extend the client's functionality by sending executable code — the only non-mandatory constraint of the six.
 
-## Convenciones de recursos (parte de la interfaz uniforme)
+## Resource conventions (part of the uniform interface)
 
 ```
 ❌ POST /createOrder
@@ -21,11 +21,11 @@ Estilo arquitectónico para diseñar APIs — no es lo mismo que "usar HTTP meth
 ✅ GET /orders/1/items
 ```
 
-Sustantivos plurales en vez de verbos en la URL (el verbo ya lo dice el método HTTP), y anidamiento para expresar relaciones entre recursos.
+Plural nouns instead of verbs in the URL (the HTTP method already says the verb), and nesting to express relationships between resources.
 
-## HATEOAS — la restricción que casi nadie implementa
+## HATEOAS — the constraint almost nobody implements
 
-**Hypermedia As The Engine Of Application State**: cada respuesta debería incluir links a las acciones/recursos disponibles desde ese estado, para que el cliente navegue la API dinámicamente en vez de tener URLs hardcodeadas de antemano — como un browser siguiendo links en un sitio web, en vez de tener memorizada de antemano la estructura entera.
+**Hypermedia As The Engine Of Application State**: every response should include links to the actions/resources available from that state, so the client navigates the API dynamically instead of having hardcoded URLs ahead of time — like a browser following links on a website, instead of having the entire structure memorized in advance.
 
 ```json
 {
@@ -40,11 +40,11 @@ Sustantivos plurales en vez de verbos en la URL (el verbo ya lo dice el método 
 }
 ```
 
-Sin esto, el cliente necesita conocer de antemano **todas** las URLs posibles, típicamente por documentación externa — con HATEOAS, la API es auto-descubrible.
+Without this, the client needs to know **all** possible URLs in advance, typically through external documentation — with HATEOAS, the API is self-discoverable.
 
-## "RESTful" vs REST real
+## "RESTful" vs real REST
 
-En la práctica, casi ninguna API que se autodenomina "REST" implementa HATEOAS — la mayoría cumple solo con "recursos + verbos HTTP + JSON", que es apenas la mitad de la restricción de interfaz uniforme. Vale la pena tenerlo claro: si te preguntan "¿tu API es REST?", la respuesta honesta casi siempre es "es HTTP con convenciones REST, no REST completo".
+In practice, almost no API that calls itself "REST" implements HATEOAS — most only satisfy "resources + HTTP verbs + JSON," which is barely half of the uniform interface constraint. Worth keeping in mind: if someone asks "is your API REST?", the honest answer is almost always "it's HTTP with REST conventions, not full REST."
 
 ---
-Relacionado: [HTTP Methods](http-methods.md), [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), [API Gateway](api-gateway.md), [CDN](../devops/cdn.es.md), [GraphQL](graphql.md) (la alternativa).
+Related: [HTTP Methods](http-methods.md), [Scalability](../system-design/atributos-de-calidad.md#escalabilidad), [API Gateway](api-gateway.md), [CDN](../devops/cdn.md), [GraphQL](graphql.md) (the alternative).

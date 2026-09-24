@@ -1,6 +1,6 @@
 # Colas de mensajes: SQS vs RabbitMQ vs AMQP
 
-[Arquitectura Kafka](kafka.md) ya cubre el modelo de **log distribuido**. Esto es lo mismo problema (comunicación asíncrona/desacoplada entre servicios) resuelto con **colas** — un modelo distinto, con sus propias herramientas.
+[Arquitectura Kafka](kafka.es.md) ya cubre el modelo de **log distribuido**. Esto es lo mismo problema (comunicación asíncrona/desacoplada entre servicios) resuelto con **colas** — un modelo distinto, con sus propias herramientas.
 
 ## AMQP no es un producto — es un protocolo
 
@@ -40,7 +40,7 @@ while True:
 | Replay | ❌ | ✅ |
 | Caso de uso típico | Tareas de trabajo (procesar una orden, mandar un email) — cada tarea la resuelve **un solo** worker | Streaming de eventos, cuando varios sistemas necesitan ver el mismo evento de forma independiente |
 
-Ver la comparación completa cola vs log en [Arquitectura Kafka](kafka.md#kafka-vs-cola-tradicional).
+Ver la comparación completa cola vs log en [Arquitectura Kafka](kafka.es.md#kafka-vs-cola-tradicional).
 
 ---
-Relacionado: [Arquitectura Kafka](kafka.md), [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia) (un mensaje puede reprocesarse tras un fallo de red — el consumer necesita ser idempotente).
+Relacionado: [Arquitectura Kafka](kafka.es.md), [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia) (un mensaje puede reprocesarse tras un fallo de red — el consumer necesita ser idempotente).

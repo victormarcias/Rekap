@@ -225,6 +225,6 @@ Medirlo bien importa más que cualquier técnica puntual — ver [Performance Di
 | Elasticidad | Escala sola, arriba y abajo, según demanda |
 | Mantenibilidad | Fácil de modificar sin romper todo lo demás |
 | Performance | Responde rápido y sostiene la carga |
-| Seguridad | Protege datos y accesos — ver [Autenticación y Seguridad](../backend/autenticacion.md) |
+| Seguridad | Protege datos y accesos — ver [Autenticación y Seguridad](../backend/authentication.es.md) |
 
 Estos atributos suelen tironear entre sí (el ejemplo clásico: más Consistencia generalmente cuesta Disponibilidad). Toda decisión de arquitectura es elegir conscientemente qué priorizar para el caso de uso — no existe un diseño que maximice todos a la vez.

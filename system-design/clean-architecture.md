@@ -66,11 +66,11 @@ Mismo espíritu, distinta terminología — en la práctica se usan casi como si
 
 **Plugin Architecture (Microkernel Architecture)** es un patrón hermano — mismo mecanismo (un core que define un contrato, y módulos externos que lo implementan para "enchufarse"), pero con otro énfasis: Hexagonal aísla el dominio de la **infraestructura técnica** ("puedo cambiar de Postgres a Mongo sin tocar el negocio"); Plugin/Microkernel extiende un core mínimo con **features opcionales** ("puedo agregar o sacar un módulo sin tocar el core") — el ejemplo típico son las extensiones de un IDE o los plugins de un CMS.
 
-El **Dependency Inversion Principle** (la D de SOLID) es literalmente el mecanismo que hace posible la Regla de Dependencia — Clean Architecture es, en buena medida, DIP aplicado sistemáticamente a toda la app. [Controller / Service / Repository](../backend/controller-service-repository.md) es una versión más simple y pragmática del mismo espíritu — muchos equipos la usan sin llegar a implementar las 4 capas completas. Sirve como punto intermedio: menos ceremonia, buena parte del beneficio.
+El **Dependency Inversion Principle** (la D de SOLID) es literalmente el mecanismo que hace posible la Regla de Dependencia — Clean Architecture es, en buena medida, DIP aplicado sistemáticamente a toda la app. [Controller / Service / Repository](../backend/controller-service-repository.es.md) es una versión más simple y pragmática del mismo espíritu — muchos equipos la usan sin llegar a implementar las 4 capas completas. Sirve como punto intermedio: menos ceremonia, buena parte del beneficio.
 
 ## Trade-off
 
 No es gratis: agrega indirección (interfaces, mapeo de datos entre capas) que para un CRUD simple puede ser sobre-ingeniería — más archivos, más saltos para seguir el flujo de una operación. Vale la pena cuando la lógica de negocio es compleja y va a vivir mucho tiempo, o cuando realmente se espera cambiar de infraestructura en el futuro. Para un prototipo, un script, o un servicio muy simple, el costo de la indirección suele superar el beneficio.
 
 ---
-Relacionado: [SOLID principles](solid.md), [Controller / Service / Repository](../backend/controller-service-repository.md), [Patrones estructurales](patrones-estructurales.md#adapter).
+Relacionado: [SOLID principles](solid.md), [Controller / Service / Repository](../backend/controller-service-repository.es.md), [Patrones estructurales](patrones-estructurales.md#adapter).

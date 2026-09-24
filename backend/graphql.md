@@ -1,13 +1,13 @@
 # GraphQL
 
-Alternativa a [REST](rest.md) para diseñar APIs: el cliente pide exactamente los datos que necesita en una query, en vez de que el servidor decida de antemano qué shape devuelve cada endpoint.
+An alternative to [REST](rest.md) for designing APIs: the client requests exactly the data it needs in a query, instead of the server deciding in advance what shape each endpoint returns.
 
-## El problema que resuelve: over-fetching y under-fetching
+## The problem it solves: over-fetching and under-fetching
 
-- **Over-fetching**: un endpoint REST devuelve el objeto completo aunque el cliente solo necesite 2 campos de 20 (una lista que solo muestra nombre y precio, pero el endpoint manda también descripción, stock, categoría...).
-- **Under-fetching**: lo opuesto — el cliente necesita datos de varios recursos relacionados y termina encadenando múltiples requests (ver [HTTP chaining](../diagnostics/backend.es.md#http-chaining)).
+- **Over-fetching**: a REST endpoint returns the full object even when the client only needs 2 fields out of 20 (a list that only shows name and price, but the endpoint also sends description, stock, category...).
+- **Under-fetching**: the opposite — the client needs data from several related resources and ends up chaining multiple requests (see [HTTP chaining](../diagnostics/backend.md#http-chaining)).
 
-GraphQL resuelve los dos a la vez: un solo request, el cliente especifica el shape exacto que necesita, incluso cruzando relaciones.
+GraphQL solves both at once: a single request, the client specifies the exact shape it needs, even across relationships.
 
 ```graphql
 query {
@@ -21,11 +21,11 @@ query {
 }
 ```
 
-En REST, lo mismo requeriría `GET /orders/1` + `GET /orders/1/items` (o un endpoint a medida armado específicamente para esa combinación).
+In REST, the same thing would require `GET /orders/1` + `GET /orders/1/items` (or a custom endpoint built specifically for that combination).
 
-## Un solo endpoint, schema fuerte
+## A single endpoint, strong schema
 
-Toda la API vive detrás de un único endpoint (normalmente `POST /graphql`) — no hay una URL por recurso. El servidor expone un schema tipado que define exactamente qué se puede pedir, y el cliente puede introspectarlo (herramientas como GraphiQL/Apollo Studio lo usan para autocompletar queries).
+The entire API lives behind a single endpoint (usually `POST /graphql`) — there's no one URL per resource. The server exposes a typed schema that defines exactly what can be requested, and the client can introspect it (tools like GraphiQL/Apollo Studio use this to autocomplete queries).
 
 ```graphql
 type Order {
@@ -39,19 +39,19 @@ type Query {
 }
 ```
 
-## Resolvers y el riesgo de N+1
+## Resolvers and the N+1 risk
 
-Cada campo del schema tiene un **resolver** — la función que sabe cómo obtener ese dato. Sin cuidado, resolver `items` dentro de cada `order` de una lista dispara una query separada por order — el mismo [problema N+1](../diagnostics/backend.es.md#problema-n1) de siempre, ahora escondido detrás de la conveniencia de la query. La solución típica es un **dataloader** que batchea y cachea esas resoluciones dentro del mismo request.
+Every field in the schema has a **resolver** — the function that knows how to fetch that data. Without care, resolving `items` inside each `order` in a list fires a separate query per order — the same old [N+1 problem](../diagnostics/backend.md#n1-problem), now hidden behind the query's convenience. The typical fix is a **dataloader** that batches and caches those resolutions within the same request.
 
-## Trade-offs contra REST
+## Trade-offs against REST
 
-- **Cache**: REST se apoya en la cache HTTP estándar — URLs distintas son cacheables independientemente (ver [CDN](../devops/cdn.es.md)). GraphQL usa un solo endpoint por `POST`, no cacheable por HTTP nativo — hace falta cache a nivel aplicación (ej. cache normalizada del lado del cliente, como hace Apollo Client).
-- **Complejidad del servidor**: hay que diseñar resolvers, cuidar N+1, y limitar la profundidad de queries anidadas (un cliente malicioso podría pedir una query gigante y carísima de resolver).
-- **Simplicidad del cliente**: el cliente pide justo lo que necesita para cada pantalla, sin depender de que el backend agregue un endpoint custom cada vez que cambia un requerimiento de UI.
+- **Cache**: REST relies on standard HTTP caching — different URLs are independently cacheable (see [CDN](../devops/cdn.md)). GraphQL uses a single `POST` endpoint, not cacheable by native HTTP — application-level caching is needed (e.g. normalized client-side cache, like Apollo Client does).
+- **Server complexity**: resolvers have to be designed, N+1 has to be watched for, and nested query depth has to be limited (a malicious client could request a huge, expensive-to-resolve query).
+- **Client simplicity**: the client requests exactly what it needs for each screen, without depending on the backend adding a custom endpoint every time a UI requirement changes.
 
-## Cuándo conviene cada uno
+## When each one makes sense
 
-**REST**: APIs públicas simples, cuando la cacheabilidad HTTP nativa importa, equipos que ya conocen bien HTTP. **GraphQL**: apps con muchas pantallas distintas consumiendo datos relacionados de formas variadas (mobile + web con necesidades distintas del mismo backend), cuando minimizar la cantidad de requests importa más que la simplicidad de cache.
+**REST**: simple public APIs, when native HTTP cacheability matters, teams that already know HTTP well. **GraphQL**: apps with many different screens consuming related data in varied ways (mobile + web with different needs from the same backend), when minimizing the number of requests matters more than cache simplicity.
 
 ---
-Relacionado: [REST](rest.md), [Diagnóstico Backend](../diagnostics/backend.es.md#problema-n1) (N+1), [HTTP chaining](../diagnostics/backend.es.md#http-chaining).
+Related: [REST](rest.md), [Backend Diagnostics](../diagnostics/backend.md#n1-problem) (N+1), [HTTP chaining](../diagnostics/backend.md#http-chaining).

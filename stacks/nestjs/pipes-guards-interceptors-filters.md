@@ -107,4 +107,4 @@ export class HttpExceptionFilter implements ExceptionFilter {
 | **Exception Filter** | ¿Qué respondo si algo de lo anterior falla? | Solo si se lanzó una excepción |
 
 ---
-Relacionado: [Arquitectura de NestJS](arquitectura.md), [Autenticación y Seguridad](../../backend/autenticacion.md), [Endpoints para microservicios (FastAPI)](../fastapi/endpoints-microservicios.md#3-validación-de-entrada-con-pydantic) (Pydantic cumple el mismo rol que un DTO + Pipe, en Python).
+Relacionado: [Arquitectura de NestJS](arquitectura.md), [Autenticación y Seguridad](../../backend/authentication.es.md), [Endpoints para microservicios (FastAPI)](../fastapi/endpoints-microservicios.md#3-validación-de-entrada-con-pydantic) (Pydantic cumple el mismo rol que un DTO + Pipe, en Python).

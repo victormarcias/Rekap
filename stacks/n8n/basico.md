@@ -26,7 +26,7 @@ Cada **nodo** es un paso del workflow — una acción, una condición, una trans
 }
 ```
 
-n8n trae cientos de integraciones prearmadas (Slack, Gmail, Google Sheets, bases de datos, etc.), pero el nodo más versátil es **HTTP Request** — llama a cualquier API REST que no tenga una integración nativa, con los mismos verbos/headers/body que armarías a mano (ver [REST](../../backend/rest.md), [HTTP Methods](../../backend/http-methods.md)).
+n8n trae cientos de integraciones prearmadas (Slack, Gmail, Google Sheets, bases de datos, etc.), pero el nodo más versátil es **HTTP Request** — llama a cualquier API REST que no tenga una integración nativa, con los mismos verbos/headers/body que armarías a mano (ver [REST](../../backend/rest.es.md), [HTTP Methods](../../backend/http-methods.es.md)).
 
 ## Configuración: tres cosas distintas que se llaman "config"
 
@@ -74,4 +74,4 @@ services:
 Un `package.json` solo aparece si se instala n8n vía `npm install n8n` en vez de Docker — ahí es gestión de paquetes estándar de Node, sin nada específico de n8n.
 
 ---
-Relacionado: [n8n y Agentic AI](n8n-y-agentic.md), [Cómo se testea](testing.md), [Deploy a un VPS](../../devops/deploy-vps.es.md), [VPS vs Cloud Run](../../devops/vps-vs-cloud-run.es.md), [REST](../../backend/rest.md).
+Relacionado: [n8n y Agentic AI](n8n-y-agentic.md), [Cómo se testea](testing.md), [Deploy a un VPS](../../devops/deploy-vps.es.md), [VPS vs Cloud Run](../../devops/vps-vs-cloud-run.es.md), [REST](../../backend/rest.es.md).

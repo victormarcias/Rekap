@@ -1,40 +1,40 @@
 # HTTP Methods
 
-Los verbos HTTP tienen semántica definida por el protocolo — usarlos "porque sí" (todo `POST`) tira esa información a la basura.
+HTTP verbs have semantics defined by the protocol — using them "just because" (everything as `POST`) throws that information away.
 
-## Los verbos y su propósito
+## The verbs and their purpose
 
-- **GET**: leer un recurso. No debería tener efectos secundarios.
-- **POST**: crear un recurso nuevo, o ejecutar una acción que no encaja en los demás verbos.
-- **PUT**: reemplazar un recurso **completo** — el body manda el objeto entero, lo que no se incluye se pierde/resetea.
-- **PATCH**: actualizar **parcialmente** un recurso — el body manda solo los campos que cambian.
-- **DELETE**: borrar un recurso.
+- **GET**: read a resource. Shouldn't have side effects.
+- **POST**: create a new resource, or execute an action that doesn't fit the other verbs.
+- **PUT**: replace a resource **entirely** — the body sends the whole object, whatever isn't included gets lost/reset.
+- **PATCH**: **partially** update a resource — the body only sends the fields that change.
+- **DELETE**: delete a resource.
 
 ```
 PUT /users/1    {"name": "Ana", "email": "ana@mail.com"}
-  → reemplaza el usuario entero; si tenía un campo "phone" y no lo mandaste, se pierde
+  → replaces the entire user; if it had a "phone" field and you didn't send it, it's lost
 
-PATCH /users/1  {"email": "nueva@mail.com"}
-  → solo actualiza el email, el resto del usuario queda intacto
+PATCH /users/1  {"email": "new@mail.com"}
+  → only updates the email, the rest of the user stays intact
 ```
 
-## Safe methods — sin efectos secundarios
+## Safe methods — no side effects
 
-**GET**, **HEAD**, **OPTIONS** son *safe*: no deberían cambiar el estado del servidor. Esto no es solo una convención — un browser, un crawler, o un proxy pueden reintentar un `GET` libremente (para cache, prefetch, etc.) asumiendo que no importa cuántas veces se ejecute. Un endpoint `GET` que borra datos rompe esa garantía y puede causar borrados accidentales por herramientas que no esperan que un `GET` tenga efectos.
+**GET**, **HEAD**, **OPTIONS** are *safe*: they shouldn't change server state. This isn't just a convention — a browser, a crawler, or a proxy can freely retry a `GET` (for caching, prefetching, etc.) assuming it doesn't matter how many times it runs. A `GET` endpoint that deletes data breaks that guarantee and can cause accidental deletions from tools that don't expect a `GET` to have side effects.
 
-## Idempotencia por verbo
+## Idempotency by verb
 
-Ya cubierto en detalle en [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia) — repaso rápido aplicado a los verbos:
+Already covered in detail in [Idempotency](../system-design/atributos-de-calidad.md#idempotencia) — quick recap applied to the verbs:
 
-| Verbo | Idempotente | Por qué |
+| Verb | Idempotent | Why |
 |---|---|---|
-| GET | ✅ | Leer no cambia nada, sin importar cuántas veces |
-| PUT | ✅ | Reemplazar por el mismo valor N veces da el mismo resultado que una vez |
-| DELETE | ✅ | Borrar algo que ya no existe sigue dando "no existe" |
-| PATCH | Depende | Si el patch es `{"stock": 5}` sí; si es `{"stock": stock - 1}` no — cada aplicación resta de nuevo |
-| POST | ❌ | Cada `POST` crea un recurso nuevo — reintentar sin idempotency key duplica |
+| GET | ✅ | Reading changes nothing, no matter how many times |
+| PUT | ✅ | Replacing with the same value N times gives the same result as once |
+| DELETE | ✅ | Deleting something that no longer exists still returns "doesn't exist" |
+| PATCH | Depends | If the patch is `{"stock": 5}` yes; if it's `{"stock": stock - 1}` no — each application subtracts again |
+| POST | ❌ | Every `POST` creates a new resource — retrying without an idempotency key duplicates it |
 
-Esto es exactamente por qué un reintento automático de red es seguro en un `PUT`/`DELETE` pero riesgoso en un `POST` sin una idempotency key.
+This is exactly why an automatic network retry is safe on a `PUT`/`DELETE` but risky on a `POST` without an idempotency key.
 
 ---
-Relacionado: [REST](rest.md) (los métodos son una pieza de su interfaz uniforme, no lo mismo que REST), [Idempotencia](../system-design/atributos-de-calidad.md#idempotencia), [HTTP Status Codes](../system-design/http-status-codes.md) (`405 Method Not Allowed` cuando un recurso no soporta el verbo pedido).
+Related: [REST](rest.md) (the methods are one piece of its uniform interface, not the same thing as REST), [Idempotency](../system-design/atributos-de-calidad.md#idempotencia), [HTTP Status Codes](../system-design/http-status-codes.md) (`405 Method Not Allowed` when a resource doesn't support the requested verb).

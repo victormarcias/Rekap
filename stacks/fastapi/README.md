@@ -1,6 +1,6 @@
 # FastAPI
 
-Implementación concreta en Python de los conceptos de [Backend](../../backend/).
+Implementación concreta en Python de los conceptos de [Backend](../../backend/README.es.md).
 
 - [x] [Endpoints para microservicios](endpoints-microservicios.md)
 - [x] [Sync vs Async](sync-vs-async.md)

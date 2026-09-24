@@ -68,7 +68,7 @@ Un trigger garantiza que la lógica se ejecute **siempre**, sin importar desde q
 
 ### Por qué se ven cada vez menos en desarrollo de aplicaciones
 
-En un backend de aplicación (web/mobile) moderno, triggers y stored procedures aparecen cada vez menos — la lógica que antes vivía en la DB hoy se escribe directo en el código de la aplicación usando un **ORM** (ver [ORM](../backend/controller-service-repository.md#orm-object-relational-mapping)), que ya resuelve buena parte de lo que un trigger resolvía (ej. `updated_at` automático vía un hook del ORM, no un trigger de SQL) sin la desventaja de ser invisible desde el código.
+En un backend de aplicación (web/mobile) moderno, triggers y stored procedures aparecen cada vez menos — la lógica que antes vivía en la DB hoy se escribe directo en el código de la aplicación usando un **ORM** (ver [ORM](../backend/controller-service-repository.es.md#orm-object-relational-mapping)), que ya resuelve buena parte de lo que un trigger resolvía (ej. `updated_at` automático vía un hook del ORM, no un trigger de SQL) sin la desventaja de ser invisible desde el código.
 
 Donde sí siguen siendo comunes es en roles más orientados a **datos** (Data Engineer, Data Platform) — pipelines de ETL, integridad de un data warehouse, o sistemas legacy donde la lógica ya está ahí desde hace años y migrarla no es trivial. Vale la pena saber que existen y para qué sirven, pero no es lo que vas a escribir el día a día en un backend de aplicación típico con FastAPI/Django/Node.
 

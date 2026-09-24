@@ -79,7 +79,7 @@
 | Node | Express/NestJS nativo | Apollo Server |
 | Java | Spring MVC nativo | `graphql-java` |
 
-Ver [REST](../backend/rest.md) y [GraphQL](../backend/graphql.md).
+Ver [REST](../backend/rest.es.md) y [GraphQL](../backend/graphql.es.md).
 
 ## Filosofía: "todo incluido" vs "armá tu stack"
 

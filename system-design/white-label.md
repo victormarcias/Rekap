@@ -51,7 +51,7 @@ En un producto white-label, un bug que filtra datos de un tenant a otro no es un
 
 - **Middleware que inyecta el `tenant_id` automáticamente** en cada query, en vez de confiar en que cada desarrollador se acuerde de agregarlo a mano.
 - **Tests automatizados específicos de aislamiento**: crear 2 tenants de prueba y verificar que ningún query de uno devuelve datos del otro.
-- El tenant como parte del claim del [JWT](../backend/autenticacion.md#5-jwt--estructura-y-stateless) — algo que se valida en cada request, no algo que se infiere después de autenticar.
+- El tenant como parte del claim del [JWT](../backend/authentication.es.md#5-jwt--estructura-y-stateless) — algo que se valida en cada request, no algo que se infiere después de autenticar.
 
 ## Feature flags y planes por tenant
 
@@ -66,4 +66,4 @@ Si agregar un cliente nuevo implica que alguien del equipo entre a tocar código
 Es el mismo problema que resuelve cualquier sistema multi-cliente a escala (SaaS B2B, plataformas para agencias) — la arquitectura correcta desde el día uno evita una migración dolorosa después: pasar de "todo compartido sin `tenant_id`" a un modelo con aislamiento real, con datos ya mezclados en producción, sale mucho más caro que diseñarlo bien desde el principio.
 
 ---
-Relacionado: [Sharding vs Partitioning](../database/sharding-vs-partitioning.md), [CSS Variables](../frontend-react/css.md#css-variables-custom-properties), [Autenticación y Seguridad](../backend/autenticacion.md), [Atributos de calidad de sistemas](atributos-de-calidad.md), [Qué pasa cuando escribís una URL](que-pasa-cuando-escribis-una-url.md).
+Relacionado: [Sharding vs Partitioning](../database/sharding-vs-partitioning.md), [CSS Variables](../frontend-react/css.md#css-variables-custom-properties), [Autenticación y Seguridad](../backend/authentication.es.md), [Atributos de calidad de sistemas](atributos-de-calidad.md), [Qué pasa cuando escribís una URL](que-pasa-cuando-escribis-una-url.md).

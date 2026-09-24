@@ -1,6 +1,6 @@
 # Autenticación
 
-Implementación concreta de registro + login con Argon2 y JWT. Los conceptos de fondo (por qué hashear, qué es un salt, JWT stateless) están en [Autenticación y Seguridad — conceptos generales](../../backend/autenticacion.md).
+Implementación concreta de registro + login con Argon2 y JWT. Los conceptos de fondo (por qué hashear, qué es un salt, JWT stateless) están en [Autenticación y Seguridad — conceptos generales](../../backend/authentication.es.md).
 
 ## 1. Hashing de passwords con Argon2 (`passlib`)
 
@@ -115,4 +115,4 @@ logger.info(f"Login attempt for user_id={user.id if user else 'unknown'}")
 ```
 
 ---
-Relacionado: [Autenticación y Seguridad — conceptos generales](../../backend/autenticacion.md), [Endpoints para microservicios](endpoints-microservicios.md) (`Depends`, exception handlers), [Sync vs Async en FastAPI](sync-vs-async.md).
+Relacionado: [Autenticación y Seguridad — conceptos generales](../../backend/authentication.es.md), [Endpoints para microservicios](endpoints-microservicios.md) (`Depends`, exception handlers), [Sync vs Async en FastAPI](sync-vs-async.md).
