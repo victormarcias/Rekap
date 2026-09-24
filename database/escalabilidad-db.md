@@ -22,7 +22,7 @@ lecturas → │Replica 1││Replica 2││Replica 3│
 
 ## Procesar resultados grandes en chunks
 
-Traer una tabla de millones de filas con un solo `fetchall()` carga **todo** el resultado en memoria de una — el límite ya no es la base de datos, es la RAM del proceso que está leyendo (ver [Escalabilidad de Memoria](../devops/escalabilidad-memoria.md)). La solución no es traer menos datos, es traer los mismos datos **de a partes**: pedir un chunk, procesarlo, descartarlo, pedir el siguiente — la memoria usada queda acotada al tamaño del chunk, sin importar cuán grande sea la tabla completa.
+Traer una tabla de millones de filas con un solo `fetchall()` carga **todo** el resultado en memoria de una — el límite ya no es la base de datos, es la RAM del proceso que está leyendo (ver [Escalabilidad de Memoria](../devops/scaling-memory.es.md)). La solución no es traer menos datos, es traer los mismos datos **de a partes**: pedir un chunk, procesarlo, descartarlo, pedir el siguiente — la memoria usada queda acotada al tamaño del chunk, sin importar cuán grande sea la tabla completa.
 
 ```python
 # ❌ carga el resultado completo en memoria — con una tabla grande, esto puede OOMear el proceso
@@ -71,7 +71,7 @@ CREATE TABLE person_details (
 );
 ```
 
-**Por qué ayuda**: una query que solo necesita `first_name`/`last_name` (la mayoría) ahora lee filas más chicas — más filas entran en cada página de disco, más filas caben en el buffer pool en memoria (ver [Escalabilidad de Memoria](../devops/escalabilidad-memoria.md)) — sin tener que arrastrar columnas pesadas u opcionales que ni siquiera pidió.
+**Por qué ayuda**: una query que solo necesita `first_name`/`last_name` (la mayoría) ahora lee filas más chicas — más filas entran en cada página de disco, más filas caben en el buffer pool en memoria (ver [Escalabilidad de Memoria](../devops/scaling-memory.es.md)) — sin tener que arrastrar columnas pesadas u opcionales que ni siquiera pidió.
 
 **El límite**: si la dispersión no es "un puñado de grupos de columnas relacionadas" sino que es genuinamente **variable por fila** (cada registro necesita un set de campos distinto e impredecible de antemano), seguir partiendo verticalmente no alcanza — ahí es donde conviene evaluar [NoSQL](nosql.md) (un document store) en vez de forzar más el modelo relacional.
 
@@ -120,4 +120,4 @@ ON CONFLICT (fecha) DO UPDATE SET total = EXCLUDED.total;
 Read replicas y sharding no son excluyentes — un sistema grande típicamente combina los dos: varios shards, cada uno con sus propias réplicas de lectura.
 
 ---
-Relacionado: [Sharding vs partitioning](sharding-vs-partitioning.md), [Consistencia](../system-design/atributos-de-calidad.md#consistencia), [Connection pooling](../diagnostics/backend.es.md#conexiones-mal-gestionadas), [Escalabilidad de Memoria](../devops/escalabilidad-memoria.md), [NoSQL](nosql.md).
+Relacionado: [Sharding vs partitioning](sharding-vs-partitioning.md), [Consistencia](../system-design/atributos-de-calidad.md#consistencia), [Connection pooling](../diagnostics/backend.es.md#conexiones-mal-gestionadas), [Escalabilidad de Memoria](../devops/scaling-memory.es.md), [NoSQL](nosql.md).

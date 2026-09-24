@@ -7,10 +7,10 @@ Herramienta de automatización de workflows, **node-based** (arrastrar y conecta
 ## Dónde corre: Local vs Self-hosted (VPS) vs Cloud
 
 - **Local**: correr n8n en tu máquina (Docker o `npm install n8n`) para desarrollar y probar — no accesible desde afuera de tu red sin exponerlo.
-- **Self-hosted (VPS)**: tu propia instancia en un servidor propio (ver [Deploy a un VPS](../../devops/deploy-vps.md)) — control total, sin los límites de un plan gratuito, pero administrás vos el uptime, los backups y las actualizaciones.
+- **Self-hosted (VPS)**: tu propia instancia en un servidor propio (ver [Deploy a un VPS](../../devops/deploy-vps.es.md)) — control total, sin los límites de un plan gratuito, pero administrás vos el uptime, los backups y las actualizaciones.
 - **n8n Cloud**: versión gestionada por los creadores de n8n — sin infraestructura propia que mantener, a cambio de un plan pago según uso.
 
-La elección es el mismo trade-off que ya vimos entre [VPS y Cloud Run](../../devops/vps-vs-cloud-run.md): cuánto control querés vs cuánto mantenimiento estás dispuesto a asumir.
+La elección es el mismo trade-off que ya vimos entre [VPS y Cloud Run](../../devops/vps-vs-cloud-run.es.md): cuánto control querés vs cuánto mantenimiento estás dispuesto a asumir.
 
 ## Cómo funciona: nodes, triggers y JSON
 
@@ -74,4 +74,4 @@ services:
 Un `package.json` solo aparece si se instala n8n vía `npm install n8n` en vez de Docker — ahí es gestión de paquetes estándar de Node, sin nada específico de n8n.
 
 ---
-Relacionado: [n8n y Agentic AI](n8n-y-agentic.md), [Cómo se testea](testing.md), [Deploy a un VPS](../../devops/deploy-vps.md), [VPS vs Cloud Run](../../devops/vps-vs-cloud-run.md), [REST](../../backend/rest.md).
+Relacionado: [n8n y Agentic AI](n8n-y-agentic.md), [Cómo se testea](testing.md), [Deploy a un VPS](../../devops/deploy-vps.es.md), [VPS vs Cloud Run](../../devops/vps-vs-cloud-run.es.md), [REST](../../backend/rest.md).

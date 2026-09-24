@@ -45,7 +45,7 @@ Cada campo del schema tiene un **resolver** — la función que sabe cómo obten
 
 ## Trade-offs contra REST
 
-- **Cache**: REST se apoya en la cache HTTP estándar — URLs distintas son cacheables independientemente (ver [CDN](../devops/cdn.md)). GraphQL usa un solo endpoint por `POST`, no cacheable por HTTP nativo — hace falta cache a nivel aplicación (ej. cache normalizada del lado del cliente, como hace Apollo Client).
+- **Cache**: REST se apoya en la cache HTTP estándar — URLs distintas son cacheables independientemente (ver [CDN](../devops/cdn.es.md)). GraphQL usa un solo endpoint por `POST`, no cacheable por HTTP nativo — hace falta cache a nivel aplicación (ej. cache normalizada del lado del cliente, como hace Apollo Client).
 - **Complejidad del servidor**: hay que diseñar resolvers, cuidar N+1, y limitar la profundidad de queries anidadas (un cliente malicioso podría pedir una query gigante y carísima de resolver).
 - **Simplicidad del cliente**: el cliente pide justo lo que necesita para cada pantalla, sin depender de que el backend agregue un endpoint custom cada vez que cambia un requerimiento de UI.
 

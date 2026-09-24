@@ -46,7 +46,7 @@
 
 ### C
 
-- **CaaS (Container as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
+- **CaaS (Container as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.es.md#el-espectro-completo-iaas--paas--serverless)
 - **Cache-aside pattern** — [Diagnóstico Backend](diagnostics/backend.es.md#falta-de-cache)
 - **Cache stampede (thundering herd)** — [Cache Invalidation](backend/cache-invalidation.md#cache-stampede-thundering-herd)
 - **Caja blanca (white box testing)** — [Testing — conceptos generales](system-design/testing.md#8-caja-negra-vs-caja-blanca)
@@ -54,7 +54,7 @@
 - **CAP Theorem** — [NoSQL](database/nosql.md#cap-theorem)
 - **Capturing (evento)** — [Eventos DOM](frontend-react/eventos-dom.md#bubbling-vs-capturing)
 - **CDK (AWS Cloud Development Kit)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have)
-- **CDN (Content Delivery Network)** — [CDN](devops/cdn.md)
+- **CDN (Content Delivery Network)** — [CDN](devops/cdn.es.md)
 - **Chain of Responsibility (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#chain-of-responsibility)
 - **Chain of Thought (CoT)** — [Prompt Engineering](agentic-ai/prompt-engineering.md#chain-of-thought-cot)
 - **Chattiness** — [Diagnóstico Backend](diagnostics/backend.es.md#http-chaining)
@@ -68,7 +68,7 @@
 - **Clustering (multi-proceso)** — [Diagnóstico Backend](diagnostics/backend.es.md#clustering)
 - **Code splitting** — [Code Splitting / Lazy Loading](frontend-react/code-splitting.md)
 - **Cognito (AWS)** — [Proveedores de Identidad Gestionados](backend/proveedores-de-identidad-gestionados.md)
-- **Cold start** — [Cold starts](devops/cold-starts.md)
+- **Cold start** — [Cold starts](devops/cold-starts.es.md)
 - **Column-family store** — [NoSQL](database/nosql.md#categorías-principales)
 - **Command (patrón)** — [Patrones de comportamiento](system-design/patrones-comportamiento.md#command)
 - **Compaction (LLM)** — [Context Engineering](agentic-ai/context-engineering.md#compaction)
@@ -123,7 +123,7 @@
 - **Distributed monolith** — [Monolito vs Microservicios](backend/monolito-vs-microservicios.md#el-anti-patrón-distributed-monolith)
 - **Django** — [Motores de SQL](database/motores-de-sql.md)
 - **DNS (Domain Name System)** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#2-resolución-dns--de-dominio-a-ip)
-- **Dockerización** — [Dockerización](devops/docker.md#1-por-qué-dockerizar)
+- **Dockerización** — [Dockerización](devops/docker.es.md#1-por-qué-dockerizar)
 - **Document store** — [NoSQL](database/nosql.md#categorías-principales)
 - **DOM (Document Object Model)** — [Qué pasa cuando escribís una URL](system-design/que-pasa-cuando-escribis-una-url.md#8-el-navegador-renderiza)
 - **DTO (Data Transfer Object)** — [Controller / Service / Repository](backend/controller-service-repository.md#dto-data-transfer-object)
@@ -140,7 +140,7 @@
 - **Encriptado** — [Autenticación y Seguridad](backend/autenticacion.md#1-hashing-vs-encriptado-vs-encoding)
 - **Entity-Relationship (E-R)** — [Qué es una base de datos](database/que-es-una-base-de-datos.md#breve-historia-de-las-bases-de-datos)
 - **Error Boundary (React)** — [Error Boundaries](frontend-react/error-boundaries.md)
-- **Escala a cero (scale-to-zero)** — [Deploy a Cloud Run](devops/deploy-cloud-run.md#1-qué-es-un-contenedor-serverless-y-qué-significa-escala-a-cero)
+- **Escala a cero (scale-to-zero)** — [Deploy a Cloud Run](devops/deploy-cloud-run.es.md#1-qué-es-un-contenedor-serverless-y-qué-significa-escala-a-cero)
 - **Especificidad (CSS)** — [CSS](frontend-react/css.md#especificidad-y-selectores)
 - **Estadísticas del planner** — [Diagnóstico Base de Datos](diagnostics/database.es.md#estadísticas-del-planner)
 - **Estados de un Request (loading/success/error/retry)** — [Estados de un Request](frontend-react/estados-de-un-request.md)
@@ -153,7 +153,7 @@
 
 ### F
 
-- **FaaS (Function as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
+- **FaaS (Function as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.es.md#el-espectro-completo-iaas--paas--serverless)
 - **Facade (patrón)** — [Patrones estructurales](system-design/patrones-estructurales.md#facade)
 - **Factory Method** — [Patrones creacionales](system-design/patrones-creacionales.md#factory-method)
 - **FastAPI** — [Motores de SQL](database/motores-de-sql.md)
@@ -193,11 +193,11 @@
 - **HTTP Status Codes** — [HTTP Status Codes](system-design/http-status-codes.md)
 - **HttpOnly (cookie flag)** — [Almacenamiento en el cliente](frontend-react/almacenamiento-cliente.md#cookies)
 - **Human-in-the-Loop (HITL)** — [Diseño de Agentes de IA](agentic-ai/diseno-de-agentes.md#human-in-the-loop-hitl)
-- **Hypervisor** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
+- **Hypervisor** — [Dockerización](devops/docker.es.md#virtualización--el-origen-de-los-contenedores)
 
 ### I
 
-- **IaaS (Infrastructure as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
+- **IaaS (Infrastructure as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.es.md#el-espectro-completo-iaas--paas--serverless)
 - **IAM (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
 - **Idempotencia** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#idempotencia)
 - **Índice** — [Índices](database/indices.md)
@@ -224,14 +224,14 @@
 
 - **key (prop de listas, React)** — [Diagnóstico Frontend](diagnostics/frontend.es.md#falta-de-key-en-listas)
 - **Key-Value store** — [NoSQL](database/nosql.md#categorías-principales)
-- **Kubernetes** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have) · [Kubernetes](devops/kubernetes.md)
+- **Kubernetes** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have) · [Kubernetes](devops/kubernetes.es.md)
 - **KV cache (LLM)** — [Tamaño y Cuantización de Modelos](agentic-ai/tamano-y-cuantizacion.md#ramvram-real-al-correr--solo-el-tamaño-en-disco)
 
 ### L
 
 - **L4 (transport layer)** — [Load Balancers](backend/load-balancers.md#l4-vs-l7)
 - **L7 (application layer)** — [Load Balancers](backend/load-balancers.md#l4-vs-l7)
-- **Lambda (AWS)** — [El espectro IaaS → PaaS → Serverless](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
+- **Lambda (AWS)** — [El espectro IaaS → PaaS → Serverless](devops/vps-vs-cloud-run.es.md#el-espectro-completo-iaas--paas--serverless)
 - **Latencia** — [Atributos de calidad de sistemas](system-design/atributos-de-calidad.md#performance-velocidad)
 - **Layer, `@layer` (CSS Cascade Layers)** — [CSS](frontend-react/css.md#layer--ordenar-la-cascada-sin-pelear-con-especificidad)
 - **Lazy loading (React.lazy / Suspense)** — [Code Splitting](frontend-react/code-splitting.md#reactlazy--suspense)
@@ -265,7 +265,7 @@
 - **Moved Permanently (301)** — [HTTP Status Codes](system-design/http-status-codes.md#3xx--redirection)
 - **MPA (Multi-Page Application)** — [Renderizado](frontend-react/renderizado.md#spa-single-page-application)
 - **mTLS (mutual TLS)** — [Zero Trust](security/zero-trust.md#mtls-entre-microservicios)
-- **Multi-stage build (Docker)** — [Dockerización](devops/docker.md#2-multi-stage-build)
+- **Multi-stage build (Docker)** — [Dockerización](devops/docker.es.md#2-multi-stage-build)
 - **Multi-tenancy / Tenant** — [White-Label](system-design/white-label.md#multi-tenancy-el-problema-arquitectónico-central)
 - **Multimodal (LLM)** — [Qué es un token](agentic-ai/que-es-un-token.md#multimodal--tokens-más-allá-del-texto)
 - **MutationObserver (Browser API)** — [Patrón Observer en el browser](frontend-react/observer-en-el-browser.md#mutationobserver)
@@ -275,9 +275,9 @@
 ### N
 
 - **N+1 (problema)** — [Diagnóstico Backend](diagnostics/backend.es.md#problema-n1)
-- **Namespaces / cgroups** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
+- **Namespaces / cgroups** — [Dockerización](devops/docker.es.md#virtualización--el-origen-de-los-contenedores)
 - **NestJS** — [NestJS — Arquitectura](stacks/nestjs/arquitectura.md)
-- **Nginx** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have) · [Nginx como reverse proxy](devops/deploy-vps.md#4-nginx-como-reverse-proxy)
+- **Nginx** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have) · [Nginx como reverse proxy](devops/deploy-vps.es.md#4-nginx-como-reverse-proxy)
 - **No Content (204)** — [HTTP Status Codes](system-design/http-status-codes.md#2xx--success)
 - **Non-clustered index** — [Índices](database/indices.md#clustered-vs-non-clustered)
 - **Non-repeatable read** — [ACID / isolation levels](database/acid-transacciones-isolation.md#los-tres-phenomena-que-definen-los-isolation-levels)
@@ -299,7 +299,7 @@
 - **Ollama** — [Costos de LLMs](agentic-ai/costos-llms.md#más-allá-de-la-api-self-hosted--open-source)
 - **OLTP** — [Diagnóstico Base de Datos](diagnostics/database.es.md#cubos-olap)
 - **ON DELETE CASCADE / RESTRICT / SET NULL** — [CRUD](database/crud.md#acciones-referenciales--qué-pasa-con-las-filas-relacionadas-al-borrar)
-- **OOMKilled** — [Escalabilidad de Memoria](devops/escalabilidad-memoria.md#oomkilled)
+- **OOMKilled** — [Escalabilidad de Memoria](devops/scaling-memory.es.md#oomkilled)
 - **Open/Closed Principle (O de SOLID)** — [SOLID principles](system-design/solid.md#o--openclosed-principle)
 - **Opt-in vs Opt-out (consentimiento)** — [Privacidad y GDPR](frontend-react/privacidad-y-gdpr.md#user-consent)
 - **Optimistic locking** — [Locks](database/locks.md#pessimistic-vs-optimistic-locking)
@@ -310,7 +310,7 @@
 
 ### P
 
-- **PaaS (Platform as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
+- **PaaS (Platform as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.es.md#el-espectro-completo-iaas--paas--serverless)
 - **Partición (Kafka)** — [Arquitectura Kafka](backend/kafka.md#topics-y-particiones)
 - **Partition pruning** — [Sharding vs partitioning](database/sharding-vs-partitioning.md#partitioning)
 - **Partitioning** — [Sharding vs partitioning](database/sharding-vs-partitioning.md#partitioning)
@@ -362,7 +362,7 @@
 - **Reranking (RAG)** — [RAG](agentic-ai/rag.md#4-reranking-opcional)
 - **ResizeObserver (Browser API)** — [Patrón Observer en el browser](frontend-react/observer-en-el-browser.md#resizeobserver)
 - **Resolver (GraphQL)** — [GraphQL](backend/graphql.md#resolvers-y-el-riesgo-de-n1)
-- **Resource limits (requests vs limits, Kubernetes)** — [Kubernetes](devops/kubernetes.md#resource-limits)
+- **Resource limits (requests vs limits, Kubernetes)** — [Kubernetes](devops/kubernetes.es.md#resource-limits)
 - **REST** — [REST](backend/rest.md)
 - **Role prompting** — [Prompt Engineering](agentic-ai/prompt-engineering.md#estructura-de-un-system-prompt)
 - **Rollback** — [Rollback / savepoints](database/rollback-savepoints.md#rollback)
@@ -374,7 +374,7 @@
 ### S
 
 - **S3 (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
-- **SaaS (Software as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#el-espectro-completo-iaas--paas--serverless)
+- **SaaS (Software as a Service)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.es.md#el-espectro-completo-iaas--paas--serverless)
 - **Safe methods (HTTP)** — [HTTP Methods](backend/http-methods.md#safe-methods--sin-efectos-secundarios)
 - **Salt** — [Autenticación y Seguridad](backend/autenticacion.md#3-salt)
 - **SameSite (cookie flag)** — [Almacenamiento en el cliente](frontend-react/almacenamiento-cliente.md#cookies)
@@ -468,12 +468,12 @@
 - **Vector DB** — [RAG](agentic-ai/rag.md#3-vector-db--guardar-y-buscar-por-similitud)
 - **Vertical Partitioning** — [Escalabilidad de Base de Datos](database/escalabilidad-db.md#vertical-partitioning)
 - **Virtual DOM** — [React Fundamentos](frontend-react/react-fundamentos.md#virtual-dom)
-- **Virtualización (VM vs Container)** — [Dockerización](devops/docker.md#virtualización--el-origen-de-los-contenedores)
+- **Virtualización (VM vs Container)** — [Dockerización](devops/docker.es.md#virtualización--el-origen-de-los-contenedores)
 - **Virtualización / Windowing** — [Diagnóstico Frontend](diagnostics/frontend.es.md#falta-de-paginación--virtualización)
 - **Vista (SQL View)** — [Triggers y Vistas](database/triggers-y-vistas.md#vistas-views)
 - **Vistas materializadas** — [Diagnóstico Base de Datos](diagnostics/database.es.md#vistas-materializadas)
 - **VPC (Virtual Private Cloud)** — [Comparación de Proveedores](cloud/provider-comparison.es.md) · [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have)
-- **VPS (Virtual Private Server)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.md#qué-es-un-vps)
+- **VPS (Virtual Private Server)** — [VPS vs Cloud Run](devops/vps-vs-cloud-run.es.md#qué-es-un-vps)
 
 ### W
 

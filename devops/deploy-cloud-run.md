@@ -1,52 +1,52 @@
-# Deploy a Cloud Run (contenedores serverless)
+# Deploy to Cloud Run (serverless containers)
 
-Cómo llevar la imagen de [Dockerización](docker.md) a producción sin administrar un servidor propio. Alternativa a [Deploy a un VPS](deploy-vps.md) cuando no querés vos ser responsable de parchear el SO, renovar certificados a mano, ni pagar por una máquina prendida las 24hs aunque nadie la use.
+How to take the image from [Dockerization](docker.md) to production without managing your own server. An alternative to [Deploy to a VPS](deploy-vps.md) when you don't want to be responsible for patching the OS, renewing certificates by hand, or paying for a machine running 24/7 that nobody's using.
 
-## 1. Qué es un contenedor serverless y qué significa "escala a cero"
+## 1. What a serverless container is and what "scale to zero" means
 
-En un VPS, la máquina está prendida y facturando todo el tiempo, tenga tráfico o no. Cloud Run corre tu contenedor **solo cuando llega un request** — si no hay tráfico, apaga la instancia por completo (escala a **cero** réplicas) y no pagás nada por ese tiempo. El primer request después de estar en cero paga el costo de arrancar el contenedor de nuevo — ver [Cold start](../diagnostics/devops.es.md).
+On a VPS, the machine is on and billing all the time, whether it has traffic or not. Cloud Run runs your container **only when a request comes in** — if there's no traffic, it shuts the instance down completely (scales to **zero** replicas) and you pay nothing for that time. The first request after being at zero pays the cost of starting the container back up — see [Cold start](../diagnostics/devops.md).
 
 ```bash
-# el mismo comando de build de siempre — Cloud Run no necesita nada especial en el Dockerfile
-docker build -t gcr.io/mi-proyecto/miapp .
+# the same build command as always — Cloud Run needs nothing special in the Dockerfile
+docker build -t gcr.io/my-project/myapp .
 ```
 
-## 2. Serverless Postgres con Neon
+## 2. Serverless Postgres with Neon
 
-Una DB tradicional (RDS, Cloud SQL) sigue el mismo modelo "siempre prendida" que un VPS — no tiene sentido pairearla con un compute que escala a cero, porque la DB seguiría facturando 24/7 aunque el compute esté apagado la mayor parte del tiempo. **Neon** ofrece Postgres que también escala a cero (y reactiva la conexión en el primer query), completando el modelo serverless de punta a punta.
+A traditional DB (RDS, Cloud SQL) follows the same "always on" model as a VPS — pairing it with compute that scales to zero doesn't make sense, because the DB would keep billing 24/7 even while the compute is off most of the time. **Neon** offers Postgres that also scales to zero (and wakes the connection back up on the first query), completing the serverless model end to end.
 
 ```python
-# la app se conecta igual que a cualquier Postgres — Neon es compatible, no hace falta un driver especial
-DATABASE_URL = "postgresql+asyncpg://user:pass@ep-xxx.neon.tech/miapp"
+# the app connects the same way as to any Postgres — Neon is compatible, no special driver needed
+DATABASE_URL = "postgresql+asyncpg://user:pass@ep-xxx.neon.tech/myapp"
 ```
 
-## 3. Deploy del container
+## 3. Deploying the container
 
 ```bash
-docker push gcr.io/mi-proyecto/miapp
+docker push gcr.io/my-project/myapp
 
-gcloud run deploy miapp \
-  --image gcr.io/mi-proyecto/miapp \
+gcloud run deploy myapp \
+  --image gcr.io/my-project/myapp \
   --platform managed \
   --region us-central1 \
   --set-env-vars DATABASE_URL=$DATABASE_URL \
   --allow-unauthenticated
 ```
 
-`--set-env-vars` inyecta config igual que el `--env-file` local del [Dockerfile](docker.md) — la imagen sigue sin tener secretos embebidos. `--allow-unauthenticated` expone el servicio públicamente (sin eso, Cloud Run exige un token de IAM en cada request, útil para servicios internos entre microservicios pero no para una API pública).
+`--set-env-vars` injects config the same way the local `--env-file` does for the [Dockerfile](docker.md) — the image still has no secrets baked in. `--allow-unauthenticated` exposes the service publicly (without it, Cloud Run requires an IAM token on every request, useful for internal services between microservices but not for a public API).
 
-## 4. Dominio custom + HTTPS
+## 4. Custom domain + HTTPS
 
-A diferencia del VPS (donde vos instalás Nginx y corrés `certbot` a mano — ver [Let's Encrypt](deploy-vps.md)), Cloud Run gestiona el certificado TLS automáticamente al mapear un dominio: solo hay que apuntar el DNS y Google se encarga de emitir y renovar el certificado.
+Unlike a VPS (where you install Nginx and run `certbot` by hand — see [Let's Encrypt](deploy-vps.md)), Cloud Run manages the TLS certificate automatically when you map a domain: you just point the DNS and Google handles issuing and renewing the certificate.
 
 ```bash
-gcloud run domain-mappings create --service miapp --domain api.miapp.com --region us-central1
-# devuelve los registros DNS (CNAME/A) que hay que agregar en tu proveedor de dominio
+gcloud run domain-mappings create --service myapp --domain api.myapp.com --region us-central1
+# returns the DNS records (CNAME/A) you need to add at your domain provider
 ```
 
-## 5. Security headers vía middleware
+## 5. Security headers via middleware
 
-El servidor no agrega por sí solo headers de seguridad — hay que declararlos explícitamente. Sin ellos, la app queda expuesta a ataques que esos headers específicamente mitigan (clickjacking sin `X-Frame-Options`, MIME sniffing sin `X-Content-Type-Options`, downgrade a HTTP sin `Strict-Transport-Security`).
+The server doesn't add security headers on its own — they have to be declared explicitly. Without them, the app is exposed to attacks that those headers specifically mitigate (clickjacking without `X-Frame-Options`, MIME sniffing without `X-Content-Type-Options`, downgrade to HTTP without `Strict-Transport-Security`).
 
 ```python
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -63,4 +63,4 @@ app.add_middleware(SecurityHeadersMiddleware)
 ```
 
 ---
-Relacionado: [Dockerización](docker.md), [Deploy a un VPS](deploy-vps.md), [VPS vs Cloud Run](vps-vs-cloud-run.md), [Cold start](../diagnostics/devops.es.md), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad), [Security Headers](../security/security-headers.md) (qué previene cada uno).
+Related: [Dockerization](docker.md), [Deploy to a VPS](deploy-vps.md), [VPS vs Cloud Run](vps-vs-cloud-run.md), [Cold start](../diagnostics/devops.md), [Elasticity](../system-design/atributos-de-calidad.md#elasticidad), [Security Headers](../security/security-headers.md) (what each one prevents).

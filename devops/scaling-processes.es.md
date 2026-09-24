@@ -8,11 +8,11 @@ Antes de sumar máquinas, aprovechar los cores que ya tenés: un runtime single-
 
 ## Entre máquinas, después
 
-Una vez que una sola máquina no da más abasto (todos sus cores ya están usados, y sigue faltando capacidad), el siguiente paso es [escalar horizontalmente](escalabilidad-vertical-horizontal.md) sumando más instancias/máquinas — cada una corriendo su propio set de procesos — repartidas por un [load balancer](../backend/load-balancers.md).
+Una vez que una sola máquina no da más abasto (todos sus cores ya están usados, y sigue faltando capacidad), el siguiente paso es [escalar horizontalmente](scaling-vertical-vs-horizontal.es.md) sumando más instancias/máquinas — cada una corriendo su propio set de procesos — repartidas por un [load balancer](../backend/load-balancers.md).
 
 ## El requisito: procesos sin estado propio
 
 Ya sea multi-proceso en una máquina o multi-instancia entre máquinas, cada proceso tiene que poder atender cualquier request sin depender de estado que solo él tiene en memoria — la misma condición de [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad) stateless que habilita escalar horizontalmente sin romper nada. Un proceso que guarda sesiones en su propia memoria rompe apenas hay más de uno atendiendo el mismo tráfico.
 
 ---
-Relacionado: [Clustering](../diagnostics/backend.es.md#clustering), [Escalabilidad vertical vs horizontal](escalabilidad-vertical-horizontal.md), [Load balancers](../backend/load-balancers.md).
+Relacionado: [Clustering](../diagnostics/backend.es.md#clustering), [Escalabilidad vertical vs horizontal](scaling-vertical-vs-horizontal.es.md), [Load balancers](../backend/load-balancers.md).

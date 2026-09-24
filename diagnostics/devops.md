@@ -4,7 +4,7 @@ Most common causes of infrastructure-level slowness, from most to least frequent
 
 ## Lack of vertical scalability
 
-The server has gotten too small for the current load (CPU/RAM maxed out) and nobody bumped up the instance size. Before adding complexity with more nodes, confirm whether scaling vertically solves the current bottleneck. See [Vertical vs horizontal scalability](../devops/escalabilidad-vertical-horizontal.md).
+The server has gotten too small for the current load (CPU/RAM maxed out) and nobody bumped up the instance size. Before adding complexity with more nodes, confirm whether scaling vertically solves the current bottleneck. See [Vertical vs horizontal scalability](../devops/scaling-vertical-vs-horizontal.md).
 
 ## Poor load balancing in K8s
 

@@ -1,18 +1,18 @@
 # Kubernetes — readiness probes, HPA, resource limits
 
-Tres piezas básicas de K8s que definen si un cluster escala bien o mal.
+Three basic K8s pieces that determine whether a cluster scales well or poorly.
 
 ## Readiness probe
 
-Un chequeo periódico que le dice a K8s si un pod está listo para recibir tráfico. Sin esto, un pod recién arrancado (todavía inicializando conexiones, cargando config) recibe requests igual y las falla — la readiness probe hace que quede "fuera de rotación" hasta responder OK.
+A periodic check that tells K8s whether a pod is ready to receive traffic. Without this, a pod that just started (still initializing connections, loading config) receives requests anyway and fails them — the readiness probe keeps it "out of rotation" until it responds OK.
 
 ## HPA (Horizontal Pod Autoscaler)
 
-Agrega o quita réplicas de un pod automáticamente según el uso real de recursos (CPU, memoria, o una métrica custom). Sin HPA, escalar significa que alguien tiene que notar la carga y cambiar el número de réplicas a mano.
+Adds or removes pod replicas automatically based on actual resource usage (CPU, memory, or a custom metric). Without HPA, scaling means someone has to notice the load and change the replica count by hand.
 
 ## Resource limits
 
-`requests` es lo que el pod pide reservado (K8s no lo agenda en un nodo que no pueda garantizarlo); `limits` es el techo — si el pod lo supera, se lo throttlea (CPU) o se lo mata por OOM (memoria). Sin límites, un pod con un memory leak puede consumir toda la memoria del nodo y tirar abajo a sus vecinos.
+`requests` is what the pod asks to have reserved (K8s won't schedule it on a node that can't guarantee it); `limits` is the ceiling — if the pod exceeds it, it gets throttled (CPU) or killed by OOM (memory). Without limits, a pod with a memory leak can consume all of a node's memory and take down its neighbors.
 
 ```yaml
 readinessProbe:
@@ -34,7 +34,7 @@ spec:
       resource: { name: cpu, target: { type: Utilization, averageUtilization: 70 } }
 ```
 
-Las tres piezas trabajan juntas: HPA decide cuántos pods hacen falta, resource limits define cuánto puede consumir cada uno, y la readiness probe evita que un pod recién creado por el HPA reciba tráfico antes de estar listo.
+The three pieces work together: HPA decides how many pods are needed, resource limits define how much each one can consume, and the readiness probe keeps a pod the HPA just created from receiving traffic before it's ready.
 
 ---
-Relacionado: [Disponibilidad](../system-design/atributos-de-calidad.md#disponibilidad), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad), [Diagnóstico DevOps](../diagnostics/devops.es.md).
+Related: [Availability](../system-design/atributos-de-calidad.md#disponibilidad), [Elasticity](../system-design/atributos-de-calidad.md#elasticidad), [DevOps Diagnostics](../diagnostics/devops.md).

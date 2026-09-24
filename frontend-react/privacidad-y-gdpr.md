@@ -22,7 +22,7 @@ Dato sensible cifrado tanto **en tránsito** (HTTPS/TLS — ver [TLS handshake](
 
 ### Correct Settings (configuración segura por default)
 
-El error más común no es una vulnerabilidad de código, es una configuración por default insegura: un bucket de almacenamiento público cuando debía ser privado, una API key con permisos de administrador cuando solo necesitaba leer, headers de seguridad faltantes (ver [Security headers](../devops/deploy-cloud-run.md#5-security-headers-vía-middleware)). El principio general es *least privilege*: dar el mínimo acceso necesario, nunca "todo por las dudas".
+El error más común no es una vulnerabilidad de código, es una configuración por default insegura: un bucket de almacenamiento público cuando debía ser privado, una API key con permisos de administrador cuando solo necesitaba leer, headers de seguridad faltantes (ver [Security headers](../devops/deploy-cloud-run.es.md#5-security-headers-vía-middleware)). El principio general es *least privilege*: dar el mínimo acceso necesario, nunca "todo por las dudas".
 
 ## User Consent and Privacy
 

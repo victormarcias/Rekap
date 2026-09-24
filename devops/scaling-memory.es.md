@@ -4,7 +4,7 @@ Capacidad de RAM a nivel infraestructura — distinto del memory leak a nivel c�
 
 ## OOMKilled
 
-En Kubernetes, si un pod supera el `limit` de memoria seteado en su [resource limits](kubernetes.md#resource-limits), el kernel lo mata inmediatamente (`OOMKilled`) — no hay degradación gradual, es un corte abrupto. Ver ese `OOMKilled` en los logs del pod es la señal de que el límite quedó chico para la carga real, no necesariamente de un leak.
+En Kubernetes, si un pod supera el `limit` de memoria seteado en su [resource limits](kubernetes.es.md#resource-limits), el kernel lo mata inmediatamente (`OOMKilled`) — no hay degradación gradual, es un corte abrupto. Ver ese `OOMKilled` en los logs del pod es la señal de que el límite quedó chico para la carga real, no necesariamente de un leak.
 
 ```yaml
 resources:
@@ -18,4 +18,4 @@ resources:
 - **Swap**: cuando la RAM física se agota, el sistema operativo puede usar disco como memoria virtual — funciona, pero el acceso a disco es órdenes de magnitud más lento que RAM; un proceso "swappeando" activamente tiene toda la pinta de estar colgado aunque técnicamente siga vivo.
 
 ---
-Relacionado: [Diagnóstico Backend](../diagnostics/backend.es.md#memoria) (memory leaks), [Kubernetes](kubernetes.md#resource-limits).
+Relacionado: [Diagnóstico Backend](../diagnostics/backend.es.md#memoria) (memory leaks), [Kubernetes](kubernetes.es.md#resource-limits).

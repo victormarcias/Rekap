@@ -29,4 +29,4 @@ a.append(b)     # referencia circular: a → b → a
 ```
 
 ---
-Relacionado: [Escalabilidad de CPU](../../backend/escalabilidad-cpu.md), [Escalabilidad de Procesos](../../devops/escalabilidad-procesos.md), [Diagnóstico Backend](../../diagnostics/backend.es.md#memoria) (memory leaks).
+Relacionado: [Escalabilidad de CPU](../../backend/escalabilidad-cpu.md), [Escalabilidad de Procesos](../../devops/scaling-processes.es.md), [Diagnóstico Backend](../../diagnostics/backend.es.md#memoria) (memory leaks).

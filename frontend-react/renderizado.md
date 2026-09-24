@@ -37,7 +37,7 @@ Que el **mismo código de componente** corra sin cambios tanto en el servidor co
 
 ## SSG, la variante prima
 
-**Static Site Generation**: el mismo concepto de "renderizar en el servidor" pero en **build time**, no por request — el HTML se genera una vez y se sirve igual para todos (con una CDN por delante, ver [CDN](../devops/cdn.md)). Sirve cuando el contenido no depende del usuario ni cambia entre requests (un blog, landing pages); SSR hace falta cuando sí depende (un dashboard con datos del usuario logueado).
+**Static Site Generation**: el mismo concepto de "renderizar en el servidor" pero en **build time**, no por request — el HTML se genera una vez y se sirve igual para todos (con una CDN por delante, ver [CDN](../devops/cdn.es.md)). Sirve cuando el contenido no depende del usuario ni cambia entre requests (un blog, landing pages); SSR hace falta cuando sí depende (un dashboard con datos del usuario logueado).
 
 **El límite de SSG puro**: si el contenido cambia (ej. se actualiza el precio de un producto), la única forma de reflejarlo es rebuildear y redeployar **todo el sitio de nuevo** — aunque solo haya cambiado una página entre miles.
 

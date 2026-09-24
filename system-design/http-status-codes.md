@@ -26,7 +26,7 @@ GET /orders/42          → 200 OK
 
 - **301 Moved Permanently**: el recurso se mudó para siempre — los browsers y crawlers cachean este redirect agresivamente, actualizan sus links.
 - **302 Found**: redirect temporal — el recurso sigue ahí, esta vez apunta para otro lado, pero no hay que actualizar nada permanentemente.
-- **304 Not Modified**: respuesta a un request condicional (`If-None-Match`/`If-Modified-Since`) — le dice al cliente "tu copia cacheada sigue siendo válida, no te mando el body de nuevo". La base de la cache HTTP (ver [CDN](../devops/cdn.md)).
+- **304 Not Modified**: respuesta a un request condicional (`If-None-Match`/`If-Modified-Since`) — le dice al cliente "tu copia cacheada sigue siendo válida, no te mando el body de nuevo". La base de la cache HTTP (ver [CDN](../devops/cdn.es.md)).
 
 ## 4xx — Client Error
 

@@ -1,6 +1,6 @@
 # Security Headers
 
-El servidor no agrega headers de seguridad por sí solo — hay que declararlos explícitamente en cada respuesta (ver el [middleware de ejemplo en Deploy a Cloud Run](../devops/deploy-cloud-run.md#5-security-headers-vía-middleware) para la implementación concreta). Acá el detalle de qué previene cada uno.
+El servidor no agrega headers de seguridad por sí solo — hay que declararlos explícitamente en cada respuesta (ver el [middleware de ejemplo en Deploy a Cloud Run](../devops/deploy-cloud-run.es.md#5-security-headers-vía-middleware) para la implementación concreta). Acá el detalle de qué previene cada uno.
 
 ## Content-Security-Policy (CSP)
 
@@ -35,4 +35,4 @@ Strict-Transport-Security: max-age=63072000; includeSubDomains
 ```
 
 ---
-Relacionado: [XSS](xss.md), [Deploy a Cloud Run](../devops/deploy-cloud-run.md#5-security-headers-vía-middleware).
+Relacionado: [XSS](xss.md), [Deploy a Cloud Run](../devops/deploy-cloud-run.es.md#5-security-headers-vía-middleware).

@@ -28,11 +28,11 @@ Reparten el tráfico entrante entre varias instancias de un servicio — la piez
 |---|---|---|
 | **NLB** (AWS Network Load Balancer) | L4 | Máximo throughput, mínima latencia |
 | **ALB** (AWS Application Load Balancer) | L7 | Ruteo por path/header, integra con auth |
-| **Nginx** | L7 (también sirve como L4) | El más usado como reverse proxy propio — ver [Deploy a un VPS](../devops/deploy-vps.md) |
+| **Nginx** | L7 (también sirve como L4) | El más usado como reverse proxy propio — ver [Deploy a un VPS](../devops/deploy-vps.es.md) |
 | **HAProxy** | L4 y L7 | Especializado en balanceo, muy usado delante de bases de datos también |
 | **Traefik** | L7 | Se integra nativo con Docker/K8s, detecta servicios nuevos automáticamente |
 | **Envoy** | L7 | Proxy de datos usado como base de service meshes (Istio) |
 | **K8s Ingress** | L7 | La forma estándar de exponer servicios HTTP de un cluster K8s hacia afuera |
 
 ---
-Relacionado: [Kubernetes](../devops/kubernetes.md), [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), [Deploy a un VPS](../devops/deploy-vps.md) (Nginx como reverse proxy).
+Relacionado: [Kubernetes](../devops/kubernetes.es.md), [Escalabilidad](../system-design/atributos-de-calidad.md#escalabilidad), [Deploy a un VPS](../devops/deploy-vps.es.md) (Nginx como reverse proxy).

@@ -8,11 +8,11 @@ Sirve si el trabajo ya está bien paralelizado (usa múltiples threads/workers d
 
 ## Horizontal: más procesos
 
-Cuando ya no tiene sentido seguir agregando cores a una sola máquina (o el trabajo no paraleliza bien dentro de un proceso), la alternativa es correr **más procesos/instancias** en paralelo, cada uno usando su propio set de cores — ver [Clustering](../diagnostics/backend.es.md#clustering) para el patrón dentro de una sola máquina, y [Escalabilidad de Procesos](../devops/escalabilidad-procesos.md) para llevarlo a múltiples máquinas.
+Cuando ya no tiene sentido seguir agregando cores a una sola máquina (o el trabajo no paraleliza bien dentro de un proceso), la alternativa es correr **más procesos/instancias** en paralelo, cada uno usando su propio set de cores — ver [Clustering](../diagnostics/backend.es.md#clustering) para el patrón dentro de una sola máquina, y [Escalabilidad de Procesos](../devops/scaling-processes.es.md) para llevarlo a múltiples máquinas.
 
 ## Antes de escalar: ¿es realmente CPU insuficiente?
 
 Escalar (vertical u horizontal) tiene sentido cuando el algoritmo ya está razonablemente optimizado — agregar cores a un algoritmo `O(n²)` que debería ser `O(n log n)` es pagar infraestructura para tapar un problema de código (ver [Algoritmos no optimizados](../diagnostics/backend.es.md#algoritmos-no-optimizados)). Confirmar con un profiler qué función consume el tiempo antes de decidir escalar.
 
 ---
-Relacionado: [Diagnóstico Backend](../diagnostics/backend.es.md#cpu-bound), [Escalabilidad vertical vs horizontal](../devops/escalabilidad-vertical-horizontal.md), [Escalabilidad de Procesos](../devops/escalabilidad-procesos.md).
+Relacionado: [Diagnóstico Backend](../diagnostics/backend.es.md#cpu-bound), [Escalabilidad vertical vs horizontal](../devops/scaling-vertical-vs-horizontal.es.md), [Escalabilidad de Procesos](../devops/scaling-processes.es.md).

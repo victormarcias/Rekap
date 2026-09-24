@@ -10,7 +10,7 @@
 
 ## Mitigaciones por capa
 
-- **CDN/edge**: absorbe el tráfico volumétrico antes de que llegue al origin — ver [CDN](../devops/cdn.md). La mayoría del tráfico de un ataque grande ni siquiera llega a tocar tu infraestructura real.
+- **CDN/edge**: absorbe el tráfico volumétrico antes de que llegue al origin — ver [CDN](../devops/cdn.es.md). La mayoría del tráfico de un ataque grande ni siquiera llega a tocar tu infraestructura real.
 - **Rate limiting**: acota cuántos requests acepta por IP/cliente en una ventana de tiempo, devolviendo [429 Too Many Requests](../system-design/http-status-codes.md#4xx--client-error) al resto — normalmente centralizado en el [API Gateway](api-gateway.md), no en cada servicio.
 - **WAF (Web Application Firewall)**: filtra patrones de tráfico maliciosos conocidos antes de que lleguen a la aplicación.
 - **Autoscaling — con cuidado**: escalar automáticamente ante un pico de tráfico ayuda a absorber el ataque, pero sin un techo puede convertirse en un **"ataque de denegación de servicio económico"**: el atacante no tira el servicio, pero factura una cuenta de cloud enorme escalando infraestructura que nunca sirvió tráfico real. Ver [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad) — siempre con un `maxReplicas` (o equivalente) como límite duro.
@@ -20,4 +20,4 @@
 Un contenido que se vuelve viral genera un patrón de tráfico parecido a un ataque de aplicación — mucho volumen, de muchas fuentes distintas, todo pidiendo lo mismo. La diferencia suele estar en el detalle: un ataque tiende a tener patrones más uniformes/artificiales (mismo user-agent, mismos intervalos, geografías inusuales para el negocio) que un pico orgánico real — pero la línea no siempre es nítida, y por eso el rate limiting y el WAF trabajan con heurísticas, no con certezas.
 
 ---
-Relacionado: [CDN](../devops/cdn.md), [API Gateway](api-gateway.md), [Qué pasa cuando escribís una URL](../system-design/que-pasa-cuando-escribis-una-url.md) (TCP handshake), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad), [Security](../security/) (vulnerabilidades de aplicación, distinto de un ataque de tráfico).
+Relacionado: [CDN](../devops/cdn.es.md), [API Gateway](api-gateway.md), [Qué pasa cuando escribís una URL](../system-design/que-pasa-cuando-escribis-una-url.md) (TCP handshake), [Elasticidad](../system-design/atributos-de-calidad.md#elasticidad), [Security](../security/) (vulnerabilidades de aplicación, distinto de un ataque de tráfico).
