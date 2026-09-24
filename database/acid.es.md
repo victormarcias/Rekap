@@ -51,4 +51,4 @@ COMMIT;
 
 A mayor isolation level → mayor seguridad, pero más contención (locks) y más riesgo de errores de tipo *serialization failure* que requieren retry de la transacción. Es un trade-off consistencia vs throughput.
 
-Ver también [Locks (shared/exclusive/MVCC)](locks.md) — el mecanismo interno que hace cumplir estos niveles — y [Rollback / savepoints](rollback-savepoints.md).
+Ver también [Locks (shared/exclusive/MVCC)](locks.es.md) — el mecanismo interno que hace cumplir estos niveles — y [Rollback / savepoints](rollback-savepoints.es.md).

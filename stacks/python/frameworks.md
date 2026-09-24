@@ -24,4 +24,4 @@ Mapa rápido de qué se usa para qué — 🧩 Backend · 🤖 IA. Varios sirven
 | TensorFlow | 🤖 |
 
 ---
-Relacionado: [Motores de SQL](../../database/motores-de-sql.md) (frameworks/ORMs de backend en más detalle), [FastAPI](../fastapi/), [RAG](../../agentic-ai/rag.md), [Function Calling](../../agentic-ai/function-calling.md), [Comparación de Modelos](../../agentic-ai/comparacion-modelos.md).
+Relacionado: [Motores de SQL](../../database/sql-engines.es.md) (frameworks/ORMs de backend en más detalle), [FastAPI](../fastapi/), [RAG](../../agentic-ai/rag.md), [Function Calling](../../agentic-ai/function-calling.md), [Comparación de Modelos](../../agentic-ai/comparacion-modelos.md).

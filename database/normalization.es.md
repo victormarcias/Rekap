@@ -74,4 +74,4 @@ En la práctica, 3NF suele ser el punto de equilibrio. Denormalizar (duplicar da
 - Optimizar lecturas en sistemas con mucho más tráfico de lectura que escritura (ej. guardar `product_name` en `order_items` como snapshot histórico del precio/nombre al momento de la compra).
 - Evitar joins costosos en queries de alta frecuencia (trade-off clásico: **consistencia vs performance**).
 
-Ver también [Sharding vs partitioning](sharding-vs-partitioning.md) para estrategias a mayor escala.
+Ver también [Sharding vs partitioning](sharding-vs-partitioning.es.md) para estrategias a mayor escala.

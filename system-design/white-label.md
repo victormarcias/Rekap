@@ -22,7 +22,7 @@ SELECT * FROM pedidos WHERE tenant_id = 'cliente-123' AND id = 42;
 -- un cliente termina viendo (o peor, editando) los datos de otro
 ```
 
-Es el mismo problema de fondo que [Sharding vs Partitioning](../database/sharding-vs-partitioning.md) (separar datos por alguna clave), aplicado a nivel de cliente en vez de a nivel de volumen de datos.
+Es el mismo problema de fondo que [Sharding vs Partitioning](../database/sharding-vs-partitioning.es.md) (separar datos por alguna clave), aplicado a nivel de cliente en vez de a nivel de volumen de datos.
 
 ## Branding dinámico: theming sin tocar código
 
@@ -66,4 +66,4 @@ Si agregar un cliente nuevo implica que alguien del equipo entre a tocar código
 Es el mismo problema que resuelve cualquier sistema multi-cliente a escala (SaaS B2B, plataformas para agencias) — la arquitectura correcta desde el día uno evita una migración dolorosa después: pasar de "todo compartido sin `tenant_id`" a un modelo con aislamiento real, con datos ya mezclados en producción, sale mucho más caro que diseñarlo bien desde el principio.
 
 ---
-Relacionado: [Sharding vs Partitioning](../database/sharding-vs-partitioning.md), [CSS Variables](../frontend-react/css.md#css-variables-custom-properties), [Autenticación y Seguridad](../backend/authentication.es.md), [Atributos de calidad de sistemas](atributos-de-calidad.md), [Qué pasa cuando escribís una URL](que-pasa-cuando-escribis-una-url.md).
+Relacionado: [Sharding vs Partitioning](../database/sharding-vs-partitioning.es.md), [CSS Variables](../frontend-react/css.md#css-variables-custom-properties), [Autenticación y Seguridad](../backend/authentication.es.md), [Atributos de calidad de sistemas](atributos-de-calidad.md), [Qué pasa cuando escribís una URL](que-pasa-cuando-escribis-una-url.md).

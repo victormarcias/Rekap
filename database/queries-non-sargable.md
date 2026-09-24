@@ -1,45 +1,45 @@
-# Queries non-sargable
+# Non-sargable queries
 
-**SARGable** = "Search ARGument ABLE": una condición que el motor puede resolver usando un índice directamente. Una query **non-sargable** obliga a un *full scan* aunque exista un índice sobre la columna, porque la condición no permite usarlo.
+**SARGable** = "Search ARGument ABLE": a condition the engine can resolve using an index directly. A **non-sargable** query forces a *full scan* even when an index exists on the column, because the condition prevents using it.
 
-## Patrones comunes que rompen el índice
+## Common patterns that break the index
 
-### 1. Función sobre la columna indexada
+### 1. Function on the indexed column
 
 ```sql
 ❌ SELECT * FROM users WHERE UPPER(email) = 'ANA@MAIL.COM';
-✅ SELECT * FROM users WHERE email = 'ana@mail.com'; -- normalizar el dato al guardar, no al leer
-✅ CREATE INDEX idx_email_upper ON users(UPPER(email)); -- o índice funcional, si no se puede evitar
+✅ SELECT * FROM users WHERE email = 'ana@mail.com'; -- normalize the data on write, not on read
+✅ CREATE INDEX idx_email_upper ON users(UPPER(email)); -- or a functional index, if it can't be avoided
 ```
 
-### 2. Wildcard al principio de un LIKE
+### 2. Wildcard at the start of a LIKE
 
 ```sql
-❌ SELECT * FROM users WHERE name LIKE '%ana%';  -- no puede usar B-tree, busca en todos lados
-✅ SELECT * FROM users WHERE name LIKE 'ana%';   -- prefijo conocido, sí usa el índice
-   -- Para búsqueda de substring real, usar full-text search (GIN/tsvector) o trigram (pg_trgm)
+❌ SELECT * FROM users WHERE name LIKE '%ana%';  -- can't use a B-tree, searches everywhere
+✅ SELECT * FROM users WHERE name LIKE 'ana%';   -- known prefix, does use the index
+   -- For real substring search, use full-text search (GIN/tsvector) or trigram (pg_trgm)
 ```
 
-### 3. Conversión implícita de tipo
+### 3. Implicit type conversion
 
 ```sql
-❌ SELECT * FROM orders WHERE order_id = '123';  -- order_id es int, compara con string, fuerza cast
+❌ SELECT * FROM orders WHERE order_id = '123';  -- order_id is int, compared to a string, forces a cast
 ✅ SELECT * FROM orders WHERE order_id = 123;
 ```
 
-### 4. Operación aritmética sobre la columna
+### 4. Arithmetic operation on the column
 
 ```sql
 ❌ SELECT * FROM sales WHERE price * 1.21 > 100;
-✅ SELECT * FROM sales WHERE price > 100 / 1.21;  -- mover el cálculo al literal, no a la columna
+✅ SELECT * FROM sales WHERE price > 100 / 1.21;  -- move the calculation to the literal, not the column
 ```
 
-### 5. `OR` en columnas distintas
+### 5. `OR` across different columns
 
 ```sql
 ❌ SELECT * FROM users WHERE email = 'x@mail.com' OR phone = '123456';
-   -- muchas veces el planner no puede combinar dos índices distintos eficientemente
-✅ -- Evaluar UNION de dos queries indexadas por separado:
+   -- the planner often can't combine two different indexes efficiently
+✅ -- Consider a UNION of two separately indexed queries:
    SELECT * FROM users WHERE email = 'x@mail.com'
    UNION
    SELECT * FROM users WHERE phone = '123456';
@@ -49,26 +49,26 @@
 
 ```sql
 ❌ SELECT * FROM orders WHERE status != 'cancelled';
-   -- baja selectividad + negación, generalmente termina en seq scan
+   -- low selectivity + negation, usually ends up as a seq scan
 ```
 
-### 7. `OR IS NULL` combinado con otras condiciones, y funciones de fecha
+### 7. `OR IS NULL` combined with other conditions, and date functions
 
 ```sql
 ❌ SELECT * FROM orders WHERE EXTRACT(YEAR FROM created_at) = 2024;
 ✅ SELECT * FROM orders WHERE created_at >= '2024-01-01' AND created_at < '2025-01-01';
 ```
 
-## Regla general
+## General rule
 
-Si la columna indexada aparece **dentro** de una función, cast, o cálculo del lado izquierdo de la comparación, el motor generalmente no puede usar el índice — hay que dejar la columna "pelada" y mover la transformación al literal del otro lado.
+If the indexed column appears **inside** a function, cast, or calculation on the left side of the comparison, the engine generally can't use the index — the column needs to be left "bare" and the transformation moved to the literal on the other side.
 
-## Cómo detectarlo
+## How to detect it
 
 ```sql
 EXPLAIN ANALYZE SELECT ...;
 ```
 
-Buscar `Seq Scan` donde se esperaría `Index Scan`. Ver [Diagnóstico Base de Datos](../diagnostics/database.es.md).
+Look for a `Seq Scan` where an `Index Scan` would be expected. See [Database Diagnostics](../diagnostics/database.md).
 
-Relacionado: [Índices](indices.md).
+Related: [Indexes](indexes.md).

@@ -8,7 +8,7 @@ Conditions that prevent index usage (functions applied to the column, a leading 
 
 ## Locking and contention (transactions)
 
-Long or poorly isolated transactions hold locks and make others wait — deadlocks, transactions running unnecessary `SELECT`s inside the lock, a stricter isolation level than needed. See [Locks](../database/locks.md) and [ACID / isolation levels](../database/acid-transacciones-isolation.md).
+Long or poorly isolated transactions hold locks and make others wait — deadlocks, transactions running unnecessary `SELECT`s inside the lock, a stricter isolation level than needed. See [Locks](../database/locks.md) and [ACID / isolation levels](../database/acid.md).
 
 ## Overly complex queries (extra joins, `WHERE` with `LIKE`)
 
@@ -20,7 +20,7 @@ Fragmented indexes and stale statistics make the planner take bad decisions. `AN
 
 ## Indexes
 
-Missing, redundant, or poorly designed (column order in composites, low selectivity). See [Indexes](../database/indices.md).
+Missing, redundant, or poorly designed (column order in composites, low selectivity). See [Indexes](../database/indexes.md).
 
 ## Execution plan
 

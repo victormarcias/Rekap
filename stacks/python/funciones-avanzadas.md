@@ -83,7 +83,7 @@ next(gen)                            # 0 — recién ahora calcula el primero
 next(gen)                            # 1
 ```
 
-**Por qué importa**: una list comprehension (`[x**2 for x in range(1_000_000)]`) calcula y guarda **todo** en memoria de una — un generator equivalente (`(x**2 for x in range(1_000_000))`, con paréntesis en vez de corchetes) no ocupa esa memoria, porque nunca tiene más de un valor "vivo" a la vez. Mismo espíritu que [procesar resultados de DB en chunks](../../database/escalabilidad-db.md#procesar-resultados-grandes-en-chunks): no traer/calcular todo de una si se puede ir de a partes.
+**Por qué importa**: una list comprehension (`[x**2 for x in range(1_000_000)]`) calcula y guarda **todo** en memoria de una — un generator equivalente (`(x**2 for x in range(1_000_000))`, con paréntesis en vez de corchetes) no ocupa esa memoria, porque nunca tiene más de un valor "vivo" a la vez. Mismo espíritu que [procesar resultados de DB en chunks](../../database/scaling-database.es.md#procesar-resultados-grandes-en-chunks): no traer/calcular todo de una si se puede ir de a partes.
 
 ## Iterators vs Iterables
 
@@ -112,4 +112,4 @@ for n in Contador(3):   # 1, 2, 3
 Un generator (arriba) es, por detrás, un Iterator armado automáticamente por Python — no hace falta escribir `__iter__`/`__next__` a mano para lograr el mismo resultado.
 
 ---
-Relacionado: [Patrones estructurales](../../system-design/patrones-estructurales.md#decorator), [Escalabilidad de Base de Datos](../../database/escalabilidad-db.md#procesar-resultados-grandes-en-chunks).
+Relacionado: [Patrones estructurales](../../system-design/patrones-estructurales.md#decorator), [Escalabilidad de Base de Datos](../../database/scaling-database.es.md#procesar-resultados-grandes-en-chunks).

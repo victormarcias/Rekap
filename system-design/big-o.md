@@ -94,4 +94,4 @@ Big-O también mide **memoria**, no solo tiempo — un algoritmo puede ser más 
 </td></tr></table>
 
 ---
-Relacionado: [Algoritmos, Sorting y Estructuras de Datos en Python](../stacks/python/algoritmos-y-sorting.md) (aplicación concreta a `list`/`dict`/`set`/`heapq`/`bisect`), [Índices](../database/indices.md) (mismo espíritu de Big-O, a nivel de DB).
+Relacionado: [Algoritmos, Sorting y Estructuras de Datos en Python](../stacks/python/algoritmos-y-sorting.md) (aplicación concreta a `list`/`dict`/`set`/`heapq`/`bisect`), [Índices](../database/indexes.es.md) (mismo espíritu de Big-O, a nivel de DB).

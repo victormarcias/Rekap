@@ -6,7 +6,7 @@ Two ways of organizing a backend system's code and deploy — it's not "microser
 
 The entire application is **one codebase, one process, one deploy**. The different parts (orders, users, payments) talk to each other with direct, in-memory function calls — no network involved.
 
-**Pros**: simple to develop, test, and deploy at first; a DB transaction that crosses "modules" is a normal transaction (see [ACID](../database/acid-transacciones-isolation.md)); no network latency between internal components.
+**Pros**: simple to develop, test, and deploy at first; a DB transaction that crosses "modules" is a normal transaction (see [ACID](../database/acid.md)); no network latency between internal components.
 
 **Cons**: scaling means scaling the **entire** process even if only one part has heavy load; a bug in one module can take down the whole app; as the team grows, everyone stepping on the same repo/deploy becomes an organizational bottleneck, not a technical one.
 

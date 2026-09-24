@@ -76,7 +76,7 @@ No pierde la memoria de lo viejo como el sliding window — la comprime. El cost
 
 ## Memoria de largo plazo (vector DB)
 
-Las estrategias anteriores solo cubren la sesión actual. Para que el chatbot recuerde algo de una sesión de hace un mes sin reenviar meses de historial completo, se guardan fragmentos de conversaciones pasadas como embeddings en una [vector DB](../database/nosql.md#vector--características-fundamentales), y se trae solo lo relevante a la pregunta actual.
+Las estrategias anteriores solo cubren la sesión actual. Para que el chatbot recuerde algo de una sesión de hace un mes sin reenviar meses de historial completo, se guardan fragmentos de conversaciones pasadas como embeddings en una [vector DB](../database/nosql.es.md#vector--características-fundamentales), y se trae solo lo relevante a la pregunta actual.
 
 ```python
 def chat(mensaje_usuario, historial_reciente):

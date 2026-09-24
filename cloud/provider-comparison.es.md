@@ -18,4 +18,4 @@ Mismo servicio, tres nombres distintos — la tabla sirve para traducir entre pr
 | Redes virtuales | VPC | Virtual Network | VPC |
 
 ---
-Relacionado: [AWS](aws/), [VPS vs Cloud Run](../devops/vps-vs-cloud-run.es.md#el-espectro-completo-iaas--paas--serverless), [NoSQL](../database/nosql.md).
+Relacionado: [AWS](aws/), [VPS vs Cloud Run](../devops/vps-vs-cloud-run.es.md#el-espectro-completo-iaas--paas--serverless), [NoSQL](../database/nosql.es.md).

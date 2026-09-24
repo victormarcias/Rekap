@@ -34,4 +34,4 @@ session.query(User).filter(User.email == email)
 - **Mínimo privilegio en la DB**: el usuario de conexión de la aplicación no debería tener permiso de `DROP`/`ALTER` si la app nunca lo necesita en producción — limita el daño incluso si algo se cuela.
 
 ---
-Relacionado: [Motores de SQL](../database/motores-de-sql.md), [Controller / Service / Repository](../backend/controller-service-repository.es.md#orm-object-relational-mapping), [SSRF](ssrf.md).
+Relacionado: [Motores de SQL](../database/sql-engines.es.md), [Controller / Service / Repository](../backend/controller-service-repository.es.md#orm-object-relational-mapping), [SSRF](ssrf.md).

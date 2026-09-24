@@ -71,4 +71,4 @@ EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'x@mail.com';
 
 Buscar `Index Scan` / `Index Only Scan` en el plan (vs `Seq Scan`). Ver [Diagnóstico Base de Datos](../diagnostics/database.es.md) para el detalle de `EXPLAIN ANALYZE`.
 
-Relacionado: [Queries non-sargable](queries-non-sargable.md) — patrones de queries que impiden que el motor use el índice aunque exista.
+Relacionado: [Queries non-sargable](queries-non-sargable.es.md) — patrones de queries que impiden que el motor use el índice aunque exista.

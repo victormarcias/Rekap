@@ -2,47 +2,47 @@
 
 ## Rollback
 
-Deshace todos los cambios de la transacción actual, volviendo al estado previo al `BEGIN`.
+Undoes every change made in the current transaction, returning to the state before `BEGIN`.
 
 ```sql
 BEGIN;
 UPDATE accounts SET balance = balance - 100 WHERE id = 1;
--- me doy cuenta que algo está mal
-ROLLBACK; -- el UPDATE nunca sucedió
+-- realize something's wrong
+ROLLBACK; -- the UPDATE never happened
 ```
 
-- Un `ROLLBACK` automático también ocurre si la conexión se cae o si una sentencia dentro de la transacción falla (según el motor: Postgres aborta toda la transacción ante cualquier error hasta el `ROLLBACK` explícito; MySQL suele ser más permisivo).
+- An automatic `ROLLBACK` also happens if the connection drops or if a statement inside the transaction fails (depends on the engine: Postgres aborts the whole transaction on any error until the explicit `ROLLBACK`; MySQL tends to be more lenient).
 
 ## Savepoints
 
-Puntos de control **dentro** de una transacción que permiten deshacer solo una parte, sin perder todo lo hecho hasta ahí.
+Checkpoints **inside** a transaction that let you undo just a part of it, without losing everything done up to that point.
 
 ```sql
 BEGIN;
 INSERT INTO orders (id, user_id) VALUES (1, 10);
 
 SAVEPOINT before_items;
-INSERT INTO order_items (order_id, product_id) VALUES (1, 999); -- product_id inválido, falla
+INSERT INTO order_items (order_id, product_id) VALUES (1, 999); -- invalid product_id, fails
 
-ROLLBACK TO SAVEPOINT before_items; -- deshace solo el INSERT de items, conserva el order
+ROLLBACK TO SAVEPOINT before_items; -- undoes only the items INSERT, keeps the order
 
-INSERT INTO order_items (order_id, product_id) VALUES (1, 5); -- reintento con dato correcto
+INSERT INTO order_items (order_id, product_id) VALUES (1, 5); -- retry with correct data
 COMMIT;
 ```
 
-- `RELEASE SAVEPOINT before_items` — libera el savepoint sin deshacer nada (ya no se puede volver a él).
-- Útil para simular "transacciones anidadas" (SQL no las soporta nativamente) o para manejar errores parciales en procesos batch sin perder todo el trabajo previo.
+- `RELEASE SAVEPOINT before_items` — releases the savepoint without undoing anything (you can no longer go back to it).
+- Useful for simulating "nested transactions" (SQL doesn't support them natively) or handling partial errors in batch processes without losing all the prior work.
 
-## Caso de uso típico: import masivo
+## Typical use case: bulk import
 
 ```sql
 BEGIN;
--- por cada fila del CSV:
+-- for each row of the CSV:
 SAVEPOINT row_start;
 INSERT INTO products (...) VALUES (...);
--- si falla, ROLLBACK TO row_start y logueo el error, sigo con la próxima fila
--- si todo OK, RELEASE SAVEPOINT row_start
-COMMIT; -- al final, todas las filas válidas quedan persistidas
+-- if it fails, ROLLBACK TO row_start and log the error, move on to the next row
+-- if all OK, RELEASE SAVEPOINT row_start
+COMMIT; -- at the end, every valid row is persisted
 ```
 
-Relacionado: [ACID / transacciones / isolation levels](acid-transacciones-isolation.md).
+Related: [ACID / transactions / isolation levels](acid.md).

@@ -21,7 +21,7 @@ SELECT * FROM pedidos_pendientes WHERE total > 1000;
 
 ## Vista vs Vista materializada
 
-Ya cubierto en detalle en [Vistas materializadas](../diagnostics/database.es.md#vistas-materializadas) y comparado contra snapshot tables en [Snapshot tables vs vistas materializadas](escalabilidad-db.md#snapshot-tables-vs-vistas-materializadas) — acá el resumen de la diferencia de fondo:
+Ya cubierto en detalle en [Vistas materializadas](../diagnostics/database.es.md#vistas-materializadas) y comparado contra snapshot tables en [Snapshot tables vs vistas materializadas](scaling-database.es.md#snapshot-tables-vs-vistas-materializadas) — acá el resumen de la diferencia de fondo:
 
 | | Vista | Vista materializada |
 |---|---|---|
@@ -64,7 +64,7 @@ CREATE TRIGGER trg_audit_orders
 
 ### Trade-off
 
-Un trigger garantiza que la lógica se ejecute **siempre**, sin importar desde qué servicio o script se hizo el cambio — ni un desarrollador con acceso directo a la DB puede saltearlo por accidente. El costo es el mismo problema de fondo que con stored procedures (ver [Trade-off: lógica en la DB vs en la aplicación](stored-procedures-vs-funciones.md#trade-off-lógica-en-la-db-vs-en-la-aplicación)), agravado: un trigger es lógica **invisible** desde el código de la aplicación — alguien leyendo el código de la app no tiene forma de saber que existe, hasta que lo descubre debuggeando un comportamiento inesperado. Por eso se usan con moderación, típicamente para invariantes de datos (auditoría, timestamps, validaciones de integridad) y no para lógica de negocio central.
+Un trigger garantiza que la lógica se ejecute **siempre**, sin importar desde qué servicio o script se hizo el cambio — ni un desarrollador con acceso directo a la DB puede saltearlo por accidente. El costo es el mismo problema de fondo que con stored procedures (ver [Trade-off: lógica en la DB vs en la aplicación](stored-procedures-vs-functions.es.md#trade-off-lógica-en-la-db-vs-en-la-aplicación)), agravado: un trigger es lógica **invisible** desde el código de la aplicación — alguien leyendo el código de la app no tiene forma de saber que existe, hasta que lo descubre debuggeando un comportamiento inesperado. Por eso se usan con moderación, típicamente para invariantes de datos (auditoría, timestamps, validaciones de integridad) y no para lógica de negocio central.
 
 ### Por qué se ven cada vez menos en desarrollo de aplicaciones
 
@@ -73,4 +73,4 @@ En un backend de aplicación (web/mobile) moderno, triggers y stored procedures 
 Donde sí siguen siendo comunes es en roles más orientados a **datos** (Data Engineer, Data Platform) — pipelines de ETL, integridad de un data warehouse, o sistemas legacy donde la lógica ya está ahí desde hace años y migrarla no es trivial. Vale la pena saber que existen y para qué sirven, pero no es lo que vas a escribir el día a día en un backend de aplicación típico con FastAPI/Django/Node.
 
 ---
-Relacionado: [Stored procedures vs funciones](stored-procedures-vs-funciones.md), [ACID](acid-transacciones-isolation.md#acid) (los triggers son parte de qué garantiza la Consistency).
+Relacionado: [Stored procedures vs funciones](stored-procedures-vs-functions.es.md), [ACID](acid.es.md#acid) (los triggers son parte de qué garantiza la Consistency).

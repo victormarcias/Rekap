@@ -1,6 +1,6 @@
 # Escalabilidad de Base de Datos
 
-[Sharding vs partitioning](sharding-vs-partitioning.md) ya cubre a fondo cómo escalar distribuyendo los **datos**. Esto completa el panorama con la otra estrategia: escalar distribuyendo las **lecturas**.
+[Sharding vs partitioning](sharding-vs-partitioning.es.md) ya cubre a fondo cómo escalar distribuyendo los **datos**. Esto completa el panorama con la otra estrategia: escalar distribuyendo las **lecturas**.
 
 ## Read replicas
 
@@ -18,7 +18,7 @@ lecturas → │Replica 1││Replica 2││Replica 3│
          └─────────┘└─────────┘└─────────┘
 ```
 
-**El costo**: replicación asíncrona implica *replication lag* — una réplica puede estar unos milisegundos (o más, bajo carga) atrás del primary. Leer de una réplica justo después de escribir en el primary puede devolver el dato viejo todavía no replicado — el mismo tipo de trade-off consistencia-vs-disponibilidad de [CAP Theorem](nosql.md#cap-theorem), aplicado dentro de una base relacional. Para el caso "necesito leer exactamente lo que acabo de escribir", hay que leer del primary a propósito, no de una réplica.
+**El costo**: replicación asíncrona implica *replication lag* — una réplica puede estar unos milisegundos (o más, bajo carga) atrás del primary. Leer de una réplica justo después de escribir en el primary puede devolver el dato viejo todavía no replicado — el mismo tipo de trade-off consistencia-vs-disponibilidad de [CAP Theorem](nosql.es.md#cap-theorem), aplicado dentro de una base relacional. Para el caso "necesito leer exactamente lo que acabo de escribir", hay que leer del primary a propósito, no de una réplica.
 
 ## Procesar resultados grandes en chunks
 
@@ -45,7 +45,7 @@ Muchos drivers también soportan un **cursor del lado del servidor** (*server-si
 
 ## Vertical Partitioning
 
-El [partitioning](sharding-vs-partitioning.md#partitioning) horizontal divide **filas** (misma tabla, mismas columnas, distintas particiones); el vertical divide **columnas**: la tabla se separa en dos o más tablas más angostas, cada una con un subconjunto de columnas, unidas por la misma clave primaria.
+El [partitioning](sharding-vs-partitioning.es.md#partitioning) horizontal divide **filas** (misma tabla, mismas columnas, distintas particiones); el vertical divide **columnas**: la tabla se separa en dos o más tablas más angostas, cada una con un subconjunto de columnas, unidas por la misma clave primaria.
 
 La señal típica de que hace falta: una tabla ancha, con columnas que casi nunca se usan juntas, muchas de ellas `NULL` la mayor parte del tiempo porque en realidad guardan conceptos distintos (datos de contacto, demográficos, info de facturación) pegoteados en una sola fila.
 
@@ -73,7 +73,7 @@ CREATE TABLE person_details (
 
 **Por qué ayuda**: una query que solo necesita `first_name`/`last_name` (la mayoría) ahora lee filas más chicas — más filas entran en cada página de disco, más filas caben en el buffer pool en memoria (ver [Escalabilidad de Memoria](../devops/scaling-memory.es.md)) — sin tener que arrastrar columnas pesadas u opcionales que ni siquiera pidió.
 
-**El límite**: si la dispersión no es "un puñado de grupos de columnas relacionadas" sino que es genuinamente **variable por fila** (cada registro necesita un set de campos distinto e impredecible de antemano), seguir partiendo verticalmente no alcanza — ahí es donde conviene evaluar [NoSQL](nosql.md) (un document store) en vez de forzar más el modelo relacional.
+**El límite**: si la dispersión no es "un puñado de grupos de columnas relacionadas" sino que es genuinamente **variable por fila** (cada registro necesita un set de campos distinto e impredecible de antemano), seguir partiendo verticalmente no alcanza — ahí es donde conviene evaluar [NoSQL](nosql.es.md) (un document store) en vez de forzar más el modelo relacional.
 
 ## Tabla activa vs histórica
 
@@ -87,7 +87,7 @@ DELETE FROM facturas WHERE created_at < now() - interval '2 years';
 COMMIT;
 ```
 
-**Diferencia con [range partitioning](sharding-vs-partitioning.md#partitioning)**: el partitioning es transparente para las queries — un `SELECT` sobre `facturas` sigue funcionando igual sin importar cuántas particiones haya por detrás. Separar en `facturas`/`facturas_history` es una separación explícita a nivel de aplicación: el código que necesita datos viejos tiene que *saber* que existe la segunda tabla y consultarla a propósito. Es más simple de implementar (no requiere configurar partitioning en el motor), pero menos transparente.
+**Diferencia con [range partitioning](sharding-vs-partitioning.es.md#partitioning)**: el partitioning es transparente para las queries — un `SELECT` sobre `facturas` sigue funcionando igual sin importar cuántas particiones haya por detrás. Separar en `facturas`/`facturas_history` es una separación explícita a nivel de aplicación: el código que necesita datos viejos tiene que *saber* que existe la segunda tabla y consultarla a propósito. Es más simple de implementar (no requiere configurar partitioning en el motor), pero menos transparente.
 
 ## Snapshot tables vs vistas materializadas
 
@@ -115,9 +115,9 @@ ON CONFLICT (fecha) DO UPDATE SET total = EXCLUDED.total;
 
 - **Vertical**: más CPU/RAM/IOPS a la misma instancia de DB — el default más simple, con techo físico.
 - **Horizontal (lecturas)**: read replicas, como arriba.
-- **Horizontal (datos)**: [sharding](sharding-vs-partitioning.md#sharding) — cuando ni escalar vertical ni sumar réplicas de lectura alcanza, porque el problema es volumen de datos/escritura, no solo lecturas.
+- **Horizontal (datos)**: [sharding](sharding-vs-partitioning.es.md#sharding) — cuando ni escalar vertical ni sumar réplicas de lectura alcanza, porque el problema es volumen de datos/escritura, no solo lecturas.
 
 Read replicas y sharding no son excluyentes — un sistema grande típicamente combina los dos: varios shards, cada uno con sus propias réplicas de lectura.
 
 ---
-Relacionado: [Sharding vs partitioning](sharding-vs-partitioning.md), [Consistencia](../system-design/atributos-de-calidad.md#consistencia), [Connection pooling](../diagnostics/backend.es.md#conexiones-mal-gestionadas), [Escalabilidad de Memoria](../devops/scaling-memory.es.md), [NoSQL](nosql.md).
+Relacionado: [Sharding vs partitioning](sharding-vs-partitioning.es.md), [Consistencia](../system-design/atributos-de-calidad.md#consistencia), [Connection pooling](../diagnostics/backend.es.md#conexiones-mal-gestionadas), [Escalabilidad de Memoria](../devops/scaling-memory.es.md), [NoSQL](nosql.es.md).

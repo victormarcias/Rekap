@@ -196,4 +196,4 @@ Cada ecosistema nombra esto distinto (en Jest, JS, es el flag `--runInBand`) per
 **La causa raíz real**: si correr serial "arregla" un test que fallaba en paralelo, el problema no es el paralelismo en sí — es que ese test no estaba realmente aislado, compartía estado con otro. Forzar serial es un diagnóstico/workaround para confirmar la sospecha, no la solución: el fix real es garantizar que cada test tenga su propio [fixture](#9-fixtures) sin nada compartido con los demás.
 
 ---
-Relacionado: [Testing en FastAPI](../stacks/fastapi/testing.md), [ACID / transacciones / isolation levels](../database/acid-transacciones-isolation.md) (transacciones y rollback), [Idempotencia](atributos-de-calidad.md).
+Relacionado: [Testing en FastAPI](../stacks/fastapi/testing.md), [ACID / transacciones / isolation levels](../database/acid.es.md) (transacciones y rollback), [Idempotencia](atributos-de-calidad.md).
