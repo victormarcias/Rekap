@@ -2,7 +2,7 @@
 
 Condensed technical review, organized for quick refreshers.
 
-🌐 **[View on victormarcias.online/rekap](https://victormarcias.online/rekap)** — browsable version with nicer formatting, reading this same repo live.
+🌐 **[View on victormarcias.online/rekap-docs](https://victormarcias.online/rekap-docs)** — browsable version with nicer formatting, reading this same repo live.
 
 ## Index
 

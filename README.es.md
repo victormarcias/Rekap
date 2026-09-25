@@ -2,7 +2,7 @@
 
 Repaso técnico condensado, organizado para repasar rápido.
 
-🌐 **[Ver en victormarcias.online/rekap](https://victormarcias.online/rekap)** — versión navegable con lindo formato, leyendo este mismo repo en vivo.
+🌐 **[Ver en victormarcias.online/rekap-docs](https://victormarcias.online/rekap-docs)** — versión navegable con lindo formato, leyendo este mismo repo en vivo.
 
 ## Índice
 
