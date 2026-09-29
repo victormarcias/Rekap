@@ -261,6 +261,7 @@
 - **moto (Python)** — [Testing in FastAPI](stacks/fastapi/testing.md#4-mocking-external-services)
 - **Moved Permanently (301)** — [HTTP Status Codes](system-design/http-status-codes.md#3xx--redirection)
 - **MPA (Multi-Page Application)** — [Rendering](frontend-react/rendering.md#spa-single-page-application)
+- **MRO (Method Resolution Order)** — [Python — OOP](stacks/python/oop.md#multiple-inheritance-and-mro-method-resolution-order)
 - **mTLS (mutual TLS)** — [Zero Trust](security/zero-trust.md#mtls-between-microservices)
 - **Multimodal (LLM)** — [What is a Token](agentic-ai/what-is-a-token.md#multimodal--tokens-beyond-text)
 - **Multi-stage build (Docker)** — [Dockerization](devops/docker.md#2-multi-stage-build)
