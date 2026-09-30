@@ -18,4 +18,4 @@ Same service, three different names — this table lets you translate between pr
 | Virtual networks | VPC | Virtual Network | VPC |
 
 ---
-Related: [AWS](aws/), [VPS vs Cloud Run](../devops/vps-vs-cloud-run.md#the-full-spectrum-iaas--paas--serverless), [NoSQL](../database/nosql.md).
+Related: [AWS](aws/), [GCP](gcp/), [Azure](azure/), [VPS vs Cloud Run](../devops/vps-vs-cloud-run.md#the-full-spectrum-iaas--paas--serverless), [NoSQL](../database/nosql.md).
