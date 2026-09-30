@@ -62,6 +62,36 @@ Es exactamente el mecanismo de bajo nivel detrás del [loop de ReAct](agents-vs-
 
 Una tarea puede necesitar varias vueltas de este loop (llamar una tool, ver el resultado, decidir llamar otra) antes de dar la respuesta final — no hay un límite fijo de pasos, el LLM decide cuándo ya tiene lo que necesita (por eso conviene un [Circuit Breaker](../system-design/quality-attributes.es.md#tolerancia-a-fallos) si algo se cuelga reintentando, ver [Costos de LLMs](llm-costs.es.md#evitar-gasto-por-loops-que-no-cortan-solos)). Algunos modelos también pueden pedir **varias tool calls en la misma respuesta** (ej. "necesito el clima de 3 ciudades") para ejecutarlas en paralelo en vez de una por una.
 
+## Structured outputs
+
+El mismo mecanismo sirve para obtener **JSON que siempre respeta un schema**, aunque no se ejecute nada — ej. extraer datos de una factura. Forzar al modelo a "llamar" una tool garantiza que el output siga su `input_schema`, en vez de parsear texto libre:
+
+```python
+invoice_tool = {
+    "name": "save_invoice",
+    "description": "Save the data extracted from an invoice",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "vendor": {"type": "string"},
+            "total": {"type": "number"},
+            "due_date": {"type": "string", "format": "date"},
+        },
+        "required": ["vendor", "total"],
+    },
+}
+
+response = client.messages.create(
+    model=MODEL,
+    tools=[invoice_tool],
+    tool_choice={"type": "tool", "name": "save_invoice"},  # fuerza esta tool → el output siempre sigue el schema
+    messages=[{"role": "user", "content": invoice_text}],
+)
+invoice = response.content[0].input  # ya es un dict, ej. {"vendor": "ACME", "total": 120.5, ...}
+```
+
+Los proveedores también lo exponen como un parámetro dedicado (*structured outputs* / *JSON mode*, ej. `response_format` en OpenAI), que restringe la respuesta al schema sin pasar por una tool.
+
 ## Function calling vs MCP
 
 Function calling es el **mecanismo**: cómo el LLM pide ejecutar algo y recibe el resultado, parte del contrato de la API del modelo. [MCP](mcp.es.md) es un **protocolo de más alto nivel** que estandariza cómo se exponen esas tools entre aplicaciones distintas, para no reinventar la integración con cada servicio externo — un servidor MCP, por debajo, termina generando exactamente el tipo de schema de tools que function calling necesita.

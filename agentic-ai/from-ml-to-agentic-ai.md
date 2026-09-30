@@ -9,12 +9,12 @@ Before the timeline, the contrast between the three categories that will come up
 | | Classical AI | Generative AI | LLMs |
 |---|---|---|---|
 | Approach | Explicit rules and logic | Creative content generation | Text prediction based on large data |
-| Examples | Expert systems, decision trees | GANs, VAEs | GPT, PaLM, LLaMA |
+| Examples | Expert systems, decision trees | GANs, VAEs, diffusion models | GPT, PaLM, LLaMA |
 | Main use | Classification, structured prediction | Creating images/audio/text | Conversation, summarization, text generation |
 | Training | Labeled data, manual rules | Deep neural networks | Pretraining on large corpora |
 | Flexibility | Limited, task-specific | High, creative | High, adaptive across tasks without retraining |
 
-LLMs are, technically, a specific case of Generative AI (they generate text) — they're split out in the table because their ability to reason with natural-language instructions is what made everything that follows in this timeline possible (RAG, tool use, agentic behavior).
+LLMs are, technically, a specific case of Generative AI (they generate text) — they're split out in the table because their ability to reason with natural-language instructions is what made everything that follows in this timeline possible (RAG, tool use, agentic behavior). The other families (GANs, diffusion) are in [Generative Models](generative-models.md).
 
 ## 1. Classical Machine Learning — one model, one task
 
@@ -39,7 +39,7 @@ The paper *"Attention Is All You Need"* (2017) introduced an architecture that p
 
 ## 4. Pretrained models — one base model, many uses (2018-2020)
 
-BERT and GPT (original version) shifted the pattern from "one model per task" to **pretraining one large model once** on massive text (unlabeled, *self-supervised*), then adjusting it (*fine-tuning*) with little effort for specific tasks. General language knowledge stayed in the base model; fine-tuning just specialized it.
+BERT and GPT (original version) shifted the pattern from "one model per task" to **pretraining one large model once** on massive text (unlabeled, *self-supervised*), then adjusting it (*fine-tuning*) with little effort for specific tasks. General language knowledge stayed in the base model; fine-tuning just specialized it. Today these are called [Foundation Models](foundation-models.md).
 
 ## 5. LLMs and the prompting era (2020, mainstream in 2022)
 
@@ -73,4 +73,4 @@ User: "Add a new file and link it from the index"
 ```
 
 ---
-Related: see the rest of `agentic-ai/` for the detail of each piece (RAG, tool use, agent architecture) as they get added.
+Related: [Data and Learning Types](data-and-learning-types.md), [Foundation Models](foundation-models.md), [Generative Models](generative-models.md), [RAG](rag.md), [Function Calling](function-calling.md), [Agent Design](agent-design.md).

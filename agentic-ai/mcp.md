@@ -33,5 +33,9 @@ The transport between client and server is **JSON-RPC** over `stdio` (local proc
 
 The central advantage is that **the same MCP server works for any compatible host** — whoever builds the GitHub integration writes it once, and it can be used by Claude Code, Cursor, or any other agent that speaks the protocol. That's why the MCP server ecosystem grew so fast: it's not "one integration per product," it's "one integration, N products."
 
+## MCP vs A2A
+
+**A2A** (Agent2Agent, introduced by Google in 2025) solves a different connection: MCP connects an agent with **tools and data**, A2A connects an agent with **other agents** — possibly from different vendors — so it can delegate a task and receive the result. Each agent publishes an *Agent Card* (JSON describing what it can do), and the exchange happens over HTTP. They complement each other: an agent can use MCP for its own tools and A2A to hand off work to another agent.
+
 ---
 Related: [Function Calling](function-calling.md), [Agents vs Workflows](agents-vs-workflows.md#agent-pattern-the-llm-controls-the-path), [Agent Design](agent-design.md), [AGENTS.md and Skills](agents-md-and-skills.md).

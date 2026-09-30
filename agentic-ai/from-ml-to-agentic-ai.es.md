@@ -9,12 +9,12 @@ Antes de entrar al timeline, el contraste entre las tres categorías que van a a
 | | IA Clásica | IA Generativa | LLMs |
 |---|---|---|---|
 | Enfoque | Reglas y lógica explícita | Generación creativa de contenido | Predicción de texto basada en grandes datos |
-| Ejemplos | Sistemas expertos, árboles de decisión | GANs, VAEs | GPT, PaLM, LLaMA |
+| Ejemplos | Sistemas expertos, árboles de decisión | GANs, VAEs, modelos de diffusion | GPT, PaLM, LLaMA |
 | Uso principal | Clasificación, predicción estructurada | Creación de imágenes/audio/texto | Conversación, resumen, generación de texto |
 | Entrenamiento | Datos etiquetados, reglas manuales | Redes neuronales profundas | Preentrenamiento con grandes corpus |
 | Flexibilidad | Limitada, específica de una tarea | Alta, creativa | Alta, adaptativa a distintas tareas sin reentrenar |
 
-Los LLMs son, técnicamente, un caso particular de IA Generativa (generan texto) — se separan en la tabla porque su capacidad de razonar con instrucciones en lenguaje natural es lo que hizo posible todo lo que sigue en este timeline (RAG, tool use, agentic).
+Los LLMs son, técnicamente, un caso particular de IA Generativa (generan texto) — se separan en la tabla porque su capacidad de razonar con instrucciones en lenguaje natural es lo que hizo posible todo lo que sigue en este timeline (RAG, tool use, agentic). Las otras familias (GANs, diffusion) están en [Modelos Generativos](generative-models.es.md).
 
 ## 1. Machine Learning clásico — un modelo, una tarea
 
@@ -39,7 +39,7 @@ El paper *"Attention Is All You Need"* (2017) introdujo una arquitectura que pro
 
 ## 4. Modelos preentrenados — un modelo base, muchos usos (2018-2020)
 
-BERT y GPT (versión original) cambiaron el patrón de "un modelo por tarea" a **preentrenar un modelo grande una sola vez** sobre texto masivo (sin etiquetas, *self-supervised*), y después ajustarlo (*fine-tuning*) con poco esfuerzo para tareas específicas. El conocimiento general del lenguaje quedaba en el modelo base; el fine-tuning solo lo especializaba.
+BERT y GPT (versión original) cambiaron el patrón de "un modelo por tarea" a **preentrenar un modelo grande una sola vez** sobre texto masivo (sin etiquetas, *self-supervised*), y después ajustarlo (*fine-tuning*) con poco esfuerzo para tareas específicas. El conocimiento general del lenguaje quedaba en el modelo base; el fine-tuning solo lo especializaba. Hoy a estos se los llama [Foundation Models](foundation-models.es.md).
 
 ## 5. LLMs y la era del prompting (2020, mainstream en 2022)
 
@@ -73,4 +73,4 @@ Usuario: "Agregá un archivo nuevo y linkealo desde el índice"
 ```
 
 ---
-Relacionado: ver el resto de `agentic-ai/` para el detalle de cada pieza (RAG, tool use, arquitectura de agentes) a medida que se van agregando.
+Relacionado: [Tipos de Datos y de Aprendizaje](data-and-learning-types.es.md), [Foundation Models](foundation-models.es.md), [Modelos Generativos](generative-models.es.md), [RAG](rag.es.md), [Function Calling](function-calling.es.md), [Diseño de Agentes](agent-design.es.md).
