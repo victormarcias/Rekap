@@ -20,7 +20,7 @@ Sirve para iterar rápido en los nodos SIGUIENTES sin gastar cuota,
 esperar latencia real, ni depender de que el servicio externo esté arriba
 ```
 
-Es conceptualmente parecido a un [mock](../../system-design/testing.es.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) — reemplazar una dependencia externa por un valor fijo, conocido, para poder probar el resto de la lógica de forma aislada y repetible.
+Es conceptualmente parecido a un [mock](../../system-design/testing.es.md#2-test-doubles--dummy-stub-spy-mock-fake) — reemplazar una dependencia externa por un valor fijo, conocido, para poder probar el resto de la lógica de forma aislada y repetible.
 
 ## Execution history — el log de qué pasó
 

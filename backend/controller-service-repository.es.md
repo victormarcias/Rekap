@@ -102,4 +102,4 @@ def test_apply_discount_rejects_non_pending_order():
 ```
 
 ---
-Relacionado: [Clean Architecture](../system-design/clean-architecture.es.md) (la teoría completa detrás de esta separación en capas), [SOLID principles](../system-design/solid.es.md), [Testing — conceptos generales](../system-design/testing.es.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) (el `FakeOrderRepository` de arriba es un Fake, no un Mock), [Endpoints para microservicios](../stacks/fastapi/microservice-endpoints.es.md) (`response_model` y Pydantic como DTOs en la práctica).
+Relacionado: [Clean Architecture](../system-design/clean-architecture.es.md) (la teoría completa detrás de esta separación en capas), [SOLID principles](../system-design/solid.es.md), [Testing — conceptos generales](../system-design/testing.es.md#2-test-doubles--dummy-stub-spy-mock-fake) (el `FakeOrderRepository` de arriba es un Fake, no un Mock), [Endpoints para microservicios](../stacks/fastapi/microservice-endpoints.es.md) (`response_model` y Pydantic como DTOs en la práctica).

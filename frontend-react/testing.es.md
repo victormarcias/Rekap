@@ -24,7 +24,7 @@ describe('sumar', () => {
 
 Matchers comunes de `expect`: `toBe` (igualdad estricta, `===`), `toEqual` (igualdad estructural — compara el contenido de un objeto/array, no la referencia), `toContain` (un array/string contiene algo), `toBeNull`/`toBeUndefined`, `toThrow` (la función lanza un error).
 
-**Mocks con `jest.fn()` / `jest.mock()`**: reemplazar una función o un módulo entero por una versión falsa controlada por el test — el mismo concepto de [Mock](../system-design/testing.es.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) explicado en la teoría general, acá con la sintaxis concreta de Jest.
+**Mocks con `jest.fn()` / `jest.mock()`**: reemplazar una función o un módulo entero por una versión falsa controlada por el test — el mismo concepto de [Mock](../system-design/testing.es.md#2-test-doubles--dummy-stub-spy-mock-fake) explicado en la teoría general, acá con la sintaxis concreta de Jest.
 
 ```js
 const fetchUsuario = jest.fn(() => Promise.resolve({ id: 1, name: 'Vic' }));

@@ -18,30 +18,56 @@ Los tests se organizan en capas según cuánto cubren y cuánto cuestan: **unit 
 
 Invertir la pirámide (pocos unit tests, muchos e2e — el anti-patrón "ice cream cone") da un test suite lento y flaky: cada bug tarda minutos en confirmarse en vez de milisegundos, y un fallo en la red o el browser rompe tests que no tienen nada que ver con el bug real.
 
-## 2. Test doubles — Mock vs Stub vs Fake vs Spy
+## 2. Test doubles — Dummy, Stub, Spy, Mock, Fake
 
-Se usan como sinónimos y no lo son — cada uno resuelve un problema distinto al reemplazar una dependencia real en un test:
+Un **test double** es cualquier objeto que reemplaza a una dependencia real durante un test (como el doble de riesgo en una película). El término es el paraguas; Dummy, Stub, Spy, Mock y Fake son los cinco tipos, y se usan como sinónimos y no lo son — cada uno resuelve un problema distinto:
 
 | Tipo | Qué hace | Verifica el "cómo" fue llamado |
 |---|---|---|
+| **Dummy** | Llena un parámetro que tiene que estar pero que nunca se usa de verdad | ❌ |
 | **Stub** | Devuelve una respuesta fija, sin lógica real | ❌ |
+| **Spy** | Envuelve un objeto real, delega la llamada real y además la registra | ✅ |
 | **Mock** | Como un stub, pero además registra y permite verificar las llamadas que recibió | ✅ |
 | **Fake** | Una implementación real pero simplificada (ej. una DB en memoria en vez de Postgres) | ❌ |
-| **Spy** | Envuelve un objeto real, delega la llamada real y además la registra | ✅ |
 
 ```python
+# Dummy: el constructor exige un logger, pero este test nunca lo toca
+service = OrderService(repo=repo, logger=None)
+
 # Stub: devuelve un valor fijo, no le importa cómo ni cuántas veces se lo llamó
 class StubPaymentGateway:
     def charge(self, amount, card):
         return {"status": "succeeded"}
 
+# Spy: objeto real por debajo, más un registro de lo que se llamó
+class SpyEmailSender(RealEmailSender):
+    def __init__(self):
+        self.sent = []
+
+    def send(self, to, body):
+        self.sent.append(to)         # registra la llamada...
+        return super().send(to, body)  # ...y igual hace el trabajo real
+
 # Mock: además del valor de retorno, permite verificar el "cómo" —
-# esto es lo que distingue un mock de un simple stub
+# esto es lo que distingue a un mock de un stub común
 mock_gateway = Mock()
 mock_gateway.charge.return_value = {"status": "succeeded"}
 checkout(mock_gateway, cart)
 mock_gateway.charge.assert_called_once_with(100, "4242-...")  # ✅ verifica la llamada, no solo el resultado
+
+# Fake: una implementación que funciona, solo que más simple que la real
+class FakeOrderRepository:
+    def __init__(self):
+        self.orders = {}  # un dict en vez de una base de datos
+
+    def save(self, order):
+        self.orders[order.id] = order
+
+    def get(self, order_id):
+        return self.orders.get(order_id)
 ```
+
+**Cuál elegir**: un stub o fake cuando el test solo se fija en el *resultado* (verificación de estado); un mock o spy cuando al test le importa que algo *haya pasado* (verificación de comportamiento — ej. "se mandó el email de bienvenida una vez"). Abusar de los mocks ata el test a cómo está escrito el código en vez de a lo que hace, que es el problema de los [tests frágiles](#7-tests-frágiles-vs-tests-robustos) del punto 7.
 
 ## 3. Por qué mockear servicios externos
 

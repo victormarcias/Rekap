@@ -24,7 +24,7 @@ describe('add', () => {
 
 Common `expect` matchers: `toBe` (strict equality, `===`), `toEqual` (structural equality — compares an object/array's content, not the reference), `toContain` (an array/string contains something), `toBeNull`/`toBeUndefined`, `toThrow` (the function throws an error).
 
-**Mocks with `jest.fn()` / `jest.mock()`**: replacing a function or an entire module with a fake version controlled by the test — the same [Mock](../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) concept explained in the general theory, here with Jest's concrete syntax.
+**Mocks with `jest.fn()` / `jest.mock()`**: replacing a function or an entire module with a fake version controlled by the test — the same [Mock](../system-design/testing.md#2-test-doubles--dummy-stub-spy-mock-fake) concept explained in the general theory, here with Jest's concrete syntax.
 
 ```js
 const fetchUser = jest.fn(() => Promise.resolve({ id: 1, name: 'Vic' }));

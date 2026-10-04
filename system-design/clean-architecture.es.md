@@ -56,7 +56,7 @@ class PostgresOrderRepository:  # implementa el "contrato" OrderRepository
 
 ## Por qué importa
 
-- **Testeable sin infraestructura real**: los tests del use case corren en milisegundos, sin DB ni red — el equivalente al [Fake de los test doubles](../system-design/testing.es.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy).
+- **Testeable sin infraestructura real**: los tests del use case corren en milisegundos, sin DB ni red — el equivalente al [Fake de los test doubles](../system-design/testing.es.md#2-test-doubles--dummy-stub-spy-mock-fake).
 - **Independiente de framework y de DB**: cambiar de herramienta externa no debería obligar a reescribir la lógica de negocio.
 - **El dominio se lee solo**: alguien nuevo en el equipo puede entender las reglas de negocio leyendo `Order`/`CancelOrderUseCase`, sin tener que entender FastAPI ni el ORM primero.
 

@@ -20,7 +20,7 @@ Useful for iterating quickly on the FOLLOWING nodes without spending quota,
 waiting on real latency, or depending on the external service being up
 ```
 
-It's conceptually similar to a [mock](../../system-design/testing.md#2-test-doubles--mock-vs-stub-vs-fake-vs-spy) — replacing an external dependency with a fixed, known value, to be able to test the rest of the logic in isolation and repeatably.
+It's conceptually similar to a [mock](../../system-design/testing.md#2-test-doubles--dummy-stub-spy-mock-fake) — replacing an external dependency with a fixed, known value, to be able to test the rest of the logic in isolation and repeatably.
 
 ## Execution history — the log of what happened
 
