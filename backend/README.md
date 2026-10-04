@@ -13,6 +13,7 @@ Concrete backend system architecture decisions: what piece to use and why.
 - [x] [GraphQL](graphql.md)
 - [x] [HTTP Methods](http-methods.md)
 - [x] [Load balancers](load-balancers.md)
+- [x] [Reverse Proxy](reverse-proxy.md)
 - [x] [Monolith vs Microservices](monolith-vs-microservices.md)
 - [x] [Managed Identity Providers (Cognito, Auth0, Firebase Auth)](managed-identity-providers.md)
 - [x] [REST](rest.md)

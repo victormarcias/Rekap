@@ -14,6 +14,7 @@ Quick map of Azure's most commonly referenced services and what each one is for 
 | **Microsoft Entra ID** (formerly Azure AD) | Identity | Directory service backing sign-in, app registrations, and role assignments — see [Managed Identity Providers](../../backend/managed-identity-providers.md). |
 | **Service Bus** | Messaging (queue + pub/sub) | Message broker supporting both queues and topics/subscriptions (pub/sub) in one service. |
 | **Event Grid** | Messaging (eventing) | Lightweight, reactive event routing — a resource changes, subscribers get notified. |
+| **Load Balancer / Application Gateway** | Networking / load balancing | Managed [load balancers](../../backend/load-balancers.md#managed-load-balancers-cloud): Azure Load Balancer (L4) and Application Gateway (L7, with built-in WAF). |
 | **AKS** (Azure Kubernetes Service) | Container orchestration | Managed Kubernetes — see [Kubernetes](../../devops/kubernetes.md). |
 | **RBAC** (Role-Based Access Control) | Security / Identity | Who (user, group, service principal) can do what, scoped at management group / subscription / resource group / resource level. |
 

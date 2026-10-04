@@ -13,6 +13,7 @@ Decisiones concretas de arquitectura de un sistema backend: qué pieza usar y po
 - [x] [GraphQL](graphql.es.md)
 - [x] [HTTP Methods](http-methods.es.md)
 - [x] [Load balancers](load-balancers.es.md)
+- [x] [Reverse Proxy](reverse-proxy.es.md)
 - [x] [Monolito vs Microservicios](monolith-vs-microservices.es.md)
 - [x] [Proveedores de Identidad Gestionados (Cognito, Auth0, Firebase Auth)](managed-identity-providers.es.md)
 - [x] [REST](rest.es.md)

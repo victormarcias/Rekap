@@ -25,7 +25,7 @@ Sin gateway, cada [microservicio](monolith-vs-microservices.es.md) tendría que 
 
 ## Herramientas comunes
 
-Kong, AWS API Gateway, Traefik (que ya mencionamos como L7 en [Load balancers](load-balancers.es.md) — muchas herramientas hacen tanto de load balancer como de gateway liviano, la línea entre ambos roles no siempre es nítida en la práctica).
+Kong, AWS API Gateway, Traefik (un [reverse proxy](reverse-proxy.es.md) — muchas herramientas hacen a la vez de reverse proxy, load balancer y gateway liviano, la línea entre los roles no siempre es nítida en la práctica).
 
 ---
 Relacionado: [Load balancers](load-balancers.es.md), [Monolito vs Microservicios](monolith-vs-microservices.es.md), [Autenticación y Seguridad](authentication.es.md).

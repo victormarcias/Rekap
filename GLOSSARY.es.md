@@ -70,6 +70,7 @@
 - **Clean Architecture** — [Clean Architecture](system-design/clean-architecture.es.md)
 - **Clickjacking** — [Security Headers](security/security-headers.es.md#x-frame-options--frame-ancestors-csp)
 - **Cloud Functions (GCP)** — [GCP — Servicios Principales](cloud/gcp/core-services.es.md)
+- **Cloud Load Balancing (GCP)** — [GCP — Servicios Principales](cloud/gcp/core-services.es.md)
 - **Cloud Run** — [Deploy a Cloud Run](devops/deploy-cloud-run.es.md) · [GCP — Servicios Principales](cloud/gcp/core-services.es.md)
 - **Cloud SQL (GCP)** — [GCP — Servicios Principales](cloud/gcp/core-services.es.md)
 - **Cloud Storage (GCP)** — [GCP — Servicios Principales](cloud/gcp/core-services.es.md)
@@ -151,6 +152,7 @@
 - **ECS / EKS (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
 - **Ejecución de tests en paralelo vs serial** — [Testing — conceptos generales](system-design/testing.es.md#10-ejecución-de-tests-en-paralelo-vs-serial)
 - **Elasticidad** — [Atributos de calidad de sistemas](system-design/quality-attributes.es.md#elasticidad)
+- **ELB / ALB / NLB (AWS)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md)
 - **Embedding (RAG)** — [RAG](agentic-ai/rag.es.md#2-embeddings--texto-a-vector-semántico)
 - **Encoding** — [Autenticación y Seguridad](backend/authentication.es.md#1-hashing-vs-encriptado-vs-encoding)
 - **Encriptado** — [Autenticación y Seguridad](backend/authentication.es.md#1-hashing-vs-encriptado-vs-encoding)
@@ -184,6 +186,7 @@
 - **Flexbox** — [CSS](frontend-react/css.es.md#flexbox-vs-grid)
 - **Forbidden (403)** — [Autenticación y Seguridad](backend/authentication.es.md#7-autenticación-vs-autorización)
 - **Forward-only migration** — [Migraciones de base de datos](database/migrations.es.md#2-forward-only-vs-reversible)
+- **Forward proxy** — [Reverse Proxy](backend/reverse-proxy.es.md#forward-vs-reverse-proxy)
 - **Found (302)** — [HTTP Status Codes](system-design/http-status-codes.es.md#3xx--redirection)
 - **Función almacenada** — [Stored procedures vs funciones](database/stored-procedures-vs-functions.es.md)
 
@@ -258,6 +261,8 @@
 - **Least privilege (principio)** — [Privacidad y GDPR](frontend-react/privacy-and-gdpr.es.md#correct-settings-configuración-segura-por-default)
 - **Liskov Substitution Principle (L de SOLID)** — [SOLID principles](system-design/solid.es.md#l--liskov-substitution-principle)
 - **LLM (Large Language Model)** — [De ML clásico a Agentic AI](agentic-ai/from-ml-to-agentic-ai.es.md#5-llms-y-la-era-del-prompting-2020-mainstream-en-2022)
+- **Load balancer** — [Load Balancers](backend/load-balancers.es.md)
+- **Load Balancer / Application Gateway (Azure)** — [Azure — Servicios Principales](cloud/azure/core-services.es.md)
 - **localStorage** — [Almacenamiento en el cliente](frontend-react/client-side-storage.es.md#localstorage)
 - **Long polling** — [Colas de mensajes](backend/message-queues.es.md#sqs-amazon-simple-queue-service)
 
@@ -306,7 +311,7 @@
 ### N
 
 - **NestJS** — [NestJS — Arquitectura](stacks/nestjs/architecture.es.md)
-- **Nginx** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have) · [Nginx como reverse proxy](devops/deploy-vps.es.md#4-nginx-como-reverse-proxy)
+- **Nginx** — [Reverse Proxy](backend/reverse-proxy.es.md) · [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have) · [Nginx como reverse proxy](devops/deploy-vps.es.md#4-nginx-como-reverse-proxy)
 - **No Content (204)** — [HTTP Status Codes](system-design/http-status-codes.es.md#2xx--success)
 - **Non-clustered index** — [Índices](database/indexes.es.md#clustered-vs-non-clustered)
 - **Non-repeatable read** — [ACID / isolation levels](database/acid.es.md#los-tres-phenomena-que-definen-los-isolation-levels)
@@ -394,6 +399,7 @@
 - **Resolver (GraphQL)** — [GraphQL](backend/graphql.es.md#resolvers-y-el-riesgo-de-n1)
 - **Resource limits (requests vs limits, Kubernetes)** — [Kubernetes](devops/kubernetes.es.md#resource-limits)
 - **REST** — [REST](backend/rest.es.md)
+- **Reverse proxy** — [Reverse Proxy](backend/reverse-proxy.es.md)
 - **Role prompting** — [Prompt Engineering](agentic-ai/prompt-engineering.es.md#estructura-de-un-system-prompt)
 - **Rollback** — [Rollback / savepoints](database/rollback-savepoints.es.md#rollback)
 - **Round robin** — [Load Balancers](backend/load-balancers.es.md#algoritmos-de-balanceo)

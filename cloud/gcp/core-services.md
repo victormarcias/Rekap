@@ -14,6 +14,7 @@ Quick map of GCP's most commonly referenced services and what each one is for �
 | **Pub/Sub** | Messaging (pub/sub) | Fan-out messaging with durable delivery — publishers send messages, subscribers pull them at their own pace. |
 | **Dataflow** | Stream/batch processing | Managed Apache Beam — the same pipeline code runs for both batch and streaming data processing. |
 | **Dataproc** | Managed Hadoop/Spark | Managed Hadoop/Spark clusters, typically used by teams migrating an existing on-prem cluster to the cloud. |
+| **Cloud Load Balancing** | Networking / load balancing | Managed [load balancer](../../backend/load-balancers.md#managed-load-balancers-cloud), L4 (Network) and L7 (Application), can be global: one IP in front of backends in several regions. |
 | **GKE** (Google Kubernetes Engine) | Container orchestration | Managed Kubernetes — see [Kubernetes](../../devops/kubernetes.md). |
 | **IAM** (Identity and Access Management) | Security / Identity | Who (user, service account, group) can do what on which resource, via basic, predefined, or custom roles. |
 

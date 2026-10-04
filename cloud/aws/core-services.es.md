@@ -14,6 +14,7 @@ Mapa rápido de los servicios más nombrados de AWS y para qué sirve cada uno �
 | **Cognito** | Identidad | Autenticación/autorización de usuarios gestionada (user pools, login social) — ver [Proveedores de Identidad Gestionados](../../backend/managed-identity-providers.es.md). |
 | **SNS** (Simple Notification Service) | Mensajería pub/sub | Fan-out: un mensaje, muchos suscriptores (email, SMS, colas, Lambda). |
 | **SQS** (Simple Queue Service) | Mensajería (cola) | Desacoplar productor de consumidor con una cola — ver [Colas de mensajes](../../backend/message-queues.es.md#sqs-amazon-simple-queue-service). |
+| **ELB** (Elastic Load Balancing: ALB / NLB) | Networking / load balancing | [Load balancer](../../backend/load-balancers.es.md#load-balancers-gestionados-cloud) gestionado — ALB (L7, rutea por path/header) y NLB (L4, máximo throughput) reparten el tráfico entre instancias sanas. |
 | **ECS / EKS** | Orquestación de contenedores | ECS = orquestador propio de AWS; EKS = Kubernetes gestionado — ver [Kubernetes](../../devops/kubernetes.es.md). |
 | **IAM** (Identity and Access Management) | Seguridad / Identidad | Quién (usuario, rol, servicio) puede hacer qué sobre qué recurso — la base de permisos de toda la cuenta. |
 
@@ -27,7 +28,7 @@ Conceptos que se piden con menos frecuencia que la tabla de arriba, pero vale la
 | **Terraform** | Infrastructure as Code (IaC) | Declarar infraestructura (servidores, redes, DBs) en archivos de config versionables, en vez de clickear en la consola a mano. |
 | **AWS CDK** | Infrastructure as Code (IaC) | Lo mismo que Terraform, pero en un lenguaje de programación real (Python/TypeScript) en vez de HCL — compila a CloudFormation por detrás. |
 | **Serverless Framework** | Deploy / IaC para serverless | Framework para definir y desplegar funciones Lambda + sus triggers (API Gateway, S3, etc.) con un solo archivo de config. |
-| **Nginx** | Reverse proxy / web server | Termina TLS, sirve estáticos, hace de reverse proxy delante de la app. Ya desarrollado en [Nginx como reverse proxy](../../devops/deploy-vps.es.md#4-nginx-como-reverse-proxy). |
+| **Nginx** | Reverse proxy / web server | Termina TLS, sirve estáticos, hace de reverse proxy delante de la app. Ver [Reverse Proxy](../../backend/reverse-proxy.es.md) y [Nginx como reverse proxy](../../devops/deploy-vps.es.md#4-nginx-como-reverse-proxy). |
 | **CDN (CloudFront)** | Networking / distribución de contenido | Cachea contenido cerca del usuario final — CloudFront es el CDN de AWS, ver [Comparación de Proveedores](../provider-comparison.es.md) para el equivalente en Azure/GCP y [CDN](../../devops/cdn.es.md) para el concepto genérico. |
 | **VPC** | Networking | Red virtual aislada donde corren los recursos de una cuenta cloud — ver [Comparación de Proveedores](../provider-comparison.es.md). |
 | **DNS** | Networking | Traduce nombres de dominio a IPs — ya desarrollado en [Resolución DNS](../../system-design/what-happens-when-you-type-a-url.es.md#2-resolución-dns--de-dominio-a-ip). |
