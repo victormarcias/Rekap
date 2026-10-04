@@ -422,6 +422,7 @@
 - **Selenium** — [Testing en React](frontend-react/testing.es.md#herramientas-e2e-selenium-vs-cypress-vs-playwright)
 - **Semáforo (concurrencia)** — [Locks](database/locks.es.md#sección-crítica--el-concepto-general-detrás-de-la-solución)
 - **SEO** — [HTML](frontend-react/html.es.md#seo)
+- **Serialization failure** — [ACID / Isolation Levels](database/acid.es.md#cómo-previene-cada-nivel)
 - **Serverless Framework** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have)
 - **Server-side cursor** — [Escalabilidad de Base de Datos](database/scaling-database.es.md#procesar-resultados-grandes-en-chunks)
 - **Service Bus (Azure)** — [Azure — Servicios Principales](cloud/azure/core-services.es.md)

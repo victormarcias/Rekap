@@ -87,4 +87,4 @@ Instead of blocking reads, Postgres and MySQL InnoDB keep **multiple versions** 
 
 **Practical consequence**: with MVCC, readers never block writers or vice versa (`SELECT` doesn't wait on an in-progress `UPDATE`) — only writer-vs-writer generates real contention.
 
-See also [ACID / transactions / isolation levels](acid.md), which depends directly on these mechanisms.
+See also [ACID / transactions / isolation levels](acid.md), which depends directly on these mechanisms — in particular [how each isolation level uses locks or snapshots](acid.md#how-each-level-prevents-them) to prevent dirty, non-repeatable, and phantom reads.

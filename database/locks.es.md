@@ -87,4 +87,4 @@ En vez de bloquear lecturas, Postgres y MySQL InnoDB mantienen **múltiples vers
 
 **Consecuencia práctica**: con MVCC, lectores nunca bloquean escritores ni viceversa (`SELECT` no espera a un `UPDATE` en curso) — solo escritor vs escritor genera contención real.
 
-Ver también [ACID / transacciones / isolation levels](acid.es.md), que depende directamente de estos mecanismos.
+Ver también [ACID / transacciones / isolation levels](acid.es.md), que depende directamente de estos mecanismos — en particular [cómo cada isolation level usa locks o snapshots](acid.es.md#cómo-previene-cada-nivel) para evitar dirty, non-repeatable y phantom reads.

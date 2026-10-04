@@ -422,6 +422,7 @@
 - **Semantic HTML** — [HTML](frontend-react/html.md#general-semantics-and-containers)
 - **Semaphore (concurrency)** — [Locks](database/locks.md#critical-section--the-general-concept-behind-the-solution)
 - **SEO** — [HTML](frontend-react/html.md#seo)
+- **Serialization failure** — [ACID / Isolation Levels](database/acid.md#how-each-level-prevents-them)
 - **Serverless Framework** — [AWS — Core Services](cloud/aws/core-services.md#nice-to-have-extras)
 - **Server-side cursor** — [Database Scalability](database/scaling-database.md#processing-large-results-in-chunks)
 - **Service Bus (Azure)** — [Azure — Core Services](cloud/azure/core-services.md)
