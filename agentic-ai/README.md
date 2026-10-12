@@ -37,5 +37,3 @@ Phase 2 of the repo: agentic programming in depth (agents, tool use, RAG), tradi
 - [x] [LLM Costs](llm-costs.md)
 - [x] [Model Comparison](model-comparison.md)
 - [x] [Risks and Mitigations](risks-and-mitigations.md)
-
-See also: [n8n](../stacks/n8n/) (a concrete tool, lives in `stacks/` alongside the other languages/tools).

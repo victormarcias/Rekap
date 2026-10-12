@@ -4,7 +4,6 @@ A review by language/stack — setup, syntax, and fundamentals — plus the conc
 
 - [⚡ FastAPI](fastapi/) — concrete backend architecture implementation in Python (endpoints, sync/async, auth, testing)
 - [💛 JavaScript](javascript/syntax.md) — variables, arrays, objects, functions, arrow functions, destructuring
-- [🔗 n8n](n8n/) — node-based automation, self-hostable, AI Agent node
 - [🐈 NestJS](nestjs/) — concrete backend architecture implementation in TypeScript/Node (modules, DI, Pipes/Guards/Interceptors/Exception Filters)
 - [💚 Node.js](node/runtime.md) — Event Loop, single-threaded non-blocking, CommonJS vs ESM, streams, buffers
 - [🐍 Python](python/) — setup, syntax, Python 2 vs 3, GIL, mutability, OOP, decorators, generators

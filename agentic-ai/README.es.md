@@ -37,5 +37,3 @@ Fase 2 del repo: agentic programming en profundidad (agentes, tool use, RAG), ML
 - [x] [Costos de LLMs](llm-costs.es.md)
 - [x] [Evals](evals.es.md)
 - [x] [Riesgos y Mitigaciones](risks-and-mitigations.es.md)
-
-Ver también: [n8n](../stacks/n8n/README.es.md) (herramienta concreta, vive en `stacks/` junto a los demás lenguajes/tools).
