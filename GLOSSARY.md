@@ -19,12 +19,15 @@
 - **AKS (Azure Kubernetes Service)** — [Azure — Core Services](cloud/azure/core-services.md)
 - **Alt text** — [Accessibility](frontend-react/accessibility.md#alt-texts)
 - **AMQP** — [Message Queues](backend/message-queues.md#amqp-isnt-a-product--its-a-protocol)
+- **Android Keystore** — [Mobile Security](security/mobile-security.md#secure-storage)
 - **Animation vs Transition (CSS)** — [CSS](frontend-react/css.md#animations-vs-transitions)
 - **Anomalies (insert/update/delete)** — [Normalization](database/normalization.md#the-three-anomalies-normalization-avoids)
 - **API Gateway** — [API Gateway](backend/api-gateway.md)
+- **App Attest / Play Integrity (attestation)** — [Mobile Security](security/mobile-security.md#device-integrity)
 - **App Service (Azure)** — [Azure — Core Services](cloud/azure/core-services.md)
 - **Argon2** — [Authentication in FastAPI](stacks/fastapi/authentication.md#1-hashing-passwords-with-argon2-passlib)
 - **ARIA (aria-label, aria-expanded, role)** — [Accessibility](frontend-react/accessibility.md#screen-readers)
+- **ATS (App Transport Security, iOS)** — [Mobile Security](security/mobile-security.md#network-https-and-certificate-pinning)
 - **Authentication** — [Authentication and Security](backend/authentication.md#7-authentication-vs-authorization)
 - **Authorization** — [Authentication and Security](backend/authentication.md#7-authentication-vs-authorization)
 - **Availability** — [System Quality Attributes](system-design/quality-attributes.md#availability)
@@ -64,6 +67,7 @@
 - **Cartesian product (JOIN)** — [Query Optimization](database/query-optimization.md#correct-joins--avoiding-cartesian-products)
 - **CDK (AWS Cloud Development Kit)** — [AWS — Core Services](cloud/aws/core-services.md#nice-to-have-extras)
 - **CDN (Content Delivery Network)** — [CDN](devops/cdn.md)
+- **Certificate pinning** — [Mobile Security](security/mobile-security.md#certificate-pinning)
 - **Chain of Responsibility (pattern)** — [Behavioral Patterns](system-design/behavioral-patterns.md#chain-of-responsibility)
 - **Chain of Thought (CoT)** — [Prompt Engineering](agentic-ai/prompt-engineering.md#chain-of-thought-cot)
 - **Chattiness** — [Backend Diagnostics](diagnostics/backend.md#http-chaining)
@@ -236,6 +240,7 @@
 
 ### J
 
+- **Jailbreak / Root** — [Mobile Security](security/mobile-security.md#device-integrity)
 - **Jest** — [Testing in React](frontend-react/testing.md#jest--the-basics)
 - **Jetpack Compose (Android)** — [React — Fundamentals](frontend-react/react-fundamentals.md#kotlin-jetpack-compose-android)
 - **JSX** — [React — Fundamentals](frontend-react/react-fundamentals.md#jsx)
@@ -243,6 +248,7 @@
 
 ### K
 
+- **Keychain (iOS)** — [Mobile Security](security/mobile-security.md#secure-storage)
 - **key (list prop, React)** — [Frontend Diagnostics](diagnostics/frontend.md#missing-key-in-lists)
 - **Key-Value store** — [NoSQL](database/nosql.md#main-categories)
 - **Kubernetes** — [AWS — Core Services](cloud/aws/core-services.md#nice-to-have-extras) · [Kubernetes](devops/kubernetes.md) · [GCP — Core Services](cloud/gcp/core-services.md#nice-to-have-extras) · [Azure — Core Services](cloud/azure/core-services.md#nice-to-have-extras)
@@ -332,6 +338,7 @@
 - **ORM (Object-Relational Mapping)** — [Controller / Service / Repository](backend/controller-service-repository.md#orm-object-relational-mapping)
 - **Over-fetching** — [GraphQL](backend/graphql.md#the-problem-it-solves-over-fetching-and-under-fetching)
 - **Over-indexing (indexing everything just in case)** — [Indexes](database/indexes.md#cost-theyre-not-free)
+- **OWASP MASVS** — [Mobile Security](security/mobile-security.md#quick-checklist)
 
 ### P
 
@@ -494,6 +501,7 @@
 - **Unauthorized (401)** — [Authentication and Security](backend/authentication.md#7-authentication-vs-authorization)
 - **Under-fetching** — [GraphQL](backend/graphql.md#the-problem-it-solves-over-fetching-and-under-fetching)
 - **Universal Design** — [Accessibility](frontend-react/accessibility.md#universal-design-vs-accessible-design)
+- **Universal Links / App Links** — [Mobile Security](security/mobile-security.md#deep-links)
 - **Unprocessable Entity (422)** — [HTTP Status Codes](system-design/http-status-codes.md#4xx--client-error)
 - **useContext (React)** — [Hooks](frontend-react/hooks.md#usecontext)
 - **useEffect (React)** — [Frontend Diagnostics](diagnostics/frontend.md#misused-useeffect--cascading-re-renders)

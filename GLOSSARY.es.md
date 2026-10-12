@@ -18,12 +18,15 @@
 - **AKS (Azure Kubernetes Service)** — [Azure — Servicios Principales](cloud/azure/core-services.es.md)
 - **Alt text** — [Accesibilidad](frontend-react/accessibility.es.md#alt-texts)
 - **AMQP** — [Colas de mensajes](backend/message-queues.es.md#amqp-no-es-un-producto--es-un-protocolo)
+- **Android Keystore** — [Seguridad Mobile](security/mobile-security.es.md#almacenamiento-seguro)
 - **Animation vs Transition (CSS)** — [CSS](frontend-react/css.es.md#animations-vs-transitions)
 - **Anomalías (inserción/actualización/borrado)** — [Normalización](database/normalization.es.md#las-tres-anomalías-que-la-normalización-evita)
 - **API Gateway** — [API Gateway](backend/api-gateway.es.md)
+- **App Attest / Play Integrity (atestación)** — [Seguridad Mobile](security/mobile-security.es.md#integridad-del-dispositivo)
 - **App Service (Azure)** — [Azure — Servicios Principales](cloud/azure/core-services.es.md)
 - **Argon2** — [Autenticación en FastAPI](stacks/fastapi/authentication.es.md#1-hashing-de-passwords-con-argon2-passlib)
 - **ARIA (aria-label, aria-expanded, role)** — [Accesibilidad](frontend-react/accessibility.es.md#screen-readers)
+- **ATS (App Transport Security, iOS)** — [Seguridad Mobile](security/mobile-security.es.md#red-https-y-certificate-pinning)
 - **Autenticación** — [Autenticación y Seguridad](backend/authentication.es.md#7-autenticación-vs-autorización)
 - **Autorización** — [Autenticación y Seguridad](backend/authentication.es.md#7-autenticación-vs-autorización)
 - **Azure Functions** — [Azure — Servicios Principales](cloud/azure/core-services.es.md)
@@ -62,6 +65,7 @@
 - **Capturing (evento)** — [Eventos DOM](frontend-react/dom-events.es.md#bubbling-vs-capturing)
 - **CDK (AWS Cloud Development Kit)** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have)
 - **CDN (Content Delivery Network)** — [CDN](devops/cdn.es.md)
+- **Certificate pinning** — [Seguridad Mobile](security/mobile-security.es.md#certificate-pinning)
 - **Chain of Responsibility (patrón)** — [Patrones de comportamiento](system-design/behavioral-patterns.es.md#chain-of-responsibility)
 - **Chain of Thought (CoT)** — [Prompt Engineering](agentic-ai/prompt-engineering.es.md#chain-of-thought-cot)
 - **Chattiness** — [Diagnóstico Backend](diagnostics/backend.es.md#http-chaining)
@@ -236,6 +240,7 @@
 
 ### J
 
+- **Jailbreak / Root** — [Seguridad Mobile](security/mobile-security.es.md#integridad-del-dispositivo)
 - **Jest** — [Testing en React](frontend-react/testing.es.md#jest--lo-básico)
 - **Jetpack Compose (Android)** — [React Fundamentos](frontend-react/react-fundamentals.es.md#kotlin-jetpack-compose-android)
 - **JSX** — [React Fundamentos](frontend-react/react-fundamentals.es.md#jsx)
@@ -243,6 +248,7 @@
 
 ### K
 
+- **Keychain (iOS)** — [Seguridad Mobile](security/mobile-security.es.md#almacenamiento-seguro)
 - **key (prop de listas, React)** — [Diagnóstico Frontend](diagnostics/frontend.es.md#falta-de-key-en-listas)
 - **Key-Value store** — [NoSQL](database/nosql.es.md#categorías-principales)
 - **Kubernetes** — [AWS — Servicios Principales](cloud/aws/core-services.es.md#complementos-nice-to-have) · [Kubernetes](devops/kubernetes.es.md) · [GCP — Servicios Principales](cloud/gcp/core-services.es.md#complementos-nice-to-have) · [Azure — Servicios Principales](cloud/azure/core-services.es.md#complementos-nice-to-have)
@@ -341,6 +347,7 @@
 - **ORM (Object-Relational Mapping)** — [Controller / Service / Repository](backend/controller-service-repository.es.md#orm-object-relational-mapping)
 - **Over-fetching** — [GraphQL](backend/graphql.es.md#el-problema-que-resuelve-over-fetching-y-under-fetching)
 - **Over-indexing (indexar todo por las dudas)** — [Índices](database/indexes.es.md#costo-no-son-gratis)
+- **OWASP MASVS** — [Seguridad Mobile](security/mobile-security.es.md#checklist-rápido)
 
 ### P
 
@@ -497,6 +504,7 @@
 - **Unauthorized (401)** — [Autenticación y Seguridad](backend/authentication.es.md#7-autenticación-vs-autorización)
 - **Under-fetching** — [GraphQL](backend/graphql.es.md#el-problema-que-resuelve-over-fetching-y-under-fetching)
 - **Universal Design** — [Accesibilidad](frontend-react/accessibility.es.md#universal-design-vs-accessible-design)
+- **Universal Links / App Links** — [Seguridad Mobile](security/mobile-security.es.md#deep-links)
 - **Unprocessable Entity (422)** — [HTTP Status Codes](system-design/http-status-codes.es.md#4xx--client-error)
 - **useContext (React)** — [Hooks](frontend-react/hooks.es.md#usecontext)
 - **useEffect (React)** — [Diagnóstico Frontend](diagnostics/frontend.es.md#useeffect-mal-usado--re-renders-en-cadena)
