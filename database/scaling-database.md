@@ -22,7 +22,7 @@ Read-only copies of the primary database, synchronized through replication (usua
 
 ## Processing large results in chunks
 
-Fetching a table with millions of rows with a single `fetchall()` loads the **entire** result into memory at once — the limit is no longer the database, it's the RAM of the process doing the reading (see [Memory Scalability](../devops/scaling-memory.es.md)). The fix isn't fetching less data, it's fetching the same data **in parts**: request a chunk, process it, discard it, request the next one — memory usage stays bounded to the chunk size, no matter how large the full table is.
+Fetching a table with millions of rows with a single `fetchall()` loads the **entire** result into memory at once — the limit is no longer the database, it's the RAM of the process doing the reading (see [Memory Scalability](../devops/scaling-memory.md)). The fix isn't fetching less data, it's fetching the same data **in parts**: request a chunk, process it, discard it, request the next one — memory usage stays bounded to the chunk size, no matter how large the full table is.
 
 ```python
 # ❌ loads the entire result into memory — with a large table, this can OOM the process
@@ -71,7 +71,7 @@ CREATE TABLE person_details (
 );
 ```
 
-**Why it helps**: a query that only needs `first_name`/`last_name` (most of them) now reads smaller rows — more rows fit in each disk page, more rows fit in the in-memory buffer pool (see [Memory Scalability](../devops/scaling-memory.es.md)) — without having to drag along heavy or optional columns it didn't even ask for.
+**Why it helps**: a query that only needs `first_name`/`last_name` (most of them) now reads smaller rows — more rows fit in each disk page, more rows fit in the in-memory buffer pool (see [Memory Scalability](../devops/scaling-memory.md)) — without having to drag along heavy or optional columns it didn't even ask for.
 
 **The limit**: if the spread isn't "a handful of related column groups" but is genuinely **variable per row** (each record needs a different, unpredictable set of fields), splitting further vertically isn't enough — that's where it's worth evaluating [NoSQL](nosql.md) (a document store) instead of forcing the relational model further.
 
@@ -120,4 +120,4 @@ ON CONFLICT (date) DO UPDATE SET total = EXCLUDED.total;
 Read replicas and sharding aren't mutually exclusive — a large system typically combines both: several shards, each with its own read replicas.
 
 ---
-Related: [Sharding vs partitioning](sharding-vs-partitioning.md), [Consistency](../system-design/quality-attributes.md#consistency), [Connection pooling](../diagnostics/backend.md#poorly-managed-connections), [Memory Scalability](../devops/scaling-memory.es.md), [NoSQL](nosql.md).
+Related: [Sharding vs partitioning](sharding-vs-partitioning.md), [Consistency](../system-design/quality-attributes.md#consistency), [Connection pooling](../diagnostics/backend.md#poorly-managed-connections), [Memory Scalability](../devops/scaling-memory.md), [NoSQL](nosql.md).
