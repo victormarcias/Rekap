@@ -4,8 +4,8 @@ Guides on infrastructure, scalability, and operations.
 
 - [x] [CDN](cdn.md)
 - [x] [Cold starts](cold-starts.md)
-- [x] [Deploying FastAPI to a VPS](deploy-vps.md)
 - [x] [Deploy to Cloud Run](deploy-cloud-run.md)
+- [x] [Deploying FastAPI to a VPS](deploy-vps.md)
 - [x] [Dockerization](docker.md)
 - [x] [Kubernetes](kubernetes.md)
 - [x] [Memory Scalability](scaling-memory.md)

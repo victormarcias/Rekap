@@ -27,8 +27,8 @@ Phase 2 of the repo: agentic programming in depth (agents, tool use, RAG), tradi
 ## Agents
 
 - [x] [Agent Design](agent-design.md)
-- [x] [Agents vs Workflows](agents-vs-workflows.md)
 - [x] [Agent Types](agent-types.md)
+- [x] [Agents vs Workflows](agents-vs-workflows.md)
 - [x] [PRD and Spec-Driven Development](prd-and-spec-driven-development.md)
 
 ## Production

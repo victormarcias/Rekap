@@ -21,5 +21,5 @@ Guías sobre React y frontend moderno.
 - [x] [Renderizado: SSR vs CSR vs SSG vs SPA](rendering.es.md)
 - [x] [Testing en React](testing.es.md)
 - [x] [Tree shaking](tree-shaking.es.md)
-- [x] [WebSocket / SSE / streaming](websocket-sse-streaming.es.md)
 - [x] [Web Vitals](web-vitals.es.md)
+- [x] [WebSocket / SSE / streaming](websocket-sse-streaming.es.md)

@@ -21,5 +21,5 @@ Guides on React and modern frontend.
 - [x] [Request States](request-states.md)
 - [x] [Testing in React](testing.md)
 - [x] [Tree shaking](tree-shaking.md)
-- [x] [WebSocket / SSE / streaming](websocket-sse-streaming.md)
 - [x] [Web Vitals](web-vitals.md)
+- [x] [WebSocket / SSE / streaming](websocket-sse-streaming.md)
